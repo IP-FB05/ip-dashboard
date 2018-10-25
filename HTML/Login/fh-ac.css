@@ -1,0 +1,85 @@
+body {
+    background: url('Hintergrund-Bild-Login-Seite.jpg') no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    background-size: cover;
+    -o-background-size: cover;
+}
+
+button {
+    background-color: #00b5ad;
+    color: white;
+    text-align: center;
+}
+
+a {
+    color:white;
+    text-align: center;
+}
+a:link {
+    color: white;
+    text-align: center;
+}
+
+a:hover {
+    color: #00b5ad;
+    text-align: center;
+}
+
+a:active {
+    color: #00b5ad;
+    text-align: center;
+}
+
+input[type=username]:focus, input[type=username]:active{
+    border-color: #00b5ad;
+    color: white;
+    background-image: none;
+    padding-left: 25px;
+}
+
+input[type=password]:focus, input[type=password]:active{
+    border-color: #00b5ad;
+    color: white;
+    background-image: none;
+    padding-left: 25px;
+}
+
+input[type=username]:focus::-webkit-input-placeholder {
+    color:transparent
+}
+
+input[type=password]:focus::-webkit-input-placeholder {
+    color:transparent
+}
+
+input[type=username] {
+    color:white;
+    background-image:url(user.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 25px;
+}
+
+input[type=password] {
+    color: white;
+    background-image: url(password.png);
+    background-repeat: no-repeat;
+    background-position: left;
+    padding-left: 25px;
+}
+
+input[type=username]::placeholder {
+    color: white;
+}
+
+input[type=password]::placeholder {
+    color: white;
+}
+
+
+
+
+
+
+
