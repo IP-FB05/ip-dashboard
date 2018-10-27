@@ -77,6 +77,10 @@ input[type=password]::placeholder {
     color: white;
 }
 
+h4 {
+    text-align: center;
+    color: white;
+}
 
 
 
