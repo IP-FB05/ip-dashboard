@@ -1,0 +1,15 @@
+<h2>{{process.name| uppercase }} Details</h2>
+<div><span>id: </span>{{process.id}}</div>
+<div>
+    <label>name:
+      <input [(ngModel)]="process.name" placeholder="name">
+    </label>
+  </div>
+  <div><span>desc: </span>{{process.desc}}</div>
+
+  <h2>My Processes</h2>
+  <ul class="processes">
+    <li *ngFor="let process of processes">
+      <span class="badge">{{process.id}} </span> {{process.name}} 
+    </li>
+  </ul>
