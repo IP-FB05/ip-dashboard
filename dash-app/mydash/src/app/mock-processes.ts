@@ -1,8 +1,8 @@
 import{ Process } from './process';
 
 export const PROCESSES: Process[] = [
-   { id: 11, name: 'Prozess 01', desc: 'BLABLABLA'},
-   { id: 12, name: 'Prozess 02', desc: 'BLABLABLA'},
+   { id: 11, name: 'Praxissemester', desc: 'BLABLABLA'},
+   { id: 12, name: 'Einschreibung', desc: 'BLABLABLA'},
    { id: 13, name: 'Prozess 03', desc: 'BLABLABLA'},
    { id: 14, name: 'Prozess 04', desc: 'BLABLABLA'},
    { id: 15, name: 'Prozess 05', desc: 'BLABLABLA'},
