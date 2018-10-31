@@ -18,6 +18,6 @@ export class DashboardComponent implements OnInit {
 
   getProcesses(): void {
     this.processService.getProcesses()
-      .subscribe(processes => this.processes = processes.slice(1, 5));
+      .subscribe(processes => this.processes = processes);
   }
 }
