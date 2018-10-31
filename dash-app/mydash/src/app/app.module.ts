@@ -11,7 +11,11 @@ import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SystemsComponent } from './systems/systems.component';
-import { DashboardComponent } from './dashboard/dashboard.component'; // <-- NgModel lives here
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // <-- NgModel lives here
+
+import {DemoMaterialModule} from './material-module';
+
 
 @NgModule({
   declarations: [
@@ -27,7 +31,9 @@ import { DashboardComponent } from './dashboard/dashboard.component'; // <-- NgM
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    DemoMaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
