@@ -9,7 +9,8 @@ import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
-import { MessagesComponent } from './messages/messages.component'; // <-- NgModel lives here
+import { MessagesComponent } from './messages/messages.component';
+import { SystemsComponent } from './systems/systems.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { MessagesComponent } from './messages/messages.component'; // <-- NgMode
     MenuComponent,
     LoginComponent,
     ProcessDetailComponent,
-    MessagesComponent
+    MessagesComponent,
+    SystemsComponent
   ],
   imports: [
     BrowserModule,
