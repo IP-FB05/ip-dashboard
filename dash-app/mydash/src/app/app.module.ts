@@ -7,14 +7,16 @@ import { ProcessesComponent } from './processes/processes.component';
 
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
-import { LoginComponent } from './login/login.component'; // <-- NgModel lives here
+import { LoginComponent } from './login/login.component';
+import { ProcessDetailComponent } from './process-detail/process-detail.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
     AppComponent,
     ProcessesComponent,
     MenuComponent,
-    LoginComponent
+    LoginComponent,
+    ProcessDetailComponent
   ],
   imports: [
     BrowserModule,

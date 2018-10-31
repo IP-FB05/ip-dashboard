@@ -7,6 +7,6 @@ export const PROCESSES: Process[] = [
    { id: 14, name: 'Prozess 04', desc: 'BLABLABLA'},
    { id: 15, name: 'Prozess 05', desc: 'BLABLABLA'},
    { id: 16, name: 'Prozess 06', desc: 'BLABLABLA'},
-   { id: 17, name: 'Prozess 07', desc: 'BLABLABLA'},
+   { id: 17, name: 'Prozess 047', desc: 'BLABLABLA'},
    { id: 18, name: 'Prozess 08', desc: 'BLABLABLA'}
-];
+];4

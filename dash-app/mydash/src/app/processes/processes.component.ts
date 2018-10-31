@@ -1,26 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
-import { PROCESSES } from '../mock-processes' 
+import { ProcessService } from '../process.service';
 
 @Component({
   selector: 'app-processes',
   templateUrl: './processes.component.html',
   styleUrls: ['./processes.component.css']
 })
+
 export class ProcessesComponent implements OnInit {
-  process: Process ={
-    id: 1,
-    name: 'Prozess01',
-    desc: 'BLABLABLABLA'
-    
-  };
-  processes = PROCESSES;
  
-
-
-  constructor() { }
+  processes: Process[]; 
+  selectedProcess: Process;
+  
+  constructor(private processService: ProcessService) { }
 
   ngOnInit() {
+    this.getProcesses();
+  }
+
+  onSelect(process: Process): void {
+    this.selectedProcess = process;
+  }
+
+  getProcesses(): void {
+    this.processes = this.processService.getProcesses();
   }
 
 

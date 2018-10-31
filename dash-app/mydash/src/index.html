@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
 
 <head>
   <meta charset="utf-8">
@@ -11,9 +11,11 @@
   <!-- Bootstrap CSS CDN -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
     crossorigin="anonymous">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+    
 
   <!-- Our Custom CSS -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <!-- Font Awesome JS -->
@@ -25,50 +27,55 @@
 
 <body>
   <div class="container-fluid">
-    <div class="row">
-
-    </div>
-    <div class="row">
+    <header>
+    </header>
+    <main>
+      <div class="row">
         <div class="col-md-2">
-            <nav class="navbar navbar-dark bg-dark">
-                <a class="navbar-brand" href="#">VIEW Logo</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
-                  <span class="navbar-toggler-icon"></span>
-                </button>
-            
-                <div class="collapse navbar-collapse" id="navbarsExample01">
-                  <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active"> <!--- ACTIVE --->
-                      <a class="nav-link" href="#">Übersicht <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link" href="#">Prozesse</a>
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link disabled" href="#">Laufende Prozesse</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#">Systeme</a>
-                      </li>
-                      <li class="nav-item">
-                          <a class="nav-link disabled" href="#">Profil</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link disabled" href="#">Abmelden</a>
-                          </li>
-                  </ul>
-                </div>
-              </nav>
+          <nav class="navbar navbar-dark bg-dark">
+            <a class="navbar-brand" href="#">VIEW Logo</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
+              aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarsExample01">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                  <!--- ACTIVE --->
+                  <a class="nav-link" href="#">Übersicht <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Prozesse</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Laufende Prozesse</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Systeme</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Profil</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link disabled" href="#">Abmelden</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
         </div>
         <div class="col-md-10">
-            <app-root></app-root>
-          </div>
+          <app-root></app-root>
+        </div>
 
-    </div>
+      </div>
 
+    </main>
+    <footer>
 
+    </footer>
   </div>
-  
+
   <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"

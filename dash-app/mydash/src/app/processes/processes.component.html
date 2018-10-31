@@ -1,6 +1,22 @@
-    <div class="processes">
-      <div class="col-md-3" *ngFor="let process of processes">
-        <h3> {{process.name}} </h3>
-        <p> {{process.desc}} </p>
-      </div>
+<div class="processes">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let process of processes">
+      <h3> {{process.name}} </h3>
+      <p> {{process.desc}} </p>
     </div>
+  </div>
+
+  <!------Selectable List------->
+  <div class="row">
+      <h2>My Processes</h2>
+      <ul class="processes">
+        <li *ngFor="let process of processes"
+          [class.selected]="process === selectedProcess"
+          (click)="onSelect(process)">
+          <span class="badge">{{process.id}}</span> {{process.name}}
+        </li>
+      </ul>
+      
+      <app-process-detail [process]="selectedProcess"></app-process-detail>
+  </div>
+</div>
