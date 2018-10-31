@@ -24,8 +24,13 @@ export class ProcessesComponent implements OnInit {
   }
 
   getProcesses(): void {
-    this.processes = this.processService.getProcesses();
+    this.processService.getProcesses()
+        .subscribe(processes => this.processes = processes);
   }
+/* Original
+  getProcesses(): void {
+    this.processes = this.processService.getProcesses();
+  }*/
 
 
 }

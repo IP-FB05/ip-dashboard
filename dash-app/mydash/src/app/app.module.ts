@@ -8,7 +8,8 @@ import { ProcessesComponent } from './processes/processes.component';
 import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
-import { ProcessDetailComponent } from './process-detail/process-detail.component'; // <-- NgModel lives here
+import { ProcessDetailComponent } from './process-detail/process-detail.component';
+import { MessagesComponent } from './messages/messages.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { ProcessDetailComponent } from './process-detail/process-detail.componen
     ProcessesComponent,
     MenuComponent,
     LoginComponent,
-    ProcessDetailComponent
+    ProcessDetailComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,
