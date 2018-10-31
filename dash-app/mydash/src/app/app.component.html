@@ -1,40 +1,52 @@
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-md-2 bg-dark">
-      <nav class="navbar navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">VIEW Logo</a>
+<nav class="navbar flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#"><img src="assets/img/fh/logo.png" alt="Logo" height="120" width="180"></a>
+    <h1>AKTUELLE SEITE</h1>
+    <button class="btn"><i class="fa fa-home"></i></button>
+</nav>
 
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
-          aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarsExample01">
-          <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-              <!--- ACTIVE --->
-              <a class="nav-link" routerLink="/dashboard">Übersicht</a>
+  <div class="container-fluid">
+    <div class="row">
+      <nav class="col-md-2 sidebar">
+        <div class="sidebar-sticky">
+          <ul class="nav flex-column">
+            <li class="nav-item">
+              <a class="nav-link active" routerLink="/dashboard">
+                Übersicht 
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/processes">Prozesse</a>
+              <a class="nav-link" routerLink="/processes">
+                Prozesse
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/myprocesses">Laufende Prozesse</a>
+              <a class="nav-link" routerLink="/myprocesses">
+                Laufende Prozesse
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/systems">Systeme</a>
+              <a class="nav-link" routerLink="/systems">
+                Systeme
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" routerLink="/myprofil">Profil</a>
+              <a class="nav-link" routerLink="/myprofil">
+                Profil
+              </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">Abmelden</a>
+              <a class="nav-link" href="#">
+                Abmelden
+              </a>
             </li>
           </ul>
         </div>
       </nav>
-    </div>
-    <div class="col-md-10">
-        <router-outlet></router-outlet>
+
+      <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+        <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <router-outlet></router-outlet>
+        </div>
+      </main>
     </div>
   </div>
-</div>
