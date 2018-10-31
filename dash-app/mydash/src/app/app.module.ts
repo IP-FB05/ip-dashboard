@@ -10,7 +10,8 @@ import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { SystemsComponent } from './systems/systems.component'; // <-- NgModel lives here
+import { SystemsComponent } from './systems/systems.component';
+import { DashboardComponent } from './dashboard/dashboard.component'; // <-- NgModel lives here
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { SystemsComponent } from './systems/systems.component'; // <-- NgModel l
     LoginComponent,
     ProcessDetailComponent,
     MessagesComponent,
-    SystemsComponent
+    SystemsComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,

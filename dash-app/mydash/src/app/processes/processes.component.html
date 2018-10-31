@@ -6,9 +6,12 @@
     </div>
   </div>
 
-  <!------Selectable List------->
+  
   <div class="row">
       <h2>My Processes</h2>
+      
+      
+      <!------Selectable List----
       <ul class="processes">
         <li *ngFor="let process of processes"
           [class.selected]="process === selectedProcess"
@@ -16,7 +19,17 @@
           <span class="badge">{{process.id}}</span> {{process.name}}
         </li>
       </ul>
+      --->
+
+      <ul class="processes">
+        <li *ngFor="let process of processes">
+          <a routerLink="/detail/{{process.id}}">
+            <span class="badge">{{process.id}}</span> {{process.name}}
+          </a>
+        </li>
+      </ul>
       
-      <app-process-detail [process]="selectedProcess"></app-process-detail>
+  <!-- <app-process-detail [process]="selectedProcess"></app-process-detail>
+    -->   
   </div>
 </div>

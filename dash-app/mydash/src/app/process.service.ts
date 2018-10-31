@@ -18,6 +18,12 @@ export class ProcessService {
     return of (PROCESSES);
   }
 
+  getProcess(id: number): Observable<Process> {
+    // TODO: send the message _after_ fetching the process
+    this.messageService.add(`ProcessService: fetched process id=${id}`);
+    return of(PROCESSES.find(process => process.id === id));
+  }
+
 /* Original (not Observable)
   getProcesses(): Process[] {
     return PROCESSES;

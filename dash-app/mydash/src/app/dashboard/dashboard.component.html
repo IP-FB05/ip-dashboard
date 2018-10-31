@@ -1,0 +1,8 @@
+<h3>Top Processes</h3>
+<div class="grid grid-pad">
+  <a *ngFor="let process of processes" class="col-1-4" routerLink="/detail/{{process.id}}">
+    <div class="module process">
+      <h4>{{process.name}}</h4>
+    </div>
+  </a>
+</div>

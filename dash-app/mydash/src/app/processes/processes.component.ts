@@ -11,7 +11,7 @@ import { ProcessService } from '../process.service';
 export class ProcessesComponent implements OnInit {
  
   processes: Process[]; 
-  selectedProcess: Process;
+  //selectedProcess: Process;
   
   constructor(private processService: ProcessService) { }
 
@@ -19,13 +19,13 @@ export class ProcessesComponent implements OnInit {
     this.getProcesses();
   }
 
-  onSelect(process: Process): void {
+  /*onSelect(process: Process): void {
     this.selectedProcess = process;
-  }
+  }*/
 
   getProcesses(): void {
     this.processService.getProcesses()
-        .subscribe(processes => this.processes = processes);
+        .subscribe(processes => this.processes = processes.slice(1,5));
   }
 /* Original
   getProcesses(): void {
