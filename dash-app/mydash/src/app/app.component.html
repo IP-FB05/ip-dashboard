@@ -3,7 +3,7 @@
   </header>
   <main>
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-2 bg-dark">
         <nav class="navbar navbar-dark bg-dark">
           <a class="navbar-brand" href="#">VIEW Logo</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample01"
@@ -15,29 +15,29 @@
             <ul class="navbar-nav mr-auto">
               <li class="nav-item active">
                 <!--- ACTIVE --->
-                <a class="nav-link" href="#" routerLink="/">Übersicht</a>
+                <a class="nav-link" routerLink="/dashboard">Übersicht</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" routerLink="/processes">Prozesse</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" routerLink="/myprocesses">Laufende Prozesse</a>
+                <a class="nav-link" routerLink="/myprocesses">Laufende Prozesse</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" routerLink="/systems">Systeme</a>
+                <a class="nav-link" routerLink="/systems">Systeme</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" routerLink="/myprofil">Profil</a>
+                <a class="nav-link" routerLink="/myprofil">Profil</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">Abmelden</a>
+                <a class="nav-link" href="#">Abmelden</a>
               </li>
             </ul>
           </div>
         </nav>
       </div>
       <div class="col-md-10">
-        
+        <router-outlet></router-outlet>
       </div>
 
     </div>
@@ -46,10 +46,3 @@
   <footer>
   </footer>
 </div>
-<h1>{{title}}</h1>
-<nav>
-  <a routerLink="/dashboard">Dashboard</a>
-  <a routerLink="/processes">Processes</a>
-</nav>
-<router-outlet></router-outlet>
-<app-messages></app-messages>
