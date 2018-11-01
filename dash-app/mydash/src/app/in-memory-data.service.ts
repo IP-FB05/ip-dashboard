@@ -1,9 +1,10 @@
 import { InMemoryDbService } from 'angular-in-memory-web-api';
 import { Process } from './process';
+import { System } from './system';
 
 export class InMemoryDataService implements InMemoryDbService {
     createDb() {
-        const processes = [
+        let processes = [
             { id: 11, name: 'Praxissemester', desc: 'Hier finden Sie Informationen zum Ablauf des Praxissemesters' },
             { id: 12, name: 'Einschreibung', desc: 'Hier finden Sie Informationen zum Ablauf des Praxissemesters' },
             { id: 13, name: 'Wahlmodulverfahren', desc: 'Hier finden Sie Informationen zu den Wahlen der Wahlmodule' },
@@ -14,9 +15,28 @@ export class InMemoryDataService implements InMemoryDbService {
             { id: 18, name: 'Prozess 08', desc: 'Test' },
             { id: 19, name: 'Prozess 09', desc: 'Test' }
         ];
-        return{processes};
+
+        let systems = [
+            { id: 1, name: 'CampusOffice', 
+              desc: 'Der webbasierte Studienplaner CAMPUS-Office ist Teil des integrierten CAMPUS-Informationssystems der FH Aachen und erlaubt den Studierenden direkten Zugriff auf ihre persönlichen Vorlesungs- und Veranstaltungsdaten. Damit steht Ihnen ein Werkzeug zur Verfügung, das eine optimierte Planung und Verwaltung Ihres Studiums ermöglicht.',
+              link: "https://www.campusoffice.fh-aachen.de" },
+
+            { id: 2, name: 'Ilias',
+              desc: 'ILIAS ist ein Open-Source Learning Management System (LMS). Dieser Dienst wird zur Unterstützung der Lehre an der FH Aachen eingesetzt. In Online-Kursen werden u.a. Lernmaterialien bereitgestellt oder Praktika betreut.',
+              link: "https://ili.fh-aachen.de" },
+
+            { id: 3, name: 'QIS',
+              desc: 'Online-Studiumsverwaltung/-Prüfungsverwaltung/ Bewerbungsinformationen der FH Aachen',
+              link: "https://qis.fh-aachen.de" }
+        ];
+        
+        return { processes, systems };
+
+       
     }
-    genId(processes: Process[]): number {
-        return processes.length > 0 ? Math.max(...processes.map(process => process.id)) + 1 : 11;
-      }
+    genId<T extends Process | System>(myTable: T[]): number {
+        return myTable.length > 0 ? Math.max(...myTable.map(t => t.id)) + 1 : 11;
+    }
+
+
 }

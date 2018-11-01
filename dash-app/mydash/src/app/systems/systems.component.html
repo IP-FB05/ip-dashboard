@@ -1,45 +1,28 @@
 <div class="systems">
   <div class="container-fluid border-bottom">
-    <div class="row" style="padding-top:30px">
-      
-      <div class="col">
-        <h3>Hier finden Sie die externen Systeme der FH Aachen</h3>
+    <div class="row" style="padding-top: 30px">
+      <div *ngFor="let system of systems" class="col-md-3">
         <div class="card-deck mb-3 text-center">
           <div class="card mb-3 box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Campus</h4>
-            </div>
-            <div class="card-body">
-              <p>Der webbasierte Studienplaner CAMPUS-Office ist Teil des integrierten CAMPUS-Informationssystems der
-                FH Aachen und erlaubt den Studierenden direkten Zugriff auf ihre persönlichen Vorlesungs- und
-                Veranstaltungsdaten. Damit steht Ihnen ein Werkzeug zur Verfügung, das eine optimierte Planung und
-                Verwaltung Ihres Studiums ermöglicht.</p>
-              <a href="https://www.campusoffice.fh-aachen.de" target="_blank" class="btn btn-lg btn-block btn-outline-primary"
-                role="button">Weiter</a>
+            <div class="card-header">{{system.name}}&nbsp;
+              <button class="delete" title="delete system" (click)="delete(system)">x</button></div>
+            <div class="card-body text-secondary">
+              <p class="card-text">{{system.desc}}</p>
+              <a class="btn btn-sm btn-secondary" style="background-color:#00b5ad; color:white; border-color:transparent">Mehr</a>
             </div>
           </div>
-          <div class="card mb-3 box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">Ilias</h4>
-            </div>
-            <div class="card-body">
-              <p>ILIAS ist ein Open-Source Learning Management System (LMS). Dieser Dienst wird zur Unterstützung der
-                Lehre an der FH Aachen eingesetzt. In Online-Kursen werden u.a. Lernmaterialien bereitgestellt oder
-                Praktika betreut.</p>
-              <a href="https://www.ili.fh-aachen.de" target="_blank" class="btn btn-lg btn-block btn-outline-primary"
-                role="button">Weiter</a>
-            </div>
-          </div>
-          <div class="card mb-3 box-shadow">
-            <div class="card-header">
-              <h4 class="my-0 font-weight-normal">QIS</h4>
-            </div>
-            <div class="card-body">
-              <p>Online-Studiumsverwaltung/-Prüfungsverwaltung/ Bewerbungsinformationen der FH Aachen</p>
-              <a href="https://www.qis.fh-aachen.de" target="_blank" class="btn btn-lg btn-block btn-outline-primary"
-                role="button">Weiter</a>
-            </div>
-          </div>
+        </div>
+      </div>
+
+      <div class="card mb-3">
+        <div class="card-header" style="color:white;">System hinzufügen</div>
+        <div class="card-body">
+          <p class="card-text">
+            <label>System name:
+              <input #systemName />
+            </label>
+            <button (click)="add(systemName.value); systemName.value=''">ADD</button>
+          </p>
         </div>
       </div>
     </div>
