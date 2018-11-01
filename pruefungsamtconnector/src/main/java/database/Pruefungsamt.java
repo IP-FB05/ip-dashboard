@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Properties;
 
 public class Pruefungsamt {
   private Connection connect = null;
@@ -14,10 +15,18 @@ public class Pruefungsamt {
   private ResultSet resultSet = null;
 
   public Pruefungsamt() throws SQLException, ClassNotFoundException {
+	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamt";
+	Properties props = new Properties();
+	props.setProperty("user","admin");
+	props.setProperty("password","D45hb0ard");
+	props.setProperty("useSSL","false");
+	props.setProperty("autoReconnect","true");
+	
     Class.forName("com.mysql.jdbc.Driver");
-    connect = DriverManager.getConnection(
-        "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamtconnector?"
-            + "user=admin&password=D45hb0ard");
+    /*connect = DriverManager.getConnection(
+        "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamt?"
+            + "user=admin&password=D45hb0ard");*/
+    connect = DriverManager.getConnection(url, props);
   }
 
   public int getCredits(int matrikelnr) throws SQLException {
@@ -60,6 +69,8 @@ public boolean fachHasPraktikum(int fachnr) throws SQLException {
 	preparedStatement = connect.prepareStatement(
 			"select * from praktikum " +
 			"where modul = ?");
+	preparedStatement.setInt(1, fachnr);
+	resultSet = preparedStatement.executeQuery();
 	if(resultSet.first()) {
 		return true;
 	}
