@@ -1,22 +1,74 @@
-<p>Das ist eine Vorschau der Prozess-Seite. Man kann mehrere Details über ein Prozess sehen, indem man auf das
-  „MEHR“-Button klickt.
-  Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen, wenn man auf den
-  3-Pünktchen Icon in der
-  oberen rechten Ecke drückt.</p>
-<div class="row">
-  <a *ngFor="let process of processes" class="col-1-4" routerLink="/detail/{{process.id}}">
-    <div class="card-deck mb-3 text-center">
-      <div class="card mb-3 box-shadow">
-        <div class="card-header">{{process.name}}</div>
-        <div class="card-body text-secondary">
-          <p class="card-text">{{process.desc}}</p>
-          <a href="../process-detail/detail/:id" class="btn btn-sm btn-outline-primary">Mehr</a>
+<div class="row" style="padding-top: 30px">
+  <div class="col-md-6">
+    <div class="card text-white bg-primary mb-3 text-center" style="border-color:#00b5ad;">
+      <div class="card-header" style="border-color:#00b5ad; text-align: left">
+        <h3>Laufende Prozesse</h3>
+      </div>
+      <div class="card-body" style="background-color: #00b5ad;">
+        <div class="card-text" style="color:white;">
+          <p>Prozess 1</p>
+          <p>Prozess 2</p>
         </div>
-        <div class="card-footer">
-          <small class="text-muted">Last updated 3 mins ago</small>
-        </div>
+        <a href="#" class="btn btn-sm btn-outline-secondary">Mehr</a>
       </div>
     </div>
-  </a>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">Prozess hinzufügen</div>
+      <div class="card-body" style="background-color:rgb(218, 209, 209)">
+        <p class="card-text"><button class="btn btn-lg btn-outline-secondary">ADD</button></p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card bg-light mb-3" style="max-width: 18rem;">
+      <div class="card-header">Dokument hochladen</div>
+      <div class="card-body" style="background-color:rgb(218, 209, 209)">
+        <p class="card-text"><button class="btn btn-lg btn-outline-secondary">ADD</button></p>
+      </div>
+    </div>
+  </div>
 </div>
-
+<div class="row">
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body" style="background-color:rgb(218, 209, 209);">
+        <h5 class="card-title">Systeme</h5>
+        <p class="card-text" style="color:black;">
+          Lorem ipsum dolor sit amet,consetetur sadipscing elitr,
+          sed diam nonumy eirmod
+          tempor invidunt ut labore et
+          dolore magna aliquyam erat,
+          sed diam vo
+        </p>
+        <a href="#" class="btn btn-secondary">Zur System-Seite</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card">
+      <div class="card-body" style="background-color:rgb(218, 209, 209);">
+        <h5 class="card-title">Prozesse</h5>
+        <p class="card-text" style="color:black;">
+            Lorem ipsum dolor sit amet,consetetur sadipscing elitr,
+            sed diam nonumy eirmod
+            tempor invidunt ut labore et
+            dolore magna aliquyam erat,
+            sed diam vo</p>
+        <a href="#" class="btn btn-secondary">Zur Prozess-Seite</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card text-white bg-dark" style="border-color:black;">
+      <div class="card-header" style="background-color:black;">Dokumente</div>
+      <div class="card-body">
+        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
+          content.
+        </p>
+        <a href="#" class="btn btn-secondary">Alle Dokumente</a>
+      </div>
+    </div>
+  </div>
+</div>
