@@ -1,0 +1,22 @@
+<p>Das ist eine Vorschau der Prozess-Seite. Man kann mehrere Details über ein Prozess sehen, indem man auf das
+  „MEHR“-Button klickt.
+  Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen, wenn man auf den
+  3-Pünktchen Icon in der
+  oberen rechten Ecke drückt.</p>
+<div class="row">
+  <a *ngFor="let process of processes" class="col-1-4" routerLink="/detail/{{process.id}}">
+    <div class="card-deck mb-3 text-center">
+      <div class="card mb-3 box-shadow">
+        <div class="card-header">{{process.name}}</div>
+        <div class="card-body text-secondary">
+          <p class="card-text">{{process.desc}}</p>
+          <a href="../process-detail/detail/:id" class="btn btn-sm btn-outline-primary">Mehr</a>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">Last updated 3 mins ago</small>
+        </div>
+      </div>
+    </div>
+  </a>
+</div>
+

@@ -1,0 +1,46 @@
+<div class="processes">
+  <div class="row">
+    <div class="col-md-3" *ngFor="let process of processes">
+      <h3> {{process.name}} </h3>
+      <p> {{process.desc}} </p>
+    </div>
+  </div>
+
+
+  <div class="row">
+    <h2>My Processes</h2>
+
+
+    <!------Selectable List----
+      <ul class="processes">
+        <li *ngFor="let process of processes"
+          [class.selected]="process === selectedProcess"
+          (click)="onSelect(process)">
+          <span class="badge">{{process.id}}</span> {{process.name}}
+        </li>
+      </ul>
+      --->
+
+    <ul class="processes">
+      <li *ngFor="let process of processes">
+        <a routerLink="/detail/{{process.id}}">
+          <span class="badge">{{process.id}}</span> {{process.name}}
+        </a>
+        <button class="delete" title="delete process" (click)="delete(process)">x</button>
+      </li>
+    </ul>
+
+    <!-- <app-process-detail [process]="selectedProcess"></app-process-detail>
+    -->
+  </div>
+
+  <div class="row">
+    <label>Process name:
+      <input #processName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(processName.value); processName.value=''">
+      add
+    </button>
+  </div>
+</div>
