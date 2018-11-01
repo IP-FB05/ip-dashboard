@@ -1,4 +1,4 @@
-.example-container {
+/*.example-container {
     width: 500px;
     height: 300px;
     border: 1px solid rgba(0, 0, 0, 0.5);
@@ -14,4 +14,15 @@
   .example-sidenav {
     padding: 20px;
   }
+  */
+
+
+  mat-sidenav, mat-sidenav-content {
+    padding: 20px;
+  }
+  
+  mat-sidenav-container {
+    height: 100vh;
+  }
+    
   

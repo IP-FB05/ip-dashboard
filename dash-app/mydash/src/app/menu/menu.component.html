@@ -1,4 +1,4 @@
-<mat-drawer-container class="example-container" autosize>
+<!--<mat-drawer-container class="example-container" autosize>
     <mat-drawer #drawer class="example-sidenav" mode="side">
       <p>Auto-resizing sidenav</p>
       <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
@@ -14,4 +14,40 @@
     </div>
   
   </mat-drawer-container>
-  
+
+  -->
+
+
+<mat-sidenav-container>
+
+
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')">
+    <mat-nav-list>
+      <a mat-list-item routerLink="/dashboard">Übersicht</a>
+      <a mat-list-item routerLink="/processes">Prozesse</a>
+      <a mat-list-item routerLink="/myprocesses">Laufende Prozesse</a>
+      <a mat-list-item routerLink="/systems">Systeme</a>
+      <a mat-list-item routerLink="/myprofil">Profil</a>
+      <a mat-list-item href="#">Abmelden</a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <nav class="navbar bg-dark">
+      <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
+      <img src="assets/img/fh/logo.png" alt="Logo" height="120" width="180">
+      <h1>AKTUELLE SEITE</h1>
+      <form class="example-form">
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Suchen">
+        </mat-form-field>
+      </form>
+    </nav>
+
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>
