@@ -36,14 +36,22 @@
 
   <mat-sidenav-content>
     <nav class="navbar bg-dark">
-      <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
-      <img src="assets/img/fh/logo.png" alt="Logo" height="120" width="180">
-      <h1>AKTUELLE SEITE</h1>
-      <form class="example-form">
-        <mat-form-field class="example-full-width">
-          <input matInput placeholder="Suchen">
-        </mat-form-field>
-      </form>
+      <div class="col-md-1">
+        <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
+      </div>
+      <div class="col-md-2">
+        <img src="assets/img/fh/logo.png" alt="Logo" height="120" width="180">
+      </div>
+      <div class="col-md-7" style="text-align: center">
+        <h1 style="color:white;">Aktuelle Seite</h1>
+      </div>
+      <div class="col-md-2">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Suchen">
+          </mat-form-field>
+        </form>
+      </div>
     </nav>
 
 
