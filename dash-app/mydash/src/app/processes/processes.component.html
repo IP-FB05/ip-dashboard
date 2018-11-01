@@ -26,10 +26,21 @@
         <a routerLink="/detail/{{process.id}}">
           <span class="badge">{{process.id}}</span> {{process.name}}
         </a>
+        <button class="delete" title="delete process" (click)="delete(process)">x</button>
       </li>
     </ul>
 
     <!-- <app-process-detail [process]="selectedProcess"></app-process-detail>
     -->
+  </div>
+
+  <div class="row">
+    <label>Process name:
+      <input #processName />
+    </label>
+    <!-- (click) passes input value to add() and then clears the input -->
+    <button (click)="add(processName.value); processName.value=''">
+      add
+    </button>
   </div>
 </div>

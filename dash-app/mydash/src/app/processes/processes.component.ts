@@ -9,10 +9,10 @@ import { ProcessService } from '../process.service';
 })
 
 export class ProcessesComponent implements OnInit {
- 
-  processes: Process[]; 
+
+  processes: Process[];
   //selectedProcess: Process;
-  
+
   constructor(private processService: ProcessService) { }
 
   ngOnInit() {
@@ -25,12 +25,25 @@ export class ProcessesComponent implements OnInit {
 
   getProcesses(): void {
     this.processService.getProcesses()
-        .subscribe(processes => this.processes = processes.slice(1,5));
+      .subscribe(processes => this.processes = processes);
   }
-/* Original
-  getProcesses(): void {
-    this.processes = this.processService.getProcesses();
-  }*/
+  /* Original
+    getProcesses(): void {
+      this.processes = this.processService.getProcesses();
+    }*/
+
+  add(name: string): void {
+    name = name.trim();
+    if (!name) { return; }
+    this.processService.addProcess({ name } as Process)
+      .subscribe(process => {
+        this.processes.push(process);
+      });
+  }
 
 
+  delete(process: Process): void {
+    this.processes = this.processes.filter(p => p !== process);
+    this.processService.deleteProcess(process).subscribe();
+  }
 }

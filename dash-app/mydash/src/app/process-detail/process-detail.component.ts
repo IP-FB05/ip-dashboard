@@ -35,4 +35,9 @@ export class ProcessDetailComponent implements OnInit {
     this.location.back();
   }
 
+  save(): void {
+    this.processService.updateProcess(this.process)
+      .subscribe(() => this.goBack());
+  }
+
 }
