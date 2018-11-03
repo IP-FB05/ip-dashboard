@@ -23,6 +23,8 @@
 
   <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')">
     <mat-nav-list>
+      <p><img src="assets/img/fh/Logo-View-Campus.jpg" alt="Logo" width="200" height="82"></p>
+      <img mat-list-avatar src="/assets/img/mail-avatar.jpg" alt="Avatar">
       <a mat-list-item routerLink="/dashboard">Übersicht</a>
       <a mat-list-item routerLink="/processes">Prozesse</a>
       <a mat-list-item routerLink="/myprocesses">Laufende Prozesse</a>
@@ -35,15 +37,12 @@
 
 
   <mat-sidenav-content>
-    <nav class="navbar bg-dark">
+    <nav class="navbar bg-light">
       <div class="col-md-1">
         <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
       </div>
-      <div class="col-md-2">
-        <img src="assets/img/fh/logo.png" alt="Logo" height="120" width="180">
-      </div>
-      <div class="col-md-7" style="text-align: center">
-        <h1 style="color:white;">Aktuelle Seite</h1>
+      <div class="col-md-9" style="text-align: center">
+        <h1>{{clickedItem}}</h1>
       </div>
       <div class="col-md-2">
         <form class="example-form">
