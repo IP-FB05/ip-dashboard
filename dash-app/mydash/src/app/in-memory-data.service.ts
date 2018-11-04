@@ -7,14 +7,14 @@ export class InMemoryDataService implements InMemoryDbService {
     createDb() {
         let processes = [
             { id: 11, name: 'Praxissemester', desc: 'Hier finden Sie Informationen zum Ablauf des Praxissemesters' },
-            { id: 12, name: 'Einschreibung', desc: 'Hier finden Sie Informationen zum Ablauf des Praxissemesters' },
+            { id: 12, name: 'Einschreibung', desc: 'Hier finden Sie Informationen zum Ablauf der Einschreibung' },
             { id: 13, name: 'Wahlmodulverfahren', desc: 'Hier finden Sie Informationen zu den Wahlen der Wahlmodule' },
-            { id: 14, name: 'Prozess 04', desc: 'Test' },
-            { id: 15, name: 'Prozess 05', desc: 'Test' },
-            { id: 16, name: 'Prozess 06', desc: 'Test' },
-            { id: 17, name: 'Prozess 07', desc: 'Test' },
-            { id: 18, name: 'Prozess 08', desc: 'Test' },
-            { id: 19, name: 'Prozess 09', desc: 'Test' }
+            { id: 14, name: 'Prozess 04', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' },
+            { id: 15, name: 'Prozess 05', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' },
+            { id: 16, name: 'Prozess 06', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' },
+            { id: 17, name: 'Prozess 07', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' },
+            { id: 18, name: 'Prozess 08', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' },
+            { id: 19, name: 'Prozess 09', desc: 'Hier finden Sie Informationen zum Ablauf des Prozesses' }
         ];
 
         let systems = [
