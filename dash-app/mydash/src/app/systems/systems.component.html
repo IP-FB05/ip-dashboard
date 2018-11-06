@@ -1,29 +1,33 @@
 <div class="systems">
-  <div class="container-fluid border-bottom">
-    <div class="row" style="padding-top: 30px">
-      <div *ngFor="let system of systems" class="col-md-3">
-        <div class="card-deck mb-3 text-center">
-          <div class="card mb-3 box-shadow">
-            <div class="card-header">{{system.name}}&nbsp;
-              <button class="delete" title="delete system" (click)="delete(system)">x</button></div>
-            <div class="card-body text-secondary">
-              <p class="card-text">{{system.desc}}</p>
-              <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank" >Weiter</a>
-            </div>
+  <div class="row" style="padding: 30px 0px 0px 40px;">
+    <h2>Das ist eine Vorschau der System-Seite. </h2>
+  </div>
+
+  <app-filter></app-filter>
+
+  <div class="row" style="padding: 30px 0px 0px 20px;">
+    <div *ngFor="let system of systems" class="col-md-3">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-3 box-shadow">
+          <div class="card-header">{{system.name}}&nbsp;
+            <button class="delete" title="delete system" (click)="delete(system)">x</button></div>
+          <div class="card-body text-secondary">
+            <p class="card-text">{{system.desc}}</p>
+            <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank">Weiter</a>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="card mb-3">
-        <div class="card-header">System hinzufügen</div>
-        <div class="card-body">
-          <p class="card-text">
-            <label>System name:
-              <input #systemName />
-            </label>
-            <button (click)="add(systemName.value); systemName.value=''">ADD</button>
-          </p>
-        </div>
+    <div class="card mb-3">
+      <div class="card-header">System hinzufügen</div>
+      <div class="card-body">
+        <p class="card-text">
+          <label>System name:
+            <input #systemName />
+          </label>
+          <button (click)="add(systemName.value); systemName.value=''">ADD</button>
+        </p>
       </div>
     </div>
   </div>

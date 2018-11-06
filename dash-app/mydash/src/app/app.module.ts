@@ -22,6 +22,7 @@ import { DemoMaterialModule } from './material-module';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
+import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -36,6 +37,7 @@ import { InMemoryDataService } from './in-memory-data.service';
     SystemsComponent,
     DashboardComponent,
     DokumenteComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
