@@ -1,0 +1,137 @@
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+.h1, h1 {
+    font-size: 14pt;
+    font-weight: 400;
+    color:white;
+
+}
+
+#first-row {
+    display: contents;
+}
+.first {
+    background-color: #162f3a;
+    height: 70px; 
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+.sign-out-btn { 
+    background-color: transparent;
+    color:white;
+}
+
+.second {
+    margin-top: 50px;
+}
+
+.h3, h3 {
+    font-size: 14pt;
+    margin-bottom: 20px;
+}
+
+.card-header {
+   background-color: #00b5ad;
+}
+
+.card-header h4 {
+    background-color: #00b5ad;
+    font-size: 12.5pt;
+    color:white;
+    text-align: left;
+}
+
+.card-body p {
+    font-size: 11pt;
+    color: #595757;
+    text-align: left;
+}
+
+
+a {
+    color:white;
+    text-align: left;
+}
+a:link {
+    color: white;
+    text-align: left;
+}
+
+a:visited {
+    color: white;
+    background-color: #00b5ad;
+    border-color: #00b5ad;
+}
+
+a:focus {
+    color: white;
+    background-color: #00b5ad;
+    border-color: #00b5ad;
+}
+
+.btn-outline-primary.focus, .btn-outline-primary:focus {
+    box-shadow: none; 
+}
+
+.btn.focus, .btn:focus {
+    box-shadow: none;
+}
+a:hover {
+    color: white;
+    text-align: left;
+}
+
+a:active {
+    color: #00b5ad;
+    background-color: #00b5ad;
+    text-align: left;
+}
+
+.btn-block {
+    background-color: #00b5ad;
+    border-color: #00b5ad;
+}
+
+.btn-mehr {
+    width: 45%;
+    font-size: 11pt;
+}
+
+.btn-outline-primary {
+    border-color: transparent;
+}
+
+.btn-group-lg>.btn, .btn-lg {
+    padding: .5rem 1rem;
+    font-size: 10.5pt;
+    line-height: 1.5;
+    border-radius: .3rem;
+}
+
+.btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
+    color: #fff;
+    background-color: #162f3a;
+    border-color: #162f3a;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #162f3a;
+    border-color: #162f3a;
+}
+
+
+h4 {
+    text-align: center;
+    color: white;
+}
+
+
+
+
+

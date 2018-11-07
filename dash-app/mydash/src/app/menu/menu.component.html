@@ -1,0 +1,78 @@
+<!--<mat-drawer-container class="example-container" autosize>
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <p>Auto-resizing sidenav</p>
+      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
+      <button (click)="showFiller = !showFiller" mat-raised-button>
+        Toggle extra text
+      </button>
+    </mat-drawer>
+  
+    <div class="example-sidenav-content">
+      <button type="button" mat-button (click)="drawer.toggle()">
+        Toggle sidenav
+      </button>
+    </div>
+  
+  </mat-drawer-container>
+
+  -->
+
+
+<mat-sidenav-container>
+
+
+  <mat-sidenav #sidenav mode="side" [(opened)]="opened" (opened)="events.push('open!')" (closed)="events.push('close!')">
+    <mat-nav-list>
+      <p><img src="assets/img/fh/Logo-View-Campus.jpg" alt="Logo" width="200" height="82"></p>
+      <img mat-list-avatar src="/assets/img/mail-avatar.jpg" alt="Avatar">
+      <a mat-list-item routerLink="/dashboard">Übersicht</a>
+      <a mat-list-item routerLink="/processes">Prozesse</a>
+      <a mat-list-item routerLink="/myprocesses">Laufende Prozesse</a>
+      <a mat-list-item routerLink="/dokumente">Dokumente</a>
+      <a mat-list-item routerLink="/systems">Systeme</a>
+      <a mat-list-item routerLink="/myprofil">Profil</a>
+      <a mat-list-item href="#">Abmelden</a>
+    </mat-nav-list>
+
+  </mat-sidenav>
+
+
+  <mat-sidenav-content>
+    <nav class="navbar bg-light">
+      <div class="col-md-1">
+        <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
+      </div>
+      <div class="col-md-6">
+        <h2>Aktuelle Seite</h2>
+      </div>
+
+      <div class="col-md-2 example-container">
+        <form class="example-form">
+          <mat-form-field>
+              <input matInput type="Benutzername" color="black">
+              <mat-placeholder class="placeholder">Benutzername</mat-placeholder>
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="col-md-2">
+        <form class="example-form">
+          <mat-form-field class="example-full-width">
+            <input matInput placeholder="Passwort">
+          </mat-form-field>
+        </form>
+      </div>
+      <div class="col-md-1">
+        <button mat-stroked-button>
+          Login
+          <i class="material-icons" style="padding-left: 5px">
+            input
+          </i>
+        </button>
+      </div>
+    </nav>
+
+
+    <router-outlet></router-outlet>
+
+  </mat-sidenav-content>
+</mat-sidenav-container>

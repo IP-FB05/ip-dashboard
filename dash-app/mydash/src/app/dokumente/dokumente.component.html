@@ -1,0 +1,37 @@
+<div class="dokumente">
+    <div class="row" style="padding: 30px 0px 0px 40px;">
+        <h2>Das ist eine Vorschau der Dokumenten Seite.</h2>
+    </div>
+
+    <app-filter></app-filter>
+
+    <div class="row" style="padding: 30px 0px 0px 20px;">
+        <div class="col-md-8">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name:</th>
+                        <th>Typ:</th>
+                        <th>Zuletzt geändert am:</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let dokument of dokumente">
+                        <td>{{dokument.name}}</td>
+                        <td>{{dokument.typ}}</td>
+                        <td>{{dokument.date}}</td>
+                        <td><button class="delete" title="delete dokument" (click)="delete(dokument)">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4">
+            <form>
+                <div class="form-group">
+                    <label for="exampleFormControlFile1">Dokument hochladen</label>
+                    <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

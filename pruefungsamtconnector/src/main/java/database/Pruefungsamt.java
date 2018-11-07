@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.Properties;
 
 public class Pruefungsamt {
   private Connection connect = null;
@@ -15,20 +15,30 @@ public class Pruefungsamt {
   private ResultSet resultSet = null;
 
   public Pruefungsamt() throws SQLException, ClassNotFoundException {
+	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamt";
+	Properties props = new Properties();
+	props.setProperty("user","admin");
+	props.setProperty("password","D45hb0ard");
+	props.setProperty("useSSL","false");
+	props.setProperty("autoReconnect","true");
+	
     Class.forName("com.mysql.jdbc.Driver");
-    connect = DriverManager.getConnection(
-        "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamtconnector?"
-            + "user=admin&password=D45hb0ard");
+    /*connect = DriverManager.getConnection(
+        "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamt?"
+            + "user=admin&password=D45hb0ard");*/
+    connect = DriverManager.getConnection(url, props);
   }
 
   public int getCredits(int matrikelnr) throws SQLException {
 
     preparedStatement = connect.prepareStatement(
-        "select sum(*) from pruefung_student " +
+        "select sum(leistungspunkte) from pruefung_student " +
         "join student on pruefung_student.student = student.matrikelnr " +
-        "join pruefung on pruefung.idpruefung = pruefung_student.pruefung " +
-        "where matrikelnr = ? and status = 'bestanden'");
-    preparedStatement.setInt(0, matrikelnr);
+        "join pruefungen on pruefungen.pruefungsnr = pruefung_student.pruefung " +
+        "join module on pruefungen.modulnr = module.modulnr " +
+        "where matrikelnr = ? and status = 'bestanden' " +
+        "group by matrikelnr");
+    preparedStatement.setInt(1, matrikelnr);
     resultSet = preparedStatement.executeQuery();
     if(resultSet.first()) {
       return resultSet.getInt(1);
@@ -36,5 +46,39 @@ public class Pruefungsamt {
     return 0;
     
   }
+  
+  public boolean praktikumBestanden(int matrikelnr, int fachnr) throws SQLException {
+	if(!fachHasPraktikum(fachnr)) {
+		return true;
+	}
+	preparedStatement = connect.prepareStatement(
+		"select count(student) from praktikum_student " +
+		"join praktikum on  praktikum.idpraktikum = praktikum_student.praktikum " +
+		"where student = ? and modul = ? and status = 'bestanden' " +
+		"group by student");
+	preparedStatement.setInt(1, matrikelnr);
+    preparedStatement.setInt(2, fachnr);
+    resultSet = preparedStatement.executeQuery();
+    if(resultSet.first()) {
+        return resultSet.getInt(1) > 0;
+    }
+    return false;
+  }
+
+public boolean fachHasPraktikum(int fachnr) throws SQLException {
+	preparedStatement = connect.prepareStatement(
+			"select * from praktikum " +
+			"where modul = ?");
+	preparedStatement.setInt(1, fachnr);
+	resultSet = preparedStatement.executeQuery();
+	if(resultSet.first()) {
+		return true;
+	}
+	return false;
+}
+
+public void close() throws SQLException {
+	connect.close();
+}
 
 }

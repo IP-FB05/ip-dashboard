@@ -1,0 +1,81 @@
+<div class="processes">
+
+  <div class="row" style="padding: 30px 0px 0px 40px;">
+    <h2>Das ist eine Vorschau der Prozess-Seite. Man kann mehrere Details über ein Prozess sehen, indem man auf das
+      „MEHR“-Button klickt.
+      Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen.</h2>
+  </div>
+
+  <app-filter></app-filter>
+
+  <div class="row" style="padding: 30px 0px 0px 20px;">
+    <div *ngFor="let process of processes" class="col-md-3">
+      <div class="card-deck mb-3 text-center">
+        <div class="card mb-3 box-shadow">
+          <div class="card-header"><a routerLink="/detail/{{process.id}}">{{process.name}}</a>&nbsp;
+            <button class="delete" title="delete process" (click)="delete(process)">x</button></div>
+          <div class="card-body text-secondary">
+            <p class="card-text">{{process.desc}}</p>
+            <a class="btn btn-sm btn-secondary" routerLink="/detail/{{process.id}}">Mehr</a>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card mb-3">
+      <div class="card-header">Prozess hinzufügen</div>
+      <div class="card-body">
+        <p class="card-text">
+          <label>Process name:
+            <input #processName />
+          </label>
+          <button (click)="add(processName.value); processName.value=''">ADD</button>
+        </p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!--
+  <div class="row">
+    <h2>My Processes</h2>
+-->
+
+<!------Selectable List----
+      <ul class="processes">
+        <li *ngFor="let process of processes"
+          [class.selected]="process === selectedProcess"
+          (click)="onSelect(process)">
+          <span class="badge">{{process.id}}</span> {{process.name}}
+        </li>
+      </ul>
+      --->
+<!--
+    <ul class="processes">
+      <li *ngFor="let process of processes">
+        <a routerLink="/detail/{{process.id}}">
+          <span class="badge">{{process.id}}</span> {{process.name}}
+        </a>
+        <button class="delete" title="delete process" (click)="delete(process)">x</button>
+      </li>
+    </ul>
+ -->
+<!-- <app-process-detail [process]="selectedProcess"></app-process-detail>
+    -->
+
+<!--
+  <div class="row">
+    <label>Process name:
+      <input #processName />
+    </label>
+
+    <button (click)="add(processName.value); processName.value=''">
+      add
+    </button>
+  </div>
+</div>
+-->
