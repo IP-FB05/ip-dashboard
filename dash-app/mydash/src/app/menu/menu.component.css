@@ -17,14 +17,53 @@
   */
 
 
-  mat-sidenav, mat-sidenav-content {
-    padding: 20px;
-  }
-  
+  .mat-stroked-button:not([disabled]) {
+    border-color: transparent;
+}
+.mat-stroked-button:hover {
+  background:#162f3a;
+}
+
+.mat-stroked-button:visited {
+  background:#162f3a;
+  border:none;
+  box-shadow:none;
+}
+
+.mat-stroked-button:active {
+  background:#162f3a;
+  border:none;
+  box-shadow:none;
+}
+
+.mat-button-focus-overlay {
+  background: #162f3a !important;
+}
+
+button:focus {
+  outline: none;
+}
+
   mat-sidenav-container {
     height: 100vh;
   }  
 
+  .mat-flat-button:not([class*=mat-elevation-z]), .mat-stroked-button:not([class*=mat-elevation-z])
+{box-shadow: transparent;}
 
+.mat-button, .mat-icon-button, .mat-stroked-button {
+  color: white;
+  background: #162f3a;
+}
 
-  
+.bg-light {
+background:#162f3a !important;
+}
+
+.mat-flat-button:not([class*=mat-elevation-z]), .mat-stroked-button:not([class*=mat-elevation-z]){
+  box-shadow: none !important;
+}
+
+.mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
+  color: white;
+}
