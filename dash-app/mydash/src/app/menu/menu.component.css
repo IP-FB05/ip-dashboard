@@ -21,23 +21,23 @@
     border-color: transparent;
 }
 .mat-stroked-button:hover {
-  background:#162f3a;
+  background:#0b1a22;
 }
 
 .mat-stroked-button:visited {
-  background:#162f3a;
+  background:#0b1a22;
   border:none;
   box-shadow:none;
 }
 
 .mat-stroked-button:active {
-  background:#162f3a;
+  background:#0b1a22;
   border:none;
   box-shadow:none;
 }
 
 .mat-button-focus-overlay {
-  background: #162f3a !important;
+  background:#0b1a22 !important;
 }
 
 button:focus {
@@ -53,11 +53,11 @@ button:focus {
 
 .mat-button, .mat-icon-button, .mat-stroked-button {
   color: white;
-  background: #162f3a;
+  background: #0b1a22;
 }
 
 .bg-light {
-background:#162f3a !important;
+background:#0b1a22 !important;
 }
 
 .mat-flat-button:not([class*=mat-elevation-z]), .mat-stroked-button:not([class*=mat-elevation-z]){
@@ -67,3 +67,10 @@ background:#162f3a !important;
 .mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
   color: white;
 }
+
+.mat-list-item:hover {background-color:white; }
+.mat-nav-list[_ngcontent-c1] .mat-list-item[_ngcontent-c1]:hover {
+  color: #00b5ad;
+  border-left: 10px solid #00b5ad;
+}
+

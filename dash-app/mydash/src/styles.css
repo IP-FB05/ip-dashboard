@@ -7,7 +7,7 @@ body {
 }
 
 .h1, h1 {
-    font-size: 14pt;
+    
     font-weight: 400;
     color:white;
 
@@ -17,7 +17,7 @@ body {
     display: contents;
 }
 .first {
-    background-color: #162f3a;
+    background-color: #0b1a22;
     height: 70px; 
     width: 100%;
     display: flex;
@@ -35,7 +35,7 @@ body {
 }
 
 .h3, h3 {
-    font-size: 14pt;
+    
     margin-bottom: 20px;
 }
 
@@ -45,15 +45,15 @@ body {
 
 .card-header h4 {
     background-color: #00b5ad;
-    font-size: 12.5pt;
     color:white;
     text-align: left;
 }
 
 .card-body p {
-    font-size: 11pt;
+    font-size: 15px;
     color: #595757;
     text-align: left;
+    font-weight:300;
 }
 
 
@@ -101,10 +101,7 @@ a:active {
     border-color: #00b5ad;
 }
 
-.btn-mehr {
-    width: 45%;
-    font-size: 11pt;
-}
+
 
 .btn-secondary {
     background-color: #00b5ad;
@@ -124,14 +121,14 @@ a:active {
 
 .btn-outline-primary:not(:disabled):not(.disabled).active, .btn-outline-primary:not(:disabled):not(.disabled):active, .show>.btn-outline-primary.dropdown-toggle {
     color: #fff;
-    background-color: #162f3a;
-    border-color: #162f3a;
+    background-color:#0b1a22;
+    border-color:#0b1a22;
 }
 
 .btn-outline-primary:hover {
     color: #fff;
-    background-color: #162f3a;
-    border-color: #162f3a;
+    background-color:#0b1a22;
+    border-color:#0b1a22;
 }
 
 
@@ -143,15 +140,53 @@ h4 {
 
 
 h2 {
-    font-size: 1.5vw;
+    font-size: 25px;
     font-weight: 400;
     margin-bottom: 0px;
     color:white;
 }
 
 .mat-drawer-inner-container {
-    background-color:#162f3a !important;
+    background-color:#0b1a22 !important;
   }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.light-green {
+    background-color:#007a71;
+    width: 112px;
+}
+
+.card-header:first-child {
+    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
+    color: white;
+    font-weight: 400;
+}
+
+.card-header {
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.round-plus-btn {
+    width: 80px;
+    height: 80px;
+    line-height: 45px;
+    border-radius: 50%;
+    color: #dbdbdb;
+    text-align: center;
+    text-decoration: none;
+    background: #c3c3c3;
+    border-color:transparent;
+    font-size:100px;
+    font-weight:300;
+}
+
+.round-plus-btn:hover {
+    border-color:#b2b3b3;
+    background-color: #b3b3b3;
+    color:#dbdbdb;
+}
+
+.mat-form-field-flex {
+    border-bottom: 1px solid white !important;
+  }
