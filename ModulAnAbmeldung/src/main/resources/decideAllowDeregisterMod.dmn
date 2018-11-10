@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_17o289x" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="decideAllowDeregisterMod" name="Abmeldung überprüfen">
+    <decisionTable id="decisionTable_1">
+      <input id="input_1">
+        <inputExpression id="inputExpression_1" typeRef="string">
+          <text>studentID</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0wblsjz">
+        <inputExpression id="LiteralExpression_0pwjqq6" typeRef="string">
+          <text>moduleName</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" name="deregister" typeRef="boolean" />
+      <rule id="DecisionRule_1b83uct">
+        <inputEntry id="UnaryTests_19o9x02">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lhdyr3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rcahqf">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

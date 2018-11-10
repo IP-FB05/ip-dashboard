@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" id="Definitions_1jf88a0" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="decideAllowRegisterMod" name="Zulassung überprüfen">
+    <decisionTable id="decisionTable_1" hitPolicy="FIRST">
+      <input id="input_1" label="Usercredits from first and second Semester">
+        <inputExpression id="inputExpression_1" typeRef="integer">
+          <text>usercredits</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1xgaw1g" label="Semester from selected module">
+        <inputExpression id="LiteralExpression_1d8oosv" typeRef="integer">
+          <text>modulsemester</text>
+        </inputExpression>
+      </input>
+      <output id="output_1" label="Student anmelden möglich" name="zugelassen" typeRef="boolean" />
+      <rule id="DecisionRule_11mf9d6">
+        <inputEntry id="UnaryTests_13p6t9d">
+          <text>&gt;=0</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zo0a5f">
+          <text>[1..2]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09l3mwj">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10wo18y">
+        <inputEntry id="UnaryTests_01zec4v">
+          <text>&gt;=30</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yx7nbs">
+          <text>3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jpe7lj">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o5xo2m">
+        <inputEntry id="UnaryTests_0ljbgn1">
+          <text>&gt;=50</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19t4hhx">
+          <text>[4..5]</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z0y1tf">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gbugeh">
+        <description>default</description>
+        <inputEntry id="UnaryTests_1v6mb5u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01eg5kk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ssuhh6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>
