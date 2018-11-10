@@ -1,8 +1,14 @@
 <div class="processes">
-  <div class="row" style="padding: 30px 0px 0px 20px;">
-    <p>Das ist eine Vorschau der Prozess-Seite. Man kann mehrere Details über ein Prozess sehen, indem man auf das
+
+  <div class="row" style="padding: 30px 0px 0px 40px;">
+    <h2>Das ist eine Vorschau der Prozess-Seite. Man kann mehrere Details über ein Prozess sehen, indem man auf das
       „MEHR“-Button klickt.
-      Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen.</p>
+      Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen.</h2>
+  </div>
+
+  <app-filter></app-filter>
+
+  <div class="row" style="padding: 30px 0px 0px 20px;">
     <div *ngFor="let process of processes" class="col-md-3">
       <div class="card-deck mb-3 text-center">
         <div class="card mb-3 box-shadow">
@@ -20,7 +26,7 @@
     </div>
 
     <div class="card mb-3">
-      <div class="card-header" style="color:white;">Prozess hinzufügen</div>
+      <div class="card-header">Prozess hinzufügen</div>
       <div class="card-body">
         <p class="card-text">
           <label>Process name:

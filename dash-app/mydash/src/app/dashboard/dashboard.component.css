@@ -1,4 +1,6 @@
 /* DashboardComponent's private CSS styles */
+
+
 [class*='col-'] {
     float: left;
     padding-right: 20px;
@@ -64,3 +66,10 @@
   p {
     color:white;
   }
+
+  .list-processes {
+    border-bottom: 1.5px solid #03a9a1;
+    padding-bottom: 10px;
+  }
+
+  

@@ -6,6 +6,7 @@ import { ProcessDetailComponent }  from './process-detail/process-detail.compone
 import { LoginComponent } from './login/login.component'; 
 import { SystemsComponent } from './systems/systems.component';
 import { MenuComponent } from './menu/menu.component';  
+import { DokumenteComponent } from './dokumente/dokumente.component';
 
 const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -14,7 +15,8 @@ const routes: Routes = [
  { path: 'login', component: LoginComponent },
  { path: 'processes', component: ProcessesComponent },
  { path: 'menu', component: MenuComponent },
- { path: 'systems', component: SystemsComponent }
+ { path: 'systems', component: SystemsComponent },
+ { path: 'dokumente', component: DokumenteComponent}
 
 ];
 

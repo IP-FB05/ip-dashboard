@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
 import { MessagesComponent } from './messages/messages.component';
 import { SystemsComponent } from './systems/systems.component';
+import { DokumenteComponent } from './dokumente/dokumente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // <-- NgModel lives here
 
@@ -21,9 +22,7 @@ import { DemoMaterialModule } from './material-module';
 
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
-
-
-
+import { FilterComponent } from './filter/filter.component';
 
 
 
@@ -37,6 +36,8 @@ import { InMemoryDataService } from './in-memory-data.service';
     MessagesComponent,
     SystemsComponent,
     DashboardComponent,
+    DokumenteComponent,
+    FilterComponent,
   ],
   imports: [
     BrowserModule,
