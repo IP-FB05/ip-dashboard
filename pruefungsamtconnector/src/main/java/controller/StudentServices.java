@@ -31,4 +31,21 @@ public class StudentServices {
 		amt.close();
 		return result;
 	}
+	
+	@RequestMapping("/praktikumBestanden/{matrikelnr}")
+	public boolean setNewPraxisSemester(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.setNewPraxisSemester(matrikelnr);
+		amt.close();
+		return result;
+	}
+	
+	@RequestMapping("/praktikumBestanden/{matrikelnr}/{boolBestanden}")
+	public boolean setNotePraxisSemester(@PathVariable int matrikelnr, @PathVariable int boolBestanden) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.setNotePraxisSemester(matrikelnr,boolBestanden);
+		amt.close();
+		return result;
+	}
+	
 }
