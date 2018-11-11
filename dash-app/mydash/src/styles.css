@@ -160,6 +160,7 @@ h2 {
     border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
     color: white;
     font-weight: 400;
+    text-align:left;
 }
 
 .card-header {
@@ -167,15 +168,18 @@ h2 {
     font-weight: 400;
 }
 
+.card {
+    border: 1px solid rgba(0, 0, 0, 0.125);
+}
 .round-plus-btn {
     width: 80px;
     height: 80px;
     line-height: 45px;
     border-radius: 50%;
-    color: #dbdbdb;
+    color: white;
     text-align: center;
     text-decoration: none;
-    background: #c3c3c3;
+    background: #dcdcdc;
     border-color:transparent;
     font-size:100px;
     font-weight:300;
@@ -184,9 +188,14 @@ h2 {
 .round-plus-btn:hover {
     border-color:#b2b3b3;
     background-color: #b3b3b3;
-    color:#dbdbdb;
+    color:white;
 }
 
 .mat-form-field-flex {
     border-bottom: 1px solid white !important;
   }
+
+  .row{    margin-right: 15px;
+    margin-left: 15px;}
+
+.btn-sm {float: left;}
