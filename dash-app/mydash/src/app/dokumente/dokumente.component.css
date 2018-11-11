@@ -1,0 +1,26 @@
+.table td, .table th {
+    border-top: none;
+   
+}
+
+.table th:nth-child(1) {
+    font-weight:500;
+}
+.table th:nth-child(2) {
+    font-weight:500;
+}.table th:nth-child(3) {
+    font-weight:500;
+}
+
+.delete-dark {
+    -webkit-appearance: button;
+    float: right;
+    background: transparent;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 10px;
+    border: 1.5px solid#b7b7b7;
+    color:#b7b7b7;
+    font-weight:500;
+}

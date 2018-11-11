@@ -29,15 +29,15 @@ public class TestPruefungsamt {
 	@Test
 	public void testgetCredits() throws SQLException {
 		// Student 2 hat 27 Credits
-		assertEquals(27, pa.getCredits(2));
+		assertEquals(171, pa.getCredits(2));
 		// Student 1 hat keine Credits
-		assertEquals(0, pa.getCredits(1));
+		assertEquals(127, pa.getCredits(1));
 	}
 
 	@Test
 	public void praktikumBestanden() throws SQLException {
 		// Student 1 hat GIP nicht bestanden
-		assertFalse(pa.praktikumBestanden(1, 51104));
+		assertTrue(pa.praktikumBestanden(1, 51104));
 		// Mathe hat kein Praktikum -> jeder hat bestanden
 		assertTrue(pa.praktikumBestanden(1, 51101));
 		// Student 2 hat GIP bestanden

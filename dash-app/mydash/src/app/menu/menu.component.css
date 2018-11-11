@@ -15,8 +15,6 @@
     padding: 20px;
   }
   */
-
-
   .mat-stroked-button:not([disabled]) {
     border-color: transparent;
 }
@@ -74,3 +72,7 @@ background:#0b1a22 !important;
   border-left: 10px solid #00b5ad;
 }
 
+.mat-input-element {
+  caret-color: #ffffff;
+  
+}
