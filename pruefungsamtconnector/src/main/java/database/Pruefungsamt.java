@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import utils.Config;
+
 public class Pruefungsamt {
   private Connection connect = null;
 
@@ -17,8 +19,8 @@ public class Pruefungsamt {
   public Pruefungsamt() throws SQLException, ClassNotFoundException {
 	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com/pruefungsamt";
 	Properties props = new Properties();
-	props.setProperty("user","admin");
-	props.setProperty("password","D45hb0ard");
+	props.setProperty("user",Config.getConfig(Config.DB_USER));
+	props.setProperty("password",Config.getConfig(Config.DB_PASS));
 	props.setProperty("useSSL","false");
 	props.setProperty("autoReconnect","true");
 	
