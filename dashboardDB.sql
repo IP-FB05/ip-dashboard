@@ -13,7 +13,7 @@ CREATE TABLE `dokumente` (
   `kategorieID` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
   `lastChanged` date NOT NULL,
-  `link` varchar(100) NOT NULL,
+  `link` varchar(500) NOT NULL,
   PRIMARY KEY (`dokumentID`),
   KEY `kategorieID_idx` (`kategorieID`),
   CONSTRAINT `kategorieID` FOREIGN KEY (`kategorieID`) REFERENCES `kategorie` (`kategorieid`)
