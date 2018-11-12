@@ -32,7 +32,7 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/praktikumBestanden/{matrikelnr}")
+	@RequestMapping("/neuesPraxisSemester/{matrikelnr}")
 	public boolean setNewPraxisSemester(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setNewPraxisSemester(matrikelnr);
@@ -40,10 +40,19 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/praktikumBestanden/{matrikelnr}/{boolBestanden}")
+	@RequestMapping("/noteLetztesPraxisSemester/{matrikelnr}/{boolBestanden}")
 	public boolean setNotePraxisSemester(@PathVariable int matrikelnr, @PathVariable int boolBestanden) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setNotePraxisSemester(matrikelnr,boolBestanden);
+		amt.close();
+		return result;
+	}
+	
+	//boolAnmeldung 1 = anmeldung (erzeugen); 0 = abmeldung (loeschen)
+	@RequestMapping("/modulAnAbmeldung/{matrikelnr}/{fachnr}/{boolAnmeldung}")
+	public boolean changeModulStudent(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable int boolAnmeldung) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.changeModulregister(matrikelnr,fachnr,boolAnmeldung);
 		amt.close();
 		return result;
 	}

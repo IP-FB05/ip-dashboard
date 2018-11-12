@@ -67,66 +67,122 @@ public class Pruefungsamt {
     return false;
   }
 
-public boolean fachHasPraktikum(int fachnr) throws SQLException {
-	preparedStatement = connect.prepareStatement(
-			"select * from praktikum " +
-			"where modul = ?");
-	preparedStatement.setInt(1, fachnr);
-	resultSet = preparedStatement.executeQuery();
-	if(resultSet.first()) {
-		return true;
-	}
-	return false;
-}
-
-public boolean setNewPraxisSemester(int matrikelnr) throws SQLException  {
-	preparedStatement = connect.prepareStatement(
-			"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`) VALUES ('0');"
-			+ "INSERT INTO `pruefungsamt`.`pruefung_student` (`student`, `pruefung`, `status`) VALUES (?, LAST_INSERT_ID(), 'angemeldet');");
-	preparedStatement.setInt(1, matrikelnr);
-	
-	resultSet = preparedStatement.executeQuery();
-	
-	if(resultSet.first()) {
-		return true;
-	}	
-	return false;
-}
-
-public boolean setNotePraxisSemester(int matrikelnr, int boolBestanden) throws SQLException {
-	
-	if(boolBestanden == 1) {
-		
+	public boolean fachHasPraktikum(int fachnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
-				"UPDATE `pruefungsamt`.`pruefung_student` "
-				+ "INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr"
-				+ "SET `status` = 'bestanden'"
+				"select * from praktikum " +
+				"where modul = ?");
+		preparedStatement.setInt(1, fachnr);
+		resultSet = preparedStatement.executeQuery();
+		if(resultSet.first()) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setNewPraxisSemester(int matrikelnr) throws SQLException  {
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`) VALUES ('0');"
+				+ "INSERT INTO `pruefungsamt`.`pruefung_student` (`student`, `pruefung`, `status`) VALUES (?, LAST_INSERT_ID(), 'angemeldet');");
+		preparedStatement.setInt(1, matrikelnr);
+		
+		resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.first()) {
+			return true;
+		}	
+		return false;
+	}
+	
+	public boolean setNotePraxisSemester(int matrikelnr, int boolBestanden) throws SQLException {
+		
+		if(boolBestanden == 1) {
+			
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`pruefung_student` "
+					+ "INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr"
+					+ "SET `status` = 'bestanden'"
+					+ "WHERE (`student` = ?) and (`pruefungsamt`.`pruefungen`.`modulnr` = '0')"
+					+ "order by `pruefungsamt`.`pruefungen`.pruefungszeitpunkt desc"
+					+ "limit 1;");
+			preparedStatement.setInt(1, matrikelnr);
+		}
+		
+		else {
+			
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`pruefung_student` "
+					+ "INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr"
+					+ "SET `status` = 'durchgefallen'"
+					+ "WHERE (`student` = ?) and (`pruefungsamt`.`pruefungen`.`modulnr` = '0')"
+					+ "order by `pruefungsamt`.`pruefungen`.pruefungszeitpunkt desc"
+					+ "limit 1;");
+			preparedStatement.setInt(1, matrikelnr);
+		}
+		
+		if(resultSet.first()) {
+			return true;
+		}	
+		return false;
+	}
+	
+	//needed for tests
+	public boolean getPraxisSemester(int matrikelnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"Select * from `pruefungsamt`.`pruefung_student`" +
+				"INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr"
 				+ "WHERE (`student` = ?) and (`pruefungsamt`.`pruefungen`.`modulnr` = '0');");
 		preparedStatement.setInt(1, matrikelnr);
+		resultSet = preparedStatement.executeQuery();
+		if(resultSet.first()) {
+			return true;
+		}
+		return false;
 	}
 	
-	else {
+	
+	public boolean changeModulregister(int matrikelnr, int fachnr, int boolAnmeldung) throws SQLException {
+		if(boolAnmeldung == 1) {
+			preparedStatement = connect.prepareStatement(
+					"INSERT INTO `pruefungsamt`.`module_student` (`modul`, `student`)" +
+					"VALUES (?, ?);");
+			preparedStatement.setInt(1, fachnr);
+			preparedStatement.setInt(2, matrikelnr);
+		} else {
+			preparedStatement = connect.prepareStatement(
+					"DELETE FROM `pruefungsamt`.`module_student`" +
+					"WHERE (`modul` = ?) and (`student` = ?);");
+			preparedStatement.setInt(1, fachnr);
+			preparedStatement.setInt(2, matrikelnr);
+		}
+		 
+		resultSet = preparedStatement.executeQuery();
 		
-		preparedStatement = connect.prepareStatement(
-				"UPDATE `pruefungsamt`.`pruefung_student` "
-				+ "INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr"
-				+ "SET `status` = 'durchgefallen'"
-				+ "WHERE (`student` = ?) and (`pruefungsamt`.`pruefungen`.`modulnr` = '0');");
-		preparedStatement.setInt(1, matrikelnr);
+		if(resultSet.first()) {
+			return true;
+		}
+		return false;
 	}
 	
-	if(resultSet.first()) {
-		return true;
-	}	
-	return false;
-}
-
-public void close() throws SQLException {
-	connect.close();
-}
-
-
-
+	//needed for tests
+	public boolean getModulStudent(int matrikelnr, int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT * FROM pruefungsamt.module_student" +
+				"WHERE `modul` = ? AND `student` = ?;");
+		preparedStatement.setInt(1, fachnr);
+		preparedStatement.setInt(2, matrikelnr);
+		
+		resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.first()) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	public void close() throws SQLException {
+		connect.close();
+	}
 
 
 }
