@@ -1,6 +1,8 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Dokument } from '../dokument';
 import { DokumentService } from '../dokument.service';
+import { MatDialog } from '@angular/material'
+import { DokumenteDialogComponent } from '../dokumente-dialog/dokumente-dialog.component';
 
 
 
@@ -14,7 +16,7 @@ export class DokumenteComponent implements OnInit {
 
   dokumente: Dokument[];
 
-  constructor(private dokumenteService: DokumentService) { }
+  constructor(private dokumenteService: DokumentService, public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getDokumente();
@@ -38,6 +40,17 @@ export class DokumenteComponent implements OnInit {
   delete(dokument: Dokument): void {
     this.dokumente = this.dokumente.filter(d => d !== dokument);
     this.dokumenteService.deleteDokument(dokument).subscribe();
+  }
+
+  openDialog() {
+    let dialogRef = this.dialog.open(DokumenteDialogComponent, {
+      width: '800px',
+      height: '600px',
+      //data: 'Test!'
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Dialog closed: ${result}`);
+    });
   }
 
 

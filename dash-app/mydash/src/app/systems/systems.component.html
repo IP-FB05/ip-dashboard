@@ -13,7 +13,7 @@
             <button class="delete" title="delete system" (click)="delete(system)">x</button></div>
           <div class="card-body text-secondary">
             <p class="card-text">{{system.desc}}</p>
-            <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank">Weiter</a>
+            <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
           </div>
         </div>
       </div>
@@ -30,9 +30,7 @@
 
 
             <p class="card-text" style="text-align:center;">
-              <a href="#">
-                <button class="btn btn-secondary round-plus-btn">+</button>
-              </a>
+              <button class="btn btn-secondary round-plus-btn" (click)="openDialog()">+</button>
             </p>
           </div>
         </div>
