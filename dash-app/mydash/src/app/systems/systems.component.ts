@@ -11,7 +11,7 @@ import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.compone
 })
 export class SystemsComponent implements OnInit {
 
-  systems: System[];
+  public systems: System[];
 
   constructor(private systemService: SystemService, public dialog: MatDialog) { }
 

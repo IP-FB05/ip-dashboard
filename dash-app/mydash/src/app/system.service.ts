@@ -26,7 +26,7 @@ export class SystemService {
   getSystems(): Observable<System[]> {
     // TODO: send the message _after_ fetching the systems
     this.messageService.add('SystemService: fetched systems');
-    return this.http.get<System[]>(this.systemsUrl)
+    return this.http.get<System[]>("http://localhost:80/api/system/read.php")
       .pipe(
         tap(_ => this.log('fetched systems')),
         catchError(this.handleError('getSystems', []))
@@ -74,7 +74,7 @@ export class SystemService {
   // PUT: update the systems on the server */
   updateSystem(system: System): Observable<any> {
     return this.http.put(this.systemsUrl, system, httpOptions).pipe(
-      tap(_ => this.log(`updated system id=${system.id}`)),
+      tap(_ => this.log(`updated system id=${system.systemID}`)),
       catchError(this.handleError<any>('updateSystem'))
     );
   }
@@ -82,14 +82,14 @@ export class SystemService {
   // POST: add a new system to the server */
   addSystem(system: System): Observable<System> {
     return this.http.post<System>(this.systemsUrl, system, httpOptions).pipe(
-      tap((System: System) => this.log(`added system w/ id=${system.id}`)),
+      tap((System: System) => this.log(`added system w/ id=${system.systemID}`)),
       catchError(this.handleError<System>('addSystem'))
     );
   }
 
   /** DELETE: delete the System from the server */
   deleteSystem(system: System | number): Observable<System> {
-    const id = typeof system === 'number' ? system : system.id;
+    const id = typeof system === 'number' ? system : system.systemID;
     const url = `${this.systemsUrl}/${id}`;
 
     return this.http.delete<System>(url, httpOptions).pipe(

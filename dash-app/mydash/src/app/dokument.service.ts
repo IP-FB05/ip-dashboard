@@ -26,7 +26,7 @@ export class DokumentService {
   getDokumente(): Observable<Dokument[]> {
     // TODO: send the message _after_ fetching the dokumente
     this.messageService.add('DokumentService: fetched dokumente');
-    return this.http.get<Dokument[]>(this.dokumenteUrl)
+    return this.http.get<Dokument[]>("http://localhost/api/dokumente/read.php")
       .pipe(
         tap(_ => this.log('fetched dokumente')),
         catchError(this.handleError('getDokkumente', []))
