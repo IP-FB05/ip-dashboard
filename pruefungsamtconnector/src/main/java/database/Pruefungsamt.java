@@ -180,6 +180,28 @@ public class Pruefungsamt {
 	}
 	
 	
+	public boolean getModulStudent(int matrikelnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT modul,modultext FROM pruefungsamt.module_student" +
+				"INNER JOIN `pruefungsamt`.`module`"
+				+ "ON `pruefungsamt`.`module_student`.modul = `pruefungsamt`.`module`.modulnr"
+				+ "WHERE `pruefungsamt`.`module_student`.`student` = ?;");
+		preparedStatement.setInt(1, matrikelnr);
+		
+		resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.first()) {
+			return true;
+		}
+		return false;
+	}
+	
+	
+	
+	
+	
+	
+	
 	public void close() throws SQLException {
 		connect.close();
 	}

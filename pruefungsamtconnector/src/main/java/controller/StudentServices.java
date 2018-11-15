@@ -57,4 +57,12 @@ public class StudentServices {
 		return result;
 	}
 	
+	@RequestMapping("/modulStudent/{matrikelnr}")
+	public boolean changeModulStudent(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.getModulStudent(matrikelnr);
+		amt.close();
+		return result;
+	}
+	
 }

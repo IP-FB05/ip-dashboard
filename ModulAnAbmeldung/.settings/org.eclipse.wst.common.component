@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
-    <wb-module deploy-name="ModulAnAbmeldung">
+    <wb-module deploy-name="ModulAnmeldung">
         <wb-resource deploy-path="/" source-path="/target/m2e-wtp/web-resources"/>
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
-        <property name="context-root" value="ModulAnAbmeldung"/>
-        <property name="java-output-path" value="/ModulAnAbmeldung/target/classes"/>
+        <property name="java-output-path" value="/ModulAnmeldung/target/classes"/>
+        <property name="context-root" value="ModulAnmeldung"/>
     </wb-module>
 </project-modules>
