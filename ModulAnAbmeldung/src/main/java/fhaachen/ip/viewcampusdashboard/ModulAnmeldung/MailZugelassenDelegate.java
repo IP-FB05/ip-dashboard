@@ -1,4 +1,4 @@
-package fhaachen.ip.viewcampusdashboard.ModulAnAbmeldung;
+package fhaachen.ip.viewcampusdashboard.ModulAnmeldung;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateVariableMapping;
@@ -6,7 +6,7 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.delegate.VariableScope;
 import org.camunda.bpm.engine.variable.VariableMap;
 
-public class MailFehlerDelegate implements JavaDelegate,DelegateVariableMapping {
+public class MailZugelassenDelegate implements JavaDelegate, DelegateVariableMapping {
 
 	String subjectString;
 	String messageString;

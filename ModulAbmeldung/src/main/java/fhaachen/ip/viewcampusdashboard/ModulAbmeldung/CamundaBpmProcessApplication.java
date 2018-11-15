@@ -1,4 +1,4 @@
-package fhaachen.ip.viewcampusdashboard.ModulAnAbmeldung;
+package fhaachen.ip.viewcampusdashboard.ModulAbmeldung;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,7 +14,7 @@ import org.camunda.bpm.engine.ProcessEngine;
 @ProcessApplication
 public class CamundaBpmProcessApplication extends ServletProcessApplication {
 
-  private static final String PROCESS_DEFINITION_KEY = "ModulAnAbmeldung";
+  private static final String PROCESS_DEFINITION_KEY = "ModulAbmeldung";
 
   /**
    * In a @PostDeploy Hook you can interact with the process engine and access 

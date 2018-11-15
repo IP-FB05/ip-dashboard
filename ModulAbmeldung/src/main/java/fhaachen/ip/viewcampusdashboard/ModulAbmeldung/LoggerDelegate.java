@@ -1,4 +1,4 @@
-package fhaachen.ip.viewcampusdashboard.ModulAnAbmeldung;
+package fhaachen.ip.viewcampusdashboard.ModulAbmeldung;
 
 import java.util.logging.Logger;
 

@@ -1,4 +1,4 @@
-package fhaachen.ip.viewcampusdashboard.ModulAnAbmeldung;
+package fhaachen.ip.viewcampusdashboard.ModulAbmeldung;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.DelegateVariableMapping;

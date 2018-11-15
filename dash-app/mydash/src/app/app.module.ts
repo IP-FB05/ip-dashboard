@@ -1,6 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
+import { MatDialogModule } from '@angular/material';
+import { MatCardModule} from '@angular/material';
+import { MatButtonModule} from '@angular/material';
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -23,6 +27,9 @@ import { DemoMaterialModule } from './material-module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { InMemoryDataService } from './in-memory-data.service';
 import { FilterComponent } from './filter/filter.component';
+import { DokumenteDialogComponent } from './dokumente-dialog/dokumente-dialog.component';
+import { SystemsDialogComponent } from './systems-dialog/systems-dialog.component';
+import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.component';
 
 
 
@@ -38,6 +45,9 @@ import { FilterComponent } from './filter/filter.component';
     DashboardComponent,
     DokumenteComponent,
     FilterComponent,
+    DokumenteDialogComponent,
+    SystemsDialogComponent,
+    ProcessesDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +56,9 @@ import { FilterComponent } from './filter/filter.component';
     BrowserAnimationsModule,
     DemoMaterialModule,
     HttpClientModule,
+    MatDialogModule,
+    MatCardModule,
+    MatButtonModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -56,6 +69,7 @@ import { FilterComponent } from './filter/filter.component';
 
     
   ],
+  entryComponents: [DokumenteDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
   providers: [],
   bootstrap: [AppComponent]
 })
