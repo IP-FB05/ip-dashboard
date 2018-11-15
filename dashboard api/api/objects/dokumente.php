@@ -20,7 +20,7 @@ class Dokumente{
 	function read(){
  
     // select all query
-    $query = "SELECT * FROM dokumente";
+    $query = "SELECT dokumentID, kategorie.name AS 'Kategoriename', dokumente.name, lastChanged, link FROM dokumente JOIN kategorie ON kategorie.kategorieID = dokumente.kategorieID;";
  
     // prepare query statement
     $stmt = $this->conn->prepare($query);
@@ -32,23 +32,50 @@ class Dokumente{
 	}
 	// create dokumente
 	function create(){
-	 
+     
+        $queryKategorieNameSelect = "SELECT kategorieID FROM kategorie WHERE name LIKE ?";
+
+        $stmt2 = $this->conn->prepare($queryKategorieNameSelect);
+
+        $stmt2->bindParam(1, $this->KategorieName);
+ 
+        // execute query
+        $stmt2->execute();
+
+        $num2 = $stmt2->rowCount();
+        $katID = 0;
+
+        // check if more than 0 record found
+        if($num2>0){
+            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $katID = $row2['kategorieID'];
+        }
+        else {
+            $queryInsert = "INSERT INTO kategorie SET name=:KategorieName";
+            $stmt3 = $this->conn->prepare($queryInsert);
+            $this->KategorieName=htmlspecialchars(strip_tags($this->KategorieName));
+            $stmt3->bindParam(":KategorieName", $this->KategorieName);
+            $stmt3->execute();
+
+            $stmt2->execute();
+            $row2 = $stmt2->fetch(PDO::FETCH_ASSOC);
+            $katID = $row2['kategorieID'];
+        }
+
+        echo $katID;
 		// query to insert record
-		$query = "INSERT INTO dokumente SET kategorieID=:kategorieID, name=:name, lastChanged=:lastChanged, link=:link";
+		$query = "INSERT INTO dokumente SET kategorieID=:kategorieID, name=:name, lastChanged=CURDATE(), link=:link";
 	 
 		// prepare query
 		$stmt = $this->conn->prepare($query);
 	 
 		// sanitize
-		$this->kategorieID=htmlspecialchars(strip_tags($this->kategorieID));
 		$this->name=htmlspecialchars(strip_tags($this->name));
-		$this->lastChanged=htmlspecialchars(strip_tags($this->lastChanged));
 		$this->link=htmlspecialchars(strip_tags($this->link));
 	 
 		// bind values
-		$stmt->bindParam(":kategorieID", $this->kategorieID);
+		$stmt->bindParam(":kategorieID", $katID);
 		$stmt->bindParam(":name", $this->name);
-		$stmt->bindParam(":lastChanged", $this->lastChanged);
 		$stmt->bindParam(":link", $this->link);
 	 
 		// execute query

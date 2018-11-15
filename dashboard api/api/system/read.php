@@ -22,7 +22,7 @@ if($num>0){
  
     // products array
     $system_arr=array();
-    $systems_arr["systems"]=array();
+    $systems_arr["system"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -40,7 +40,7 @@ if($num>0){
             "name" => $name
         );
  
-        array_push($systems_arr["systems"], $system_item);
+        array_push($systems_arr["system"], $system_item);
     }
  
     // set response code - 200 OK

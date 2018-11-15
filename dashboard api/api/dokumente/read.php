@@ -13,14 +13,14 @@ $db = $database->getConnection();
  
 // initialize object
 $dokumente = new Dokumente($db);
-// query products
+// query dokumente
 $stmt = $dokumente->read();
 $num = $stmt->rowCount();
  
 // check if more than 0 record found
 if($num>0){
  
-    // products array
+    // dokumente array
     $dokument_arr=array();
     $dokumente_arr["dokumente"]=array();
  
@@ -35,7 +35,7 @@ if($num>0){
  
         $dokument_item=array(
             "dokumentID" => $dokumentID,
-			"kategorieID" => $kategorieID,
+			"Kategoriename" => $Kategoriename,
 			"name" => $name,
 			"lastChanged" => $lastChanged,
 			"link" => $link,
@@ -47,7 +47,7 @@ if($num>0){
     // set response code - 200 OK
     http_response_code(200);
  
-    // show products data in json format
+    // show dokumente data in json format
     echo json_encode($dokumente_arr);
 }
 else{
