@@ -24,8 +24,10 @@ CREATE TABLE `prozesse` (
   `prozessID` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   `beschreibung` varchar(5000) NOT NULL,
-  `bpmn` longblob NOT NULL,
+  `bild` longblob NOT NULL,
   `subs` int(11) DEFAULT NULL,
+  `var` varchar(200) DEFAULT NULL,
+  `bpmn` varchar(200) NOT NULL,
   PRIMARY KEY (`prozessID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
