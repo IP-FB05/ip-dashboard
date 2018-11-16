@@ -20,7 +20,8 @@
     width: 25px;
     height: 25px;
     line-height: 10px;
-    border: 1.5px solid#b7b7b7;
-    color:#b7b7b7;
+    border: 1.5px solid#646b70;
+    color:white;
+    background:#646b70;
     font-weight:500;
 }
