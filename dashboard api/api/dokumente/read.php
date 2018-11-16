@@ -22,7 +22,6 @@ if($num>0){
  
     // dokumente array
     $dokument_arr=array();
-    $dokumente_arr["dokumente"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -41,14 +40,14 @@ if($num>0){
 			"link" => $link,
         );
  
-        array_push($dokumente_arr["dokumente"], $dokument_item);
+        array_push($dokument_arr, $dokument_item);
     }
  
     // set response code - 200 OK
     http_response_code(200);
  
     // show dokumente data in json format
-    echo json_encode($dokumente_arr);
+    echo json_encode($dokument_arr);
 }
 else{
  

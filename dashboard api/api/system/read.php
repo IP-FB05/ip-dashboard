@@ -22,7 +22,6 @@ if($num>0){
  
     // products array
     $system_arr=array();
-    $systems_arr["system"]=array();
  
     // retrieve our table contents
     // fetch() is faster than fetchAll()
@@ -40,14 +39,14 @@ if($num>0){
             "name" => $name
         );
  
-        array_push($systems_arr["system"], $system_item);
+        array_push($system_arr, $system_item);
     }
  
     // set response code - 200 OK
     http_response_code(200);
  
     // show products data in json format
-    echo json_encode($systems_arr);
+    echo json_encode($system_arr);
 }
 else{
  
