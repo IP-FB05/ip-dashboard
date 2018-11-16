@@ -1,6 +1,6 @@
 export class System{
-    id: number;
+    systemID: number;
     name: string;
-    desc: string;
-    link: URL;
+    beschreibung: string;
+    link: string;
 } 

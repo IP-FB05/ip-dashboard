@@ -24,8 +24,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
 
 import { DemoMaterialModule } from './material-module';
 
-import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
-import { InMemoryDataService } from './in-memory-data.service';
+// import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
+// import { InMemoryDataService } from './in-memory-data.service';
 import { FilterComponent } from './filter/filter.component';
 import { DokumenteDialogComponent } from './dokumente-dialog/dokumente-dialog.component';
 import { SystemsDialogComponent } from './systems-dialog/systems-dialog.component';
@@ -63,9 +63,9 @@ import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.co
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
     // Remove it when a real server is ready to receive requests.
-    HttpClientInMemoryWebApiModule.forRoot(
-      InMemoryDataService, { dataEncapsulation: false }
-    )
+    // HttpClientInMemoryWebApiModule.forRoot(
+    //   InMemoryDataService, { dataEncapsulation: false }
+    // )
 
     
   ],

@@ -26,7 +26,7 @@ export class DokumentService {
   getDokumente(): Observable<Dokument[]> {
     // TODO: send the message _after_ fetching the dokumente
     this.messageService.add('DokumentService: fetched dokumente');
-    return this.http.get<Dokument[]>(this.dokumenteUrl)
+    return this.http.get<Dokument[]>("http://localhost/api/dokumente/read.php")
       .pipe(
         tap(_ => this.log('fetched dokumente')),
         catchError(this.handleError('getDokkumente', []))
@@ -74,7 +74,7 @@ searchDokument(term: string): Observable<Dokument[]> {
 // PUT: update the dokumente on the server */
 updateDokument(dokument: Dokument): Observable<any> {
   return this.http.put(this.dokumenteUrl, dokument, httpOptions).pipe(
-    tap(_ => this.log(`updated dokument id=${dokument.id}`)),
+    tap(_ => this.log(`updated dokument id=${dokument.dokumentID}`)),
     catchError(this.handleError<any>('updateDokument'))
   );
 }
@@ -82,14 +82,14 @@ updateDokument(dokument: Dokument): Observable<any> {
 // POST: add a new dokument to the server */
 addDokument(dokument: Dokument): Observable<Dokument> {
   return this.http.post<Dokument>(this.dokumenteUrl, dokument, httpOptions).pipe(
-    tap((Dokument: Dokument) => this.log(`added dokument w/ id=${dokument.id}`)),
+    tap((Dokument: Dokument) => this.log(`added dokument w/ id=${dokument.dokumentID}`)),
     catchError(this.handleError<Dokument>('addDokument'))
   );
 }
 
 /** DELETE: delete the Dokument from the server */
 deleteDokument(dokument: Dokument | number): Observable<Dokument> {
-  const id = typeof dokument === 'number' ? dokument : dokument.id;
+  const id = typeof dokument === 'number' ? dokument : dokument.dokumentID;
   const url = `${this.dokumenteUrl}/${id}`;
 
   return this.http.delete<Dokument>(url, httpOptions).pipe(

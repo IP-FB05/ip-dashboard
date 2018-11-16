@@ -22,16 +22,14 @@ $data = json_decode(file_get_contents("php://input"));
  
 // make sure data is not empty
 if(
-	!empty($data->kategorieID) &&
+	!empty($data->KategorieName) &&
     !empty($data->name) &&
-    !empty($data->lastChanged) &&
     !empty($data->link)
 ){
  
     // set dokumente property values
-	$dokumente->kategorieID = $data->kategorieID;
+	$dokumente->KategorieName = $data->KategorieName;
     $dokumente->name = $data->name;
-    $dokumente->lastChanged = $data->lastChanged;
     $dokumente->link = $data->link;
  
     // create the system
