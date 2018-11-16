@@ -65,4 +65,36 @@ public class StudentServices {
 		return result;
 	}
 	
+	@RequestMapping("/pruefungAnmelden/{matrikelnr}/{fachnr}")
+	public boolean pruefungAnmelden(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.pruefungAnmelden(matrikelnr, fachnr);
+		amt.close();
+		return result;
+	}
+
+	@RequestMapping("/pruefungAbmelden/{matrikelnr}/{fachnr}")
+	public boolean pruefungAbmelden(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.pruefungAbmelden(matrikelnr, fachnr);
+		amt.close();
+		return result;
+	}
+
+	@RequestMapping("/pruefungAnmeldenVoraussetzungen/{matrikelnr}/{fachnr}")
+	public boolean pruefungAnmeldenVoraussetzungen(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.pruefungAnmeldenVoraussetzungen(matrikelnr, fachnr);
+		amt.close();
+		return result;
+	}
+
+	@RequestMapping("/pruefungAbmeldenVoraussetzungen/{matrikelnr}/{fachnr}")
+	public boolean pruefungAbmeldenVoraussetzungen(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.pruefungAbmeldenVoraussetzungen(matrikelnr, fachnr);
+		amt.close();
+		return result;
+	}
+	
 }

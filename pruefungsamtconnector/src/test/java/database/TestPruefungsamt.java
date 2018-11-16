@@ -43,6 +43,24 @@ public class TestPruefungsamt {
 		// Student 2 hat GIP bestanden
 		assertTrue(pa.praktikumBestanden(2, 51104));
 	}
+	
+	@Test
+	public void pruefungAnmeldenVoraussetzungen() throws SQLException {
+		// Student 1 hat alle 3 Versuche aufgebraucht
+		assertFalse(pa.pruefungAnmeldenVoraussetzungen(1, 55603));
+		// Student 1 hat die Prüfung bereits angemeldet
+		assertFalse(pa.pruefungAnmeldenVoraussetzungen(1, 55606));
+		// Student 1 Prüfung kann angemeldet werden
+		assertTrue(pa.pruefungAnmeldenVoraussetzungen(1, 55607));
+	}
+
+	@Test
+	public void pruefungAbmeldenVoraussetzungen() throws SQLException {
+		// Student 1 hat die Prüfung nicht angemeldet
+		assertFalse(pa.pruefungAbmeldenVoraussetzungen(1, 55607));
+		// Student 1 kann die Prüfung anmelden
+		assertTrue(pa.praktikumBestanden(1, 55606));
+	}
 
 	@After
 	public void tearDown() throws SQLException {

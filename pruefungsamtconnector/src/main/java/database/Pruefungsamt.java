@@ -196,7 +196,111 @@ public class Pruefungsamt {
 		return false;
 	}
 	
-	
+	public boolean pruefungAnmelden(int matrikelnr, int fachnr) throws SQLException {
+  		//erfrage die anzahl der bereits durchgeführten Versuche
+		preparedStatement = connect.prepareStatement("select ps.status from student s \n" +
+				"\tjoin pruefung_student ps on s.matrikelnr = ps.student\n" +
+				"    join pruefungen p on ps.pruefung = p.pruefungsnr\n" +
+				"    where s.matrikelnr = ? and p.modulnr = ?");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, fachnr);
+		resultSet = preparedStatement.executeQuery();
+		int anzversuche = 0;
+		while (resultSet.next()) {
+			anzversuche++;
+		}
+		if(anzversuche >= 3){
+			return false;
+		}
+		preparedStatement.clearParameters();
+		String pruefungsnr = fachnr + "" + (anzversuche + 1);
+		preparedStatement = connect.prepareStatement("insert into pruefung_student (student, pruefung, status) values (?,?,\"angemeldet\");");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, Integer.parseInt(pruefungsnr));
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean pruefungAbmelden(int matrikelnr, int fachnr) throws SQLException {
+		//erfrage die anzahl der bereits durchgeführten Versuche
+		preparedStatement = connect.prepareStatement("select ps.status from student s \n" +
+				"\tjoin pruefung_student ps on s.matrikelnr = ps.student\n" +
+				"    join pruefungen p on ps.pruefung = p.pruefungsnr\n" +
+				"    where s.matrikelnr = ? and p.modulnr = ?");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, fachnr);
+		resultSet = preparedStatement.executeQuery();
+		int anzversuche = 0;
+		while (resultSet.next()) {
+			anzversuche++;
+		}
+
+		preparedStatement.clearParameters();
+		String pruefungsnr = fachnr + "" + (anzversuche);
+		preparedStatement = connect.prepareStatement("delete from pruefung_student where student = ? and pruefung = ?");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, Integer.parseInt(pruefungsnr));
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean pruefungAnmeldenVoraussetzungen(int matrikelnr, int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement("select ps.status from student s \n" +
+				"\tjoin pruefung_student ps on s.matrikelnr = ps.student\n" +
+				"    join pruefungen p on ps.pruefung = p.pruefungsnr\n" +
+				"    where s.matrikelnr = ? and p.modulnr = ?");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, fachnr);
+		resultSet = preparedStatement.executeQuery();
+
+		boolean zulassung = true;
+		int anzversuche = 0;
+		while (resultSet.next()) {
+			anzversuche++;
+			String status = resultSet.getString("status");
+			if (status.equals("bestanden")){
+				zulassung = false;
+			}
+			if (status.equals("angemeldet")){
+				zulassung = false;
+			}
+
+		}
+		if(anzversuche >= 3){
+			zulassung = false;
+		}
+
+		return zulassung;
+	}
+
+	public boolean pruefungAbmeldenVoraussetzungen(int matrikelnr, int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement("select ps.status from student s \n" +
+				"\tjoin pruefung_student ps on s.matrikelnr = ps.student\n" +
+				"    join pruefungen p on ps.pruefung = p.pruefungsnr\n" +
+				"    where s.matrikelnr = ? and p.modulnr = ?");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, fachnr);
+		resultSet = preparedStatement.executeQuery();
+
+		boolean zulassung = false;
+
+		while (resultSet.next()) {
+			String status = resultSet.getString("status");
+			if (status.equals("angemeldet")){
+				zulassung = true;
+			}
+			else{
+				zulassung = false;
+			}
+
+		}
+
+
+		return zulassung;
+	}
+
 	
 	
 	
