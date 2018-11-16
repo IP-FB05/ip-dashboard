@@ -40,7 +40,7 @@ body {
 }
 
 .card-header {
-   background-color: #00b5ad;
+   background-color: #0b1921d1;
 }
 
 .card-header h4 {
@@ -105,7 +105,7 @@ a:active {
 
 .btn-secondary {
     background-color: #00b5ad;
-    border-color: #00b5ad;
+    border: #00b5ad;
 }
 
 .btn-outline-primary {
@@ -179,7 +179,7 @@ h2 {
     color: white;
     text-align: center;
     text-decoration: none;
-    background: #dcdcdc;
+    background: rgba(11, 25, 33, 0.25);
     border-color:transparent;
     font-size:100px;
     font-weight:300;
@@ -199,3 +199,8 @@ h2 {
     margin-left: 15px;}
 
 .btn-sm {float: left;}
+
+.form-control {
+    font-size: 14px;
+}
+

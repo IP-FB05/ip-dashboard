@@ -1,3 +1,38 @@
 h2 {
     color:black;
 }
+
+.abbrechen-btn {
+    background:#bf4848;
+    color:white;
+    font-weight:400;
+}
+
+.bestaetigen-btn {
+    background:#00b5ad;
+    color:white;
+    font-weight:400;
+}
+
+.collapse-btn {
+    background:none;
+    color: #007a71;
+    font-weight: 400;
+    font-size:16px !important;
+    padding-left:0;
+    
+}
+
+.collapse-btn:focus {outline: none;}
+.collapse-btn:active {box-shadow:none;}
+
+.mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+
+.collapse-body {
+    border:none;
+    padding-left:0;
+    padding-right:0;
+}
+
