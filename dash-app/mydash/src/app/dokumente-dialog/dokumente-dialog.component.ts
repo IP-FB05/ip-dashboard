@@ -1,5 +1,7 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Dokument } from '../dokument';
 
 @Component({
   selector: 'app-dokumente-dialog',
@@ -8,15 +10,34 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 })
 export class DokumenteDialogComponent implements OnInit {
 
+  form: FormGroup;
+  dokumentID: number;
+  Kategoriename: string;
+  name: string;
+  lastChanged: string;
+  link: string;
+
+
   constructor(
+    public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DokumenteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: string) { }
+    @Inject(MAT_DIALOG_DATA)  {dokumentID, Kategoriename, name, lastChanged, link }: Dokument) { 
+
+      this.form = this.fb.group({
+        dokumentID: 0,
+        Kategoriename: [this.Kategoriename, []],
+        name: [this.name, []],
+        lastChanged: "Now",
+        // TODO
+        link: "Placeholder until Fileserver"
+      });
+    }
 
   ngOnInit() {
   }
 
   onCloseConfirm() {
-    this.thisDialogRef.close('Confirm');
+    this.thisDialogRef.close(this.form.value);
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');

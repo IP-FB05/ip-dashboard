@@ -20,13 +20,6 @@ $dokumente = new Dokumente($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
  
-// make sure data is not empty
-if(
-	!empty($data->KategorieName) &&
-    !empty($data->name) &&
-    !empty($data->link)
-){
- 
     // set dokumente property values
 	$dokumente->KategorieName = $data->KategorieName;
     $dokumente->name = $data->name;
@@ -51,15 +44,4 @@ if(
         // tell the user
         echo json_encode(array("message" => "Unable to create dokumente."));
     }
-}
- 
-// tell the user data is incomplete
-else{
- 
-    // set response code - 400 bad request
-    http_response_code(400);
- 
-    // tell the user
-    echo json_encode(array("message" => "Unable to create dokumente. Data is incomplete."));
-}
 ?>

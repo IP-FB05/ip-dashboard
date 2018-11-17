@@ -20,13 +20,6 @@ $system = new System($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
  
-// make sure data is not empty
-if(
-    !empty($data->name) &&
-    !empty($data->beschreibung) &&
-    !empty($data->link)
-){
- 
     // set system property values
     $system->name = $data->name;
     $system->beschreibung = $data->beschreibung;
@@ -51,15 +44,5 @@ if(
         // tell the user
         echo json_encode(array("message" => "Unable to create system."));
     }
-}
- 
-// tell the user data is incomplete
-else{
- 
-    // set response code - 400 bad request
-    http_response_code(400);
- 
-    // tell the user
-    echo json_encode(array("message" => "Unable to create system. Data is incomplete."));
-}
+
 ?>

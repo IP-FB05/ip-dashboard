@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dokument } from '../dokument';
 import { DokumentService } from '../dokument.service';
-import { MatDialog } from '@angular/material'
+import { MatDialog, MatDialogConfig } from '@angular/material'
 import { DokumenteDialogComponent } from '../dokumente-dialog/dokumente-dialog.component';
 
 
@@ -27,12 +27,11 @@ export class DokumenteComponent implements OnInit {
       .subscribe(dokumente => this.dokumente = dokumente);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.dokumenteService.addDokument({ name } as Dokument)
+  add(doc : Dokument): void {
+    this.dokumenteService.addDokument(doc)
       .subscribe(dokument => {
         this.dokumente.push(dokument);
+        this.getDokumente();
       });
   }
 
@@ -43,13 +42,24 @@ export class DokumenteComponent implements OnInit {
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(DokumenteDialogComponent, {
-      width: '800px',
-      height: '600px',
-      //data: 'Test!'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      dokumentID: 0,
+      Kategoriename: "",
+      name: "",
+      lastChanged: "Now",
+      // TODO
+      link: "Placeholder bis Fileserver"
+    };
+
+    let dialogRef = this.dialog.open(DokumenteDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+      this.add(data);
     });
   }
 

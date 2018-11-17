@@ -17,7 +17,7 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let dokument of dokumente">
-                        <td>{{dokument.name}}</td>
+                        <td><a href={{dokument.link}} style="color: black">{{dokument.name}}</a></td>
                         <td>{{dokument.Kategoriename}}</td>
                         <td>{{dokument.lastChanged}}</td>
                         <td><button class="delete-dark" title="delete dokument" (click)="delete(dokument)">x</button></td>

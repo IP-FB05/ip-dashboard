@@ -10,7 +10,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ProcessesComponent } from './processes/processes.component';
 
-import { FormsModule } from '@angular/forms';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process-detail/process-detail.component';
@@ -19,8 +18,7 @@ import { SystemsComponent } from './systems/systems.component';
 import { DokumenteComponent } from './dokumente/dokumente.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // <-- NgModel lives here
-
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { DemoMaterialModule } from './material-module';
 
@@ -53,6 +51,7 @@ import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.co
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     DemoMaterialModule,
     HttpClientModule,

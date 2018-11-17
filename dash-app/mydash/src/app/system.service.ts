@@ -70,7 +70,6 @@ export class SystemService {
     );
   }
 
-
   // PUT: update the systems on the server */
   updateSystem(system: System): Observable<any> {
     return this.http.put(this.systemsUrl, system, httpOptions).pipe(
@@ -81,23 +80,20 @@ export class SystemService {
 
   // POST: add a new system to the server */
   addSystem(system: System): Observable<System> {
-    return this.http.post<System>(this.systemsUrl, system, httpOptions).pipe(
-      tap((System: System) => this.log(`added system w/ id=${system.systemID}`)),
+    if(!system.name || system.name == "" || !system.beschreibung || system.beschreibung == "" || !system.link || system.link == "") { return; }
+    return this.http.post<System>("http://localhost:80/api/system/create.php", system, httpOptions).pipe(
+      tap(_ => this.log(`added system w/ id=${system.systemID}`)),
       catchError(this.handleError<System>('addSystem'))
     );
   }
 
   /** DELETE: delete the System from the server */
-  deleteSystem(system: System | number): Observable<System> {
-    const id = typeof system === 'number' ? system : system.systemID;
-    const url = `${this.systemsUrl}/${id}`;
-
-    return this.http.delete<System>(url, httpOptions).pipe(
-      tap(_ => this.log(`deleted system id=${id}`)),
+  deleteSystem(system: System): Observable<System> {
+    return this.http.post<System>("http://localhost:80/api/system/delete.php", system, httpOptions).pipe(
+      tap(_ => this.log(`deleted system id=${system.systemID}`)),
       catchError(this.handleError<System>('deleteSystem'))
     );
   }
-
 
   private log(message: string) {
     this.messageService.add(`SystemService: ${message}`);

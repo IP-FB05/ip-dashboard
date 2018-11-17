@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { System } from '../system';
 import { SystemService } from '../system.service';
-import { MatDialog } from '@angular/material'
+import { MatDialog, MatDialogConfig } from '@angular/material'
 import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.component';
 
 @Component({
@@ -24,15 +24,13 @@ export class SystemsComponent implements OnInit {
       .subscribe(systems => this.systems = systems);
   }
 
-  add(name: string): void {
-    name = name.trim();
-    if(!name) { return; }
-      this.systemService.addSystem({ name } as System)
+  add(sys: System): void {
+      this.systemService.addSystem(sys)
       .subscribe(system => {
         this.systems.push(system);
+        this.getSystems();
       });
   }
-  
   
   delete (system: System): void {
     this.systems = this.systems.filter(s => s !== system);
@@ -40,13 +38,22 @@ export class SystemsComponent implements OnInit {
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(SystemsDialogComponent, {
-      width: '800px',
-      height: '600px',
-      //data: 'Test!'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      systemID: 0,
+      name: "",
+      beschreibung: "",
+      link: ""
+    };
+
+    let dialogRef = this.dialog.open(SystemsDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+      this.add(data);
     });
   }
 

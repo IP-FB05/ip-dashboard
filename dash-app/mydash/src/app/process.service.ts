@@ -70,7 +70,6 @@ export class ProcessService {
     );
   }
 
-
   // PUT: update the process on the server */
   updateProcess(process: Process): Observable<any> {
     return this.http.put(this.processesUrl, process, httpOptions).pipe(

@@ -1,20 +1,21 @@
 <div>
-    <h2>System hinzufügen</h2>
+    <h2 mat-dialog-title>System hinzufügen</h2>
     <hr>
-    <mat-dialog-content>
-        <form>
-            <div class="form-group">
-
-                <label for="name"></label>
-                <input type="text" class="form-control" id="Name" placeholder="Name">
-
+    <mat-dialog-content [formGroup]="form">
+        <mat-form-field>
+            <label for="name"></label>
+            <input matInput placeholder="Name" formControlName="name">
+        </mat-form-field>
+        <hr>
+        <mat-form-field>
                 <label for="beschreibung"></label>
-                <input type="text" class="form-control" id="Beschreibung" placeholder="Beschreibung">
-
+                <input matInput placeholder="Beschreibung" formControlName="beschreibung">
+        </mat-form-field>
+        <hr>
+        <mat-form-field>
                 <label for="link"></label>
-                <input type="text" class="form-control" id="Link" placeholder="Link">
-            </div>
-        </form>
+                <input matInput placeholder="Link" formControlName="link">
+        </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-raised-button (click)="onCloseConfirm()" class="bestaetigen-btn"> <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
