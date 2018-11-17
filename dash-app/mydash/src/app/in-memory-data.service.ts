@@ -53,9 +53,11 @@ export class InMemoryDataService implements InMemoryDbService {
 
        
     }
+    /*
     genId<T extends Process | System | Dokument>(myTable: T[]): number {
         return myTable.length > 0 ? Math.max(...myTable.map(t => t.id)) + 1 : 11;
     }
+    */
 
 
 }
