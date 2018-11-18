@@ -143,30 +143,47 @@ public class Pruefungsamt {
 	public boolean changeModulregister(int matrikelnr, int fachnr, int boolAnmeldung) throws SQLException {
 		if(boolAnmeldung == 1) {
 			preparedStatement = connect.prepareStatement(
-					"INSERT INTO `pruefungsamt`.`module_student` (`modul`, `student`)" +
-					"VALUES (?, ?);");
+					"INSERT INTO `pruefungsamt`.`module_student` (`modul`, `student`) " +
+					"VALUES (?, ?) ON DUPLICATE KEY UPDATE modul=modul;");
 			preparedStatement.setInt(1, fachnr);
 			preparedStatement.setInt(2, matrikelnr);
 		} else {
 			preparedStatement = connect.prepareStatement(
-					"DELETE FROM `pruefungsamt`.`module_student`" +
+					"DELETE FROM `pruefungsamt`.`module_student` " +
 					"WHERE (`modul` = ?) and (`student` = ?);");
 			preparedStatement.setInt(1, fachnr);
 			preparedStatement.setInt(2, matrikelnr);
 		}
 		 
-		resultSet = preparedStatement.executeQuery();
+		int resultInt = preparedStatement.executeUpdate();
 		
-		if(resultSet.first()) {
+		if(resultInt == 1) {
 			return true;
 		}
 		return false;
 	}
 	
+	
+	public int getModulSemester(int fachnr, int studiengang) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+		        "select semester from module_studiengang " + 
+		        "where modul = ? and studiengang = ?");
+		
+	    preparedStatement.setInt(1, fachnr);
+	    preparedStatement.setInt(2, studiengang);
+	    
+	    resultSet = preparedStatement.executeQuery();
+	    if(resultSet.first()) {
+	      return resultSet.getInt(1);
+	    }
+	    return 0;
+	    
+	}
+	
 	//needed for tests
 	public boolean getModulStudent(int matrikelnr, int fachnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
-				"SELECT * FROM pruefungsamt.module_student" +
+				"SELECT * FROM pruefungsamt.module_student " +
 				"WHERE `modul` = ? AND `student` = ?;");
 		preparedStatement.setInt(1, fachnr);
 		preparedStatement.setInt(2, matrikelnr);
@@ -309,6 +326,8 @@ public class Pruefungsamt {
 	public void close() throws SQLException {
 		connect.close();
 	}
+
+	
 
 
 }

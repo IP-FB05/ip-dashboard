@@ -65,6 +65,15 @@ public class StudentServices {
 		return result;
 	}
 	
+	@RequestMapping("/modulFachsemester/{fachnr}/{studiengang}")
+	public int getmodulFachsemester(@PathVariable int fachnr, @PathVariable int studiengang) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		int result = amt.getModulSemester(fachnr,studiengang);
+		amt.close();
+		return result;
+	}
+	
+	
 	@RequestMapping("/pruefungAnmelden/{matrikelnr}/{fachnr}")
 	public boolean pruefungAnmelden(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();

@@ -61,6 +61,27 @@ public class TestPruefungsamt {
 		// Student 1 kann die Prüfung anmelden
 		assertTrue(pa.praktikumBestanden(1, 55606));
 	}
+	
+	
+	@Test
+	public void testGetModulSemester() throws SQLException {
+		// Modul 52106 in Studiengang 1 ist im 2. Semester
+		assertEquals(2,pa.getModulSemester(52106,1));
+		// Es gibt kein Modul 333 in Studiengang 2
+		assertEquals(0,pa.getModulSemester(333,2));
+	}
+	
+	@Test
+	public void testSetModulRegister() throws SQLException {
+		// Modul 55623 von Student 1 wird angemeldet
+		assertTrue(pa.changeModulregister(1, 55623,1));
+		assertTrue(pa.getModulStudent(1, 55623));
+		// Modul 55623 von Student 1 wird geloescht
+		assertTrue(pa.changeModulregister(1, 55623,0)); //true falls vorhanden
+		assertFalse(pa.getModulStudent(1, 55623));
+		
+	}
+	
 
 	@After
 	public void tearDown() throws SQLException {
