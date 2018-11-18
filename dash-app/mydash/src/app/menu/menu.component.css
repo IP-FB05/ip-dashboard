@@ -66,7 +66,7 @@ background:#0b1a22 !important;
   color: white;
 }
 
-.mat-list-item:hover {background-color:white; }
+.mat-list-item:hover {background-color:white; margin:0; padding:0;}
 .mat-nav-list[_ngcontent-c1] .mat-list-item[_ngcontent-c1]:hover {
   color: #00b5ad;
   border-left: 10px solid #00b5ad;
@@ -76,3 +76,4 @@ background:#0b1a22 !important;
   caret-color: #ffffff;
   
 }
+

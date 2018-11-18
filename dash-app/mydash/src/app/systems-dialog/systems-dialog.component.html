@@ -1,18 +1,18 @@
-<div>
+<div style="padding:10px 5px 25px 5px;">
     <h2 mat-dialog-title>System hinzufügen</h2>
     <hr>
-    <mat-dialog-content [formGroup]="form">
-        <mat-form-field>
+    <mat-dialog-content [formGroup]="form" >
+        <mat-form-field style="width:600px; height:auto;">
             <label for="name"></label>
             <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
         <hr>
-        <mat-form-field>
+        <mat-form-field style="width:600px; height:auto;">
                 <label for="beschreibung"></label>
                 <input matInput placeholder="Beschreibung" formControlName="beschreibung">
         </mat-form-field>
         <hr>
-        <mat-form-field>
+        <mat-form-field style="width:600px; height:auto;">
                 <label for="link"></label>
                 <input matInput placeholder="Link" formControlName="link">
         </mat-form-field>
