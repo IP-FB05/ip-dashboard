@@ -10,5 +10,7 @@ public class ConfigTest {
 	@Test
 	public void testGetConfig() throws SQLException {
 		assertEquals(Config.getConfig("testkey"), "testvalue");
+		assertNotNull(Config.getConfig(Config.REST_PASS));
+		assertNotNull(Config.getConfig(Config.REST_USER));
 	}
 }

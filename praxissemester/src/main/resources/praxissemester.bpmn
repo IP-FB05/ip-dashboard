@@ -32,13 +32,30 @@
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="SequenceFlow_0mt4sry" sourceRef="StartEvent_0i02qof" targetRef="Task_0xb1qj8" />
     <bpmn:sequenceFlow id="SequenceFlow_0a3sb8m" name="ja" sourceRef="ExclusiveGateway_0b81986" targetRef="Task_0idg5ld">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${zugelassen}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${credits &gt;= 90}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1lhrc7v" sourceRef="Task_0xb1qj8" targetRef="ExclusiveGateway_0b81986" />
     <bpmn:sequenceFlow id="SequenceFlow_0vqzwi5" name="nein" sourceRef="ExclusiveGateway_0b81986" targetRef="Task_03ascw7">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">!${zugelassen}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">!${credits &lt; 90}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:serviceTask id="Task_0xb1qj8" name="prüfe Zulassung" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8080/credits/${matrikelnr}
+</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+                <camunda:entry />
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="credits" />
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0mt4sry</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1lhrc7v</bpmn:outgoing>
       <bpmn:property id="Property_1wz4ts5" name="__targetRef_placeholder" />
