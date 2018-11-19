@@ -172,7 +172,7 @@ public class Pruefungsamt {
 		}
 		return false;
 	}
-	
+	//Output: Semester in welchem ein Modul angeboten wird in welchem Studiengang
 	public int getModulSemester(int fachnr, int studiengang) throws SQLException {
 		preparedStatement = connect.prepareStatement(
 		        "select semester from module_studiengang " + 
@@ -188,7 +188,7 @@ public class Pruefungsamt {
 	    return 0;
 	    
 	}
-	//needed for tests
+	//needed for tests Output: Bool ob Student in diesem Modul angemeldet ist
 	public boolean getModulStudent(int matrikelnr, int fachnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
 				"SELECT * FROM pruefungsamt.module_student " +
@@ -203,9 +203,9 @@ public class Pruefungsamt {
 		}
 		return false;
 	}
-	
+	// output: alle angemeldeten module eines Studenten
 	public boolean getModulStudent(int matrikelnr) throws SQLException {
-		preparedStatement = connect.prepareStatement(
+		/*preparedStatement = connect.prepareStatement(
 				"SELECT modul,modultext FROM pruefungsamt.module_student" +
 				"INNER JOIN `pruefungsamt`.`module`"
 				+ "ON `pruefungsamt`.`module_student`.modul = `pruefungsamt`.`module`.modulnr"
@@ -217,7 +217,13 @@ public class Pruefungsamt {
 		if(resultSet.first()) {
 			return true;
 		}
+		return false;*/
+		
+		//TODO Muss mit json ueberarbeitet werden
+		
 		return false;
+		
+		
 	}
 	
 	public boolean pruefungAnmelden(int matrikelnr, int fachnr) throws SQLException {
