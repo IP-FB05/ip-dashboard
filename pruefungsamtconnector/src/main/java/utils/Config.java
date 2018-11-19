@@ -1,7 +1,10 @@
 package utils;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
@@ -23,23 +26,21 @@ public class Config {
 	}
 	
 	private static void openConfig() {
-		File file = null;
-		Scanner scanner = null;
 		try {
-			file = new File(ClassLoader.getSystemResource("pruefungsamt.conf").getFile());
-			scanner = new Scanner(file);
+			InputStream confFile = Thread.currentThread().getContextClassLoader().getResourceAsStream("pruefungsamt.conf");
+			InputStreamReader isr = new InputStreamReader(confFile);
+			BufferedReader br = new BufferedReader(isr);
+			if(confFile == null) {
+				System.out.println("hier");
+				throw new Exception();
+			}
 			configMap = new HashMap<String, String>();
 			String line;
-			while(scanner.hasNextLine()) {
-				line = scanner.nextLine();
+			while((line = br.readLine()) != null) {
 				configMap.put(line.split(":")[0], line.split(":")[1]);
 			}
-		} catch (FileNotFoundException e) {
+		} catch (Exception e) {
 			System.out.println("pruefungsamt.conf konnte nicht gefunden werden unter src/main/resources. Diese musst du selber anlegen!");
-		}finally {
-			if(scanner != null) {
-				scanner.close();
-			}
 		}
 	}
 }
