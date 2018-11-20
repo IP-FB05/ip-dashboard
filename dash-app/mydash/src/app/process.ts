@@ -5,4 +5,5 @@ export class Process {
     bild: string;
     varDatei: string;
     bpmn: string;
+    added: string;
 } 

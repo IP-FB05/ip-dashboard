@@ -148,7 +148,7 @@ public class Dashboard {
 			resultSet.first();
 			for(int i = 0; i < rowNumber; i++)
 			{
-				prozess[i] = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"));
+				prozess[i] = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"), resultSet.getString("added"));
 				resultSet.next();
 			}
 			return prozess;
@@ -163,7 +163,7 @@ public class Dashboard {
 	  	resultSet = preparedStatement.executeQuery();
 		if(resultSet.first())
 		{
-			Prozess prozess = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"));
+			Prozess prozess = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"), resultSet.getString("added"));
 			return prozess;
 		}
 	  	return null;
@@ -171,7 +171,7 @@ public class Dashboard {
 	
 	public boolean addProzess(Prozess input) throws SQLException, ClassNotFoundException
 	{
-		preparedStatement = connect.prepareStatement("INSERT INTO prozesse (name, beschreibung, bild, varDatei, bpmn) VALUES (?, ?, ?, ?, ?)");
+		preparedStatement = connect.prepareStatement("INSERT INTO prozesse (name, beschreibung, bild, varDatei, bpmn, added) VALUES (?, ?, ?, ?, ?, CURDATE())");
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getBeschreibung());
 		preparedStatement.setString(3, input.getBild());

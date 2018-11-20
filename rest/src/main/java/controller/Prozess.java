@@ -8,14 +8,16 @@ public class Prozess {
     private String bild;
     private String varDatei;
     private String bpmn;
+    private String added;
 
-    public Prozess(int prozessID, String name, String beschreibung, String bild, String varDatei, String bpmn) {
+    public Prozess(int prozessID, String name, String beschreibung, String bild, String varDatei, String bpmn, String added) {
         this.prozessID = prozessID;
         this.name = name;
         this.beschreibung = beschreibung;
         this.bild = bild;
         this.varDatei = varDatei;
         this.bpmn = bpmn;
+        this.added = added;
     }
 
     public long getProzessID() {
@@ -41,5 +43,8 @@ public class Prozess {
     public String getBpmn() {
     	return bpmn;
     }
- 
+
+    public String getAdded() {
+    	return added;
+    }
 }

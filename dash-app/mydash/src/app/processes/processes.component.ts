@@ -61,7 +61,8 @@ export class ProcessesComponent implements OnInit {
       // TODO
       bild: "Placeholder bis Fileserver",
       varDatei: "Placeholder bis Fileserver",
-      bpmn: "Placeholder bis Fileserver"
+      bpmn: "Placeholder bis Fileserver",
+      added: "Now"
     };
 
     let dialogRef = this.dialog.open(ProcessesDialogComponent, dialogConfig);
