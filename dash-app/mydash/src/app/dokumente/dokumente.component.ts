@@ -62,7 +62,4 @@ export class DokumenteComponent implements OnInit {
       this.add(data);
     });
   }
-
-
-
 }

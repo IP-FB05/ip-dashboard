@@ -72,5 +72,30 @@ public class DashboardService {
     	boolean result = dash.deleteDokument(dokumentID);
     	dash.close();
     	return result;
+	}
+	
+	@RequestMapping(value = "/prozesse", method = RequestMethod.GET)
+    public Prozess[] getProzesse() throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	Prozess[] result = dash.getProzesse();
+    	dash.close();
+    	return result;
+	}
+	
+	@RequestMapping(value = "/prozessAdd", method = RequestMethod.POST)
+	@ResponseBody
+    public boolean addProzess(@RequestBody Prozess input) throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	boolean result = dash.addProzess(input);
+    	dash.close();
+    	return result;
+	}
+
+	@RequestMapping(value = "/prozessDelete/{prozessID}", method = RequestMethod.DELETE)
+    public boolean deleteProzess(@PathVariable int prozessID) throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	boolean result = dash.deleteProzess(prozessID);
+    	dash.close();
+    	return result;
     }
 }

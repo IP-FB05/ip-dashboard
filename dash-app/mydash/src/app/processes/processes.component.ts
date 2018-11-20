@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
 import { ProcessService } from '../process.service';
-import { MatDialog } from '@angular/material'
+import { MatDialog, MatDialogConfig } from '@angular/material'
 import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component'
 
 
@@ -35,12 +35,11 @@ export class ProcessesComponent implements OnInit {
       this.processes = this.processService.getProcesses();
     }*/
 
-  add(name: string): void {
-    name = name.trim();
-    if (!name) { return; }
-    this.processService.addProcess({ name } as Process)
+  add(process: Process): void {
+    this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
+        this.getProcesses();
       });
   }
 
@@ -51,13 +50,25 @@ export class ProcessesComponent implements OnInit {
   }
 
   openDialog() {
-    let dialogRef = this.dialog.open(ProcessesDialogComponent, {
-      width: '800px',
-      height: '600px',
-      //data: 'Test!'
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      console.log(`Dialog closed: ${result}`);
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      prozessID: 0,
+      name: "",
+      beschreibung: "",
+      // TODO
+      bild: "Placeholder bis Fileserver",
+      varDatei: "Placeholder bis Fileserver",
+      bpmn: "Placeholder bis Fileserver"
+    };
+
+    let dialogRef = this.dialog.open(ProcessesDialogComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+      this.add(data);
     });
   }
 }

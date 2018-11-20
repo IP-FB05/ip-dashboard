@@ -21,7 +21,7 @@ export class DokumenteDialogComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DokumenteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA)  {dokumentID, kategoriename, name, lastChanged, link }: Dokument) { 
+    @Inject(MAT_DIALOG_DATA) {dokumentID, kategoriename, name, lastChanged, link }: Dokument) { 
 
       this.form = this.fb.group({
         dokumentID: 0,

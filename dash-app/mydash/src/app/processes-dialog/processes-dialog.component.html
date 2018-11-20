@@ -1,18 +1,16 @@
 <div>
   <h2>Prozess hinzufügen</h2>
   <hr>
-  <mat-dialog-content>
-
-    <form>
-      <div class="form-group">
-
+  <mat-dialog-content [formGroup]="form">
+      <mat-form-field style="width:600px; height:auto;">
         <label for="name"></label>
-        <input type="text" class="form-control" id="Name" placeholder="Name">
-
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field style="width:600px; height:auto;">
         <label for="beschreibung"></label>
-        <input type="text" class="form-control" id="Beschreibung" placeholder="Typ">
-
-
+        <input matInput placeholder="Beschreibung" formControlName="beschreibung">
+      </mat-form-field>
+      <hr>
         <label for="BPMNhochladen" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
         <input type="file" class="form-control-file" id="BPMNhochladen">
 
@@ -25,9 +23,7 @@
                 <label for="VARhochladen"> Laden Sie die .var-Datei hoch!</label>
                 <input type="file" class="form-control-file" id="VARhochladen">
             </div>
-          </div>
-      </div>
-    </form>
+        </div>
   </mat-dialog-content>
   <mat-dialog-actions>
     <button mat-raised-button (click)="onCloseConfirm()" class="bestaetigen-btn"><i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;

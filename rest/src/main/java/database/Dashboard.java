@@ -9,6 +9,7 @@ import java.util.Properties;
 
 import controller.System;
 import controller.Dokument;
+import controller.Prozess;
 
 public class Dashboard {
   private Connection connect = null;
@@ -129,6 +130,49 @@ public class Dashboard {
 	{
 		preparedStatement = connect.prepareStatement("DELETE FROM dokumente WHERE dokumentID = ?");
 		preparedStatement.setInt(1, dokumentID);
+
+		preparedStatement.execute();
+		
+		return true;
+	}
+
+	public Prozess[] getProzesse() throws SQLException, ClassNotFoundException
+	{
+		preparedStatement = connect.prepareStatement("SELECT * FROM prozesse");
+	  	resultSet = preparedStatement.executeQuery();
+		if(resultSet.first())
+		{
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Prozess[] prozess = new Prozess[rowNumber];
+			resultSet.first();
+			for(int i = 0; i < rowNumber; i++)
+			{
+				prozess[i] = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"));
+				resultSet.next();
+			}
+			return prozess;
+		}
+	  return null;
+	}
+	
+	public boolean addProzess(Prozess input) throws SQLException, ClassNotFoundException
+	{
+		preparedStatement = connect.prepareStatement("INSERT INTO prozesse (name, beschreibung, bild, varDatei, bpmn) VALUES (?, ?, ?, ?, ?)");
+		preparedStatement.setString(1, input.getName());
+		preparedStatement.setString(2, input.getBeschreibung());
+		preparedStatement.setString(3, input.getBild());
+		preparedStatement.setString(4, input.getVarDatei());
+		preparedStatement.setString(5, input.getBpmn());
+		preparedStatement.execute();
+		
+		return true;
+	}
+
+	public boolean deleteProzess(int prozessID) throws SQLException, ClassNotFoundException
+	{
+		preparedStatement = connect.prepareStatement("DELETE FROM prozesse WHERE prozessID = ?");
+		preparedStatement.setInt(1, prozessID);
 
 		preparedStatement.execute();
 		

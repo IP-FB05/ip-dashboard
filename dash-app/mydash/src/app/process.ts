@@ -1,5 +1,8 @@
-export class Process{
-    id: number;
+export class Process {
+    prozessID: number;
     name: string;
-    desc: string;
+    beschreibung: string;
+    bild: string;
+    varDatei: string;
+    bpmn: string;
 } 
