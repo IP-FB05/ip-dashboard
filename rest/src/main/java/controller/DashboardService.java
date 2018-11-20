@@ -81,6 +81,14 @@ public class DashboardService {
     	dash.close();
     	return result;
 	}
+
+	@RequestMapping(value = "/prozess/{prozessID}", method = RequestMethod.GET)
+    public Prozess getProzess(@PathVariable int prozessID) throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	Prozess result = dash.getProzess(prozessID);
+    	dash.close();
+    	return result;
+	}
 	
 	@RequestMapping(value = "/prozessAdd", method = RequestMethod.POST)
 	@ResponseBody

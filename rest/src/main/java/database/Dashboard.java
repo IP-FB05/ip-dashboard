@@ -155,6 +155,19 @@ public class Dashboard {
 		}
 	  return null;
 	}
+
+	public Prozess getProzess(int prozessID) throws SQLException, ClassNotFoundException
+	{
+		preparedStatement = connect.prepareStatement("SELECT * FROM prozesse WHERE prozessID = ?");
+		preparedStatement.setInt(1, prozessID);
+	  	resultSet = preparedStatement.executeQuery();
+		if(resultSet.first())
+		{
+			Prozess prozess = new Prozess(resultSet.getInt(1), resultSet.getString("name"), resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),  resultSet.getString("bpmn"));
+			return prozess;
+		}
+	  	return null;
+	}
 	
 	public boolean addProzess(Prozess input) throws SQLException, ClassNotFoundException
 	{

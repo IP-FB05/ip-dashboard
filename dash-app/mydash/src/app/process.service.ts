@@ -49,7 +49,7 @@ export class ProcessService {
 
   // GET process by id. Will 404 if id not found */
   getProcess(id: number): Observable<Process> {
-    const url = `${this.processesUrl}/${id}`;
+    const url = `http://localhost:8080/prozess/${id}`;
     // TODO: send the message _after_ fetching the process
     this.messageService.add(`ProcessService: fetched process id=${id}`);
     return this.http.get<Process>(url).pipe(

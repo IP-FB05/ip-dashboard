@@ -1,16 +1,17 @@
 <div *ngIf="process">
       
-    <h2>{{process.name | uppercase}} Details</h2>
-    <div><span>id: </span>{{process.id}}</div>
+    <h2 style="color: black">{{process.name}} Details</h2>
     <div>
-      <label>name:
-        <input [(ngModel)]="process.name" placeholder="name">
-      </label>
+      <h4>Name: {{process.name}}</h4>
+      <hr>
+      <p>Beschreibung: {{process.beschreibung}} </p>
+      <hr>
+      <a href={{process.bpmn} style="color: black">Download BPMN</a>
+      <hr>
+      <a href={{process.varDatei} style="color: black">Download VAR (falls vorhanden)</a>
+      <hr>
+      <p>Anzeige BPMN {{process.bpmn}}</p>
     </div>
 
-    <button (click)="goBack()">go back</button>
-    <button (click)="save()">save</button>
-
-    
-  
+    <button (click)="goBack()">Zurück</button>
   </div>
