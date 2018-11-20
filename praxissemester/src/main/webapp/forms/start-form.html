@@ -1,24 +1,77 @@
 <strong>Here you would put the actual form to start the process</strong>
 
 <p>
-  You can use this form through Camunda Tasklist
-  by setting the formKey of a BPMN Start Event to:
-  <code>embedded:app:forms/start-form.html</code>
+	Bitte geben Sie hier
+	<code>embedded:app:forms/start-form.html</code>
 </p>
 
 <form class="form-horizontal">
-  <div class="control-group">
-    <label class="control-label">Your Name</label>
-    <div class="controls">
-      <input type="text" 
-             cam-variable-name="name"
-             cam-variable-type="String"
-             required
-             class="form-control" />
-    </div>
-  </div>
 
-  <script cam-script type="text/form-script">
+	<div class="control-group">
+		<label class="control-label">Betreuender Professor</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="profName"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Mail Betreuender Professor</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="profMail"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Matrikelnummer</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="matrikelnr"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Betreuer Name (extern)</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuerName"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Betreuer E-Mail (extern)</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuerMail"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Beginn</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="startDate"
+				cam-variable-type="Date" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Ende</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="endDate"
+				cam-variable-type="Date" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Vertrag</label>
+		<div class="controls">
+			<input type="file" cam-variable-name="contract"
+				cam-variable-type="File" cam-max-filesize="10000000" />
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
   // custom JavaScript goes here
   </script>
 </form>

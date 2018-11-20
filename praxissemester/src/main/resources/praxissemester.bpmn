@@ -3,20 +3,20 @@
   <bpmn:collaboration id="Collaboration_1epr6p3">
     <bpmn:participant id="Participant_0ev72i3" name="Praxissemester" processRef="Process_0ag6eaj" />
   </bpmn:collaboration>
-  <bpmn:process id="Process_0ag6eaj" isExecutable="false">
+  <bpmn:process id="Process_0ag6eaj" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1le3evz">
       <bpmn:lane id="Lane_1l01796" name="System">
-        <bpmn:flowNodeRef>Task_0xb1qj8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0b81986</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0q8jbzu</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_01mfztr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_03ascw7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0re73y6</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_190v7ig</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0tvpwjv</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_08txidp</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_1b1vei7</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_07bjvrq</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0xb1qj8</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0tvpwjv</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_190v7ig</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_08mfcnu" name="Betreuer">
         <bpmn:flowNodeRef>Task_0idg5ld</bpmn:flowNodeRef>
@@ -24,10 +24,10 @@
         <bpmn:flowNodeRef>Task_0zxg2u3</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0deqwoe" name="Student">
-        <bpmn:flowNodeRef>StartEvent_0i02qof</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_1ouytbj</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_0vjisn9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>BoundaryEvent_0d2iv00</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>StartEvent_0i02qof</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:sequenceFlow id="SequenceFlow_0mt4sry" sourceRef="StartEvent_0i02qof" targetRef="Task_0xb1qj8" />
@@ -38,64 +38,16 @@
     <bpmn:sequenceFlow id="SequenceFlow_0vqzwi5" name="nein" sourceRef="ExclusiveGateway_0b81986" targetRef="Task_03ascw7">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">!${credits &lt; 90}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:serviceTask id="Task_0xb1qj8" name="prüfe Zulassung" camunda:asyncBefore="true">
-      <bpmn:extensionElements>
-        <camunda:connector>
-          <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8080/credits/${matrikelnr}
-</camunda:inputParameter>
-            <camunda:inputParameter name="method">GET</camunda:inputParameter>
-            <camunda:inputParameter name="headers">
-              <camunda:map>
-                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
-                <camunda:entry />
-              </camunda:map>
-            </camunda:inputParameter>
-            <camunda:outputParameter name="credits" />
-          </camunda:inputOutput>
-          <camunda:connectorId>http-connector</camunda:connectorId>
-        </camunda:connector>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0mt4sry</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1lhrc7v</bpmn:outgoing>
-      <bpmn:property id="Property_1wz4ts5" name="__targetRef_placeholder" />
-      <bpmn:dataInputAssociation id="DataInputAssociation_0uwqnlk">
-        <bpmn:sourceRef>DataStoreReference_1hhx84c</bpmn:sourceRef>
-        <bpmn:targetRef>Property_1wz4ts5</bpmn:targetRef>
-      </bpmn:dataInputAssociation>
-    </bpmn:serviceTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0b81986" name="zugelassen?">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0b81986" name="zugelassen?" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_1lhrc7v</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0a3sb8m</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0vqzwi5</bpmn:outgoing>
     </bpmn:exclusiveGateway>
     <bpmn:sequenceFlow id="SequenceFlow_0hbpwe5" sourceRef="Task_03ascw7" targetRef="EndEvent_08txidp" />
-    <bpmn:startEvent id="StartEvent_0i02qof" name="Antrag ausfüllen">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="betreuer" type="string">
-            <camunda:validation>
-              <camunda:constraint name="validator" config="de.fhaachen.praxissemester.BetreuerFieldValidator" />
-            </camunda:validation>
-          </camunda:formField>
-          <camunda:formField id="startDate" label="Startdatum" type="date" />
-          <camunda:formField id="endDate" label="Enddatum" type="date" />
-        </camunda:formData>
-      </bpmn:extensionElements>
-      <bpmn:outgoing>SequenceFlow_0mt4sry</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0zot3sm">
-        <bpmn:targetRef>DataObjectReference_1bc6i0n</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1aebmgm" name="nein" sourceRef="ExclusiveGateway_1eq128h" targetRef="Task_03ascw7">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!antragGenehmigt}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:userTask id="Task_0idg5ld" name="Antrag genehmigen">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="antragGenehmigt" label="Genehmigt?" type="boolean" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Task_0idg5ld" name="Antrag genehmigen" camunda:formKey="embedded:app:forms/approve-contract-form.html">
       <bpmn:incoming>SequenceFlow_0a3sb8m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0lj25d0</bpmn:outgoing>
       <bpmn:property id="Property_1ggofrg" name="__targetRef_placeholder" />
@@ -105,7 +57,7 @@
       </bpmn:dataInputAssociation>
     </bpmn:userTask>
     <bpmn:sequenceFlow id="SequenceFlow_0lj25d0" sourceRef="Task_0idg5ld" targetRef="ExclusiveGateway_1eq128h" />
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1eq128h" name="Antrag genehmigt?">
+    <bpmn:exclusiveGateway id="ExclusiveGateway_1eq128h" name="Antrag genehmigt?" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_0lj25d0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1aebmgm</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1bh1nat</bpmn:outgoing>
@@ -115,13 +67,27 @@
       <bpmn:outgoing>SequenceFlow_1cqvjkd</bpmn:outgoing>
     </bpmn:manualTask>
     <bpmn:serviceTask id="Task_0q8jbzu" name="Teilnahme in Datenbank eintragen" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8080/neuesPraxisSemester/${matrikelnr}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1bh1nat</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_07zh7zz</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1rmr2oj">
         <bpmn:targetRef>DataStoreReference_1hhx84c</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:userTask id="Task_0vjisn9" name="Bericht &#38; Bestätigung hochladen">
+    <bpmn:userTask id="Task_0vjisn9" name="Bericht &#38; Bestätigung hochladen" camunda:formKey="embedded:app:forms/upload-results-form.html">
       <bpmn:incoming>SequenceFlow_1cqvjkd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1u8lh2k</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0nhux7o">
@@ -131,7 +97,14 @@
         <bpmn:targetRef>DataObjectReference_1grikf1</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:userTask>
-    <bpmn:sendTask id="Task_01mfztr" name="Information versenden" camunda:asyncBefore="true">
+    <bpmn:sendTask id="Task_01mfztr" name="Information versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.praxissemester.SendMailAdapter">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="to" />
+          <camunda:inputParameter name="subject">Frist abgelaufen</camunda:inputParameter>
+          <camunda:inputParameter name="content">Die Frist für die Abgabe Ihres Praxissemester Berichtes ist abgelaufen. Der Fehlversuch wurde erfasst.</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_15byd6u</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0082vdx</bpmn:outgoing>
     </bpmn:sendTask>
@@ -148,7 +121,14 @@
     <bpmn:sequenceFlow id="SequenceFlow_0082vdx" sourceRef="Task_01mfztr" targetRef="Task_0tvpwjv" />
     <bpmn:sequenceFlow id="SequenceFlow_1mr2m7m" sourceRef="Task_0zxg2u3" targetRef="Task_190v7ig" />
     <bpmn:sequenceFlow id="SequenceFlow_15byd6u" sourceRef="BoundaryEvent_0d2iv00" targetRef="Task_01mfztr" />
-    <bpmn:sendTask id="Task_03ascw7" name="Information versenden" camunda:asyncBefore="true">
+    <bpmn:sendTask id="Task_03ascw7" name="Information versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.praxissemester.SendMailAdapter">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="to">${mail}</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Dein Praxissemester wurde nicht genehmigt.</camunda:inputParameter>
+          <camunda:inputParameter name="content">Leider haben Sie die erforderliche Anzahl an Credits für das Praxissemester noch nicht erreicht.</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0vqzwi5</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_1aebmgm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0hbpwe5</bpmn:outgoing>
@@ -163,33 +143,26 @@
       <bpmn:incoming>SequenceFlow_0611cuc</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:sendTask id="Task_0re73y6" name="Information versenden" camunda:asyncBefore="true">
+    <bpmn:sendTask id="Task_0re73y6" name="Information versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.praxissemester.SendMailAdapter">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="to" />
+          <camunda:inputParameter name="subject">Praxissemester beendet</camunda:inputParameter>
+          <camunda:inputParameter name="content">Das Praxissemester wurde ${bestanden ? "erfolgreich" : "nicht erfolgreich"} beendet.</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_07ev9f2</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0611cuc</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_190v7ig" name="Ergebnis in Datenbank  übernehmen" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_1mr2m7m</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_07ev9f2</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_052he03">
-        <bpmn:targetRef>DataStoreReference_1hhx84c</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0611cuc" sourceRef="Task_0re73y6" targetRef="EndEvent_1b1vei7" />
     <bpmn:sequenceFlow id="SequenceFlow_07ev9f2" sourceRef="Task_190v7ig" targetRef="Task_0re73y6" />
     <bpmn:endEvent id="EndEvent_07bjvrq" name="Praxissemester nicht bestanden">
       <bpmn:incoming>SequenceFlow_0wb4i61</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0wb4i61" sourceRef="Task_0tvpwjv" targetRef="EndEvent_07bjvrq" />
-    <bpmn:serviceTask id="Task_0tvpwjv" name="Ergebnis in Datenbank übernehmen">
-      <bpmn:incoming>SequenceFlow_0082vdx</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0wb4i61</bpmn:outgoing>
-      <bpmn:dataOutputAssociation id="DataOutputAssociation_0nd6luc">
-        <bpmn:targetRef>DataStoreReference_1hhx84c</bpmn:targetRef>
-      </bpmn:dataOutputAssociation>
-    </bpmn:serviceTask>
     <bpmn:dataObjectReference id="DataObjectReference_1bc6i0n" name="Vertrag" dataObjectRef="DataObject_16cwfl3" />
     <bpmn:dataObject id="DataObject_16cwfl3" />
-    <bpmn:userTask id="Task_0zxg2u3" name="Ergebnis eintragen">
+    <bpmn:userTask id="Task_0zxg2u3" name="Ergebnis eintragen" camunda:formKey="embedded:app:forms/approve-all.html">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="bestanden" label="Bestanden?" type="boolean" />
@@ -211,13 +184,87 @@
     <bpmn:dataObject id="DataObject_0kbxdk5" />
     <bpmn:dataObjectReference id="DataObjectReference_1grikf1" name="Bestätigung Arbeitgeber" dataObjectRef="DataObject_195k1uo" />
     <bpmn:dataObject id="DataObject_195k1uo" />
+    <bpmn:serviceTask id="Task_0xb1qj8" name="prüfe Zulassung" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8080/credits/${matrikelnr}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="credits">
+              <camunda:script scriptFormat="javascript">response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0mt4sry</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1lhrc7v</bpmn:outgoing>
+      <bpmn:property id="Property_1wz4ts5" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0uwqnlk">
+        <bpmn:sourceRef>DataStoreReference_1hhx84c</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1wz4ts5</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:startEvent id="StartEvent_0i02qof" name="Antrag ausfüllen" camunda:formKey="embedded:app:forms/start-form.html">
+      <bpmn:outgoing>SequenceFlow_0mt4sry</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0zot3sm">
+        <bpmn:targetRef>DataObjectReference_1bc6i0n</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:startEvent>
+    <bpmn:serviceTask id="Task_0tvpwjv" name="Ergebnis in Datenbank übernehmen">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8080/noteLetztesPraxisSemester/${matrikelnr}/false</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0082vdx</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0wb4i61</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0nd6luc">
+        <bpmn:targetRef>DataStoreReference_1hhx84c</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_190v7ig" name="Ergebnis in Datenbank  übernehmen" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8080/noteLetztesPraxisSemester/${matrikelnr}/${bestanden}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1mr2m7m</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_07ev9f2</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_052he03">
+        <bpmn:targetRef>DataStoreReference_1hhx84c</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
     <bpmn:association id="Association_1ig5v4x" sourceRef="StartEvent_0i02qof" targetRef="TextAnnotation_04rj64d" />
     <bpmn:association id="Association_18uqj1z" sourceRef="Task_0xb1qj8" targetRef="TextAnnotation_00qdfqj" />
-    <bpmn:textAnnotation id="TextAnnotation_00qdfqj">
-      <bpmn:text>90 Credits erreicht</bpmn:text>
-    </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_04rj64d">
       <bpmn:text>Angabe von Betreuer, Firma, Dauer, Upload Vertrag</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:textAnnotation id="TextAnnotation_00qdfqj">
+      <bpmn:text>90 Credits erreicht</bpmn:text>
     </bpmn:textAnnotation>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
@@ -237,7 +284,7 @@
       <bpmndi:BPMNShape id="StartEvent_0i02qof_di" bpmnElement="StartEvent_0i02qof">
         <dc:Bounds x="119" y="233" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="98" y="276" width="79" height="12" />
+          <dc:Bounds x="98" y="276" width="79" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_00qdfqj_di" bpmnElement="TextAnnotation_00qdfqj">
@@ -402,9 +449,6 @@
       <bpmndi:BPMNShape id="SendTask_13p2rdk_di" bpmnElement="Task_01mfztr">
         <dc:Bounds x="934" y="453" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_0jy5gab_di" bpmnElement="Task_190v7ig">
-        <dc:Bounds x="1262" y="453" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_011m64g_di" bpmnElement="Task_0q8jbzu">
         <dc:Bounds x="750" y="453" width="100" height="80" />
       </bpmndi:BPMNShape>
@@ -467,13 +511,10 @@
         <di:waypoint x="1162" y="493" />
         <di:waypoint x="1191" y="493" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_0qlc6np_di" bpmnElement="Task_0tvpwjv">
-        <dc:Bounds x="1062" y="453" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="DataOutputAssociation_0nd6luc_di" bpmnElement="DataOutputAssociation_0nd6luc">
         <di:waypoint x="1112" y="533" />
         <di:waypoint x="1112" y="650" />
-        <di:waypoint x="827" y="650" />
+        <di:waypoint x="825" y="650" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="DataObjectReference_1bc6i0n_di" bpmnElement="DataObjectReference_1bc6i0n">
         <dc:Bounds x="497" y="226" width="36" height="50" />
@@ -520,6 +561,12 @@
         <di:waypoint x="1345" y="280" />
         <di:waypoint x="1345" y="325" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0sntha8_di" bpmnElement="Task_0tvpwjv">
+        <dc:Bounds x="1062" y="453" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1v7aqq6_di" bpmnElement="Task_190v7ig">
+        <dc:Bounds x="1262" y="453" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
