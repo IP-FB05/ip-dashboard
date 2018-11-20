@@ -48,7 +48,7 @@ export class DokumenteComponent implements OnInit {
 
     dialogConfig.data = {
       dokumentID: 0,
-      Kategoriename: "",
+      kategoriename: "",
       name: "",
       lastChanged: "Now",
       // TODO

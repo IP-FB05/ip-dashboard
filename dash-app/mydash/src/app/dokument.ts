@@ -1,6 +1,6 @@
 export class Dokument{
     dokumentID: number;
-    Kategoriename: string;
+    kategoriename: string;
     name: string;
     lastChanged: string;
     link: string;
