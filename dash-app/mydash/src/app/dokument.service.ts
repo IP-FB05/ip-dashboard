@@ -26,7 +26,7 @@ export class DokumentService {
   getDokumente(): Observable<Dokument[]> {
     // TODO: send the message _after_ fetching the dokumente
     this.messageService.add('DokumentService: fetched dokumente');
-    return this.http.get<Dokument[]>("http://localhost:80/api/dokumente/read.php")
+    return this.http.get<Dokument[]>("http://localhost:8080/dokumente")
       .pipe(
         tap(_ => this.log('fetched dokumente')),
         catchError(this.handleError('getDokkumente', []))
@@ -73,7 +73,7 @@ searchDokument(term: string): Observable<Dokument[]> {
 
 // PUT: update the dokumente on the server */
 updateDokument(dokument: Dokument): Observable<any> {
-  if(!dokument.name || !dokument.Kategoriename || !dokument.link) { return; }
+  if(!dokument.name || !dokument.kategoriename || !dokument.link) { return; }
   return this.http.post(this.dokumenteUrl, dokument, httpOptions).pipe(
     tap(_ => this.log(`updated dokument id=${dokument.dokumentID}`)),
     catchError(this.handleError<any>('updateDokument'))
@@ -82,17 +82,20 @@ updateDokument(dokument: Dokument): Observable<any> {
 
 // POST: add a new dokument to the server */
 addDokument(dokument: Dokument): Observable<Dokument> {
-  if(!dokument.Kategoriename || dokument.Kategoriename == "" || !dokument.link || dokument.link == "" || !dokument.name || dokument.name == "") { return; }
-  return this.http.post<Dokument>("http://localhost:80/api/dokumente/create.php", dokument, httpOptions).pipe(
+  if(!dokument.kategoriename || dokument.kategoriename == "" || !dokument.link || dokument.link == "" || !dokument.name || dokument.name == "") { return; }
+  return this.http.post<Dokument>("http://localhost:8080/dokumentAdd", dokument, httpOptions).pipe(
     tap((Dokument: Dokument) => this.log(`added dokument w/ id=${dokument.dokumentID}`)),
     catchError(this.handleError<Dokument>('addDokument'))
   );
 }
 
 /** DELETE: delete the Dokument from the server */
-deleteDokument(dokument: Dokument): Observable<Dokument> {  
-  return this.http.post<Dokument>("http://localhost:80/api/dokumente/delete.php", dokument, httpOptions).pipe(
-    tap(_ => this.log(`deleted dokument id=${dokument.dokumentID}`)),
+deleteDokument(dokument: Dokument): Observable<Dokument> {
+  const id = typeof dokument === 'number' ? dokument : dokument.dokumentID;
+  const url = `http://localhost:8080/dokumentDelete/${id}`;
+
+  return this.http.delete<Dokument>(url, httpOptions).pipe(
+    tap(_ => this.log(`deleted dokument id=${id}`)),
     catchError(this.handleError<Dokument>('deleteDokument'))
   );
 }

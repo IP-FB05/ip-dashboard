@@ -6,56 +6,48 @@
   <bpmn:process id="Process_0itmkcm" isExecutable="false">
     <bpmn:laneSet id="LaneSet_1wcaqd7">
       <bpmn:lane id="Lane_17i4era" name="Prüfungsamt">
-        <bpmn:flowNodeRef>BusinessRuleTask_0veow1b</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ExclusiveGateway_1o7o1g5</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_1i1v9tu</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ServiceTask_00xsabv</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ServiceTask_13gk0ye</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_0ly3qpk</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>ExclusiveGateway_0b86fql</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>EndEvent_19dkt2x</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>BoundaryEvent_12w1nl2</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1nbiqc8" name="Student">
         <bpmn:flowNodeRef>StartEvent_1hckl90</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0aq88u9</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>UserTask_15y7712</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0yf1djn</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_0aq88u9</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEvent_1hckl90" name="Wunsch Modul abmelden">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="matrikelnummer" label="Deine Matrikelnummer" type="long" />
+          <camunda:formField id="targetEmail" label="Deine Email Adresse" type="string" defaultValue="hamster128@web.de" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow_1q3yi6u</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow_1q3yi6u" sourceRef="StartEvent_1hckl90" targetRef="Task_0aq88u9" />
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0b86fql" name="Bedingungen erfüllt?">
-      <bpmn:incoming>SequenceFlow_1wmr7qv</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1pmioh7</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_1hixbfz</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_0yf1djn" name="Abmeldung beendet">
-      <bpmn:incoming>SequenceFlow_1oy86i3</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:businessRuleTask id="BusinessRuleTask_0veow1b" name="Bedingungen überprüfen" camunda:resultVariable="deregister" camunda:decisionRef="decideAllowDeregisterMod" camunda:mapDecisionResult="singleEntry">
-      <bpmn:incoming>SequenceFlow_0u5ym1j</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1wmr7qv</bpmn:outgoing>
-    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0u5ym1j" sourceRef="UserTask_15y7712" targetRef="ServiceTask_1i1v9tu" />
+    <bpmn:sequenceFlow id="SequenceFlow_1na3rz0" sourceRef="ServiceTask_0ly3qpk" targetRef="EndEvent_0yf1djn" />
+    <bpmn:sequenceFlow id="SequenceFlow_0mru8hi" sourceRef="ServiceTask_1i1v9tu" targetRef="ServiceTask_0ly3qpk" />
+    <bpmn:sequenceFlow id="SequenceFlow_098d0fn" sourceRef="Task_0aq88u9" targetRef="UserTask_15y7712" />
+    <bpmn:serviceTask id="Task_0aq88u9" name="Module herrausfinden">
+      <bpmn:incoming>SequenceFlow_1q3yi6u</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_098d0fn</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:userTask id="UserTask_15y7712" name="(gefiltert) Modul auswählen">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="fachnummer" label="Gib hier die gewünschte Modulnummer an" type="long" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_098d0fn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0u5ym1j</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_1o7o1g5">
-      <bpmn:incoming>SequenceFlow_1na3rz0</bpmn:incoming>
-      <bpmn:incoming>SequenceFlow_09lyor8</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1oy86i3</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
-    <bpmn:endEvent id="EndEvent_19dkt2x" name="Abmelden beendet">
-      <bpmn:incoming>SequenceFlow_0l5zoez</bpmn:incoming>
-    </bpmn:endEvent>
     <bpmn:serviceTask id="ServiceTask_1i1v9tu" name="Datenbank eintragen">
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">localhost:8080/modulAnAbmeldung/${matrikelnummer}/${fachnummer}/2</camunda:inputParameter>
+            <camunda:inputParameter name="url">localhost:8888/modulAnAbmeldung/${matrikelnummer}/${fachnummer}/2</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -69,30 +61,13 @@
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1hixbfz</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_0u5ym1j</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0mru8hi</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_1fsjkmv">
+        <bpmn:targetRef>DataStoreReference_1oq6c3j</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_00xsabv" name="Student auf Systemfehler benachrightigen" camunda:class="fhaachen.ip.viewcampusdashboard.ModulAbmeldung.MailFehlerDelegate">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="subjectInput">Fehler Modulabmeldung</camunda:inputParameter>
-          <camunda:inputParameter name="messageInput">Es ist ein Fehler bei der Modulabmeldung aufgetreten</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0xzgwmc</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_09lyor8</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_13gk0ye" name="Student  auf nicht abmeldbar benachrightigen " camunda:class="fhaachen.ip.viewcampusdashboard.ModulAbmeldung.MailAbgelehntDelegate">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="subjectInput">Ablehnung Modulabmeldung</camunda:inputParameter>
-          <camunda:inputParameter name="messageInput">Leider erfuellen sie nicht alle Vorraussetzungen</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1pmioh7</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0l5zoez</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="ServiceTask_0ly3qpk" name="Student auf erfolgreiche abmeldung benachrightigen" camunda:class="fhaachen.ip.viewcampusdashboard.ModulAbmeldung.MailZugelassenDelegate">
+    <bpmn:serviceTask id="ServiceTask_0ly3qpk" name="Student auf erfolgreiche abmeldung benachrightigen" camunda:class="fhaachen.ip.viewcampusdashboard.ModulAbmeldung.SendMail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subjectInput">Modulabmeldung erfolgreich</camunda:inputParameter>
@@ -102,57 +77,21 @@
       <bpmn:incoming>SequenceFlow_0mru8hi</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1na3rz0</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:boundaryEvent id="BoundaryEvent_12w1nl2" attachedToRef="ServiceTask_1i1v9tu">
-      <bpmn:outgoing>SequenceFlow_0xzgwmc</bpmn:outgoing>
-      <bpmn:errorEventDefinition id="ErrorEventDefinition_1k1xkj9" />
-    </bpmn:boundaryEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_1wmr7qv" sourceRef="BusinessRuleTask_0veow1b" targetRef="ExclusiveGateway_0b86fql" />
-    <bpmn:sequenceFlow id="SequenceFlow_1pmioh7" name="nein" sourceRef="ExclusiveGateway_0b86fql" targetRef="ServiceTask_13gk0ye">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!deregister}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1hixbfz" name="ja" sourceRef="ExclusiveGateway_0b86fql" targetRef="ServiceTask_1i1v9tu">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${deregister}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1oy86i3" sourceRef="ExclusiveGateway_1o7o1g5" targetRef="EndEvent_0yf1djn" />
-    <bpmn:sequenceFlow id="SequenceFlow_0u5ym1j" sourceRef="UserTask_15y7712" targetRef="BusinessRuleTask_0veow1b" />
-    <bpmn:sequenceFlow id="SequenceFlow_1na3rz0" sourceRef="ServiceTask_0ly3qpk" targetRef="ExclusiveGateway_1o7o1g5" />
-    <bpmn:sequenceFlow id="SequenceFlow_09lyor8" sourceRef="ServiceTask_00xsabv" targetRef="ExclusiveGateway_1o7o1g5" />
-    <bpmn:sequenceFlow id="SequenceFlow_0l5zoez" sourceRef="ServiceTask_13gk0ye" targetRef="EndEvent_19dkt2x" />
-    <bpmn:sequenceFlow id="SequenceFlow_0mru8hi" sourceRef="ServiceTask_1i1v9tu" targetRef="ServiceTask_0ly3qpk" />
-    <bpmn:sequenceFlow id="SequenceFlow_0xzgwmc" sourceRef="BoundaryEvent_12w1nl2" targetRef="ServiceTask_00xsabv" />
-    <bpmn:sequenceFlow id="SequenceFlow_098d0fn" sourceRef="Task_0aq88u9" targetRef="UserTask_15y7712" />
-    <bpmn:serviceTask id="Task_0aq88u9" name="Module herrausfinden">
-      <bpmn:extensionElements>
-        <camunda:connector>
-          <camunda:inputOutput>
-            <camunda:inputParameter name="url">localhost:8080/modulStudent/${matrikelnummer}</camunda:inputParameter>
-            <camunda:inputParameter name="method">GET</camunda:inputParameter>
-            <camunda:inputParameter name="headers">
-              <camunda:map>
-                <camunda:entry key="Accept">application/json</camunda:entry>
-              </camunda:map>
-            </camunda:inputParameter>
-            <camunda:outputParameter name="module">
-              <camunda:script scriptFormat="Javascript">response</camunda:script>
-            </camunda:outputParameter>
-          </camunda:inputOutput>
-          <camunda:connectorId>http-connector</camunda:connectorId>
-        </camunda:connector>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1q3yi6u</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_098d0fn</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:endEvent id="EndEvent_0yf1djn" name="Abmeldung beendet">
+      <bpmn:incoming>SequenceFlow_1na3rz0</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:dataStoreReference id="DataStoreReference_1oq6c3j" name="Prüfungsamt" />
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1mvg5kl">
       <bpmndi:BPMNShape id="Participant_0ahg8es_di" bpmnElement="Participant_0ahg8es">
-        <dc:Bounds x="48" y="71" width="1312" height="400" />
+        <dc:Bounds x="48" y="71" width="541" height="260" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_17i4era_di" bpmnElement="Lane_17i4era">
-        <dc:Bounds x="78" y="196" width="1282" height="275" />
+        <dc:Bounds x="78" y="196" width="511" height="135" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="Lane_1nbiqc8_di" bpmnElement="Lane_1nbiqc8">
-        <dc:Bounds x="78" y="71" width="1282" height="125" />
+        <dc:Bounds x="78" y="71" width="511" height="125" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="StartEvent_1hckl90_di" bpmnElement="StartEvent_1hckl90">
         <dc:Bounds x="125" y="117" width="36" height="36" />
@@ -160,106 +99,54 @@
           <dc:Bounds x="107" y="160" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ExclusiveGateway_0b86fql_di" bpmnElement="ExclusiveGateway_0b86fql" isMarkerVisible="true">
-        <dc:Bounds x="638" y="231" width="50" height="50" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="631" y="202" width="65" height="27" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="EndEvent_0yf1djn_di" bpmnElement="EndEvent_0yf1djn">
-        <dc:Bounds x="1266" y="117" width="36" height="36" />
+        <dc:Bounds x="488" y="117" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1257" y="88" width="55" height="27" />
+          <dc:Bounds x="479" y="88" width="55" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BusinessRuleTask_0veow1b_di" bpmnElement="BusinessRuleTask_0veow1b">
-        <dc:Bounds x="426" y="216" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="UserTask_15y7712_di" bpmnElement="UserTask_15y7712">
-        <dc:Bounds x="426" y="95" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ExclusiveGateway_1o7o1g5_di" bpmnElement="ExclusiveGateway_1o7o1g5" isMarkerVisible="true">
-        <dc:Bounds x="1126" y="375" width="50" height="50" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="EndEvent_19dkt2x_di" bpmnElement="EndEvent_19dkt2x">
-        <dc:Bounds x="797" y="382" width="36" height="36" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="791" y="425" width="49" height="27" />
-        </bpmndi:BPMNLabel>
+        <dc:Bounds x="322" y="95" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_1i1v9tu_di" bpmnElement="ServiceTask_1i1v9tu">
-        <dc:Bounds x="925" y="216" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_00xsabv_di" bpmnElement="ServiceTask_00xsabv">
-        <dc:Bounds x="925" y="360" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_13gk0ye_di" bpmnElement="ServiceTask_13gk0ye">
-        <dc:Bounds x="613" y="360" width="100" height="80" />
+        <dc:Bounds x="322" y="225" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="ServiceTask_0ly3qpk_di" bpmnElement="ServiceTask_0ly3qpk">
-        <dc:Bounds x="1101" y="216" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="BoundaryEvent_12w1nl2_di" bpmnElement="BoundaryEvent_12w1nl2">
-        <dc:Bounds x="961" y="278" width="36" height="36" />
+        <dc:Bounds x="456" y="225" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0mru8hi_di" bpmnElement="SequenceFlow_0mru8hi">
-        <di:waypoint x="1025" y="256" />
-        <di:waypoint x="1101" y="256" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0xzgwmc_di" bpmnElement="SequenceFlow_0xzgwmc">
-        <di:waypoint x="978" y="314" />
-        <di:waypoint x="977" y="360" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_0l5zoez_di" bpmnElement="SequenceFlow_0l5zoez">
-        <di:waypoint x="713" y="400" />
-        <di:waypoint x="797" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1pmioh7_di" bpmnElement="SequenceFlow_1pmioh7">
-        <di:waypoint x="663" y="281" />
-        <di:waypoint x="663" y="360" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="668" y="319" width="21" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1oy86i3_di" bpmnElement="SequenceFlow_1oy86i3">
-        <di:waypoint x="1176" y="400" />
-        <di:waypoint x="1284" y="400" />
-        <di:waypoint x="1284" y="153" />
+        <di:waypoint x="422" y="265" />
+        <di:waypoint x="456" y="265" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1na3rz0_di" bpmnElement="SequenceFlow_1na3rz0">
-        <di:waypoint x="1151" y="296" />
-        <di:waypoint x="1151" y="375" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_09lyor8_di" bpmnElement="SequenceFlow_09lyor8">
-        <di:waypoint x="1025" y="400" />
-        <di:waypoint x="1126" y="400" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1hixbfz_di" bpmnElement="SequenceFlow_1hixbfz">
-        <di:waypoint x="688" y="256" />
-        <di:waypoint x="925" y="256" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="805" y="238" width="8" height="14" />
-        </bpmndi:BPMNLabel>
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1wmr7qv_di" bpmnElement="SequenceFlow_1wmr7qv">
-        <di:waypoint x="526" y="256" />
-        <di:waypoint x="638" y="256" />
+        <di:waypoint x="506" y="225" />
+        <di:waypoint x="506" y="153" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0u5ym1j_di" bpmnElement="SequenceFlow_0u5ym1j">
-        <di:waypoint x="476" y="175" />
-        <di:waypoint x="476" y="216" />
+        <di:waypoint x="372" y="175" />
+        <di:waypoint x="372" y="225" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1q3yi6u_di" bpmnElement="SequenceFlow_1q3yi6u">
         <di:waypoint x="161" y="135" />
-        <di:waypoint x="230" y="135" />
+        <di:waypoint x="197" y="135" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_098d0fn_di" bpmnElement="SequenceFlow_098d0fn">
-        <di:waypoint x="330" y="135" />
-        <di:waypoint x="426" y="135" />
+        <di:waypoint x="297" y="135" />
+        <di:waypoint x="322" y="135" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ServiceTask_1kn1852_di" bpmnElement="Task_0aq88u9">
-        <dc:Bounds x="230" y="95" width="100" height="80" />
+        <dc:Bounds x="197" y="95" width="100" height="80" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1oq6c3j_di" bpmnElement="DataStoreReference_1oq6c3j">
+        <dc:Bounds x="222" y="240" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="216" y="297" width="64" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_1fsjkmv_di" bpmnElement="DataOutputAssociation_1fsjkmv">
+        <di:waypoint x="322" y="265" />
+        <di:waypoint x="272" y="265" />
+      </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

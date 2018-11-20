@@ -1,16 +1,20 @@
 package fhaachen.ip.viewcampusdashboard.ModulAbmeldung;
 
+import org.camunda.bpm.engine.delegate.DelegateExecution;
+import org.camunda.bpm.engine.delegate.JavaDelegate;
+
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 import javax.activation.*;
 
-public class SendMail {
+public class SendMail implements JavaDelegate {
 
-	public void send(String subject, String messageString) {
+	@Override
+	public void execute(DelegateExecution execution) throws Exception {
 		// Recipient's email ID needs to be mentioned.
-	      String to = "abcd@gmail.com";
-
+	      String to = execution.getVariable("targetEmail").toString();
+	      
 	      // Sender's email ID needs to be mentioned
 	      String from = "ViewCampus-Dashboard@gmx.net";
 
@@ -39,9 +43,11 @@ public class SendMail {
 	         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 	         // Set Subject: header field
+	         String subject = execution.getVariable("subjectInput").toString();
 	         message.setSubject(subject);
 
 	         // Send the actual HTML message, as big as you like
+	         String messageString = execution.getVariable("messageInput").toString();
 	         message.setContent("<h1>"+messageString+"</h1>", "text/html");
 
 	         // Send message
@@ -50,5 +56,7 @@ public class SendMail {
 	      } catch (MessagingException mex) {
 	         mex.printStackTrace();
 	      }
+
 	}
+
 }
