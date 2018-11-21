@@ -15,6 +15,7 @@ import { DokumenteDialogComponent } from '../dokumente-dialog/dokumente-dialog.c
 export class DokumenteComponent implements OnInit {
 
   dokumente: Dokument[];
+  searchText:string;
 
   constructor(private dokumenteService: DokumentService, public dialog: MatDialog) { }
 

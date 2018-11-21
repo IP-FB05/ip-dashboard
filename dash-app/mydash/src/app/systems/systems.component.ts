@@ -12,6 +12,7 @@ import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.compone
 export class SystemsComponent implements OnInit {
 
   public systems: System[];
+  searchText: string;
 
   constructor(private systemService: SystemService, public dialog: MatDialog) { }
 

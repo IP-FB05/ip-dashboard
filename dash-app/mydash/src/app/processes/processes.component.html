@@ -1,16 +1,22 @@
 <div class="processes">
 
-  <div class="row" style="padding: 65px 30px 0px 37px;">
+  <div class="row" style="padding: 65px 30px 10px 37px;">
     <h2 style="color: black; font-weight:300; font-size: 17px;">Das ist eine Vorschau der Prozess-Seite. Man kann
       mehrere Details über ein Prozess sehen, indem man auf das
       „Mehr“-Button klickt.
       Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen.</h2>
   </div>
-  <div class="row" style="font-weight:300; font-size:20px; padding: 30px 30px 0px 37px;"> Prozesse filtern </div>
+
+  <div class="row" style="padding: 10px 30px 10px 21px;">
+    <div class="col-md">
+      <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
+    </div>
+  </div>
+
   <app-filter></app-filter>
 
   <div class="row" style="padding: 25px 0px 0px 21px;">
-    <div *ngFor="let process of processes" class="col-md-3">
+    <div *ngFor="let process of processes | textFilterProcesses:searchText" class="col-md-3">
       <div class="card-deck mb-3 text-center">
         <div class="card mb-3 box-shadow">
           <div class="card-header"><a routerLink="/detail/{{process.prozessID}}">{{process.name}}</a>&nbsp;
@@ -43,7 +49,7 @@
 
           </div>
         </div>
-        
+
       </div>
     </div>
 

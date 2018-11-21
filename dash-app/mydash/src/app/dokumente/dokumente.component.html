@@ -1,8 +1,14 @@
 <div class="dokumente">
-    <div class="row" style="padding: 65px 0px 0px 40px;">
+    <div class="row" style="padding: 65px 0px 10px 40px;">
         <h2 style="color: black; font-weight:300; font-size: 17px;">Das ist eine Vorschau der Dokumenten Seite.</h2>
     </div>
-    <div class="row" style="font-weight:300; font-size:20px; padding: 30px 30px 0px 37px;"> Dokumente filtern </div>
+
+    <div class="row" style="padding: 10px 30px 10px 21px;">
+        <div class="col-md">
+            <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
+        </div>
+    </div>
+
     <app-filter></app-filter>
 
     <div class="row" style="padding: 30px 0px 0px 20px;">
@@ -16,7 +22,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr *ngFor="let dokument of dokumente">
+                    <tr *ngFor="let dokument of dokumente | textFilterDokumente:searchText">
                         <td><a href={{dokument.link}} style="color: black">{{dokument.name}}</a></td>
                         <td>{{dokument.kategoriename}}</td>
                         <td>{{dokument.lastChanged}}</td>
@@ -40,14 +46,14 @@
         <div class="col-md-3">
             <div class="card-deck mb-3 text-center">
                 <div class="card mb-3 box-shadow">
-                  <div class="card-header" style="background-color: #0b1820a8;">Dokument hinzufügen</div>
-                  <div class="card-body" style="height: 300px;">
-                    <p class="card-text" style="text-align:center;">
-                      <button class="btn btn-secondary round-plus-btn" (click)="openDialog()" style="margin-top: 70px; width: 100px; height: 100px">+</button>
-                    </p>
-                  </div>
+                    <div class="card-header" style="background-color: #0b1820a8;">Dokument hinzufügen</div>
+                    <div class="card-body" style="height: 300px;">
+                        <p class="card-text" style="text-align:center;">
+                            <button class="btn btn-secondary round-plus-btn" (click)="openDialog()" style="margin-top: 70px; width: 100px; height: 100px">+</button>
+                        </p>
+                    </div>
                 </div>
-              </div>
+            </div>
         </div>
     </div>
 </div>

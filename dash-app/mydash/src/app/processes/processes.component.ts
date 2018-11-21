@@ -15,6 +15,7 @@ export class ProcessesComponent implements OnInit {
 
   processes: Process[];
   //selectedProcess: Process;
+  searchText:string;
 
   constructor(private processService: ProcessService, public dialog: MatDialog) { }
 

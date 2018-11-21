@@ -28,6 +28,9 @@ import { FilterComponent } from './filter/filter.component';
 import { DokumenteDialogComponent } from './dokumente-dialog/dokumente-dialog.component';
 import { SystemsDialogComponent } from './systems-dialog/systems-dialog.component';
 import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.component';
+import { filterProcessesPipe } from './filter-processes.pipe';
+import { filterSystemsPipe } from './filter-systems.pipe';
+import { filterDokumentePipe } from './filter-dokumente.pipe';
 
 
 
@@ -46,6 +49,9 @@ import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.co
     DokumenteDialogComponent,
     SystemsDialogComponent,
     ProcessesDialogComponent,
+    filterProcessesPipe,
+    filterSystemsPipe,
+    filterDokumentePipe,
   ],
   imports: [
     BrowserModule,
