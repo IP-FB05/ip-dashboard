@@ -7,11 +7,11 @@ import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+public class SendEmail implements JavaDelegate {
 
-public class SendEmail implements JavaDelegate{
     public void execute(DelegateExecution execution) throws Exception {
 
-        final String username = Config.getConfig(Config.MAIL_ADR);
+        final String username = "dashboarddonotreply@gmail.com";
         final String password = Config.getConfig(Config.MAIL_PASS);
 
         Properties props = new Properties();
@@ -43,9 +43,10 @@ public class SendEmail implements JavaDelegate{
 
             Transport.send(message);
 
+
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
-
     }
+
 }
