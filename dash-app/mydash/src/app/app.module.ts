@@ -31,6 +31,9 @@ import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.co
 import { filterProcessesPipe } from './filter-processes.pipe';
 import { filterSystemsPipe } from './filter-systems.pipe';
 import { filterDokumentePipe } from './filter-dokumente.pipe';
+import { FormUploadComponent } from './upload/form-upload/form-upload.component';
+import { ListUploadComponent } from './upload/list-upload/list-upload.component';
+import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
 
 
 
@@ -52,6 +55,9 @@ import { filterDokumentePipe } from './filter-dokumente.pipe';
     filterProcessesPipe,
     filterSystemsPipe,
     filterDokumentePipe,
+    FormUploadComponent,
+    ListUploadComponent,
+    DetailsUploadComponent,
   ],
   imports: [
     BrowserModule,
