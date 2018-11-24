@@ -1,6 +1,6 @@
 export class System{
     systemID: number;
     name: string;
-    beschreibung: string;
+    description: string;
     link: string;
 } 

@@ -46,7 +46,7 @@ export class SystemsComponent implements OnInit {
     dialogConfig.data = {
       systemID: 0,
       name: "",
-      beschreibung: "",
+      description: "",
       link: ""
     };
 

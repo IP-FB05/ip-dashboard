@@ -1,27 +1,27 @@
 package controller;
 
-public class Dokument {
+public class Document {
 
-    private int dokumentID;
-    private String kategoriename;
+    private int documentID;
+    private String categoryname;
     private String name;
     private String lastChanged;
     private String link;
 
-    public Dokument(int dokumentID, String kategoriename, String name, String lastChanged, String link) {
-        this.dokumentID = dokumentID;
-        this.kategoriename = kategoriename;
+    public Document(int documentID, String categoryname, String name, String lastChanged, String link) {
+        this.documentID = documentID;
+        this.categoryname = categoryname;
         this.name = name;
         this.lastChanged = lastChanged;
 		this.link = link;
     }
 
-    public long getDokumentID() {
-        return dokumentID;
+    public long getDocumentID() {
+        return documentID;
     }
 
-    public String getKategoriename() {
-        return kategoriename;
+    public String getCategoriename() {
+        return categoryname;
     }
 
     public String getName() {

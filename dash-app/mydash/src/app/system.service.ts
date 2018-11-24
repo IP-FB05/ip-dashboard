@@ -80,7 +80,7 @@ export class SystemService {
 
   // POST: add a new system to the server */
   addSystem(system: System): Observable<System> {
-    if(!system.name || system.name == "" || !system.beschreibung || system.beschreibung == "" || !system.link || system.link == "") { return; }
+    if(!system.name || system.name == "" || !system.description || system.description == "" || !system.link || system.link == "") { return; }
     return this.http.post<System>("http://localhost:8080/systemAdd", system, httpOptions).pipe(
       tap(_ => this.log(`added system w/ id=${system.systemID}`)),
       catchError(this.handleError<System>('addSystem'))

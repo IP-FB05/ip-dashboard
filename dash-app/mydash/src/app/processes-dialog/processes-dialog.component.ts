@@ -11,26 +11,26 @@ import { Process } from '../process';
 export class ProcessesDialogComponent implements OnInit {
 
   form: FormGroup;
-  prozessID: number;
+  processID: number;
   name: string;
-  beschreibung: string;
-  bild: string;
-  varDatei: string;
+  description: string;
+  pic: string;
+  varFile: string;
   bpmn: string;
   added: string;
 
   constructor(
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {prozessID, name, beschreibung, bild, varDatei, bpmn, added }: Process) {
+    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, varFile, bpmn, added }: Process) {
 
       this.form = this.fb.group({
-        prozessID: 0,
+        processID: 0,
         name: [this.name, []],
-        beschreibung: [this.beschreibung, []],
+        description: [this.description, []],
         // TODO
-        bild: "Placeholder until Fileserver",
-        varDatei: "Placeholder until Fileserver",
+        pic: "Placeholder until Fileserver",
+        varFile: "Placeholder until Fileserver",
         bpmn: "Placeholder until Fileserver",
         added: "Now"
       });

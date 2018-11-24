@@ -1,18 +1,18 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Dokument } from '../dokument';
+import { Document } from '../document';
 
 @Component({
-  selector: 'app-dokumente-dialog',
-  templateUrl: './dokumente-dialog.component.html',
-  styleUrls: ['./dokumente-dialog.component.css']
+  selector: 'app-documents-dialog',
+  templateUrl: './documents-dialog.component.html',
+  styleUrls: ['./documents-dialog.component.css']
 })
-export class DokumenteDialogComponent implements OnInit {
+export class DocumentsDialogComponent implements OnInit {
 
   form: FormGroup;
-  dokumentID: number;
-  kategoriename: string;
+  documentID: number;
+  categoryname: string;
   name: string;
   lastChanged: string;
   link: string;
@@ -20,12 +20,12 @@ export class DokumenteDialogComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    public thisDialogRef: MatDialogRef<DokumenteDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {dokumentID, kategoriename, name, lastChanged, link }: Dokument) { 
+    public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) {documentID, categoryname, name, lastChanged, link }: Document) { 
 
       this.form = this.fb.group({
-        dokumentID: 0,
-        kategoriename: [this.kategoriename, []],
+        documentID: 0,
+        categoryname: [this.categoryname, []],
         name: [this.name, []],
         lastChanged: "Now",
         // TODO
