@@ -3,6 +3,7 @@ package database;
 import static org.junit.Assert.*;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -103,6 +104,23 @@ public class TestPruefungsamt {
 		assertFalse(pa.setNotePraxisSemester(4,0));
 	}
 	
+	@Test
+	public void getModuleList() throws SQLException {
+		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
+		
+		int modNr = 0;
+		String modName = "";
+		
+		List<RegisteredModulesModel> testList = pa.getModulStudent(1);
+		
+		RegisteredModulesModel firstModule = testList.get(0);
+		modNr = firstModule.getId();
+		modName = firstModule.getModule();
+		
+		
+		assertEquals(8998,modNr);
+		assertEquals("Bachelorarbeit",modName);
+	}
 	
 
 	@After

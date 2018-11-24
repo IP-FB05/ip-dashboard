@@ -1,12 +1,14 @@
 package controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import database.Pruefungsamt;
+import database.RegisteredModulesModel;
 
 @RestController
 public class StudentServices {
@@ -58,9 +60,9 @@ public class StudentServices {
 	}
 	
 	@RequestMapping("/modulStudent/{matrikelnr}")
-	public boolean changeModulStudent(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
+	public List<RegisteredModulesModel> changeModulStudent(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
-		boolean result = amt.getModulStudent(matrikelnr);
+		List<RegisteredModulesModel> result = amt.getModulStudent(matrikelnr);
 		amt.close();
 		return result;
 	}

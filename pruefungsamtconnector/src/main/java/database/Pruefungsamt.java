@@ -5,7 +5,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
+
 
 import utils.Config;
 
@@ -204,27 +207,37 @@ public class Pruefungsamt {
 		return false;
 	}
 	// output: alle angemeldeten module eines Studenten
-	public boolean getModulStudent(int matrikelnr) throws SQLException {
-		/*preparedStatement = connect.prepareStatement(
-				"SELECT modul,modultext FROM pruefungsamt.module_student" +
-				"INNER JOIN `pruefungsamt`.`module`"
-				+ "ON `pruefungsamt`.`module_student`.modul = `pruefungsamt`.`module`.modulnr"
+	public List<RegisteredModulesModel> getModulStudent(int matrikelnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT modul,modultext FROM pruefungsamt.module_student " +
+				"INNER JOIN `pruefungsamt`.`module` "
+				+ "ON `pruefungsamt`.`module_student`.modul = `pruefungsamt`.`module`.modulnr "
 				+ "WHERE `pruefungsamt`.`module_student`.`student` = ?;");
 		preparedStatement.setInt(1, matrikelnr);
 		
 		resultSet = preparedStatement.executeQuery();
 		
-		if(resultSet.first()) {
-			return true;
+		
+		List<RegisteredModulesModel> resultList = newRegisteredModulesModelListing(resultSet);
+		
+		
+		if(resultList != null) {
+			return resultList;
 		}
-		return false;*/
-		
-		//TODO Muss mit json ueberarbeitet werden
-		
-		return false;
-		
-		
+		return null;		
 	}
+	
+	private List<RegisteredModulesModel> newRegisteredModulesModelListing(ResultSet resultSet) throws SQLException {
+
+	    List<RegisteredModulesModel> resources = new ArrayList<>();
+	    
+	    while(resultSet.next()) {
+	    	resources.add(new RegisteredModulesModel(resultSet.getInt("modul"), resultSet.getString("modultext")));
+	    }
+	 
+	    return resources;
+	}
+	
 	
 	public boolean pruefungAnmelden(int matrikelnr, int fachnr) throws SQLException {
   		//erfrage die anzahl der bereits durchgeführten Versuche
