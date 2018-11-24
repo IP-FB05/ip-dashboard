@@ -12,6 +12,6 @@ export class filterDokumentePipe implements PipeTransform {
     transform(dokumente: Dokument[], text: string): Dokument[] {
 
         if (text == null || text === "") return dokumente;
-        return dokumente.filter(d => d.name.includes(text) || d.kategoriename.includes(text));
+        return dokumente.filter(d => d.name.toLowerCase().includes(text) || d.kategoriename.toLowerCase().includes(text));
     }
 }
