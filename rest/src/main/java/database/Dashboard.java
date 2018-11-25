@@ -10,6 +10,7 @@ import java.util.Properties;
 import controller.System;
 import controller.Document;
 import controller.Process;
+import utils.Config;
 
 public class Dashboard {
 	private Connection connect = null;
@@ -21,8 +22,8 @@ public class Dashboard {
 	public Dashboard() throws SQLException, ClassNotFoundException {
 		String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com:3306/dashboardDB";
 		Properties props = new Properties();
-		props.setProperty("user", "admin");
-		props.setProperty("password", "D45hb0ard");
+		props.setProperty("user" , Config.getConfig(Config.DB_USER));
+		props.setProperty("password", Config.getConfig(Config.DB_PASS));
 		props.setProperty("useSSL", "false");
 		props.setProperty("autoReconnect", "true");
 

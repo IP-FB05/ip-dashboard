@@ -37,6 +37,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,

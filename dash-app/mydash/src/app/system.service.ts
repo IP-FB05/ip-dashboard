@@ -7,7 +7,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
 };
 
 @Injectable({
@@ -26,7 +26,7 @@ export class SystemService {
   getSystems(): Observable<System[]> {
     // TODO: send the message _after_ fetching the systems
     this.messageService.add('SystemService: fetched systems');
-    return this.http.get<System[]>("http://localhost:8080/systems")
+    return this.http.get<System[]>("http://localhost:8080/systems", httpOptions)
       .pipe(
         tap(_ => this.log('fetched systems')),
         catchError(this.handleError('getSystems', []))
