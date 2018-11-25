@@ -28,13 +28,12 @@ public class TestPruefungsamt {
 		assertTrue(pa.fachHasPraktikum(51104));
 	}
 
-	@Ignore
 	@Test
 	public void testgetCredits() throws SQLException {
 		// Student 2 hat 27 Credits
 		assertEquals(171, pa.getCredits(2));
 		// Student 1 hat keine Credits
-		assertEquals(109, pa.getCredits(1));
+		assertEquals(139, pa.getCredits(1));
 	}
 
 	@Test
