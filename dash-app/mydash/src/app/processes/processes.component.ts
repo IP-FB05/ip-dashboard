@@ -56,12 +56,12 @@ export class ProcessesComponent implements OnInit {
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      prozessID: 0,
+      processID: 0,
       name: "",
-      beschreibung: "",
+      description: "",
       // TODO
-      bild: "Placeholder bis Fileserver",
-      varDatei: "Placeholder bis Fileserver",
+      pic: "Placeholder bis Fileserver",
+      varFile: "Placeholder bis Fileserver",
       bpmn: "Placeholder bis Fileserver",
       added: "Now"
     };

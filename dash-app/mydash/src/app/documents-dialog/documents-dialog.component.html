@@ -1,24 +1,39 @@
 <div style="padding:10px 5px 25px 5px;">
-    <h2 mat-dialog-title>System hinzufügen</h2>
+    <h2>Dokument hinzufügen</h2>
     <hr>
-    <mat-dialog-content [formGroup]="form" >
+    <mat-dialog-content [formGroup]="form">
         <mat-form-field style="width:600px; height:auto;">
             <label for="name"></label>
             <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
         <hr>
-        <mat-form-field style="width:600px; height:auto;">
-                <label for="beschreibung"></label>
-                <input matInput placeholder="Beschreibung" formControlName="description">
+        <mat-form-field style="width:600px; height:auto">
+            <label for="kategorie"></label>
+            <input matInput placeholder="Kategorie" formControlName="categoryname">
         </mat-form-field>
         <hr>
         <mat-form-field style="width:600px; height:auto;">
-                <label for="link"></label>
-                <input matInput placeholder="Link" formControlName="link">
+            <label for="link"></label>
+            <input matInput placeholder="Placeholder bis Fileserver" formControlName="link">
         </mat-form-field>
     </mat-dialog-content>
     <mat-dialog-actions>
         <button mat-raised-button (click)="onCloseConfirm()" class="bestaetigen-btn"> <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
         <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i>Abbrechen</button>
     </mat-dialog-actions>
+</div>
+
+<!-- TEST PART -->
+<div class="container" style="width:400px">
+    <div style="color: blue; margin-bottom: 20px">
+        <h1>{{title}}</h1>
+        <h3>{{description}}</h3>
+    </div>
+
+    <form-upload></form-upload>
+
+    <br />
+    <br />
+
+    <list-upload></list-upload>
 </div>

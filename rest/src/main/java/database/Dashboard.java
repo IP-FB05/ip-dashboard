@@ -8,8 +8,8 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import controller.System;
-import controller.Dokument;
-import controller.Prozess;
+import controller.Document;
+import controller.Process;
 
 public class Dashboard {
 	private Connection connect = null;
@@ -31,7 +31,7 @@ public class Dashboard {
 	}
 
 	public System[] getSystems() throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM systeme");
+		preparedStatement = connect.prepareStatement("SELECT * FROM systems");
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
@@ -40,7 +40,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				sys[i] = new System(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("beschreibung"), resultSet.getString("link"));
+						resultSet.getString("description"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return sys;
@@ -49,9 +49,9 @@ public class Dashboard {
 	}
 
 	public boolean addSystem(System input) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("INSERT INTO systeme (name, beschreibung, link) VALUES (?, ?, ?)");
+		preparedStatement = connect.prepareStatement("INSERT INTO systems (name, description, link) VALUES (?, ?, ?)");
 		preparedStatement.setString(1, input.getName());
-		preparedStatement.setString(2, input.getBeschreibung());
+		preparedStatement.setString(2, input.getDescription());
 		preparedStatement.setString(3, input.getLink());
 		preparedStatement.execute();
 
@@ -59,7 +59,7 @@ public class Dashboard {
 	}
 
 	public boolean deleteSystem(int systemID) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("DELETE FROM systeme WHERE systemID = ?");
+		preparedStatement = connect.prepareStatement("DELETE FROM systems WHERE systemID = ?");
 		preparedStatement.setInt(1, systemID);
 
 		preparedStatement.execute();
@@ -67,17 +67,17 @@ public class Dashboard {
 		return true;
 	}
 
-	public Dokument[] getDokumente() throws SQLException, ClassNotFoundException {
+	public Document[] getDocuments() throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"SELECT dokumentID, kategorie.name AS 'Kategoriename', dokumente.name, lastChanged, link FROM dokumente JOIN kategorie ON kategorie.kategorieID = dokumente.kategorieID");
+				"SELECT documentID, category.name AS 'Categoryname', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID");
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
 			int rowNumber = resultSet.getRow();
-			Dokument[] doc = new Dokument[rowNumber];
+			Document[] doc = new Document[rowNumber];
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
-				doc[i] = new Dokument(resultSet.getInt(1), resultSet.getString("Kategoriename"),
+				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoryname"),
 						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
@@ -86,30 +86,30 @@ public class Dashboard {
 		return null;
 	}
 
-	public boolean addDokument(Dokument input) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT kategorieID FROM kategorie WHERE name LIKE ?");
-		preparedStatement.setString(1, input.getKategoriename());
+	public boolean addDocument(Document input) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT categoryID FROM category WHERE name LIKE ?");
+		preparedStatement.setString(1, input.getCategoriename());
 		resultSet = preparedStatement.executeQuery();
 
-		int kategorieID = 0;
+		int categoryID = 0;
 		if (resultSet.first()) {
-			kategorieID = resultSet.getInt(1);
+			categoryID = resultSet.getInt(1);
 		} else {
-			preparedStatement = connect.prepareStatement("INSERT INTO kategorie (name) VALUES (?)");
-			preparedStatement.setString(1, input.getKategoriename());
+			preparedStatement = connect.prepareStatement("INSERT INTO category (name) VALUES (?)");
+			preparedStatement.setString(1, input.getCategoriename());
 			preparedStatement.execute();
 
 			preparedStatement = connect
-					.prepareStatement("SELECT kategorieID FROM kategorie WHERE kategorie.name LIKE ?");
-			preparedStatement.setString(1, input.getKategoriename());
+					.prepareStatement("SELECT categoryID FROM category WHERE category.name LIKE ?");
+			preparedStatement.setString(1, input.getCategoriename());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.first();
-			kategorieID = resultSet.getInt(1);
+			categoryID = resultSet.getInt(1);
 		}
 
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO dokumente (kategorieID, name, lastChanged, link) VALUES (?, ?, CURDATE(), ?)");
-		preparedStatement.setInt(1, kategorieID);
+				"INSERT INTO documents (categoryID, name, lastChanged, link) VALUES (?, ?, CURDATE(), ?)");
+		preparedStatement.setInt(1, categoryID);
 		preparedStatement.setString(2, input.getName());
 		preparedStatement.setString(3, input.getLink());
 		preparedStatement.execute();
@@ -117,63 +117,63 @@ public class Dashboard {
 		return true;
 	}
 
-	public boolean deleteDokument(int dokumentID) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("DELETE FROM dokumente WHERE dokumentID = ?");
-		preparedStatement.setInt(1, dokumentID);
+	public boolean deleteDocument(int documentID) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("DELETE FROM documents WHERE documentID = ?");
+		preparedStatement.setInt(1, documentID);
 
 		preparedStatement.execute();
 
 		return true;
 	}
 
-	public Prozess[] getProzesse() throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM prozesse");
+	public Process[] getProcesses() throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM processes");
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
 			int rowNumber = resultSet.getRow();
-			Prozess[] prozess = new Prozess[rowNumber];
+			Process[] process = new Process[rowNumber];
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
-				prozess[i] = new Prozess(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("beschreibung"), resultSet.getString("bild"),
-						resultSet.getString("varDatei"), resultSet.getString("bpmn"), resultSet.getString("added"));
+				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+						resultSet.getString("description"), resultSet.getString("pic"),
+						resultSet.getString("varFile"), resultSet.getString("bpmn"), resultSet.getString("added"));
 				resultSet.next();
 			}
-			return prozess;
+			return process;
 		}
 		return null;
 	}
 
-	public Prozess getProzess(int prozessID) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM prozesse WHERE prozessID = ?");
-		preparedStatement.setInt(1, prozessID);
+	public Process getProcess(int processID) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM processes WHERE processID = ?");
+		preparedStatement.setInt(1, processID);
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
-			Prozess prozess = new Prozess(resultSet.getInt(1), resultSet.getString("name"),
-					resultSet.getString("beschreibung"), resultSet.getString("bild"), resultSet.getString("varDatei"),
+			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
+					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("varFile"),
 					resultSet.getString("bpmn"), resultSet.getString("added"));
-			return prozess;
+			return process;
 		}
 		return null;
 	}
 
-	public boolean addProzess(Prozess input) throws SQLException, ClassNotFoundException {
+	public boolean addProcess(Process input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO prozesse (name, beschreibung, bild, varDatei, bpmn, added) VALUES (?, ?, ?, ?, ?, CURDATE())");
+				"INSERT INTO processes (name, description, pic, varFile, bpmn, added) VALUES (?, ?, ?, ?, ?, CURDATE())");
 		preparedStatement.setString(1, input.getName());
-		preparedStatement.setString(2, input.getBeschreibung());
-		preparedStatement.setString(3, input.getBild());
-		preparedStatement.setString(4, input.getVarDatei());
+		preparedStatement.setString(2, input.getDescription());
+		preparedStatement.setString(3, input.getPic());
+		preparedStatement.setString(4, input.getVarFile());
 		preparedStatement.setString(5, input.getBpmn());
 		preparedStatement.execute();
 
 		return true;
 	}
 
-	public boolean deleteProzess(int prozessID) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("DELETE FROM prozesse WHERE prozessID = ?");
-		preparedStatement.setInt(1, prozessID);
+	public boolean deleteProcess(int processID) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("DELETE FROM processes WHERE processID = ?");
+		preparedStatement.setInt(1, processID);
 
 		preparedStatement.execute();
 

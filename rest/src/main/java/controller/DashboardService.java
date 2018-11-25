@@ -49,60 +49,60 @@ public class DashboardService {
 	}
 
 
-	@RequestMapping(value = "/dokumente", method = RequestMethod.GET)
-    public Dokument[] getDokumente() throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/documents", method = RequestMethod.GET)
+    public Document[] getDocuments() throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	Dokument[] result = dash.getDokumente();
+    	Document[] result = dash.getDocuments();
     	dash.close();
     	return result;
 	}
 	
-	@RequestMapping(value = "/dokumentAdd", method = RequestMethod.POST)
+	@RequestMapping(value = "/documentAdd", method = RequestMethod.POST)
 	@ResponseBody
-    public boolean addDokument(@RequestBody Dokument input) throws SQLException, ClassNotFoundException {
+    public boolean addDocument(@RequestBody Document input) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	boolean result = dash.addDokument(input);
+    	boolean result = dash.addDocument(input);
     	dash.close();
     	return result;
 	}
 
-	@RequestMapping(value = "/dokumentDelete/{dokumentID}", method = RequestMethod.DELETE)
-    public boolean deleteDokument(@PathVariable int dokumentID) throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/documentDelete/{documentID}", method = RequestMethod.DELETE)
+    public boolean deleteDocument(@PathVariable int documentID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	boolean result = dash.deleteDokument(dokumentID);
+    	boolean result = dash.deleteDocument(documentID);
     	dash.close();
     	return result;
 	}
 	
-	@RequestMapping(value = "/prozesse", method = RequestMethod.GET)
-    public Prozess[] getProzesse() throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/processes", method = RequestMethod.GET)
+    public Process[] getProcesses() throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	Prozess[] result = dash.getProzesse();
+    	Process[] result = dash.getProcesses();
     	dash.close();
     	return result;
 	}
 
-	@RequestMapping(value = "/prozess/{prozessID}", method = RequestMethod.GET)
-    public Prozess getProzess(@PathVariable int prozessID) throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/process/{processID}", method = RequestMethod.GET)
+    public Process getProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	Prozess result = dash.getProzess(prozessID);
+    	Process result = dash.getProcess(processID);
     	dash.close();
     	return result;
 	}
 	
-	@RequestMapping(value = "/prozessAdd", method = RequestMethod.POST)
+	@RequestMapping(value = "/processAdd", method = RequestMethod.POST)
 	@ResponseBody
-    public boolean addProzess(@RequestBody Prozess input) throws SQLException, ClassNotFoundException {
+    public boolean addProcess(@RequestBody Process input) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	boolean result = dash.addProzess(input);
+    	boolean result = dash.addProcess(input);
     	dash.close();
     	return result;
 	}
 
-	@RequestMapping(value = "/prozessDelete/{prozessID}", method = RequestMethod.DELETE)
-    public boolean deleteProzess(@PathVariable int prozessID) throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/processDelete/{processID}", method = RequestMethod.DELETE)
+    public boolean deleteProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	boolean result = dash.deleteProzess(prozessID);
+    	boolean result = dash.deleteProcess(processID);
     	dash.close();
     	return result;
     }

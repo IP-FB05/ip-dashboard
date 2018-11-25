@@ -4,13 +4,13 @@ public class System {
 
     private int systemID;
     private String name;
-    private String beschreibung;
+    private String description;
     private String link;
 
-    public System(int systemID, String name, String beschreibung, String link) {
+    public System(int systemID, String name, String description, String link) {
         this.systemID = systemID;
         this.name = name;
-        this.beschreibung = beschreibung;
+        this.description = description;
 		this.link = link;
     }
 
@@ -22,8 +22,8 @@ public class System {
         return name;
     }
     
-    public String getBeschreibung() {
-    	return beschreibung;
+    public String getDescription() {
+    	return description;
     }
     
     public String getLink() {

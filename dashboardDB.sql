@@ -1,59 +1,79 @@
 CREATE DATABASE `dashboardDB` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */;
 
-DROP TABLE IF EXISTS `kategorie`;
-CREATE TABLE `kategorie` (
-  `kategorieID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`kategorieID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `dashboardDB`.`category`;
+CREATE TABLE IF NOT EXISTS `dashboardDB`.`category` (
+  `categoryID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL DEFAULT NULL,
+  PRIMARY KEY (`categoryID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 23
+DEFAULT CHARACTER SET = latin1
 
-DROP TABLE IF EXISTS `dokumente`;
-CREATE TABLE `dokumente` (
-  `dokumentID` int(11) NOT NULL AUTO_INCREMENT,
-  `kategorieID` int(11) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  `lastChanged` date NOT NULL,
-  `link` varchar(500) NOT NULL,
-  PRIMARY KEY (`dokumentID`),
-  KEY `kategorieID_idx` (`kategorieID`),
-  CONSTRAINT `kategorieID` FOREIGN KEY (`kategorieID`) REFERENCES `kategorie` (`kategorieid`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `dashboardDB`.`documents`;
+CREATE TABLE IF NOT EXISTS `dashboardDB`.`documents` (
+  `documentID` INT(11) NOT NULL AUTO_INCREMENT,
+  `categoryID` INT(11) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  `lastChanged` DATE NOT NULL,
+  `link` VARCHAR(500) NOT NULL,
+  PRIMARY KEY (`documentID`),
+  INDEX `kategorieID_idx` (`categoryID` ASC) VISIBLE)
+ENGINE = InnoDB
+AUTO_INCREMENT = 24
+DEFAULT CHARACTER SET = latin1
 
-DROP TABLE IF EXISTS `prozesse`;
-CREATE TABLE `prozesse` (
-  `prozessID` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) NOT NULL,
-  `beschreibung` varchar(5000) NOT NULL,
-  `bild` longblob NOT NULL,
-  `subs` int(11) DEFAULT NULL,
-  `var` varchar(200) DEFAULT NULL,
-  `bpmn` varchar(200) NOT NULL,
-  PRIMARY KEY (`prozessID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `dashboardDB`.`processes`;
+CREATE TABLE IF NOT EXISTS `dashboardDB`.`processes` (
+  `processID` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(100) NOT NULL,
+  `description` VARCHAR(5000) NOT NULL,
+  `pic` VARCHAR(300) NOT NULL,
+  `subs` INT(11) NULL DEFAULT NULL,
+  `varFile` VARCHAR(200) NULL DEFAULT NULL,
+  `bpmn` VARCHAR(200) NOT NULL,
+  `added` DATE NULL DEFAULT NULL,
+  `category` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`processID`),
+  INDEX `kategorie_idx` (`category` ASC) VISIBLE,
+  CONSTRAINT `kategorie`
+    FOREIGN KEY (`category`)
+    REFERENCES `dashboardDB`.`category` (`categoryID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 13
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci
 
-DROP TABLE IF EXISTS `subs`;
+DROP TABLE IF EXISTS `dashboardDB`.`subs`;
 CREATE TABLE `subs` (
   `subID` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(100) NOT NULL,
   PRIMARY KEY (`subID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-DROP TABLE IF EXISTS `prozesse_has_subs`;
-CREATE TABLE `prozesse_has_subs` (
-  `prozesse_prozessID` int(11) NOT NULL,
-  `subs_subID` int(11) NOT NULL,
-  PRIMARY KEY (`prozesse_prozessID`,`subs_subID`),
-  KEY `fk_prozesse_has_subs_subs1_idx` (`subs_subID`),
-  KEY `fk_prozesse_has_subs_prozesse1_idx` (`prozesse_prozessID`),
-  CONSTRAINT `fk_prozesse_has_subs_prozesse1` FOREIGN KEY (`prozesse_prozessID`) REFERENCES `prozesse` (`prozessid`),
-  CONSTRAINT `fk_prozesse_has_subs_subs1` FOREIGN KEY (`subs_subID`) REFERENCES `subs` (`subid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+DROP TABLE IF EXISTS `dashboardDB`.`process_has_subs`;
+CREATE TABLE IF NOT EXISTS `dashboardDB`.`process_has_subs` (
+  `processes_processID` INT(11) NOT NULL,
+  `subs_subID` INT(11) NOT NULL,
+  PRIMARY KEY (`processes_processID`, `subs_subID`),
+  INDEX `fk_prozesse_has_subs_subs1_idx` (`subs_subID` ASC) VISIBLE,
+  INDEX `fk_prozesse_has_subs_prozesse1_idx` (`processes_processID` ASC) VISIBLE,
+  CONSTRAINT `fk_prozesse_has_subs_prozesse1`
+    FOREIGN KEY (`processes_processID`)
+    REFERENCES `dashboardDB`.`processes` (`processID`),
+  CONSTRAINT `fk_prozesse_has_subs_subs1`
+    FOREIGN KEY (`subs_subID`)
+    REFERENCES `dashboardDB`.`subs` (`subID`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci
 
-DROP TABLE IF EXISTS `systeme`;
-CREATE TABLE `systeme` (
-  `systemID` int(11) NOT NULL AUTO_INCREMENT,
-  `beschreibung` varchar(5000) DEFAULT 'Keine Beschreibung vorhanden',
-  `link` varchar(100) NOT NULL,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`systemID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+DROP TABLE IF EXISTS `dashboardDB`.`systems`;
+CREATE TABLE IF NOT EXISTS `dashboardDB`.`systems` (
+  `systemID` INT(11) NOT NULL AUTO_INCREMENT,
+  `description` VARCHAR(5000) NULL DEFAULT 'Keine Beschreibung vorhanden',
+  `link` VARCHAR(100) NOT NULL,
+  `name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`systemID`))
+ENGINE = InnoDB
+AUTO_INCREMENT = 120
+DEFAULT CHARACTER SET = latin1

@@ -229,17 +229,6 @@
         <version>1.2.1.Final</version>
       </plugin>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-war-plugin</artifactId>
-        <version>3.2.0</version>
-        <configuration>
-          <outputDirectory>
-            /opt/camundabpm/server/apache-tomcat-9.0.5/webapps
-          </outputDirectory>
-        </configuration>
-      </plugin>
-
     </plugins>
   </build>
 </project>

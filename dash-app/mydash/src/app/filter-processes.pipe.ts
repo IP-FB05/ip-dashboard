@@ -12,6 +12,6 @@ export class filterProcessesPipe implements PipeTransform {
     transform(processes: Process[], text: string): Process[] {
 
         if (text == null || text === "") return processes;
-        return processes.filter(p => p.name.includes(text) || p.beschreibung.includes(text));
+        return processes.filter(p => p.name.includes(text) || p.description.includes(text) || p.name.toLowerCase().includes(text) || p.description.toLowerCase().includes(text));
     }
 }
