@@ -11,14 +11,14 @@
 	<a cam-file-download="contract"></a>
 
 	<div class="control-group">
-		<label class="control-label">Genehmigt?</label>
+		<label class="control-label">Beenden?</label>
 		<div class="controls">
-			<input type="checkbox" cam-variable-name="antragGenehmigt"
-				cam-variable-type="Boolean" name="antragGenehmigt" class="form-control" />
+			<input type="checkbox" cam-variable-name="ende"
+				cam-variable-type="Boolean" name="ende" class="form-control" />
 		</div>
 	</div>
 
-	<div class="control-group">
+	<div ng-if="!ende" class="control-group">
 		<label class="control-label">Abgabefrist</label>
 		<div class="controls">
 			<input type="text" cam-variable-name="frist"
