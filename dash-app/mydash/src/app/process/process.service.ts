@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Process } from './process';
 import { Observable, of } from 'rxjs';
-import { MessageService } from './message.service';
+import { MessageService } from '../message.service';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';

@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { System } from './system';
+import { System } from '../system/system';
 
 
 

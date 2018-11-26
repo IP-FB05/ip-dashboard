@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from "@angular/core";
-import { Process } from './process';
+import { Process } from '../process/process';
 
 
 
