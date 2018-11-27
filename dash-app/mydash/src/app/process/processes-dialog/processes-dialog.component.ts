@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Process } from '../process';
 
@@ -20,6 +20,7 @@ export class ProcessesDialogComponent implements OnInit {
   added: string;
 
   constructor(
+    public snackBar:MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, varFile, bpmn, added }: Process) {
@@ -45,6 +46,12 @@ export class ProcessesDialogComponent implements OnInit {
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Hinzufügen erfolgreich' , '', {
+      duration: 2000,
+    });
   }
 
 }

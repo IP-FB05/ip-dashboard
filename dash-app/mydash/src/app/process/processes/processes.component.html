@@ -20,7 +20,7 @@
       <div class="card-deck mb-3 text-center">
         <div class="card mb-3 box-shadow">
           <div class="card-header"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
-            <button class="delete" title="delete process" (click)="delete(process)">x</button></div>
+            <button class="delete" title="delete process" (click)="delete(process)" (click)="openSnackBar()">x</button></div>
           <div class="card-body text-secondary">
             <p class="card-text">{{process.description}}</p>
             <a class="btn btn-sm btn-secondary" routerLink="/detail/{{process.processID}}">Mehr</a>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { System } from '../system';
 import { SystemService } from '../system.service';
-import { MatDialog, MatDialogConfig } from '@angular/material'
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class SystemsComponent implements OnInit {
   public systems: System[];
   searchText: string;
 
-  constructor(private systemService: SystemService, public dialog: MatDialog) { }
+  constructor(private systemService: SystemService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
 
   ngOnInit() {
     this.getSystems();
@@ -55,6 +55,12 @@ export class SystemsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       this.add(data);
+    });
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Löschen erfolgreich' , '', {
+      duration: 2000,
     });
   }
 

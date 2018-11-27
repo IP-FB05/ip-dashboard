@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material';
-import { MatCardModule} from '@angular/material';
-import { MatButtonModule} from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material'
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -71,6 +72,7 @@ import { ProfilComponent } from './profil/profil.component';
     MatDialogModule,
     MatCardModule,
     MatButtonModule,
+    MatSnackBarModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.

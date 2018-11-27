@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Document } from '../document';
 
@@ -19,6 +19,7 @@ export class DocumentsDialogComponent implements OnInit {
 
 
   constructor(
+    public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {documentID, categoriename, name, lastChanged, link }: Document) { 
@@ -41,6 +42,12 @@ export class DocumentsDialogComponent implements OnInit {
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Hinzufügen erfolgreich' , '', {
+      duration: 2000,
+    });
   }
 
 }

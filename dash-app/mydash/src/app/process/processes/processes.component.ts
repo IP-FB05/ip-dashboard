@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
 import { ProcessService } from '../process.service';
-import { MatDialog, MatDialogConfig } from '@angular/material'
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component'
 
 
@@ -17,7 +17,7 @@ export class ProcessesComponent implements OnInit {
   //selectedProcess: Process;
   searchText:string;
 
-  constructor(private processService: ProcessService, public dialog: MatDialog) { }
+  constructor(private processService: ProcessService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
 
   ngOnInit() {
     this.getProcesses();
@@ -71,6 +71,12 @@ export class ProcessesComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       this.add(data);
+    });
+  }
+
+  openSnackBar() {
+    this.snackBar.open('Löschen erfolgreich' , '', {
+      duration: 2000,
     });
   }
 }
