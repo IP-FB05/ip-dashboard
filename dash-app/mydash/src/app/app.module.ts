@@ -33,6 +33,7 @@ import { filterSystemsPipe } from './filter/filter-systems.pipe';
 import { filterDocumentsPipe } from './filter/filter-documents.pipe';
 import { CategoryComponent } from './category/category/category.component';
 import { CategoryAddComponent } from './category/category-add/category-add.component';
+import { ProfilComponent } from './profil/profil.component';
 
 
 
@@ -57,6 +58,7 @@ import { CategoryAddComponent } from './category/category-add/category-add.compo
     filterDocumentsPipe,
     CategoryComponent,
     CategoryAddComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
