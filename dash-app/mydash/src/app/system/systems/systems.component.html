@@ -19,7 +19,7 @@
       <div class="card-deck mb-3 text-center">
         <div class="card mb-3 box-shadow">
           <div class="card-header">{{system.name}}&nbsp;
-            <button class="delete" title="delete system" (click)="delete(system)" (click)="openSnackBar()">x</button></div>
+            <button class="delete" title="delete system" (click)="delete(system)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
           <div class="card-body text-secondary">
             <p class="card-text">{{system.description}}</p>
             <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
