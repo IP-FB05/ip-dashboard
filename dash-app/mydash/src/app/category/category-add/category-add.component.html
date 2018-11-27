@@ -1,0 +1,10 @@
+<div class="col-md-6">
+  <h2 class="text-center">Kategorie hinzufügen</h2>
+<form>
+  <div class="form-group">
+    <label for="name">Kategoriename:</label>
+    <input type="name" [(ngModel)]="category.name" placeholder="Kategoriename" name="name" class="form-control" id="name">
+  </div>
+  <button class="btn btn-success" (click)="createCategory()">Hinzufügen</button>
+</form>
+</div>

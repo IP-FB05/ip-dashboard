@@ -31,6 +31,8 @@ import { ProcessesDialogComponent } from './process/processes-dialog/processes-d
 import { filterProcessesPipe } from './filter/filter-processes.pipe';
 import { filterSystemsPipe } from './filter/filter-systems.pipe';
 import { filterDocumentsPipe } from './filter/filter-documents.pipe';
+import { CategoryComponent } from './category/category/category.component';
+import { CategoryAddComponent } from './category/category-add/category-add.component';
 
 
 
@@ -53,6 +55,8 @@ import { filterDocumentsPipe } from './filter/filter-documents.pipe';
     filterProcessesPipe,
     filterSystemsPipe,
     filterDocumentsPipe,
+    CategoryComponent,
+    CategoryAddComponent,
   ],
   imports: [
     BrowserModule,

@@ -12,7 +12,6 @@ import javax.persistence.Column;
 public class Category {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-
 	@Column(name = "categoryID")
 	private Integer categoryID;
 
