@@ -12,7 +12,7 @@ export class DocumentsDialogComponent implements OnInit {
 
   form: FormGroup;
   documentID: number;
-  categoryname: string;
+  categoriename: string;
   name: string;
   lastChanged: string;
   link: string;
@@ -21,11 +21,11 @@ export class DocumentsDialogComponent implements OnInit {
   constructor(
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {documentID, categoryname, name, lastChanged, link }: Document) { 
+    @Inject(MAT_DIALOG_DATA) {documentID, categoriename, name, lastChanged, link }: Document) { 
 
       this.form = this.fb.group({
         documentID: 0,
-        categoryname: [this.categoryname, []],
+        categoryname: [this.categoriename, []],
         name: [this.name, []],
         lastChanged: "Now",
         // TODO

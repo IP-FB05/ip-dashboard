@@ -17,14 +17,14 @@
                 <thead>
                     <tr>
                         <th>Name:</th>
-                        <th>Typ:</th>
+                        <th>Kategorie:</th>
                         <th>Zuletzt geändert am:</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let document of documents | textFilterDocuments:searchText">
                         <td><a href={{document.link}} style="color: black">{{document.name}}</a></td>
-                        <td>{{document.categoryID}}</td>
+                        <td>{{document.categoriename}}</td>
                         <td>{{document.lastChanged}}</td>
                         <td><button class="delete-dark" title="delete document" (click)="delete(document)">x</button></td>
                     </tr>

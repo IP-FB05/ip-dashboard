@@ -1,6 +1,6 @@
 export class Document{
     documentID: number;
-    categoryname: string;
+    categoriename: string;
     name: string;
     lastChanged: string;
     link: string;

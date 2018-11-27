@@ -73,7 +73,7 @@ searchDocument(term: string): Observable<Document[]> {
 
 // PUT: update the documente on the server */
 updateDocument(document: Document): Observable<any> {
-  if(!document.name || !document.categoryname || !document.link) { return; }
+  if(!document.name || !document.categoriename || !document.link) { return; }
   return this.http.post(this.documentsUrl, document, httpOptions).pipe(
     tap(_ => this.log(`updated document id=${document.documentID}`)),
     catchError(this.handleError<any>('updateDocument'))
@@ -82,7 +82,7 @@ updateDocument(document: Document): Observable<any> {
 
 // POST: add a new document to the server */
 addDocument(document: Document): Observable<Document> {
-  if(!document.categoryname || document.categoryname == "" || !document.link || document.link == "" || !document.name || document.name == "") { return; }
+  if(!document.categoriename || document.categoriename == "" || !document.link || document.link == "" || !document.name || document.name == "") { return; }
   return this.http.post<Document>("http://localhost:8080/documentAdd", document, httpOptions).pipe(
     tap((Document: Document) => this.log(`added document w/ id=${document.documentID}`)),
     catchError(this.handleError<Document>('addDocument'))
