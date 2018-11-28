@@ -4,7 +4,7 @@
         <form [formGroup]="form">
             <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
                 <option value="">All</option>
-                <option *ngFor="let category of categories" [ngValue]="category">
+                <option *ngFor="let category of categories">
                     {{ category.name }}
                 </option>
             </select>
@@ -25,6 +25,6 @@
     </div>
     -->
     <div class="col-md" style="padding-top:30px">
-        <button (click)="filter('MCD')" class="btn btn-lg btn-secondary">Filtern</button>
+        <button (click)="filter(form.get('categoryControl').value)" class="btn btn-lg btn-secondary">Filtern</button>
     </div>
 </div>
