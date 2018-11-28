@@ -24,6 +24,7 @@ export class FilterComponent implements OnInit {
 
 
   filter(name: string) {
+    if (name === "All") this.dc.getDokumente();
     this.dc.filterDocuments(name);
   }
 
