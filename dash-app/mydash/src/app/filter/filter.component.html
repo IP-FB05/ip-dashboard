@@ -1,20 +1,18 @@
 <div ng-controller="Filter" class="row" style="padding: 10px 0px 0px 22px;">
     <div class="col-md">
         <label for="Typ">Typ</label>
-        <select id="catselect" class="form-control" ng-model="mySelect" ng-change="showSelectValue(mySelect)">
-            <option [value]="category" *ngFor="let category of categories">{{category.name}}</option>
-        </select>
+        <form [formGroup]="form">
+            <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
+                <option value="">All</option>
+                <option *ngFor="let category of categories" [ngValue]="category">
+                    {{ category.name }}
+                </option>
+            </select>
+        </form>
+        <p>Form value: {{ form.value | json }}</p>
 
-        
-        <!--<select class="form-control" ng-model="selectedCar">
-            <option ng-repeat="category in categories" value="{{category.name}}">{{category.name}}</option>
-        </select>
-        
-        <h1>You selected: {{selectedCar}}</h1>
-        -->
-            
-     
     </div>
+    <!--
     <div class="col-md">
         <label for="Zeitraum">Zeitraum</label>
         <select class="form-control" id="SelectZeitraum">
@@ -25,7 +23,8 @@
             <option>2015</option>
         </select>
     </div>
+    -->
     <div class="col-md" style="padding-top:30px">
-        <button (click)="test()" class="btn btn-lg btn-secondary">Filtern</button>
+        <button (click)="filter('MCD')" class="btn btn-lg btn-secondary">Filtern</button>
     </div>
 </div>

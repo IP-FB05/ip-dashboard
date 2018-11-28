@@ -73,7 +73,7 @@ export class DocumentsComponent implements OnInit {
   }
 
 // Backend Filter
-test(name: string) {
+filterDocuments(name: string) {
   this.documentsService.getDocumentsByCategory(name)
   .subscribe(documents => this.documents = documents);
 }

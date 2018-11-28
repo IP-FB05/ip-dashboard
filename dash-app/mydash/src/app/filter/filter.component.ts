@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
 import { DocumentsComponent } from '../document/documents/documents.component';
 import { Category } from '../category/category';
 import { CategoryService } from '../category/category.service'
@@ -21,18 +22,13 @@ export class FilterComponent implements OnInit {
       .subscribe(category => this.categories = category);
   }
 
-  test() {
-    //var myselect=document.getElementById("catselect").option
-    //let myselect: HTMLSelectElement = <HTMLSelectElement>document.getElementById("catselect");
-    //this.dc.test(myselect);
+
+  filter(name: string) {
+    this.dc.filterDocuments(name);
   }
 
-  showSelectValue (mySelect) {
-    console.log(mySelect);
-  }
-
-  test2() {
-    this.dc.test('MCD');
-  }
+  form = new FormGroup({
+    categoryControl: new FormControl()
+  });
 
 }
