@@ -3,13 +3,13 @@
         <label for="Typ">Typ</label>
         <form [formGroup]="form">
             <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
-                <option value="All">All</option>
+                <option value="">Alle</option>
                 <option *ngFor="let category of categories">
                     {{ category.name }}
                 </option>
             </select>
         </form>
-        <p>Form value: {{ form.value | json }}</p>
+        <!--<p>Form value: {{ form.value | json }}</p>-->
 
     </div>
     <!--

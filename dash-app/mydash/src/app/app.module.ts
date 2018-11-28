@@ -84,7 +84,12 @@ import { ProfilComponent } from './profil/profil.component';
     
   ],
   entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
-  providers: [],
+  providers: [
+    FilterComponent,
+    ProcessesComponent,
+    SystemsComponent,
+    DocumentsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

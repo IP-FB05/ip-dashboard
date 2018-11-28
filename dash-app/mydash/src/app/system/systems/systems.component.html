@@ -12,6 +12,7 @@
     </div>
   </div>
 
+  <app-filter></app-filter>
 
   <div class="row" style="padding: 25px 0px 0px 21px;">
     <div *ngFor="let system of systems | textFilterSystems:searchText" class="col-md-3">
@@ -27,7 +28,7 @@
       </div>
     </div>
     <div class="col-md-3">
-      <div class="card-deck mb-3 text-center">
+      <div class="card-deck mb-3 text-center fix">
         <div class="card mb-3 box-shadow">
           <div class="card-header" style="background-color: #0b1820a8;">System hinzufügen</div>
           <div class="card-body">
