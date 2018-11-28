@@ -1,1 +1,11 @@
 dash-app/mydash/package-lock.json
+dash-app/mydash/package-lock.json
+dash-app/mydash/package-lock.json
+dash-app/mydash/package-lock.json
+rest/.classpath
+rest/.project
+rest/.settings/org.eclipse.core.resources.prefs
+*.prefs
+rest/target/*
+rest/target/classes/application.properties
+*.class

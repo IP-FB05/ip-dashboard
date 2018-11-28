@@ -184,4 +184,25 @@ public class Dashboard {
 	public void close() throws SQLException {
 		connect.close();
 	}
+
+	// FILTER SECTION
+	public Document[] getFilteredDocuments(String name) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT documentID, category.name AS 'Categoryname', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID WHERE category.name = ?");
+		preparedStatement.setString(1, name);
+				resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Document[] doc = new Document[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoryname"),
+						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+				resultSet.next();
+			}
+			return doc;
+		}
+		return null;
+	}
 }

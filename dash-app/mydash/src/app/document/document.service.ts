@@ -100,6 +100,17 @@ deleteDocument(document: Document): Observable<Document> {
   );
 }
 
+  // GET documents from the server
+  getDocumentsByCategory(name: string): Observable<Document[]> {
+    // TODO: send the message _after_ fetching the documents
+    this.messageService.add('DocumentService: fetched documente');
+    return this.http.get<Document[]>("http://localhost:8080/filter/documents?name="+ name)
+      .pipe(
+        tap(_ => this.log('fetched documents')),
+        catchError(this.handleError('getDocumentsByCategory', []))
+      );
+  }
+
 
 private log(message: string) {
   this.messageService.add(`DocumentService: ${message}`);
