@@ -1,0 +1,32 @@
+<strong>Here you would put the actual form to work on the task</strong>
+
+<p>
+  You can use this form through Camunda Tasklist
+  by setting the formKey of a BPMN User Task to:
+  <code>embedded:app:forms/task-form.html</code>
+</p>
+
+<form class="form-horizontal">
+  <div class="control-group">
+    <label class="control-label">Module</label>
+    <div class="controls">
+    
+      <select cam-variable-name="id"
+        cam-variable-type="String"
+        cam-choices="AVAILABLE_MODULES">
+      </select>
+
+    </div>
+  </div>
+ 
+
+  <script cam-script type="text/form-script">
+  
+   $.getJSON(localhost:8888/modulStudent/1, function(data) {
+	console.log(data);
+}
+  
+  
+  	execution.setVariable("AVAILABLE_MODULES", JSON);
+  </script>
+</form>
