@@ -6,30 +6,54 @@
   <code>embedded:app:forms/task-form.html</code>
 </p>
 
-<form role="form" >
+<form role="form" class="form-horizontal">
+	<div class="control-group">
+		<label class="control-label">Welches Modul magst du abmelden:</label>
+		<p></p>
+		<select id="modul-dropdown" name="modules" cam-variable-name="fachnummer" cam-variable-type="String">
+			<!--will be filled in js (populateSelect) -->
+		</select>
+	</div>
 
+	<script cam-script type="text/form-script">
+		var headers = new Headers();
+		headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+		headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+
+		const userAction = async () => {
+			const response = await fetch('http://localhost:8888/modulStudent/1',
+				{method: 'GET',
+				headers: headers}
+			);
+
+			const myJson = await response.json(); //extract JSON from the http response
+ 	    	//do something with myJson here:
+			populateSelect(myJson);
+		}
+
+		function populateSelect(dataJSON) {
+			let dropdown = document.getElementById('modul-dropdown');
+			dropdown.length = 0;
+
+			let defaultOption = document.createElement('option');
+			defaultOption.text = 'Choose Module';
+
+			dropdown.add(defaultOption);
+			dropdown.selectedIndex = 0;
+
+			let option;
     
-      <select cam-variable-name="id"
-        cam-variable-type="String"
-        cam-choices="AVAILABLE_MODULES">
-      </select>
+			for (let i = 0; i < dataJSON.length; i++) {
+				option = document.createElement('option');
+				option.text = dataJSON[i].module;
+				option.value = dataJSON[i].id;
+				dropdown.add(option);
+			}    
 
- 
 
-  <script cam-script type="text/form-script">
-  console.log('Hello')
-    /*const userAction = async () => {
-      const response = await fetch('http://localhost:8888/modulStudent/1', {
-        method: 'GET',
-        body: myBody, // string or object
-        headers:{
-         'Authorization', 'Basic ZGVtbzpkZW1v',
-         'Content-Type': 'application/json',	
-        }
-      });
-      const myJson = await response.json(); //extract JSON from the http response
-      execution.setVariable("AVAILABLE_MODULES", myJson);
-    }
-  */
-  </script>
+		} 
+
+		userAction();
+
+	</script>
 </form>

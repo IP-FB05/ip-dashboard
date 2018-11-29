@@ -22,7 +22,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0u5ym1j" sourceRef="UserTask_15y7712" targetRef="ServiceTask_1i1v9tu" />
     <bpmn:sequenceFlow id="SequenceFlow_1na3rz0" sourceRef="ServiceTask_0ly3qpk" targetRef="EndEvent_0yf1djn" />
     <bpmn:sequenceFlow id="SequenceFlow_0mru8hi" sourceRef="ServiceTask_1i1v9tu" targetRef="ServiceTask_0ly3qpk" />
-    <bpmn:userTask id="UserTask_15y7712" name="Modul zur Abmeldung auswählen" camunda:formKey="embedded:app:forms/chose-form.html">
+    <bpmn:userTask id="UserTask_15y7712" name="Modul zur Abmeldung auswählen" camunda:formKey="embedded:app:forms/chose-form2.html">
       <bpmn:incoming>SequenceFlow_1q3yi6u</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0u5ym1j</bpmn:outgoing>
     </bpmn:userTask>
