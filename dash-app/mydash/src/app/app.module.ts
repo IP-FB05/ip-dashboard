@@ -2,20 +2,21 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material';
-import { MatCardModule} from '@angular/material';
-import { MatButtonModule} from '@angular/material';
+import { MatCardModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material'
 
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ProcessesComponent } from './processes/processes.component';
+import { ProcessesComponent } from './process/processes/processes.component';
 
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
-import { ProcessDetailComponent } from './process-detail/process-detail.component';
+import { ProcessDetailComponent } from './process/process-detail/process-detail.component';
 import { MessagesComponent } from './messages/messages.component';
-import { SystemsComponent } from './systems/systems.component';
-import { DocumentsComponent } from './documents/documents.component';
+import { SystemsComponent } from './system/systems/systems.component';
+import { DocumentsComponent } from './document/documents/documents.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // <-- NgModel lives here
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -25,15 +26,16 @@ import { DemoMaterialModule } from './material-module';
 // import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 // import { InMemoryDataService } from './in-memory-data.service';
 import { FilterComponent } from './filter/filter.component';
-import { DocumentsDialogComponent } from './documents-dialog/documents-dialog.component';
-import { SystemsDialogComponent } from './systems-dialog/systems-dialog.component';
-import { ProcessesDialogComponent } from './processes-dialog/processes-dialog.component';
-import { filterProcessesPipe } from './filter-processes.pipe';
-import { filterSystemsPipe } from './filter-systems.pipe';
-import { filterDocumentsPipe } from './filter-documents.pipe';
-import { FormUploadComponent } from './upload/form-upload/form-upload.component';
-import { ListUploadComponent } from './upload/list-upload/list-upload.component';
-import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
+import { DocumentsDialogComponent } from './document/documents-dialog/documents-dialog.component';
+import { SystemsDialogComponent } from './system/systems-dialog/systems-dialog.component';
+import { ProcessesDialogComponent } from './process/processes-dialog/processes-dialog.component';
+import { filterProcessesPipe } from './filter/filter-processes.pipe';
+import { filterSystemsPipe } from './filter/filter-systems.pipe';
+import { filterDocumentsPipe } from './filter/filter-documents.pipe';
+import { CategoryComponent } from './category/category/category.component';
+import { CategoryAddComponent } from './category/category-add/category-add.component';
+import { ProfilComponent } from './profil/profil.component';
+
 
 
 
@@ -55,9 +57,9 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
     filterProcessesPipe,
     filterSystemsPipe,
     filterDocumentsPipe,
-    FormUploadComponent,
-    ListUploadComponent,
-    DetailsUploadComponent,
+    CategoryComponent,
+    CategoryAddComponent,
+    ProfilComponent,
   ],
   imports: [
     BrowserModule,
@@ -70,6 +72,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
     MatDialogModule,
     MatCardModule,
     MatButtonModule,
+    MatSnackBarModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -81,7 +84,12 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
     
   ],
   entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
-  providers: [],
+  providers: [
+    FilterComponent,
+    ProcessesComponent,
+    SystemsComponent,
+    DocumentsComponent
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

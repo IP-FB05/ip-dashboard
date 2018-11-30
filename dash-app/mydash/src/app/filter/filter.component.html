@@ -1,13 +1,18 @@
-<div class="row" style="padding: 10px 0px 0px 22px;">
+<div ng-controller="Filter" class="row" style="padding: 10px 0px 0px 22px;">
     <div class="col-md">
         <label for="Typ">Typ</label>
-        <select class="form-control" id="SelectTyp">
-            <option>Alle</option>
-            <option>Studienbescheinigung</option>
-            <option>Informatik</option>
-            <option>MCD</option>
-        </select>
+        <form [formGroup]="form">
+            <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
+                <option value="">Alle</option>
+                <option *ngFor="let category of categories">
+                    {{ category.name }}
+                </option>
+            </select>
+        </form>
+        <!--<p>Form value: {{ form.value | json }}</p>-->
+
     </div>
+    <!--
     <div class="col-md">
         <label for="Zeitraum">Zeitraum</label>
         <select class="form-control" id="SelectZeitraum">
@@ -18,7 +23,8 @@
             <option>2015</option>
         </select>
     </div>
+    -->
     <div class="col-md" style="padding-top:30px">
-        <button type="submit" class="btn btn-lg btn-secondary">Filtern</button>
+        <button (click)="filter(form.get('categoryControl').value)" class="btn btn-lg btn-secondary">Filtern</button>
     </div>
 </div>

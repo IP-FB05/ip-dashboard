@@ -1,0 +1,32 @@
+<div>
+  <h2>Prozess hinzufügen</h2>
+  <hr>
+  <mat-dialog-content [formGroup]="form">
+      <mat-form-field style="width:600px; height:auto;">
+        <label for="name"></label>
+        <input matInput placeholder="Name" formControlName="name">
+      </mat-form-field>
+      <mat-form-field style="width:600px; height:auto;">
+        <label for="beschreibung"></label>
+        <input matInput placeholder="Beschreibung" formControlName="description">
+      </mat-form-field>
+      <hr>
+        <label for="BPMNhochladen" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
+        <input type="file" class="form-control-file" id="BPMNhochladen">
+
+        <hr style = "margin-top:30px; margin-bottom:10px;">
+
+       <button mat-raised-button data-toggle="collapse" class="collapse-btn" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">  <i class="material-icons" style="margin-right:5px;">expand_more</i>Prozess automatisieren?</button>
+
+        <div class="collapse" id="collapseExample">
+            <div class="card card-body collapse-body">
+                <label for="VARhochladen"> Laden Sie die .var-Datei hoch!</label>
+                <input type="file" class="form-control-file" id="VARhochladen">
+            </div>
+        </div>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button mat-raised-button (click)="onCloseConfirm()" (click)="openSnackBar()" class="bestaetigen-btn"><i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
+    <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i> Abbrechen</button>
+  </mat-dialog-actions>
+</div>

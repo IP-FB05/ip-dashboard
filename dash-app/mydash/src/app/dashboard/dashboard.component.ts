@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Process } from '../process';
-import { ProcessService } from '../process.service';
+import { Process } from '../process/process';
+import { ProcessService } from '../process/process.service';
 
 @Component({
   selector: 'app-dashboard',

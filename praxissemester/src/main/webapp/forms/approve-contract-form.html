@@ -1,27 +1,32 @@
 <strong>Here you would put the actual form to work on the task</strong>
 
 <p>
-  You can use this form through Camunda Tasklist
-  by setting the formKey of a BPMN User Task to:
-  <code>embedded:app:forms/task-form.html</code>
+	You can use this form through Camunda Tasklist by setting the formKey
+	of a BPMN User Task to:
+	<code>embedded:app:forms/task-form.html</code>
 </p>
 
 <form class="form-horizontal">
 
-  <a cam-file-download="contract"></a>
-  
-  <div class="control-group">
-    <label class="control-label">Genehmigt?</label>
-    <div class="controls">
-      <input type="checkbox"
-             cam-variable-name="antragGenehmigt"
-             cam-variable-type="Boolean"
-             name="approved"
-             class="form-control" />
-    </div>
-  </div>
+	<a cam-file-download="contract"></a>
 
-  <script cam-script type="text/form-script">
+	<div class="control-group">
+		<label class="control-label">Genehmigt?</label>
+		<div class="controls">
+			<input type="checkbox" cam-variable-name="antragGenehmigt"
+				cam-variable-type="Boolean" class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Abgabefrist</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="frist"
+				cam-variable-type="Date" class="form-control" />
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
   // custom JavaScript goes here
   </script>
 </form>

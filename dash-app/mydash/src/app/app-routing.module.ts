@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ProcessesComponent } from './processes/processes.component';
+import { ProcessesComponent } from './process/processes/processes.component';
 import { DashboardComponent }   from './dashboard/dashboard.component';
-import { ProcessDetailComponent }  from './process-detail/process-detail.component';
+import { ProcessDetailComponent }  from './process/process-detail/process-detail.component';
 import { LoginComponent } from './login/login.component'; 
-import { SystemsComponent } from './systems/systems.component';
+import { SystemsComponent } from './system/systems/systems.component';
 import { MenuComponent } from './menu/menu.component';  
-import { DocumentsComponent } from './documents/documents.component';
+import { DocumentsComponent } from './document/documents/documents.component';
+import { CategoryComponent } from './category/category/category.component';
 
 const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -16,8 +17,8 @@ const routes: Routes = [
  { path: 'processes', component: ProcessesComponent },
  { path: 'menu', component: MenuComponent },
  { path: 'systems', component: SystemsComponent },
- { path: 'documents', component: DocumentsComponent}
-
+ { path: 'documents', component: DocumentsComponent},
+ { path: 'category', component: CategoryComponent}
 ];
 
 @NgModule({
