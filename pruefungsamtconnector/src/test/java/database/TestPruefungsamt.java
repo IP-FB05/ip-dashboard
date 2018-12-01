@@ -104,7 +104,7 @@ public class TestPruefungsamt {
 	}
 	
 	@Test
-	public void getModuleList() throws SQLException {
+	public void testGetModuleList() throws SQLException {
 		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
 		
 		int modNr = 0;
@@ -119,6 +119,19 @@ public class TestPruefungsamt {
 		
 		assertEquals(8998,modNr);
 		assertEquals("Bachelorarbeit",modName);
+	}
+	
+	@Test
+	@Ignore
+	public void testPruefungBenotung() throws SQLException {
+		// Student 1 bekommt seine letzte Pruefung in Prüfung 552011 mit 2.0 benotet
+		pa.pruefungAnmelden(1, 55678);	
+//		assertTrue(pa.pruefungBenotung(1, 552011, 2.0));
+		//pa.pruefungAbmelden(1, 552011);
+		
+		// Student 1 bekommt seine letzte Pruefung in Modul 552011 mit 2.0 benotet
+		// Fehler da Student 1 nicht zur Pruefung in Modul 552011 angemeldet ist
+		//assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
 	}
 	
 

@@ -344,7 +344,39 @@ public class Pruefungsamt {
 		return zulassung;
 	}
 
-	
+	public boolean pruefungBenotung(int matrikelnr, int fachnr, double note) throws SQLException {
+		
+		String bestanden = "";
+		
+		if(note < 5.0) {
+			bestanden = "'bestanden'";
+		} else {
+			bestanden = "'durchgefallen'";
+		}
+		
+		preparedStatement = connect.prepareStatement(
+				"UPDATE `pruefungsamt`.`pruefung_student`  AS prstd "
+				+ "JOIN "
+				+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
+				+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
+				+ "WHERE (`student` = ?) and (t2.`modulnr` = ?) and (`status` = 'angemeldet')"
+				+ "order by t2.pruefungszeitpunkt desc "
+				+ "LIMIT 1 "
+				+ ") AS sel "
+				+ "ON sel.pruefung = prstd.pruefung "
+				+ "SET prstd.`note` = ? and prstd.`status` = " + bestanden + "; ");
+		
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, fachnr);
+		preparedStatement.setDouble(3, note);
+		
+		int resultSet = preparedStatement.executeUpdate();
+		
+		if(resultSet == 1) {
+			return true;
+		}	
+		return false;
+	}	
 	
 	
 	
@@ -352,6 +384,8 @@ public class Pruefungsamt {
 	public void close() throws SQLException {
 		connect.close();
 	}
+
+
 
 	
 
