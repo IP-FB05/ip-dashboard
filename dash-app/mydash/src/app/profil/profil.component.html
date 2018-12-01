@@ -8,11 +8,12 @@
     <div class="row" style="padding: 10px 0px 0px 22px;">
         <div class="col-md-3">
             <label for="Typ">Prozess abonnieren</label>
-            <select class="form-control" id="SelectTyp">
-                <option>-keine Auswahl-</option>
-                <option>Prozess 1</option>
-                <option>Prozess 2</option>
-            </select>
+            <form [formGroup]="form">
+                <select class="form-control" id="SelectProcess" name="processSelect" formControlName="processControl">
+                    <option value="">-keine Auswahl-</option>
+                    <option *ngFor="let process of processes">{{process.name}}</option>
+                </select>
+        </form>
         </div>
 
         <div class="col-md-1" style="padding-top:40px">
