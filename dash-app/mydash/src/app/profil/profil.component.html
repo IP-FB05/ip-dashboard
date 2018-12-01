@@ -1,3 +1,44 @@
-<p>
-  profil works!
-</p>
+<div class="profil">
+
+    <div class="row" style="padding: 65px 30px 10px 37px;">
+        <h1 style="color: black; font-weight:300; font-size: 17px;">Das ist ein Vorschau der Profil-Seite.
+        Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
+    </div>
+
+    <div class="row" style="padding: 10px 0px 0px 22px;">
+        <div class="col-md-3">
+            <label for="Typ">Prozess abonnieren</label>
+            <select class="form-control" id="SelectTyp">
+                <option>-keine Auswahl-</option>
+                <option>Prozess 1</option>
+                <option>Prozess 2</option>
+            </select>
+        </div>
+
+        <div class="col-md-1" style="padding-top:40px">
+            <input type="checkbox" name="Info" value="Info"> Info
+        </div>
+        <div class="col-md-2" style="padding-top:30px">
+            <button type="submit" class="btn btn-lg btn-secondary">Abonnieren</button>
+        </div>
+    </div>
+
+    <div class="row" style="padding: 30px 0px 0px 20px;">
+        <div class="col-md-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Abonnierte Prozesse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Placeholder</td>
+                        <td><button class="delete-dark" title="deabonnieren" (click)="placeholder">x</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
