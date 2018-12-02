@@ -35,6 +35,9 @@ import { filterDocumentsPipe } from './filter/filter-documents.pipe';
 import { CategoryComponent } from './category/category/category.component';
 import { CategoryAddComponent } from './category/category-add/category-add.component';
 import { ProfilComponent } from './profil/profil.component';
+import { ListUploadComponent } from './upload/list-upload/list-upload.component';
+import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
+import { FormUploadComponent } from './upload/form-upload/form-upload.component'
 
 
 
@@ -60,6 +63,9 @@ import { ProfilComponent } from './profil/profil.component';
     CategoryComponent,
     CategoryAddComponent,
     ProfilComponent,
+    ListUploadComponent,
+    DetailsUploadComponent,
+    FormUploadComponent,
   ],
   imports: [
     BrowserModule,

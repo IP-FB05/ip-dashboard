@@ -9,16 +9,25 @@
         <hr>
         <mat-form-field style="width:600px; height:auto">
             <label for="kategorie"></label>
-            <input matInput placeholder="Kategorie" formControlName="categoryname">
+            <input matInput placeholder="Kategorie" formControlName="categoriename">
         </mat-form-field>
         <hr>
-        <mat-form-field style="width:600px; height:auto;">
-            <label for="link"></label>
-            <input matInput placeholder="Placeholder bis Fileserver" formControlName="link">
-        </mat-form-field>
+
+        <label for="link"></label>
+        <input #file type="file" (change)="selectFile($event)" (change)="updateFile(file)">
+
     </mat-dialog-content>
-    <mat-dialog-actions>
-        <button mat-raised-button (click)="onCloseConfirm()" (click)="openSnackBar()" class="bestaetigen-btn"> <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
+
+    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+
+    <mat-dialog-actions style="padding-top: 50px">
+        <button mat-raised-button (click)="onCloseConfirm()" (click)="openSnackBar()" class="bestaetigen-btn">
+            <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
         <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i>Abbrechen</button>
     </mat-dialog-actions>
+
+    <br>
+    <!--<form-upload></form-upload>-->
+
+    <!--<list-upload></list-upload>-->
 </div>

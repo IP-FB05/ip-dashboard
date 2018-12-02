@@ -11,8 +11,11 @@
         <input matInput placeholder="Beschreibung" formControlName="description">
       </mat-form-field>
       <hr>
-        <label for="BPMNhochladen" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
-        <input type="file" class="form-control-file" id="BPMNhochladen">
+        <label for="bpmn" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
+        <input type="file" formControlName="bpmn" class="form-control-file" id="file1" (change)="selectFile($event)">
+
+        <label for="BPMNBildhochladen" style="margin-top:30px">Laden Sie .bpmn-Bild hoch!</label>
+        <input type="file" formControlName="bpmnBild" class="form-control-file" id="BPMNBildhochladen">
 
         <hr style = "margin-top:30px; margin-bottom:10px;">
 
@@ -21,7 +24,7 @@
         <div class="collapse" id="collapseExample">
             <div class="card card-body collapse-body">
                 <label for="VARhochladen"> Laden Sie die .var-Datei hoch!</label>
-                <input type="file" class="form-control-file" id="VARhochladen">
+                <input type="file" formControlName="var" class="form-control-file" id="VARhochladen">
             </div>
         </div>
   </mat-dialog-content>
