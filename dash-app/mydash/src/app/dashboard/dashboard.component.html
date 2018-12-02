@@ -20,7 +20,7 @@
     <div class="card bg-light mb-3" style="max-width: auto;">
       <div class="card-header" style="background-color: #0b1921d1;">Prozess hinzufügen</div>
       <div class="card-body" style="background-color:#f5f5f5;">
-        <p class="card-text" style="text-align:center;"><a href="#"><button class="btn btn-secondary round-plus-btn">+</button></a></p>
+        <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogProcess()">+</button></p>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <div class="card bg-light mb-3" style="max-width: auto;">
       <div class="card-header" style="background-color: #0b1921d1;">Dokument hochladen</div>
       <div class="card-body" style="background-color: #f5f5f5;">
-        <p class="card-text" style="text-align:center;"><a href="#"><button class="btn btn-secondary round-plus-btn">+</button></a></p>
+          <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogDocument()">+</button></p>
       </div>
     </div>
   </div>
@@ -65,10 +65,9 @@
       <div class="card-header" style="background-color:#0b1921; border-bottom: none; color:white; font-size:18px;">Dokumente
         <img src="\assets\img\icons\dokumente.png" width="70px" height="auto" style="float:right;" /></div>
       <div class="card-body" style="background: #0b1921;">
-        <p class="card-text" style="color:white;">Some quick example text to build on the card title and make up the
-          bulk of the card's
-          content.
-        </p>
+        <div *ngFor="let document of documents">
+            <p><a href={{document.link}} style="color: white">{{document.name}}</a></p>
+        </div>
         <a routerLink="/documents" class="btn btn-secondary">Alle Dokumente</a>
       </div>
     </div>

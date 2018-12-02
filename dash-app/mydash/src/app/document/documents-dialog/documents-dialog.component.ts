@@ -26,7 +26,7 @@ export class DocumentsDialogComponent implements OnInit {
 
       this.form = this.fb.group({
         documentID: 0,
-        categoryname: [this.categoriename, []],
+        categoriename: [this.categoriename, []],
         name: [this.name, []],
         lastChanged: "Now",
         // TODO
