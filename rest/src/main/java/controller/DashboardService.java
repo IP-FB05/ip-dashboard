@@ -53,6 +53,14 @@ public class DashboardService {
     	dash.close();
     	return result;
 	}
+
+	@RequestMapping(value = "/documentsLimit", method = RequestMethod.GET)
+    public Document[] getDocumentsLimit() throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	Document[] result = dash.getDocumentsLimit();
+    	dash.close();
+    	return result;
+	}
 	
 	@RequestMapping(value = "/documentAdd", method = RequestMethod.POST)
 	@ResponseBody
