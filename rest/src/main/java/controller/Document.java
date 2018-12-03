@@ -3,14 +3,14 @@ package controller;
 public class Document {
 
     private int documentID;
-    private String categoryname;
+    private String categoriename;
     private String name;
     private String lastChanged;
     private String link;
 
-    public Document(int documentID, String categoryname, String name, String lastChanged, String link) {
+    public Document(int documentID, String categoriename, String name, String lastChanged, String link) {
         this.documentID = documentID;
-        this.categoryname = categoryname;
+        this.categoriename = categoriename;
         this.name = name;
         this.lastChanged = lastChanged;
 		this.link = link;
@@ -21,7 +21,7 @@ public class Document {
     }
 
     public String getCategoriename() {
-        return categoryname;
+        return categoriename;
     }
 
     public String getName() {
