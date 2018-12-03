@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import database.Pruefungsamt;
 import database.RegisteredModulesModel;
+import database.RegisteredPruefungModel;
 
 @RestController
 public class StudentServices {
@@ -116,6 +117,13 @@ public class StudentServices {
 		return result;
 	}
 	
-	
+	//fachnr = modulnr
+	@RequestMapping("/pruefungStudentList/{fachnr}")
+	public List<RegisteredPruefungModel> getPruefungStudentList(@PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		List<RegisteredPruefungModel> result = amt.getPruefungStudentList(fachnr);
+		amt.close();
+		return result;
+	}
 	
 }
