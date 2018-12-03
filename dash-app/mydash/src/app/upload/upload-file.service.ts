@@ -19,6 +19,8 @@ export class UploadFileService {
       responseType: 'text'
     });
 
+    
+
     return this.http.request(req);
   }
 

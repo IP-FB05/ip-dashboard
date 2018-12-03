@@ -79,7 +79,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
-						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return doc;
@@ -98,7 +98,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
-						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return doc;
@@ -217,7 +217,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
-						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return doc;

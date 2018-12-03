@@ -3,7 +3,7 @@
         <label for="Typ">Typ</label>
         <form [formGroup]="form">
             <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
-                <option value="">Alle</option>
+                <option selected="selected" value="">Alle</option>
                 <option *ngFor="let category of categories">
                     {{ category.name }}
                 </option>

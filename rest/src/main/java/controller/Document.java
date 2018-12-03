@@ -1,14 +1,16 @@
 package controller;
 
+import java.sql.Date;
+
 public class Document {
 
     private int documentID;
     private String categoriename;
     private String name;
-    private String lastChanged;
+    private Date lastChanged;
     private String link;
 
-    public Document(int documentID, String categoriename, String name, String lastChanged, String link) {
+    public Document(int documentID, String categoriename, String name, Date lastChanged, String link) {
         this.documentID = documentID;
         this.categoriename = categoriename;
         this.name = name;
@@ -28,7 +30,7 @@ public class Document {
         return name;
     }
     
-    public String getLastChanged() {
+    public Date getLastChanged() {
     	return lastChanged;
     }
     
