@@ -1,7 +1,7 @@
 <div class="systems">
   <div class="row" style="padding: 65px 30px 10px 37px;">
-    <h2 style="color: black; font-weight:300; font-size: 17px;">Das ist eine Vorschau der System-Seite. Man gelangt
-      auf ein System, indem man auf das
+    <h2 style="color: black; font-weight:300; font-size: 17px;">Dies ist die System-Seite. Man gelangt
+      zu einem System, indem man auf den
       "Zur Seite"-Button klickt.
       Man kann auch jederzeit ein neues System hinzufügen oder Systeme aus der Übersicht löschen.</h2>
   </div>
@@ -16,19 +16,19 @@
 
   <div class="row" style="padding: 25px 0px 0px 21px;">
     <div *ngFor="let system of systems | textFilterSystems:searchText" class="col-md-3">
-      <div class="card-deck mb-3 text-center">
+      <div class="card-deck h-100 mb-3 text-center">
         <div class="card mb-3 box-shadow">
           <div class="card-header">{{system.name}}&nbsp;
             <button class="delete" title="delete system" (click)="delete(system)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
-          <div class="card-body text-secondary">
+          <div class="card-body text-secondary d-flex">
             <p class="card-text">{{system.description}}</p>
-            <a class="btn btn-sm btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
+            <a class="btn btn-sm btn-secondary mt-auto" href="{{system.link}}" target="_blank">Zur Seite</a>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-3">
-      <div class="card-deck mb-3 text-center fix">
+      <div class="card-deck h-100 mb-3 text-center fix">
         <div class="card mb-3 box-shadow">
           <div class="card-header" style="background-color: #0b1820a8;">System hinzufügen</div>
           <div class="card-body">
