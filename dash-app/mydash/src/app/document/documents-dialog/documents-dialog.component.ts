@@ -5,6 +5,9 @@ import { Document } from '../document';
 import { UploadFileService } from 'src/app/upload/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { CategoryService } from 'src/app/category/category.service';
+import { Category } from 'src/app/category/category';
+
 
 @Component({
   selector: 'app-documents-dialog',
@@ -25,9 +28,12 @@ export class DocumentsDialogComponent implements OnInit {
   currentFileUpload: File;
   progress: { percentage: number } = { percentage : 0 };
 
+  categories: Category[];
+
 
   constructor(
-    private uploadService: UploadFileService,
+    public cs: CategoryService,
+    public uploadService: UploadFileService,
     public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
@@ -45,6 +51,8 @@ export class DocumentsDialogComponent implements OnInit {
     }
 
   ngOnInit() {
+    this.cs.getCategories()
+      .subscribe(category => this.categories = category);
   }
 
   onCloseConfirm() {
