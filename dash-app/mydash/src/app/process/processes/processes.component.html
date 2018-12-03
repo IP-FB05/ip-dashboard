@@ -22,7 +22,7 @@
         <div class="card mb-3 box-shadow">
           <div class="card-header"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
             <button class="delete" title="delete process" (click)="delete(process)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
-          <div class="card-body text-secondary d-flex">
+          <div class="card-body text-secondary d-flex flex-column">
             <p class="card-text">{{process.description}}</p>
             <a class="btn btn-sm btn-secondary mt-auto" routerLink="/detail/{{process.processID}}">Mehr</a>
           </div>
