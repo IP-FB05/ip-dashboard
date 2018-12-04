@@ -8,6 +8,7 @@ import { SystemsComponent } from './system/systems/systems.component';
 import { MenuComponent } from './menu/menu.component';  
 import { DocumentsComponent } from './document/documents/documents.component';
 import { CategoryComponent } from './category/category/category.component';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
@@ -18,7 +19,8 @@ const routes: Routes = [
  { path: 'menu', component: MenuComponent },
  { path: 'systems', component: SystemsComponent },
  { path: 'documents', component: DocumentsComponent},
- { path: 'category', component: CategoryComponent}
+ { path: 'category', component: CategoryComponent},
+ { path: 'profil', component: ProfilComponent}
 ];
 
 @NgModule({

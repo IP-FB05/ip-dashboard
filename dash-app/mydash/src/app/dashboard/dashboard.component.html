@@ -1,6 +1,6 @@
 <div class="row" style="padding: 65px 30px 0px 40px; margin: auto;">
   <div class="col-md-6">
-    <div class="card text-white mb-3 text-center" style="border-color:#00b5ad;">
+    <div class="card h-100 text-white mb-3 text-center" style="border-color:#00b5ad;">
       <div class="card-header" style="border-color:#00b5ad; background:#00b5ad; text-align: left; ">
         <h3 style="font-weight:400; font-size: 19px;">Laufende Prozesse <img src="\assets\img\icons\laufende-prozesse.png"
             width="67px" height="auto" style="float:right;" /></h3>
@@ -17,58 +17,57 @@
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card bg-light mb-3" style="max-width: auto;">
+    <div class="card h-100 bg-light mb-3" style="max-width: auto;">
       <div class="card-header" style="background-color: #0b1921d1;">Prozess hinzufügen</div>
       <div class="card-body" style="background-color:#f5f5f5;">
-        <p class="card-text" style="text-align:center;"><a href="#"><button class="btn btn-secondary round-plus-btn">+</button></a></p>
+        <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogProcess()">+</button></p>
       </div>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card bg-light mb-3" style="max-width: auto;">
+    <div class="card h-100 bg-light mb-3" style="max-width: auto;">
       <div class="card-header" style="background-color: #0b1921d1;">Dokument hochladen</div>
       <div class="card-body" style="background-color: #f5f5f5;">
-        <p class="card-text" style="text-align:center;"><a href="#"><button class="btn btn-secondary round-plus-btn">+</button></a></p>
+          <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogDocument()">+</button></p>
       </div>
     </div>
   </div>
 </div>
 <div class="row" style="padding: 30px 30px 0px 40px; margin: auto;">
   <div class="col-md-3">
-    <div class="card text-white mb-3 text-center" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+    <div class="card h-100 text-white mb-3 text-center" style="border: 1px solid rgba(0, 0, 0, 0.125);">
       <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad; text-align: left">
         <h3 style="font-weight:400; font-size: 19px;">Systeme</h3>
       </div>
-      <div class="card-body" style="background-color: #f5f5f5;">
+      <div class="card-body d-flex flex-column" style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
           Hier finden Sie alle notwendigen Systeme wie Campus, ILIAS, QIS ...
         </p>
-        <p class="card-text"><a routerLink="/systems"><button class="btn btn-secondary">Zur System-Seite</button></a></p>
+        <p class="card-text mt-auto"><a routerLink="/systems"><button class="btn btn-secondary">Zur System-Seite</button></a></p>
       </div>
     </div>
   </div>
   <div class="col-md-3">
-    <div class="card text-white mb-3 text-center" style="border-color: 1px solid rgba(0, 0, 0, 0.125);">
+    <div class="card h-100 text-white mb-3 text-center" style="border-color: 1px solid rgba(0, 0, 0, 0.125);">
       <div class="card-header" style="border-color:#f5f5f5;  background:#00b5ad; text-align: left">
         <h3 style="font-weight:400; font-size: 19px;">Prozesse</h3>
       </div>
-      <div class="card-body" style="background-color: #f5f5f5;">
+      <div class="card-body d-flex flex-column" style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
           Hier finden Sie alle notwendigen Prozesse wie Einschreibung, Praxissemester, ...
         </p>
-        <p class="card-text"><a routerLink="/processes"><button class="btn btn-secondary">Zur Prozess-Seite</button></a></p>
+        <p class="card-text mt-auto"><a routerLink="/processes"><button class="btn btn-secondary">Zur Prozess-Seite</button></a></p>
       </div>
     </div>
   </div>
   <div class="col-md-6">
-    <div class="card text-white bg-dark" style="border-color:#0b1921;">
+    <div class="card h-100 text-white bg-dark" style="border-color:#0b1921;">
       <div class="card-header" style="background-color:#0b1921; border-bottom: none; color:white; font-size:18px;">Dokumente
         <img src="\assets\img\icons\dokumente.png" width="70px" height="auto" style="float:right;" /></div>
       <div class="card-body" style="background: #0b1921;">
-        <p class="card-text" style="color:white;">Some quick example text to build on the card title and make up the
-          bulk of the card's
-          content.
-        </p>
+        <div *ngFor="let document of documents">
+            <p><a href={{document.link}} style="color: white">{{document.name}}</a></p>
+        </div>
         <a routerLink="/documents" class="btn btn-secondary">Alle Dokumente</a>
       </div>
     </div>

@@ -33,6 +33,17 @@ export class DocumentService {
       );
   }
 
+   // GET documents from the server
+   getDocumentLimit(): Observable<Document[]> {
+    // TODO: send the message _after_ fetching the documents
+    this.messageService.add('DocumentService: fetched documente');
+    return this.http.get<Document[]>("http://localhost:8080/documentsLimit")
+      .pipe(
+        tap(_ => this.log('fetched documents')),
+        catchError(this.handleError('getDocuments', []))
+      );
+  }
+
  // GET document by id. Return `undefined` when id not found */
  getDocumentNo404<Data>(id: number): Observable<Document> {
   const url = `${this.documentsUrl}/?id=${id}`;

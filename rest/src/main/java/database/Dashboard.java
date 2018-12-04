@@ -70,7 +70,7 @@ public class Dashboard {
 
 	public Document[] getDocuments() throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"SELECT documentID, category.name AS 'Categoryname', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID");
+				"SELECT documentID, category.name AS 'Categoriename', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID");
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
@@ -78,8 +78,27 @@ public class Dashboard {
 			Document[] doc = new Document[rowNumber];
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
-				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoryname"),
-						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
+				resultSet.next();
+			}
+			return doc;
+		}
+		return null;
+	}
+
+	public Document[] getDocumentsLimit() throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT documentID, category.name AS 'Categoriename', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID ORDER BY RAND() limit 3");
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Document[] doc = new Document[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return doc;
@@ -188,7 +207,7 @@ public class Dashboard {
 	// FILTER SECTION
 	public Document[] getFilteredDocuments(String name) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"SELECT documentID, category.name AS 'Categoryname', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID WHERE category.name = ?");
+				"SELECT documentID, category.name AS 'Categoriename', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID WHERE category.name = ?");
 		preparedStatement.setString(1, name);
 				resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
@@ -197,8 +216,8 @@ public class Dashboard {
 			Document[] doc = new Document[rowNumber];
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
-				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoryname"),
-						resultSet.getString("name"), resultSet.getString("lastChanged"), resultSet.getString("link"));
+				doc[i] = new Document(resultSet.getInt(1), resultSet.getString("Categoriename"),
+						resultSet.getString("name"), resultSet.getDate("lastChanged"), resultSet.getString("link"));
 				resultSet.next();
 			}
 			return doc;

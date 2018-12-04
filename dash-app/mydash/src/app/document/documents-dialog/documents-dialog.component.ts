@@ -2,6 +2,12 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Document } from '../document';
+import { UploadFileService } from 'src/app/upload/upload-file.service';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { CategoryService } from 'src/app/category/category.service';
+import { Category } from 'src/app/category/category';
+
 
 @Component({
   selector: 'app-documents-dialog',
@@ -15,10 +21,19 @@ export class DocumentsDialogComponent implements OnInit {
   categoriename: string;
   name: string;
   lastChanged: string;
-  link: string;
+  _link: string;
+
+  fileUploads: Observable<string[]>;
+  selectedFiles: FileList;
+  currentFileUpload: File;
+  progress: { percentage: number } = { percentage : 0 };
+
+  categories: Category[];
 
 
   constructor(
+    public cs: CategoryService,
+    public uploadService: UploadFileService,
     public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
@@ -26,15 +41,18 @@ export class DocumentsDialogComponent implements OnInit {
 
       this.form = this.fb.group({
         documentID: 0,
-        categoryname: [this.categoriename, []],
+        categoriename: [this.categoriename, []],
         name: [this.name, []],
         lastChanged: "Now",
         // TODO
-        link: "Placeholder until Fileserver"
+        //link: [this._link ,[]]
+        link:"Placeholder until Fileserver"
       });
     }
 
   ngOnInit() {
+    this.cs.getCategories()
+      .subscribe(category => this.categories = category);
   }
 
   onCloseConfirm() {
@@ -50,4 +68,27 @@ export class DocumentsDialogComponent implements OnInit {
     });
   }
 
+
+  selectFile(event) {
+    this.selectedFiles = event.target.files;
+  }
+
+  upload() {
+    this.progress.percentage = 0;
+ 
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+ 
+    this.selectedFiles = undefined;
+  }
+
+  updateFile(file: HTMLInputElement) {
+    this._link = file.value;
+  }
 }

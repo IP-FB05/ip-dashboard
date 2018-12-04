@@ -1,26 +1,4 @@
-<!--<mat-drawer-container class="example-container" autosize>
-    <mat-drawer #drawer class="example-sidenav" mode="side">
-      <p>Auto-resizing sidenav</p>
-      <p *ngIf="showFiller">Lorem, ipsum dolor sit amet consectetur.</p>
-      <button (click)="showFiller = !showFiller" mat-raised-button>
-        Toggle extra text
-      </button>
-    </mat-drawer>
-  
-    <div class="example-sidenav-content">
-      <button type="button" mat-button (click)="drawer.toggle()">
-        Toggle sidenav
-      </button>
-    </div>
-  
-  </mat-drawer-container>
-
-  -->
-
-
 <mat-sidenav-container>
-
-
   <mat-sidenav #sidenav mode="side" [(opened)]="opened">
     <mat-nav-list>
       <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 10px 20px;" alt="Logo" width="200" height="auto"></p>
@@ -41,16 +19,14 @@
       <a mat-list-item routerLink="/systems">
         <mat-icon>build</mat-icon>&nbsp;Systeme
       </a>
-      <a mat-list-item routerLink="/myprofil">
+      <a mat-list-item routerLink="/profil">
         <mat-icon>person</mat-icon>&nbsp;Profil
       </a>
       <a mat-list-item href="#">
         <mat-icon>input</mat-icon>&nbsp;Abmelden
       </a>
     </mat-nav-list>
-
   </mat-sidenav>
-
 
   <mat-sidenav-content>
     <nav class="navbar bg-light">
@@ -63,13 +39,13 @@
         <h2 *ngIf="router.url == '/myprocesses'">Laufende Prozesse</h2>
         <h2 *ngIf="router.url == '/documents'">Dokumente</h2>
         <h2 *ngIf="router.url == '/systems'">Systeme</h2>
-        <h2 *ngIf="router.url == '/myprofil'">Profil</h2>
+        <h2 *ngIf="router.url == '/profil'">Profil</h2>
       </div>
 
       <div class="col-md-2 example-container">
         <form class="example-form">
           <mat-form-field>
-            <input matInput type="Benutzername" style="color:white;">
+            <input matInput type="text" style="color:white;">
             <mat-placeholder class="placeholder" style="color:white;">Benutzername</mat-placeholder>
           </mat-form-field>
         </form>
@@ -77,7 +53,7 @@
       <div class="col-md-2">
         <form class="example-form">
           <mat-form-field>
-            <input matInput type="Username" style="color:white;">
+            <input matInput type="password" style="color:white;">
             <mat-placeholder class="placeholder" style="color:white;">Passwort</mat-placeholder>
           </mat-form-field>
         </form>
@@ -91,9 +67,6 @@
         </button>
       </div>
     </nav>
-
-
     <router-outlet></router-outlet>
-
   </mat-sidenav-content>
 </mat-sidenav-container>

@@ -19,7 +19,7 @@ import database.Dashboard;
 @RequestMapping(path = "/filter")
 public class FilterController {
 	
-    @RequestMapping(value = "/filterSystems", method = RequestMethod.GET)
+    @RequestMapping(value = "/systems", method = RequestMethod.GET)
     public System[] getSystems() throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	System[] result = dash.getSystems();
@@ -34,6 +34,13 @@ public class FilterController {
     	dash.close();
     	return result;
 	}
+
+	/*
+	public static final String FIND_PROJECTS = "SELECT projectId, projectName FROM projects";
+
+	@Query(value = FIND_PROJECTS, nativeQuery = true)
+	public List<Object[]> findProjects();
+	*/
 	
 	@RequestMapping(value = "/filterProcesses", method = RequestMethod.GET)
     public Process[] getProcesses() throws SQLException, ClassNotFoundException {

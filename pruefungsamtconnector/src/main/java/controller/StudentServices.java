@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import database.Pruefungsamt;
 import database.RegisteredModulesModel;
+import database.RegisteredPruefungModel;
 
 @RestController
 public class StudentServices {
@@ -104,6 +105,23 @@ public class StudentServices {
 	public boolean pruefungAbmeldenVoraussetzungen(@PathVariable int matrikelnr, @PathVariable int fachnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.pruefungAbmeldenVoraussetzungen(matrikelnr, fachnr);
+		amt.close();
+		return result;
+	}
+	
+	@RequestMapping("/pruefungBenotung/{matrikelnr}/{fachnr}/{note}")
+	public boolean pruefungBenotung(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable double note) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		boolean result = amt.pruefungBenotung(matrikelnr, fachnr, note);
+		amt.close();
+		return result;
+	}
+	
+	//fachnr = modulnr
+	@RequestMapping("/pruefungStudentList/{fachnr}")
+	public List<RegisteredPruefungModel> getPruefungStudentList(@PathVariable int fachnr) throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		List<RegisteredPruefungModel> result = amt.getPruefungStudentList(fachnr);
 		amt.close();
 		return result;
 	}
