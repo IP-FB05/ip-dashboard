@@ -102,7 +102,8 @@ public class UploadController {
 			storageService.store(file);
             files.add(file.getOriginalFilename());
             String pfad = "/files/"+file.getOriginalFilename();
-            Document doc = new Document (99, "Informatik", file.getOriginalFilename(), "2018-12-12", pfad );
+            Date date = new Date(1000);
+            Document doc = new Document (99, "Informatik", file.getOriginalFilename(), date, pfad );
             ds.addDocument(doc);
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
