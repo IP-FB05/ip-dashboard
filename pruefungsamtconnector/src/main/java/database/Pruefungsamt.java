@@ -364,7 +364,7 @@ public class Pruefungsamt {
 				+ "LIMIT 1 "
 				+ ") AS sel "
 				+ "ON sel.pruefung = prstd.pruefung "
-				+ "SET prstd.`note` = ? and prstd.`status` = " + bestanden + "; ");
+				+ "SET prstd.`note` = ?, prstd.`status` = " + bestanden + "; ");
 		
 		preparedStatement.setInt(1, matrikelnr);
 		preparedStatement.setInt(2, fachnr);
@@ -378,7 +378,37 @@ public class Pruefungsamt {
 		return false;
 	}	
 	
+	// output: alle angemeldeten module eines Studenten
+	public List<RegisteredPruefungModel> getPruefungStudentList(int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT pruefung, matrikelnr, concat(vorname,' ',nachname) as 'name', mail FROM ((pruefungsamt.pruefung_student \n" + 
+				"Inner join pruefungsamt.student ON pruefungsamt.pruefung_student.student = pruefungsamt.student.matrikelnr) \n" + 
+				"Inner join pruefungsamt.pruefungen ON pruefungsamt.pruefung_student.pruefung = pruefungsamt.pruefungen.pruefungsnr) \n" + 
+				"WHERE modulnr = ? and pruefungsamt.pruefung_student.status = 'angemeldet';");
+		preparedStatement.setInt(1, fachnr);
+		
+		resultSet = preparedStatement.executeQuery();
+		
+		
+		List<RegisteredPruefungModel> resultList = newRegisteredPruefungsModelListing(resultSet);
+		
+		
+		if(resultList != null) {
+			return resultList;
+		}
+		return null;		
+	}
 	
+	private List<RegisteredPruefungModel> newRegisteredPruefungsModelListing(ResultSet resultSet) throws SQLException {
+
+	    List<RegisteredPruefungModel> resources = new ArrayList<>();
+	    
+	    while(resultSet.next()) {
+	    	resources.add(new RegisteredPruefungModel(resultSet.getInt("matrikelnr"),resultSet.getString("name") ,resultSet.getString("mail"), resultSet.getInt("pruefung")));
+	    }
+	 
+	    return resources;
+	}
 	
 	
 	public void close() throws SQLException {

@@ -26,7 +26,7 @@ export class DocumentService {
   getDocumente(): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:8080/documents")
+    return this.http.get<Document[]>("http://localhost:9090/documents")
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -37,7 +37,7 @@ export class DocumentService {
    getDocumentLimit(): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:8080/documentsLimit")
+    return this.http.get<Document[]>("http://localhost:9090/documentsLimit")
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -94,7 +94,7 @@ updateDocument(document: Document): Observable<any> {
 // POST: add a new document to the server */
 addDocument(document: Document): Observable<Document> {
   if(!document.categoriename || document.categoriename == "" || !document.link || document.link == "" || !document.name || document.name == "") { return; }
-  return this.http.post<Document>("http://localhost:8080/documentAdd", document, httpOptions).pipe(
+  return this.http.post<Document>("http://localhost:9090/documentAdd", document, httpOptions).pipe(
     tap((Document: Document) => this.log(`added document w/ id=${document.documentID}`)),
     catchError(this.handleError<Document>('addDocument'))
   );
@@ -103,7 +103,7 @@ addDocument(document: Document): Observable<Document> {
 /** DELETE: delete the Document from the server */
 deleteDocument(document: Document): Observable<Document> {
   const id = typeof document === 'number' ? document : document.documentID;
-  const url = `http://localhost:8080/documentDelete/${id}`;
+  const url = `http://localhost:9090/documentDelete/${id}`;
 
   return this.http.delete<Document>(url, httpOptions).pipe(
     tap(_ => this.log(`deleted document id=${id}`)),
@@ -115,7 +115,7 @@ deleteDocument(document: Document): Observable<Document> {
   getDocumentsByCategory(name: string): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:8080/filter/documents?name="+ name)
+    return this.http.get<Document[]>("http://localhost:9090/filter/documents?name="+ name)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocumentsByCategory', []))

@@ -21,8 +21,7 @@ export class ProfilComponent implements OnInit {
 
   processes: Process[];
   subbedprocesses: Process[];
-
-  private processUrl = 'http://localhost:8080/processes';
+  private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 

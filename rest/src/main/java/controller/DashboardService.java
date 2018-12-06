@@ -104,6 +104,15 @@ public class DashboardService {
     	return result;
 	}
 
+	@RequestMapping(value = "/processInstanceAdd", method = RequestMethod.POST)
+	@ResponseBody
+    public boolean addProcessInstance(@RequestBody ProcessInstance input) throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	boolean result = dash.addProcessInstance(input);
+    	dash.close();
+    	return result;
+	}
+
 	@RequestMapping(value = "/processDelete/{processID}", method = RequestMethod.DELETE)
     public boolean deleteProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 

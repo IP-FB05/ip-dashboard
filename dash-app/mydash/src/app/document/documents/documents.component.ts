@@ -16,18 +16,22 @@ export class DocumentsComponent implements OnInit {
 
   documents: Document[];
   searchText:string;
-  flag: boolean;
+  //flag: boolean;
 
   constructor(private documentsService: DocumentService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
 
   ngOnInit() {
     this.getDokumente();
-    this.flag = true;
+    //this.flag = true;
   }
 
   getDokumente(): void {
     this.documentsService.getDocumente()
       .subscribe(documents => this.documents = documents);
+  }
+
+  sortReverse() {
+    this.documents.reverse();
   }
 
   add(doc : Document): void {
@@ -53,7 +57,7 @@ export class DocumentsComponent implements OnInit {
       dokumentID: 0,
       kategoriename: "",
       name: "",
-      lastChanged: "Now",
+      lastChanged: "1999-01-01",
       // TODO
       link: "Placeholder bis Fileserver"
     };
@@ -112,5 +116,13 @@ filterDocuments(name: string) {
       this.flag = true;
     }
   }*/
+  sortDocuments() {
+    this.documents.sort(this.compareDate);
+  } 
+
+  compareDate(a, b) {
+    if(a.lastChanged < b.lastChanged) return -1;
+    if(a.lastChanged > b.lastChanged) return 1;   
+  }
 
 }

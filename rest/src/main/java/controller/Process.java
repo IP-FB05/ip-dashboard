@@ -6,18 +6,20 @@ public class Process {
     private String name;
     private String description;
     private String pic;
-    private String varFile;
+    private String warFile;
     private String bpmn;
     private String added;
+    private String camunda_processID;
 
-    public Process(int processID, String name, String description, String pic, String varFile, String bpmn, String added) {
+    public Process(int processID, String name, String description, String pic, String warFile, String bpmn, String added, String camunda_processID) {
         this.processID = processID;
         this.name = name;
         this.description = description;
         this.pic = pic;
-        this.varFile = varFile;
+        this.warFile = warFile;
         this.bpmn = bpmn;
         this.added = added;
+        this.camunda_processID = camunda_processID;
     }
 
     public long getProcessID() {
@@ -36,8 +38,8 @@ public class Process {
     	return pic;
     }
 
-    public String getVarFile() {
-    	return varFile;
+    public String getwarFile() {
+    	return warFile;
     }
 
     public String getBpmn() {
@@ -46,5 +48,9 @@ public class Process {
 
     public String getAdded() {
     	return added;
+    }
+
+    public String getCamunda_processID() {
+        return camunda_processID;
     }
 }

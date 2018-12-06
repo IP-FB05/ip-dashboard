@@ -3,7 +3,8 @@ export class Process {
     name: string;
     description: string;
     pic: string;
-    varFile: string;
+    warFile: string;
     bpmn: string;
     added: string;
+    camunda_processID: string;
 } 

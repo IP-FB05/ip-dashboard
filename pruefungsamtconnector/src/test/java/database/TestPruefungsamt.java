@@ -122,16 +122,32 @@ public class TestPruefungsamt {
 	}
 	
 	@Test
-	@Ignore
 	public void testPruefungBenotung() throws SQLException {
 		// Student 1 bekommt seine letzte Pruefung in Prüfung 552011 mit 2.0 benotet
-		pa.pruefungAnmelden(1, 55678);	
-//		assertTrue(pa.pruefungBenotung(1, 552011, 2.0));
-		//pa.pruefungAbmelden(1, 552011);
+		pa.pruefungAnmelden(1, 55606);	
+		assertTrue(pa.pruefungBenotung(1, 55606, 5.0));
+		pa.pruefungAbmelden(1, 55606);
 		
-		// Student 1 bekommt seine letzte Pruefung in Modul 552011 mit 2.0 benotet
 		// Fehler da Student 1 nicht zur Pruefung in Modul 552011 angemeldet ist
-		//assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
+		assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
+	}
+	
+	@Test
+	public void testGetPruefungStudentList() throws SQLException {
+		// Fuer Modul 51101 sollen alle angemeldeten Studenten ausgegeben werden
+		
+		int matrNr = 0;
+		String studName = "";
+		
+		List<RegisteredPruefungModel> testList = pa.getPruefungStudentList(51101);
+		
+		RegisteredPruefungModel firstStudent = testList.get(0);
+		matrNr = firstStudent.getId();
+		studName = firstStudent.getName();
+		
+		
+		assertEquals(1,matrNr);
+		assertEquals("Test1 Student1",studName);
 	}
 	
 
