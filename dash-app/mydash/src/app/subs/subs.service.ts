@@ -15,7 +15,7 @@ export class SubsService {
 
     constructor(private http: HttpClient) { }
 
-    private subsUrl = 'http://localhost:8080/subs';
+    private subsUrl = 'http://localhost:9090/subs';
 
     public getMySubbedProcesses(user: string) {
         return this.http.get<Process[]>(this.subsUrl + "/mysubs?user=" + user);
