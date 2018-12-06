@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { Subs } from '../subs/subs';
 import { Process } from '../process/process';
 
 const httpOptions = {
@@ -17,7 +16,11 @@ export class SubsService {
 
     private subsUrl = 'http://localhost:9090/subs';
 
-    public getMySubbedProcesses(user: string) {
-        return this.http.get<Process[]>(this.subsUrl + "/mysubs?user=" + user);
+    public getMySuscribedProcesses(user: string) {
+        return this.http.get<Process[]>(this.subsUrl + "/mysubscribedProcesses?user=" + user);
+    }
+
+    public getMySuscribedProcessInstances(user: string) {
+        return this.http.get<Process[]>(this.subsUrl + "/mysubscribedProcessInstances?user=" + user);
     }
 }

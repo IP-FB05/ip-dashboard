@@ -58,10 +58,18 @@ public class SubsController {
 			return "Sub not found...";
 	}
 
-	@GetMapping(path = "/mysubs")
-	public @ResponseBody Process[] getMySubbedProcesses(@RequestParam String user) throws SQLException, ClassNotFoundException {
+	@GetMapping(path = "/mysubscribedProcesses")
+	public @ResponseBody Process[] getMySubscribedProcesses(@RequestParam String user) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
-    	Process[] result = dash.getMySubbedProcesses(user);
+		Process[] result = dash.getMySubscribedProcesses(user);
+    	dash.close();
+    	return result;
+	}
+
+	@GetMapping(path = "/mysubscribedProcessInstances")
+	public @ResponseBody Process[] getMySubscribedProcessInstances(@RequestParam String user) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+		Process[] result = dash.getMySubscribedProcessInstances(user);
     	dash.close();
     	return result;
 	}

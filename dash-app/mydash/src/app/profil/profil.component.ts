@@ -20,15 +20,21 @@ export class ProfilComponent implements OnInit {
   constructor(private pc: ProcessesComponent, private http:HttpClient, private subsService:SubsService) { }
 
   processes: Process[];
-  subbedprocesses: Process[];
+  subscribedProcesses: Process[];
+  subscribedProcessInstances: Process[];
+
   private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 
     this.getProcesses().subscribe(process => this.processes = process);
     
-    this.subsService.getMySubbedProcesses("aa1234s")
-      .subscribe(process => this.subbedprocesses = process);
+    this.subsService.getMySuscribedProcesses("aa1234s")
+      .subscribe(process => this.subscribedProcesses = process);
+
+    this.subsService.getMySuscribedProcessInstances("aa1234s")
+      .subscribe(process => this.subscribedProcessInstances = process);
+
 
   }
 
