@@ -1,25 +1,51 @@
 <div class="profil">
 
     <div class="row" style="padding: 65px 30px 10px 37px;">
-        <h1 style="color: black; font-weight:300; font-size: 17px;">Das ist ein Vorschau der Profil-Seite.
-        Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
+        <h1 style="color: black; font-weight:400; font-size: 17px;">Dies ist eine Vorschau der Profil-Seite.
+            Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
     </div>
 
-    <div class="row" style="padding: 10px 0px 0px 22px;">
+
+    <div class="row" style="padding: 25px 30px 10px 37px;">
+        <a href="https://www.fh-aachen.de/hochschule/datenverarbeitungszentrale/benutzeraccount/service-seite/anleitungen/aenderung-des-passwortes/" target="_blank" style=color:black;>
+            Änderung des Passworts
+        </a>
+    </div>
+
+    <div class="row" style="padding: 25px 0px 0px 57px">
+        <label class="form-check-label">
+            <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
+            Benachrichtigungen aktivieren
+        </label>
+    </div>
+
+
+
+    <div class="row" style="padding: 30px 0px 0px 22px;">
         <div class="col-md-3">
-            <label for="Typ">Prozess abonnieren</label>
-            <form [formGroup]="form">
-                <select class="form-control" id="SelectProcess" name="processSelect" formControlName="processControl">
+            <label for="Process">Prozess abonnieren</label>
+            <form>
+                <select class="form-control" id="SelectProcess" name="processSelect">
                     <option value="">-keine Auswahl-</option>
                     <option *ngFor="let process of processes">{{process.name}}</option>
                 </select>
-        </form>
+            </form>
         </div>
+        <div class="col-md-2" style="padding-top:33px">
+            <button type="submit" class="btn btn-lg btn-secondary">Abonnieren</button>
+        </div>
+    </div>
 
-        <div class="col-md-1" style="padding-top:40px">
-            <input type="checkbox" name="Info" value="Info"> Info
+    <div class="row" style="padding: 30px 0px 0px 22px;">
+        <div class="col-md-3">
+            <label for="RunningProcess">Laufenden Prozess abonnieren</label>
+            <form>
+                <select class="form-control" id="SelectRunningProcess" name="processRunningSelect">
+                    <option value="">-keine Auswahl-</option>
+                </select>
+            </form>
         </div>
-        <div class="col-md-2" style="padding-top:30px">
+        <div class="col-md-2" style="padding-top:33px">
             <button type="submit" class="btn btn-lg btn-secondary">Abonnieren</button>
         </div>
     </div>
@@ -33,8 +59,8 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Placeholder</td>
+                    <tr *ngFor="let process of subbedprocesses">
+                        <td>{{process.name}}</td>
                         <td><button class="delete-dark" title="deabonnieren" (click)="placeholder">x</button></td>
                     </tr>
                 </tbody>
