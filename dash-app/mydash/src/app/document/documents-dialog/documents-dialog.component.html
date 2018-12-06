@@ -13,7 +13,7 @@
         </mat-form-field>
 
         <hr>
-        
+
         <mat-form-field>
             <mat-select placeholder="Kategorie" formControlName="categoriename">
                 <mat-option *ngFor="let category of categories" [value]="category">
@@ -21,18 +21,18 @@
                 </mat-option>
             </mat-select>
         </mat-form-field>
-        
+
         <hr>
 
         <label for="link"></label>
-        <input #file type="file" (change)="selectFile($event)" (change)="updateFile(file)">
+        <input #file type="file" (change)="selectFile($event)">
 
     </mat-dialog-content>
 
-    <button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>
+    <!--<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>-->
 
     <mat-dialog-actions style="padding-top: 50px">
-        <button mat-raised-button (click)="onCloseConfirm()" (click)="openSnackBar()" class="bestaetigen-btn">
+        <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" (click)="openSnackBar()" class="bestaetigen-btn">
             <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
         <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i>Abbrechen</button>
     </mat-dialog-actions>

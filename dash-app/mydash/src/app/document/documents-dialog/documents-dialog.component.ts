@@ -21,9 +21,8 @@ export class DocumentsDialogComponent implements OnInit {
   categoriename: string;
   name: string;
   lastChanged: string;
-  _link: string;
+  link: string;
 
-  fileUploads: Observable<string[]>;
   selectedFiles: FileList;
   currentFileUpload: File;
   progress: { percentage: number } = { percentage : 0 };
@@ -44,9 +43,7 @@ export class DocumentsDialogComponent implements OnInit {
         categoriename: [this.categoriename, []],
         name: [this.name, []],
         lastChanged: "Now",
-        // TODO
-        //link: [this._link ,[]]
-        link:"Placeholder until Fileserver"
+        link: "Placeholder"
       });
     }
 
@@ -75,6 +72,7 @@ export class DocumentsDialogComponent implements OnInit {
 
   upload() {
     this.progress.percentage = 0;
+
  
     this.currentFileUpload = this.selectedFiles.item(0);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
@@ -88,7 +86,10 @@ export class DocumentsDialogComponent implements OnInit {
     this.selectedFiles = undefined;
   }
 
+  /*
   updateFile(file: HTMLInputElement) {
-    this._link = file.value;
+    this.link = "http://localhost:8080/files/" + file.value;
   }
+  */
+  
 }

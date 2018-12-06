@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,15 +27,19 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import controller.StorageFileNotFoundException;
 import controller.StorageService;
+import controller.DashboardService;
+import controller.Document;
 
 @Controller
 public class UploadController {
 
     private final StorageService storageService;
+    private final DashboardService ds;
 
     @Autowired
-    public UploadController(StorageService storageService) {
+    public UploadController(StorageService storageService, DashboardService ds) {
         this.storageService = storageService;
+        this.ds = ds;
     }
 
     /*
@@ -94,8 +100,10 @@ public class UploadController {
 		String message = "";
 		try {
 			storageService.store(file);
-			files.add(file.getOriginalFilename());
- 
+            files.add(file.getOriginalFilename());
+            String pfad = "/files/"+file.getOriginalFilename();
+            Document doc = new Document (99, "Informatik", file.getOriginalFilename(), "2018-12-12", pfad );
+            ds.addDocument(doc);
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
