@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Process } from './process';
-import { Observable, of } from 'rxjs';
+import { ProcessInstance } from './processInstance';
+import { Observable, of, observable } from 'rxjs';
 import { MessageService } from '../message.service';
 
 import { catchError, map, tap } from 'rxjs/operators';
@@ -10,6 +11,10 @@ const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
 };
 
+const httpOptionsCamundaREST = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+};
+
 @Injectable({
   providedIn: 'root'
 })
@@ -17,6 +22,7 @@ const httpOptions = {
 export class ProcessService {
 
   private processesUrl = 'api/processes'; // URL to web api
+  private ob: Observable<any>;
 
   constructor(
     private http: HttpClient,
@@ -85,6 +91,16 @@ export class ProcessService {
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
     );
+  }
+
+  startProcess(process: Process): Observable<ProcessInstance> {
+    const id = process.camunda_processID;
+    const url = `http://localhost:8080/engine-rest/process-definition/${id}/start`;
+    return this.http.post<ProcessInstance>(url, httpOptionsCamundaREST);
+  }
+
+  addInstance(processInstance: ProcessInstance): Observable<any> {
+    return this.http.post<ProcessInstance>("http://localhost:9090/processInstanceAdd", processInstance, httpOptions)
   }
 
   /** DELETE: delete the Process from the server */

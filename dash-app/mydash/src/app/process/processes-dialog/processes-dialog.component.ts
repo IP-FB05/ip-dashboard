@@ -33,7 +33,7 @@ export class ProcessesDialogComponent implements OnInit {
     public snackBar:MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, warFile, bpmn, added }: Process) {
+    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
 
       this.form = this.fb.group({
         processID: 0,

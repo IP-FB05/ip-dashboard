@@ -10,6 +10,7 @@ import java.util.Properties;
 import controller.System;
 import controller.Document;
 import controller.Process;
+import controller.ProcessInstance;
 import utils.Config;
 
 public class Dashboard {
@@ -187,6 +188,42 @@ public class Dashboard {
 		preparedStatement.setString(4, input.getwarFile());
 		preparedStatement.setString(5, input.getBpmn());
 		preparedStatement.setString(6, input.getCamunda_processID());
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO process_instance (camunda_instanceID) VALUES (?)");
+		preparedStatement.setString(1, input.getId());
+		preparedStatement.execute();
+
+		int instanceID = 0;
+		int processID = 0;
+		preparedStatement = connect.prepareStatement("SELECT LAST_INSERT_ID()");
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			instanceID = resultSet.getInt(1);
+		}
+		else {
+			return false;
+		}
+
+		preparedStatement = connect.prepareStatement("SELECT processID FROM dashboardDB.processes WHERE camunda_processID LIKE ?");
+		preparedStatement.setString(1, input.getDefinitionId());
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			processID = resultSet.getInt(1);
+		}
+		else {
+			return false;
+		}
+
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO processes_has_process_instance (processes_processID, process_instance_instanceID) VALUES (?, ?)");
+		preparedStatement.setInt(1, processID);
+		preparedStatement.setInt(2, instanceID);
 		preparedStatement.execute();
 
 		return true;

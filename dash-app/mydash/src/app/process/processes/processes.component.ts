@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
+import { ProcessInstance } from '../processInstance';
 import { ProcessService } from '../process.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component'
@@ -16,6 +17,7 @@ export class ProcessesComponent implements OnInit {
   processes: Process[];
   //selectedProcess: Process;
   searchText:string;
+  processInstance: ProcessInstance;
 
   constructor(private processService: ProcessService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
 
@@ -23,18 +25,10 @@ export class ProcessesComponent implements OnInit {
     this.getProcesses();
   }
 
-  /*onSelect(process: Process): void {
-    this.selectedProcess = process;
-  }*/
-
   getProcesses(): void {
     this.processService.getProcesses()
       .subscribe(processes => this.processes = processes);
   }
-  /* Original
-    getProcesses(): void {
-      this.processes = this.processService.getProcesses();
-    }*/
 
   add(process: Process): void {
     this.processService.addProcess(process)
@@ -44,6 +38,17 @@ export class ProcessesComponent implements OnInit {
       });
   }
 
+  startProcess(process: Process): void {
+    this.processService.startProcess(process)
+    .subscribe(processInstance => {
+      this.processInstance = processInstance;
+      this.processService.addInstance(processInstance).subscribe();
+    });
+  }
+
+  addInstance(processInstance: ProcessInstance) {
+    this.processService.addInstance(processInstance);
+  }
 
   delete(process: Process): void {
     this.processes = this.processes.filter(p => p !== process);
