@@ -61,9 +61,10 @@ export class ProcessesComponent implements OnInit {
       description: "",
       // TODO
       pic: "Placeholder bis Fileserver",
-      varFile: "Placeholder bis Fileserver",
+      warFile: "Placeholder bis Fileserver",
       bpmn: "Placeholder bis Fileserver",
-      added: "Now"
+      added: "Now",
+      camunda_processID: "None"
     };
 
     let dialogRef = this.dialog.open(ProcessesDialogComponent, dialogConfig);

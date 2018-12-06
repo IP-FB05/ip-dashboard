@@ -43,7 +43,7 @@ export class DocumentsDialogComponent implements OnInit {
         documentID: 0,
         categoriename: [this.categoriename, []],
         name: [this.name, []],
-        lastChanged: "Now",
+        lastChanged: "1999-01-01",
         // TODO
         //link: [this._link ,[]]
         link:"Placeholder until Fileserver"

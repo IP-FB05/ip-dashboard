@@ -14,8 +14,8 @@ export class CategoryService {
 
   constructor(private http:HttpClient) {}
 
-  //private categoryUrl = 'http://localhost:8080/category-portal/category';
-	private categoryUrl = 'http://localhost:8080/category';
+  //private categoryUrl = 'http://localhost:9090/category-portal/category';
+	private categoryUrl = 'http://localhost:9090/category';
 
   public getCategories() {
     return this.http.get<Category[]>(this.categoryUrl+"/all");

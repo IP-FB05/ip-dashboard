@@ -157,7 +157,7 @@ public class Dashboard {
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
 						resultSet.getString("description"), resultSet.getString("pic"),
-						resultSet.getString("varFile"), resultSet.getString("bpmn"), resultSet.getString("added"));
+						resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
 				resultSet.next();
 			}
 			return process;
@@ -171,8 +171,8 @@ public class Dashboard {
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
-					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("varFile"),
-					resultSet.getString("bpmn"), resultSet.getString("added"));
+					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+					resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
 			return process;
 		}
 		return null;
@@ -180,12 +180,13 @@ public class Dashboard {
 
 	public boolean addProcess(Process input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, pic, varFile, bpmn, added) VALUES (?, ?, ?, ?, ?, CURDATE())");
+				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)");
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getDescription());
 		preparedStatement.setString(3, input.getPic());
-		preparedStatement.setString(4, input.getVarFile());
+		preparedStatement.setString(4, input.getwarFile());
 		preparedStatement.setString(5, input.getBpmn());
+		preparedStatement.setString(6, input.getCamunda_processID());
 		preparedStatement.execute();
 
 		return true;

@@ -57,7 +57,7 @@ export class DocumentsComponent implements OnInit {
       dokumentID: 0,
       kategoriename: "",
       name: "",
-      lastChanged: "Now",
+      lastChanged: "1999-01-01",
       // TODO
       link: "Placeholder bis Fileserver"
     };

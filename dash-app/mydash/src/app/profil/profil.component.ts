@@ -18,7 +18,7 @@ export class ProfilComponent implements OnInit {
   constructor(private pc: ProcessesComponent, private http:HttpClient) { }
 
   processes: Process[];
-  private processUrl = 'http://localhost:8080/processes';
+  private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
     this.getProcesses()

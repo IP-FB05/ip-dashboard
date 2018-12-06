@@ -26,7 +26,7 @@ export class ProcessService {
   getProcesses(): Observable<Process[]> {
     // TODO: send the message _after_ fetching the processes
     this.messageService.add('ProcessService: fetched processes');
-    return this.http.get<Process[]>("http://localhost:8080/processes")
+    return this.http.get<Process[]>("http://localhost:9090/processes")
       .pipe(
         tap(_ => this.log('fetched processes')),
         catchError(this.handleError('getProcesses', []))
@@ -49,7 +49,7 @@ export class ProcessService {
 
   // GET process by id. Will 404 if id not found */
   getProcess(id: number): Observable<Process> {
-    const url = `http://localhost:8080/process/${id}`;
+    const url = `http://localhost:9090/process/${id}`;
     // TODO: send the message _after_ fetching the process
     this.messageService.add(`ProcessService: fetched process id=${id}`);
     return this.http.get<Process>(url).pipe(
@@ -81,7 +81,7 @@ export class ProcessService {
   // POST: add a new process to the server */
   addProcess(process: Process): Observable<Process> {
     if(!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { return; }
-    return this.http.post<Process>("http://localhost:8080/processAdd", process, httpOptions).pipe(
+    return this.http.post<Process>("http://localhost:9090/processAdd", process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
     );
@@ -90,7 +90,7 @@ export class ProcessService {
   /** DELETE: delete the Process from the server */
   deleteProcess(process: Process | number): Observable<Process> {
     const id = typeof process === 'number' ? process : process.processID;
-    const url = `http://localhost:8080/processDelete/${id}`;
+    const url = `http://localhost:9090/processDelete/${id}`;
 
     return this.http.delete<Process>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted process id=${id}`)),
