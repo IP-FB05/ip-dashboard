@@ -2,15 +2,23 @@ package de.fhaachen.ip.Pruefungsdurchfuehrung;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
+import utils.Config;
+import utils.GetStudents;
 
 import java.util.*;
 import javax.mail.*;
 import javax.mail.internet.*;
 
+
+
 public class SendEmail implements JavaDelegate {
 
     public void execute(DelegateExecution execution) throws Exception {
 
+    	String[][] students = GetStudents.Get(execution.getVariable("modul").toString());
+    	
+    	
+    	
         final String username = "dashboarddonotreply@gmail.com";
         final String password = Config.getConfig(Config.MAIL_PASS);
 
@@ -41,7 +49,12 @@ public class SendEmail implements JavaDelegate {
             String text = execution.getVariable("text").toString();
             message.setText(text);
 
-            Transport.send(message);
+            
+            for(int i = 0;i < students.length;i++) {
+            	message.setText(students[i][2]);
+            	Transport.send(message);
+            }
+            
 
 
         } catch (MessagingException e) {

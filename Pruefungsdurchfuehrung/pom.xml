@@ -145,6 +145,20 @@
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
 
+    <!-- REST Zugriffe mit Java -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>1.8</version>
+    </dependency>
+
+    <!-- json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
+    </dependency>
+
   </dependencies>
 
   <repositories>
