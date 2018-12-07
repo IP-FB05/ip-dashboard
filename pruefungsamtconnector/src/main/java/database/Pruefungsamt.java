@@ -364,11 +364,13 @@ public class Pruefungsamt {
 				+ "LIMIT 1 "
 				+ ") AS sel "
 				+ "ON sel.pruefung = prstd.pruefung "
-				+ "SET prstd.`note` = ?, prstd.`status` = " + bestanden + "; ");
+				+ "SET prstd.`note` = ?, prstd.`status` = " + bestanden 
+				+ "WHERE prstd.student = ?;");
 		
 		preparedStatement.setInt(1, matrikelnr);
 		preparedStatement.setInt(2, fachnr);
 		preparedStatement.setDouble(3, note);
+		preparedStatement.setInt(4, matrikelnr);
 		
 		int resultSet = preparedStatement.executeUpdate();
 		
