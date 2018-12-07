@@ -344,7 +344,7 @@ public class Pruefungsamt {
 		return zulassung;
 	}
 
-	public boolean pruefungBenotung(int matrikelnr, int fachnr, double note) throws SQLException {
+	public boolean pruefungBenotung(int matrikelnr, int fachnr, double note, boolean finale_note) throws SQLException {
 		
 		String bestanden = "";
 		
@@ -354,12 +354,17 @@ public class Pruefungsamt {
 			bestanden = "'durchgefallen'";
 		}
 		
+		if(finale_note == false) {
+			bestanden = "'vorzeitig'";
+		}
+		
+		
 		preparedStatement = connect.prepareStatement(
 				"UPDATE `pruefungsamt`.`pruefung_student`  AS prstd "
 				+ "JOIN "
 				+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
 				+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
-				+ "WHERE (`student` = ?) and (t2.`modulnr` = ?) and (`status` = 'angemeldet')"
+				+ "WHERE (`student` = ?) and (t2.`modulnr` = ?) and (`status` = 'angemeldet' OR `status` = 'vorzeitig')"
 				+ "order by t2.pruefungszeitpunkt desc "
 				+ "LIMIT 1 "
 				+ ") AS sel "
@@ -383,10 +388,10 @@ public class Pruefungsamt {
 	// output: alle angemeldeten module eines Studenten
 	public List<RegisteredPruefungModel> getPruefungStudentList(int fachnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
-				"SELECT pruefung, matrikelnr, concat(vorname,' ',nachname) as 'name', mail FROM ((pruefungsamt.pruefung_student \n" + 
+				"SELECT pruefung, matrikelnr, concat(vorname,' ',nachname) as 'name', mail, note FROM ((pruefungsamt.pruefung_student \n" + 
 				"Inner join pruefungsamt.student ON pruefungsamt.pruefung_student.student = pruefungsamt.student.matrikelnr) \n" + 
 				"Inner join pruefungsamt.pruefungen ON pruefungsamt.pruefung_student.pruefung = pruefungsamt.pruefungen.pruefungsnr) \n" + 
-				"WHERE modulnr = ? and pruefungsamt.pruefung_student.status = 'angemeldet';");
+				"WHERE modulnr = ? and (pruefungsamt.pruefung_student.status = 'angemeldet' OR pruefungsamt.pruefung_student.status = 'vorzeitig' );");
 		preparedStatement.setInt(1, fachnr);
 		
 		resultSet = preparedStatement.executeQuery();
@@ -406,7 +411,7 @@ public class Pruefungsamt {
 	    List<RegisteredPruefungModel> resources = new ArrayList<>();
 	    
 	    while(resultSet.next()) {
-	    	resources.add(new RegisteredPruefungModel(resultSet.getInt("matrikelnr"),resultSet.getString("name") ,resultSet.getString("mail"), resultSet.getInt("pruefung")));
+	    	resources.add(new RegisteredPruefungModel(resultSet.getInt("matrikelnr"),resultSet.getString("name"), resultSet.getDouble("note") ,resultSet.getString("mail"), resultSet.getInt("pruefung")));
 	    }
 	 
 	    return resources;
