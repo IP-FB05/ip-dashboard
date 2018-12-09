@@ -1,13 +1,13 @@
 <div class="processes">
 
-  <div class="row" style="padding: 65px 30px 10px 37px;">
+  <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
     <h2 style="color: black; font-weight:300; font-size: 17px;">Dies ist die Prozess-Seite. Man kann
       mehr Details über ein Prozess sehen, indem man auf den
       „Mehr“-Button klickt.
       Man kann auch jederzeit einen neuen Prozess hinzufügen oder Prozesse aus der Übersicht löschen.</h2>
   </div>
 
-  <div class="row" style="padding: 10px 30px 10px 21px;">
+  <div class="row" style="padding:0;">
     <div class="col-md">
       <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
     </div>
@@ -17,7 +17,7 @@
   <app-filter></app-filter>
   -->
 
-  <div class="row" style="padding: 25px 0px 0px 21px;">
+  <div class="row" >
     <div *ngFor="let process of processes | textFilterProcesses:searchText" class="col-md-3">
       <div class="card-deck h-100 mb-3 text-center">
         <div class="card mb-3 box-shadow">
@@ -35,9 +35,9 @@
     </div>
 
     <div class="col-md-3">
-      <div class="card-deck h-100 mb-3 text-center">
-        <div class="card mb-3 box-shadow">
-          <div class="card-header" style="background-color: #0b1820a8;">Prozess hinzufügen</div>
+      <div class="card-deck h-100 mb-3 text-center" style=" margin:0;">
+        <div class="card" style="margin-left:0; margin-right:0;">
+          <div class="card-header" style="background-color:#cccccc; font-size:17px; color: #656565;">Prozess hinzufügen</div>
           <div class="card-body">
             <p class="card-text" style="text-align:center;">
               <button class="btn btn-secondary round-plus-btn" (click)="openDialog()">+</button>

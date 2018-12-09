@@ -1,9 +1,7 @@
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [(opened)]="opened">
+  <mat-sidenav #sidenav mode="over" [(opened)]="opened">
     <mat-nav-list>
       <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 10px 20px;" alt="Logo" width="200" height="auto"></p>
-      <img mat-list-avatar src="/assets/img/mail-avatar.jpg" style="border-radius: 50%; margin-left: 20px; margin-bottom:20px;"
-        alt="Avatar">
       <a mat-list-item routerLink="/dashboard">
         <mat-icon>apps</mat-icon>&nbsp;Übersicht
       </a>
@@ -59,7 +57,7 @@
         </form>
       </div>
       <div class="col-md-1">
-        <button mat-stroked-button>
+        <button mat-stroked-button class="login-button">
           Login
           <i class="material-icons" style="padding-left: 5px">
             input

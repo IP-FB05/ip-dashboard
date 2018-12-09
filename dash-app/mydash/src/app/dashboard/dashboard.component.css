@@ -3,8 +3,8 @@
 
 [class*='col-'] {
     float: left;
-    padding-right: 20px;
-    padding-bottom: 20px;
+    padding-right: 0px;
+    padding-bottom: 0px;
   }
   [class*='col-']:last-of-type {
     padding-right: 0;

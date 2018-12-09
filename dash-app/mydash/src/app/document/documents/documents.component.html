@@ -1,24 +1,24 @@
 <div class="dokumente">
-    <div class="row" style="padding: 65px 0px 10px 40px;">
+    <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
         <h2 style="color: black; font-weight:300; font-size: 17px;">Dies ist die Dokumenten Seite.
         Hier können Sie, fürs Studium relevante, Dokumente herrunterladen</h2>
     </div>
 
-    <div class="row" style="padding: 10px 30px 10px 21px;">
+    <div class="row" style="padding-left: 15px; padding-right:15px; margin-left:0; margin-right:0;">
         <div class="col-md-12">
             <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
         </div>
         <div class="col-md-10">
-            <app-filter></app-filter>
-            <button (click)="sortDocuments()" class="btn btn-lg btn-secondary">Aktuellste zuerst</button>
-            <button (click)="sortReverse()" class="btn btn-lg btn-secondary">Reverse</button>
+            <app-filter style="margin:0;"></app-filter>
+            <button (click)="sortDocuments()" class="btn btn-lg btn-secondary" style="margin-right:30px;">Aktuellste zuerst</button>
+            <button (click)="sortReverse()" class="btn btn-lg btn-secondary"> Reverse</button>
         </div>
 
     </div>
 
     
 
-    <div class="row" style="padding: 30px 0px 0px 20px;">
+    <div class="row">
         <div class="col-md-8">
             <table class="table">
                 <thead>
@@ -33,7 +33,7 @@
                         <td><a href={{document.link}} style="color: black">{{document.name}}</a></td>
                         <td>{{document.categoriename}}</td>
                         <td>{{document.lastChanged}}</td>
-                        <td><button class="delete-dark" title="delete document" (click)="delete(document)" (click)="openSnackBar()" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
+                        <td><button class="delete-dark" (click)="delete(document)" (click)="openSnackBar()" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
                     </tr>
                 </tbody>
             </table>

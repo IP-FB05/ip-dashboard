@@ -1,45 +1,56 @@
-<div class="row" style="padding: 65px 30px 0px 40px; margin: auto;">
-  <div class="col-md-6">
-    <div class="card h-100 text-white mb-3 text-center" style="border-color:#00b5ad;">
-      <div class="card-header" style="border-color:#00b5ad; background:#00b5ad; text-align: left; ">
-        <h3 style="font-weight:400; font-size: 19px;">Laufende Prozesse <img src="\assets\img\icons\laufende-prozesse.png"
-            width="67px" height="auto" style="float:right;" /></h3>
+<div class="row" style="margin-top:50px;">
+  
+  <div class="col-md-6" style="margin-bottom:20px;">
+    <div class="card" style="border-color:#00b5ad;">
+      <div class="card-header" style="border-color:#00b5ad; background:#00b5ad;">
+        <h3 style="font-weight:400; font-size: 17px;">Laufende Prozesse</h3> 
       </div>
 
       <div class="card-body" style="background: #00b5ad;">
-
-        <div class="card-text" style="color:white;">
+        <div class="card-text" style="color:white;"><mat-icon id="icon-big">update</mat-icon> 
           <p class="list-processes">Prozess 1</p>
           <p>Prozess 2</p>
         </div>
+        
         <p class="card-text"><a href="#"><button class="btn btn-secondary light-green">Mehr</button></a></p>
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="card h-100 bg-light mb-3" style="max-width: auto;">
-      <div class="card-header" style="background-color: #0b1921d1;">Prozess hinzufügen</div>
-      <div class="card-body" style="background-color:#f5f5f5;">
-        <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogProcess()">+</button></p>
+
+  <div class="col-md-3" style="margin-bottom:20px;">
+    <div class="card" style="border: 1px solid #cccccc;">
+      <div class="card-header" style="border: 1px solid#cccccc; color: #656565;">
+        <h3 style="font-weight:400; font-size: 17px;">Prozess hinzufügen</h3>
       </div>
-    </div>
-  </div>
-  <div class="col-md-3">
-    <div class="card h-100 bg-light mb-3" style="max-width: auto;">
-      <div class="card-header" style="background-color: #0b1921d1;">Dokument hochladen</div>
       <div class="card-body" style="background-color: #f5f5f5;">
-          <p class="card-text" style="text-align:center;"><button class="btn btn-secondary round-plus-btn" (click)="openDialogDocument()">+</button></p>
+          <p class="card-text" style="text-align:center;"> 
+            <button class="round-plus-btn" (click)="openDialogDocument()">+</button></p>
       </div>
     </div>
   </div>
-</div>
-<div class="row" style="padding: 30px 30px 0px 40px; margin: auto;">
-  <div class="col-md-3">
-    <div class="card h-100 text-white mb-3 text-center" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-      <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad; text-align: left">
-        <h3 style="font-weight:400; font-size: 19px;">Systeme</h3>
+
+  <div class="col-md-3" style="margin-bottom:20px;">
+    <div class="card" style="border: 1px solid #cccccc;">
+      <div class="card-header" style="border: 1px solid #cccccc; color:#656565;">
+        <h3 style="font-weight:400; font-size: 17px;">Dokument hochladen</h3>
       </div>
-      <div class="card-body d-flex flex-column" style="background-color: #f5f5f5;">
+      <div class="card-body" style="background-color: #f5f5f5;">
+          <p class="card-text" style="text-align:center;">
+            <button class="round-plus-btn" (click)="openDialogDocument()">+</button></p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="row" >
+ 
+  <div class="col-md-3" style="margin-bottom:20px;">
+    <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+      <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad;">
+        <h3 style="font-weight:400; font-size: 17px;">Systeme</h3>
+      </div>
+      <div class="card-body" style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
           Hier finden Sie alle notwendigen Systeme wie Campus, ILIAS, QIS ...
         </p>
@@ -47,12 +58,13 @@
       </div>
     </div>
   </div>
-  <div class="col-md-3">
-    <div class="card h-100 text-white mb-3 text-center" style="border-color: 1px solid rgba(0, 0, 0, 0.125);">
+  
+  <div class="col-md-3" style="margin-bottom:20px;">
+    <div class="card" style="border-color: 1px solid rgba(0, 0, 0, 0.125);">
       <div class="card-header" style="border-color:#f5f5f5;  background:#00b5ad; text-align: left">
-        <h3 style="font-weight:400; font-size: 19px;">Prozesse</h3>
+        <h3 style="font-weight:400; font-size: 17px;">Prozesse</h3>
       </div>
-      <div class="card-body d-flex flex-column" style="background-color: #f5f5f5;">
+      <div class="card-body " style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
           Hier finden Sie alle notwendigen Prozesse wie Einschreibung, Praxissemester, ...
         </p>
@@ -60,16 +72,21 @@
       </div>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="card h-100 text-white bg-dark" style="border-color:#0b1921;">
-      <div class="card-header" style="background-color:#0b1921; border-bottom: none; color:white; font-size:18px;">Dokumente
-        <img src="\assets\img\icons\dokumente.png" width="70px" height="auto" style="float:right;" /></div>
-      <div class="card-body" style="background: #0b1921;">
+
+  <div class="col-md-6" style="margin-bottom:20px;">
+    <div class="card" style="border-color:#00b5ad;">
+      <div class="card-header"  style="border-color:#00b5ad; background:#00b5ad;">
+        <h3 style="font-weight:400; font-size: 17px;">Dokumente</h3>
+      </div>
+      <div class="card-body" style="background: #00b5ad;"><mat-icon id="icon-big">description</mat-icon> 
         <div *ngFor="let document of documents">
-            <p><a href={{document.link}} style="color: white">{{document.name}}</a></p>
-        </div>
-        <a routerLink="/documents" class="btn btn-secondary">Alle Dokumente</a>
+          <p><a href={{document.link}} style="color: white">{{document.name}}</a></p>
+      </div>
+      <a routerLink="/documents"><button class="btn btn-secondary light-green">Alle Dokumente</button></a>
+  
       </div>
     </div>
   </div>
+
+
 </div>

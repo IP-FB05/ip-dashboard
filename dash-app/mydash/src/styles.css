@@ -1,9 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 
+[class*="col-"] {
+    width: 100%;
+  }
+  
+
 html, body { height: 100%; }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Segoe UI', sans-serif;
 }
 
 .h1, h1 {
@@ -13,17 +18,7 @@ body {
 
 }
 
-#first-row {
-    display: contents;
-}
-.first {
-    background-color: #0b1a22;
-    height: 70px; 
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
+
 
 .sign-out-btn { 
     background-color: transparent;
@@ -40,7 +35,7 @@ body {
 }
 
 .card-header {
-   background-color: #0b1921d1;
+   background-color: #cccccc;
 }
 
 .card-header h4 {
@@ -98,14 +93,20 @@ a:active {
 
 .btn-block {
     background-color: #00b5ad;
-    border-color: #00b5ad;
+    border-color: 1px solid #00b5ad;
 }
 
 
 
 .btn-secondary {
     background-color: #00b5ad;
-    border: #00b5ad;
+    border:1px solid #00b5ad;
+}
+
+.btn-secondary:hover {
+    color:#4d4d4d;
+    background-color: #ffffff;
+    border: 1px solid #00b5ad;
 }
 
 .btn-outline-primary {
@@ -140,7 +141,7 @@ h4 {
 
 
 h2 {
-    font-size: 25px;
+    font-size: 1.3rem;
     font-weight: 400;
     margin-bottom: 0px;
     color:white;
@@ -154,7 +155,13 @@ h2 {
 
 .light-green {
     background-color:#007a71;
-    width: 112px;
+    border: 1px solid #007a71;
+}
+
+.light-green:hover {
+    background-color:#00b5ad;
+    border: 1px solid white;
+    color:white;
 }
 
 .card-header:first-child {
@@ -172,32 +179,33 @@ h2 {
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
+
 .round-plus-btn {
-    width: 80px;
-    height: 80px;
-    line-height: 45px;
-    border-radius: 50%;
-    color: white;
+    border:none;
+    color: #cccccc;
     text-align: center;
     text-decoration: none;
-    background: rgba(11, 25, 33, 0.25);
-    border-color:transparent;
-    font-size:100px;
-    font-weight:300;
+    background:transparent;
+    border-color: transparent;
+    font-size: 5.5em;
+    font-weight: bold;
+    display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .round-plus-btn:hover {
-    border-color:#b2b3b3;
-    background-color: #b3b3b3;
-    color:white;
+    border:none;
+    background-color:transparent;
+    color:#00b5ad;
 }
 
 .mat-form-field-flex {
     border-bottom: 1px solid white !important;
   }
 
-  .row{    margin-right: 15px;
-    margin-left: 15px;}
+ 
 
 .btn-sm {float: left;}
 
@@ -239,4 +247,54 @@ h2 {
 
 hr {
     border:none;
+}
+
+.mat-drawer-side {
+    border-right: none !important;
+}
+
+
+.mat-drawer-transition .mat-drawer-content {
+    transition-duration: .4s !important;
+    transition-timing-function: cubic-bezier(.5,.8,.5,0.9) !important;
+    transition-property: transform,margin-left,margin-right !important;
+}
+
+.row{
+    margin:20px;
+}
+
+
+#icon-big{
+    font-size: 27px;
+    float: right;
+    position: absolute;
+    z-index: 0;
+    top: -0.1rem;
+    right: 5.5rem;
+    opacity: 0.2;
+    font-size: 7rem;
+    color: #00615c;
+}
+
+.navbar {
+
+    padding:0;
+
+}
+
+.delete-dark {
+    -webkit-appearance: button;
+    float: right;
+    background: transparent;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 9px;
+    border: 1.5px solid#646b70;
+    color:white;
+    background:#646b70;
+    font-weight:400;
+    font-family: sans-serif;
+    font-size:14px;
 }

@@ -1,5 +1,5 @@
-<div ng-controller="Filter" class="row" style="padding: 10px 0px 0px 22px;">
-    <div class="col-md">
+<div ng-controller="Filter" class="row" style="margin-left:0;">
+    <div class="col-md" style="padding-left:0; padding-right:0;">
         <label for="Typ">Typ</label>
         <form [formGroup]="form">
             <select formControlName="categoryControl" id="categorySelect" name="categorySelect" class="form-control">
@@ -10,7 +10,7 @@
             </select>
         </form>
     </div>
-    <div class="col-md" style="padding-top:30px">
+    <div class="col-md md-filter" >
         <button (click)="filter(form.get('categoryControl').value)" class="btn btn-lg btn-secondary">Filtern</button>
     </div>
 </div>
