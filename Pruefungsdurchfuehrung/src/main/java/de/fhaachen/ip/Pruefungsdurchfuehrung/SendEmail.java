@@ -40,8 +40,7 @@ public class SendEmail implements JavaDelegate {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
 
-            String ziel = execution.getVariable("zielEmail").toString();
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ziel));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse("dashboarddonotreply@gmail.com"));
 
             String subject = execution.getVariable("subject").toString();
             message.setSubject(subject);
@@ -51,7 +50,6 @@ public class SendEmail implements JavaDelegate {
 
             
             for(int i = 0;i < students.length;i++) {
-            	message.setText(students[i][2]);
             	Transport.send(message);
             }
             
