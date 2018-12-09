@@ -17,22 +17,27 @@
   <app-filter></app-filter>
   -->
 
-  <div class="row" >
-    <div *ngFor="let process of processes | textFilterProcesses:searchText" class="col-md-3">
-      <div class="card-deck h-100 mb-3 text-center">
-        <div class="card mb-3 box-shadow">
-          <div class="card-header"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
-            <button class="delete" title="delete process" (click)="delete(process)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
-          <div class="card-body text-secondary d-flex flex-column">
-            <p class="card-text">{{process.description}}</p>
-            <a class="btn btn-sm btn-secondary mt-auto" routerLink="/detail/{{process.processID}}">Mehr</a>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">Hinzugefügt: {{process.added}}</small>
+  <div class="row">
+    <ng-container *ngFor="let process of processes | textFilterProcesses:searchText">
+      <div class="col-md-3">
+        <div class="card-deck h-100 mb-3 text-center">
+          <div class="card mb-3 box-shadow">
+            <div class="card-header"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
+              <button class="delete" title="delete process" (click)="delete(process)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
+            <div class="card-body text-secondary d-flex flex-column">
+              <p class="card-text">{{process.description}}</p>
+              <a class="btn btn-sm btn-secondary mt-auto" routerLink="/detail/{{process.processID}}">Mehr</a>
+              <ng-container *ngIf="process.camunda_processID != 'None'">
+                <button class="btn btn-sm btn-secondary mt-auto" (click)="startProcess(process)">Prozess starten</button>
+              </ng-container>
+            </div>
+            <div class="card-footer">
+              <small class="text-muted">Hinzugefügt: {{process.added}}</small>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
 
     <div class="col-md-3">
       <div class="card-deck h-100 mb-3 text-center" style=" margin:0;">
@@ -40,7 +45,7 @@
           <div class="card-header" style="background-color:#cccccc; font-size:17px; color: #656565;">Prozess hinzufügen</div>
           <div class="card-body">
             <p class="card-text" style="text-align:center;">
-              <button class="btn btn-secondary round-plus-btn" (click)="openDialog()">+</button>
+              <button class="btn btn-secondary round-plus-btn" (click)="openDialog()" style="margin-top:15px">+</button>
             </p>
           </div>
         </div>

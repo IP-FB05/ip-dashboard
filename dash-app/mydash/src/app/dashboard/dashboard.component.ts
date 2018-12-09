@@ -61,7 +61,7 @@ export class DashboardComponent implements OnInit {
       description: "",
       // TODO
       pic: "Placeholder bis Fileserver",
-      varFile: "Placeholder bis Fileserver",
+      warFile: "Placeholder bis Fileserver",
       bpmn: "Placeholder bis Fileserver",
       added: "Now"
     };
@@ -83,7 +83,7 @@ export class DashboardComponent implements OnInit {
       dokumentID: 0,
       kategoriename: "",
       name: "",
-      lastChanged: "Now",
+      lastChanged: "1999-01-01",
       // TODO
       link: "Placeholder bis Fileserver"
     };

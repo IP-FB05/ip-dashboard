@@ -145,6 +145,20 @@
 
     <!-- Add your own dependencies here, if in compile scope, they are added to the war -->
 
+    <!-- REST Zugriffe mit Java -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>1.8</version>
+    </dependency>
+
+    <!-- json -->
+    <dependency>
+      <groupId>org.json</groupId>
+      <artifactId>json</artifactId>
+      <version>20160810</version>
+    </dependency>
+
   </dependencies>
 
   <repositories>
@@ -216,19 +230,6 @@
         <artifactId>wildfly-maven-plugin</artifactId>
         <version>1.2.1.Final</version>
       </plugin>
-
-
-
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-war-plugin</artifactId>
-            <version>3.2.0</version>
-            <configuration>
-                <outputDirectory>
-                    /opt/camundabpm/server/apache-tomcat-9.0.5/webapps
-                </outputDirectory>
-            </configuration>
-        </plugin>
     </plugins>
   </build>
 </project>

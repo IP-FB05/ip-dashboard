@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessesComponent } from '../process/processes/processes.component';
 import { Process } from '../process/process';
+import { Subs } from '../subs/subs';
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { SubsService } from '../subs/subs.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -15,19 +17,32 @@ const httpOptions = {
 })
 export class ProfilComponent implements OnInit {
 
-  constructor(private pc: ProcessesComponent, private http:HttpClient) { }
+  constructor(private pc: ProcessesComponent, private http:HttpClient, private subsService:SubsService) { }
 
   processes: Process[];
-  private processUrl = 'http://localhost:8080/processes';
+  subscribedProcesses: Process[];
+  subscribedProcessInstances: Process[];
+
+  private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
-    this.getProcesses()
-      .subscribe(process => this.processes = process);
+
+    this.getProcesses().subscribe(process => this.processes = process);
+    
+    this.subsService.getMySuscribedProcesses("aa1234s")
+      .subscribe(process => this.subscribedProcesses = process);
+
+    this.subsService.getMySuscribedProcessInstances("aa1234s")
+      .subscribe(process => this.subscribedProcessInstances = process);
+
+
   }
 
   public getProcesses() {
     return this.http.get<Process[]>(this.processUrl);
   }
+
+  
 
 
 

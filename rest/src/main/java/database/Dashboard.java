@@ -10,6 +10,8 @@ import java.util.Properties;
 import controller.System;
 import controller.Document;
 import controller.Process;
+import controller.Subs;
+import controller.ProcessInstance;
 import utils.Config;
 
 public class Dashboard {
@@ -157,7 +159,7 @@ public class Dashboard {
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
 						resultSet.getString("description"), resultSet.getString("pic"),
-						resultSet.getString("varFile"), resultSet.getString("bpmn"), resultSet.getString("added"));
+						resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
 				resultSet.next();
 			}
 			return process;
@@ -171,8 +173,8 @@ public class Dashboard {
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
-					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("varFile"),
-					resultSet.getString("bpmn"), resultSet.getString("added"));
+					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+					resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
 			return process;
 		}
 		return null;
@@ -180,12 +182,49 @@ public class Dashboard {
 
 	public boolean addProcess(Process input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, pic, varFile, bpmn, added) VALUES (?, ?, ?, ?, ?, CURDATE())");
+				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)");
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getDescription());
 		preparedStatement.setString(3, input.getPic());
-		preparedStatement.setString(4, input.getVarFile());
+		preparedStatement.setString(4, input.getwarFile());
 		preparedStatement.setString(5, input.getBpmn());
+		preparedStatement.setString(6, input.getCamunda_processID());
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO process_instance (camunda_instanceID) VALUES (?)");
+		preparedStatement.setString(1, input.getId());
+		preparedStatement.execute();
+
+		int instanceID = 0;
+		int processID = 0;
+		preparedStatement = connect.prepareStatement("SELECT LAST_INSERT_ID()");
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			instanceID = resultSet.getInt(1);
+		}
+		else {
+			return false;
+		}
+
+		preparedStatement = connect.prepareStatement("SELECT processID FROM dashboardDB.processes WHERE camunda_processID LIKE ?");
+		preparedStatement.setString(1, input.getDefinitionId());
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			processID = resultSet.getInt(1);
+		}
+		else {
+			return false;
+		}
+
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO processes_has_process_instance (processes_processID, process_instance_instanceID) VALUES (?, ?)");
+		preparedStatement.setInt(1, processID);
+		preparedStatement.setInt(2, instanceID);
 		preparedStatement.execute();
 
 		return true;
@@ -223,5 +262,81 @@ public class Dashboard {
 			return doc;
 		}
 		return null;
+	}
+
+
+	// SUBS
+	public Subs[] getSubs() throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM subs");
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Subs[] subs = new Subs[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				subs[i] = new Subs(resultSet.getInt(1), resultSet.getString("username"));
+				resultSet.next();
+			}
+			return subs;
+		}
+		return null;
+	}
+
+
+	public Subs getSub(int subID) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM subs WHERE subID = ?");
+		preparedStatement.setInt(1, subID);
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			Subs subs = new Subs(resultSet.getInt(1), resultSet.getString("username"));
+			return subs;
+		}
+		return null;
+	}
+
+
+	// Subscribed Processes
+	public Process[] getMySubscribedProcesses(String username) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_subs ON dashboardDB.processes.processID = dashboardDB.processes_has_subs.processes_processID JOIN dashboardDB.subs ON dashboardDB.subs.subID = dashboardDB.processes_has_subs.subs_subID WHERE subs.username = ?");
+				preparedStatement.setString(1, username);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.first()) {
+					resultSet.last();
+					int rowNumber = resultSet.getRow();
+					Process[] process = new Process[rowNumber];
+					resultSet.first();
+					for (int i = 0; i < rowNumber; i++) {
+						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+								resultSet.getString("description"), resultSet.getString("pic"),
+								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
+						resultSet.next();
+					}
+					return process;
+				}
+				return null;	
+	}
+
+	// Subscribed Processes with ProcessInstance
+	public Process[] getMySubscribedProcessInstances(String username) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_process_instance ON dashboardDB.processes.processID = dashboardDB.processes_has_process_instance.processes_processID JOIN dashboardDB.process_instance ON dashboardDB.process_instance.instanceID = dashboardDB.processes_has_process_instance.process_instance_instanceID JOIN dashboardDB.process_instance_has_subs ON dashboardDB.process_instance.instanceID = dashboardDB.process_instance_has_subs.process_instance_instanceID JOIN dashboardDB.subs ON dashboardDB.subs.subID = dashboardDB.process_instance_has_subs.subs_subID WHERE subs.username = ?");
+				preparedStatement.setString(1, username);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.first()) {
+					resultSet.last();
+					int rowNumber = resultSet.getRow();
+					Process[] process = new Process[rowNumber];
+					resultSet.first();
+					for (int i = 0; i < rowNumber; i++) {
+						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+								resultSet.getString("description"), resultSet.getString("pic"),
+								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
+						resultSet.next();
+					}
+					return process;
+				}
+				return null;	
 	}
 }

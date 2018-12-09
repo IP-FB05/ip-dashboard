@@ -37,7 +37,8 @@ import { CategoryAddComponent } from './category/category-add/category-add.compo
 import { ProfilComponent } from './profil/profil.component';
 import { ListUploadComponent } from './upload/list-upload/list-upload.component';
 import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
-import { FormUploadComponent } from './upload/form-upload/form-upload.component'
+import { FormUploadComponent } from './upload/form-upload/form-upload.component';
+import { SubsComponent } from './subs/subs/subs.component'
 
 
 
@@ -66,6 +67,7 @@ import { FormUploadComponent } from './upload/form-upload/form-upload.component'
     ListUploadComponent,
     DetailsUploadComponent,
     FormUploadComponent,
+    SubsComponent,
   ],
   imports: [
     BrowserModule,

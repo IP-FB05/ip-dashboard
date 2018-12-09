@@ -1,0 +1,97 @@
+<form ng-submit="submit()" role="form" name="form">
+
+
+	<div ng-repeat="x in students">
+	{{x.ID}}
+	Note: <input type="text" value={{x.note}} name={{x.ID}} id={{x.ID}}><br>
+	</div>
+
+	<input type="button" id="reload" value="Reload Form" />
+	<input type="submit" id="submit" value="Submit" />
+
+	<script cam-script type="text/form-script">
+
+
+		var variableManager = camForm.variableManager;
+		var modulID;
+		var final;
+    	camForm.on('form-loaded', function() {
+
+      		variableManager.fetchVariable('modul');
+			variableManager.fetchVariable('final');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var headers = new Headers();
+			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+      		modulID = variableManager.variableValue('modul');
+			final = variableManager.variableValue('final');
+
+
+			var rest = 'http://localhost:8888/pruefungStudentList/';
+			//rest = rest.concat($scope.modul2);
+			rest = rest.concat(modulID);
+			const userAction = async () => {
+				const response = await fetch(rest,
+					{method: 'GET',
+					headers: headers}
+				);
+
+				const myJson = await response.json(); //extract JSON from the http response
+
+				populateSelect(myJson);
+			}
+			userAction();
+
+
+    	});
+
+
+		function populateSelect(dataJSON) {
+
+    		var students = $scope.students = [];
+			
+			for (let i = 0; i < dataJSON.length; i++) {
+				var id = dataJSON[i].id;
+				var note = dataJSON[i].note;
+				if(dataJSON[i].note == "0"){
+					dataJSON[i].note = '';
+				}
+            	$scope.students.push({ID:dataJSON[i].id,note:dataJSON[i].note});
+			} 
+		} 
+
+
+		$scope.submit = function() {
+          	for (let i = 0; i < $scope.students.length; i++) {
+				var xhr = new XMLHttpRequest();
+				var rest = 'http://localhost:8888/pruefungBenotung/';
+				rest = rest.concat($scope.students[i].ID); 		//StudentID
+				rest = rest.concat('/');
+				rest = rest.concat(modulID); 	//FachID
+				rest = rest.concat('/');
+				rest = rest.concat(angular.element(document.getElementById($scope.students[i].ID)).val()); 		//Note
+				rest = rest.concat('/');
+				rest = rest.concat(final); 		//Final
+
+
+       			xhr.open('GET', rest, true);
+        		xhr.setRequestHeader("Authorization", "Basic ZGVtbzpkZW1v");
+        		xhr.responseType = "blob";
+        		xhr.onreadystatechange = function() {
+            		if (xhr.readyState == 4) {
+                		if (success) success(xhr.response);
+            		}
+        		};
+        		xhr.send(null);
+			}
+      	};
+
+
+
+
+	</script>
+
+</form>
+

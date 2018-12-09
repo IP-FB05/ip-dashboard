@@ -1,4 +1,4 @@
-package de.fhaachen.ip.Pruefungsdurchfuehrung;
+package utils;
 
 import java.io.*;
 import java.util.HashMap;

@@ -18,9 +18,10 @@ export class ProcessesDialogComponent implements OnInit {
   name: string;
   description: string;
   pic: string;
-  varFile: string;
+  warFile: string;
   bpmn: string;
   added: string;
+  camunda_processID: string;
 
   fileUploads: Observable<string[]>;
   selectedFiles: FileList;
@@ -32,7 +33,7 @@ export class ProcessesDialogComponent implements OnInit {
     public snackBar:MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, varFile, bpmn, added }: Process) {
+    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
 
       this.form = this.fb.group({
         processID: 0,
@@ -40,10 +41,11 @@ export class ProcessesDialogComponent implements OnInit {
         description: [this.description, []],
         // TODO
         pic: "Placeholder until Fileserver",
-        varFile: "Placeholder until Fileserver",
+        warFile: "Placeholder until Fileserver",
         //bpmn: [this.bpmn, []], 
         bpmn: "Placeholder until Fileserver",
-        added: "Now"
+        added: "Now",
+        camunda_processID: "None"
       });
 
     }
@@ -68,7 +70,7 @@ export class ProcessesDialogComponent implements OnInit {
     this.selectedFiles = event.target.files;
     let file = event.target.files[0];
     let fileName = file.name;
-    this.bpmn = "http://localhost:8080/files/" + fileName;
+    this.bpmn = "http://localhost:9090/files/" + fileName;
   }
 
   upload() {
@@ -88,7 +90,7 @@ export class ProcessesDialogComponent implements OnInit {
 
   /*
   updateFile1() {
-    this.bpmn = "http://localhost:8080/files/" + file.value;
+    this.bpmn = "http://localhost:9090/files/" + file.value;
   }
   */
 
