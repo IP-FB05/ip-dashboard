@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Process } from '../process';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/upload/upload-file.service';
@@ -26,29 +26,28 @@ export class ProcessesDialogComponent implements OnInit {
   fileUploads: Observable<string[]>;
   selectedFiles: FileList;
   currentFileUpload: File;
-  progress: { percentage: number } = { percentage : 0 };
+  //progress: { percentage: number } = { percentage : 0 };
 
   constructor(
     private uploadService: UploadFileService,
-    public snackBar:MatSnackBar,
+    public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) {processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
+    @Inject(MAT_DIALOG_DATA) { processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
 
-      this.form = this.fb.group({
-        processID: 0,
-        name: [this.name, []],
-        description: [this.description, []],
-        // TODO
-        pic: "Placeholder until Fileserver",
-        warFile: "Placeholder until Fileserver",
-        //bpmn: [this.bpmn, []], 
-        bpmn: "Placeholder until Fileserver",
-        added: "Now",
-        camunda_processID: "None"
-      });
+    this.form = this.fb.group({
+      processID: new FormControl('0'),
+      name: new FormControl(this.name),
+      description: new FormControl(this.description),
+      pic: "Placeholder until Fileserver",
+      warFile: new FormControl(this.warFile),
+      //bpmn: [this.bpmn, []], 
+      bpmn: new FormControl(this.bpmn),
+      added: "Now",
+      camunda_processID: "None"
+    });
 
-    }
+  }
 
   ngOnInit() {
   }
@@ -61,32 +60,39 @@ export class ProcessesDialogComponent implements OnInit {
   }
 
   openSnackBar() {
-    this.snackBar.open('Hinzufügen erfolgreich' , '', {
+    this.snackBar.open('Hinzufügen erfolgreich', '', {
       duration: 2000,
     });
   }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
-    let file = event.target.files[0];
-    let fileName = file.name;
-    this.bpmn = "http://localhost:9090/files/" + fileName;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.form.controls.bpmn.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
+    this.form.controls.lastChanged.setValue(new Date());
+  }
+
+  selectFile1(event) {
+    this.selectedFiles = event.target.files;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
+    this.form.controls.lastChanged.setValue(new Date());
   }
 
   upload() {
-    this.progress.percentage = 0;
- 
-    this.currentFileUpload = this.selectedFiles.item(0);
+    //this.progress.percentage = 0;
+    //this.currentFileUpload = this.selectedFiles.item(0);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        //this.progress.percentage = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
         console.log('File is completely uploaded!');
       }
     });
- 
+
     this.selectedFiles = undefined;
   }
+
 
   /*
   updateFile1() {
