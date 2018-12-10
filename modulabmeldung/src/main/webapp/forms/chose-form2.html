@@ -16,20 +16,37 @@
 	</div>
 
 	<script cam-script type="text/form-script">
-		var headers = new Headers();
-		headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
-		headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+	
+		var variableManager = camForm.variableManager;
+		var matrikelnummer;
 
-		const userAction = async () => {
-			const response = await fetch('http://localhost:8888/modulStudent/1',
-				{method: 'GET',
-				headers: headers}
-			);
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('matrikelnummer');
+		});
+	
+	
+		camForm.on('variables-fetched', function() {
+			var headers = new Headers();
+			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
 
-			const myJson = await response.json(); //extract JSON from the http response
- 	    	//do something with myJson here:
-			populateSelect(myJson);
-		}
+			var rest = ''http://localhost:8888/modulStudent/';
+			rest = rest.concat(matrikelnummer);
+
+
+			const userAction = async () => {
+				const response = await fetch(rest,
+					{method: 'GET',
+					headers: headers}
+				);
+
+				const myJson = await response.json(); //extract JSON from the http response
+ 				//do something with myJson here:
+				populateSelect(myJson);
+			}
+			userAction();
+		});
+		
 
 		function populateSelect(dataJSON) {
 			let dropdown = document.getElementById('modul-dropdown');
@@ -48,12 +65,12 @@
 				option.text = dataJSON[i].module;
 				option.value = dataJSON[i].id;
 				dropdown.add(option);
-			}    
+			}
 
 
-		} 
+		}
 
-		userAction();
+		
 
 	</script>
 </form>
