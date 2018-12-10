@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.lang.System;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -101,17 +102,20 @@ public class UploadController {
 		try {
 			storageService.store(file);
             files.add(file.getOriginalFilename());
-            String pfad = "/files/"+file.getOriginalFilename();
-            Date date = new Date(1000);
+            /*String pfad = "http://localhost:9090/files/"+file.getOriginalFilename();
+            long millis = System.currentTimeMillis();
+            Date date = new Date(millis);
             Document doc = new Document (99, "Informatik", file.getOriginalFilename(), date, pfad );
-            ds.addDocument(doc);
+            ds.addDocument(doc);*/
 			message = "You successfully uploaded " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
-	}
+    }
+    
+    //TODO - Delete
  
 	
 
