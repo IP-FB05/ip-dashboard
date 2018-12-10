@@ -57,9 +57,9 @@ export class DocumentsComponent implements OnInit {
       dokumentID: 0,
       kategoriename: "",
       name: "",
-      lastChanged: new Date(),
+      lastChanged: "1999-01-01",
       // TODO
-      link: ""
+      link: "Placeholder bis Fileserver"
     };
 
     let dialogRef = this.dialog.open(DocumentsDialogComponent, dialogConfig);
