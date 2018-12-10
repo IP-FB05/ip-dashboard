@@ -1,16 +1,20 @@
 <div *ngIf="process">
-      
-    <h2 style="color: black">{{process.name}} Details</h2>
-    <div>
-      <h4 style="color: black">{{process.name}}</h4>
-      <hr>
-      <p style="color: black">Beschreibung: {{process.beschreibung}} </p>
-      <hr>
-      <a href={{process.bpmn} style="color: black">Download BPMN</a>
-      <hr>
-      <p>Anzeige BPMN {{process.bpmn}}</p>
-    </div>
 
-    <button mat-button (click)="goBack()">Zurück</button>
-    <button mat-button>Starten</button>
+  <div class="row" style="padding: 10px 30px 10px 37px;">
+    <h1 style="color: black; font-weight:400; font-size: 30px;">{{process.name}}</h1>
   </div>
+
+  <div class="row" style="padding: 0px 0px 0px 38px;">
+    <p style="color: black">{{process.description}}</p>
+  </div> 
+
+  <div class="diagram-parent" style="padding: 10px 30px 10px 37px;">
+      <app-diagram url={{process.bpmn}}></app-diagram>
+  </div>
+        
+  <div class="row" style="padding: 0px 0px 0px 38px;">
+      <button (click)="goBack()" class="btn btn-lg btn-secondary" style="margin-right:30px;">Zurück</button>
+      <a href={{process.bpmn} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
+  </div>
+
+</div>

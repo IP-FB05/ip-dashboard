@@ -20,6 +20,7 @@ import { DocumentsComponent } from './document/documents/documents.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // <-- NgModel lives here
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { DiagramModule } from './process/process-detail/diagram/diagram.module'
 
 import { DemoMaterialModule } from './material-module';
 
@@ -38,7 +39,8 @@ import { ProfilComponent } from './profil/profil.component';
 import { ListUploadComponent } from './upload/list-upload/list-upload.component';
 import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
 import { FormUploadComponent } from './upload/form-upload/form-upload.component';
-import { SubsComponent } from './subs/subs/subs.component'
+import { SubsComponent } from './subs/subs/subs.component';
+
 
 
 
@@ -67,7 +69,7 @@ import { SubsComponent } from './subs/subs/subs.component'
     ListUploadComponent,
     DetailsUploadComponent,
     FormUploadComponent,
-    SubsComponent,
+    SubsComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +83,7 @@ import { SubsComponent } from './subs/subs/subs.component'
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
+    DiagramModule
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
