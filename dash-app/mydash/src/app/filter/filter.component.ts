@@ -55,7 +55,7 @@ export class FilterComponent implements OnInit {
         break;
       }
       case '/documents': {
-        if (name === "") {
+        if (name === "" || name == null) {
           this.dc.getDokumente();
         } else {
           this.dc.filterDocuments(name);
