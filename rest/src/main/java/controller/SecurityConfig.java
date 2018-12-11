@@ -21,7 +21,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http
             // by default uses a Bean by the name of corsConfigurationSource
             .cors().and()
-            .authorizeRequests().antMatchers("/**").permitAll().and().csrf().disable();
+            .authorizeRequests().antMatchers("/files/**").permitAll()
+            .anyRequest().authenticated()
+            .and().httpBasic()
+            .and().csrf().disable();
     }
 
 	@Autowired
@@ -40,3 +43,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return source;
     }
 }
+
+

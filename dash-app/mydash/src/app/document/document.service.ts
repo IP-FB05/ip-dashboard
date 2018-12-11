@@ -26,7 +26,7 @@ export class DocumentService {
   getDocumente(): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/documents")
+    return this.http.get<Document[]>("http://localhost:9090/documents", httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -37,7 +37,7 @@ export class DocumentService {
    getDocumentLimit(): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/documentsLimit")
+    return this.http.get<Document[]>("http://localhost:9090/documentsLimit", httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -47,7 +47,7 @@ export class DocumentService {
  // GET document by id. Return `undefined` when id not found */
  getDocumentNo404<Data>(id: number): Observable<Document> {
   const url = `${this.documentsUrl}/?id=${id}`;
-  return this.http.get<Document[]>(url)
+  return this.http.get<Document[]>(url, httpOptions)
     .pipe(
       map(documente => documente[0]), // returns a {0|1} element array
       tap(h => {
@@ -63,7 +63,7 @@ getDocument(id: number): Observable<Document> {
   const url = `${this.documentsUrl}/${id}`;
   // TODO: send the message _after_ fetching the document
   this.messageService.add(`DocumentService: fetched document id=${id}`);
-  return this.http.get<Document>(url).pipe(
+  return this.http.get<Document>(url, httpOptions).pipe(
     tap(_ => this.log(`fetched document id=${id}`)),
     catchError(this.handleError<Document>(`getDocument id=${id}`))
   );
@@ -75,7 +75,7 @@ searchDocument(term: string): Observable<Document[]> {
     // if not search term, return empty documente array.
     return of([]);
   }
-  return this.http.get<Document[]>(`${this.documentsUrl}/?name=${term}`).pipe(
+  return this.http.get<Document[]>(`${this.documentsUrl}/?name=${term}`, httpOptions).pipe(
     tap(_ => this.log(`found document matching "${term}"`)),
     catchError(this.handleError<Document[]>('searchDocumente', []))
   );

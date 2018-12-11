@@ -4,7 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Category } from '../category/category';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
 };
 
 @Injectable({
@@ -18,15 +18,15 @@ export class CategoryService {
 	private categoryUrl = 'http://localhost:9090/category';
 
   public getCategories() {
-    return this.http.get<Category[]>(this.categoryUrl+"/all");
+    return this.http.get<Category[]>(this.categoryUrl+"/all", httpOptions);
   }
 
   public deleteCategory(category) {
-    return this.http.delete(this.categoryUrl + "/"+ category.id);
+    return this.http.delete(this.categoryUrl + "/"+ category.id, httpOptions);
   }
 
   public createCategory(category) {
-    return this.http.post<Category>(this.categoryUrl+"/add", category);
+    return this.http.post<Category>(this.categoryUrl+"/add", category, httpOptions);
   }
 
 }
