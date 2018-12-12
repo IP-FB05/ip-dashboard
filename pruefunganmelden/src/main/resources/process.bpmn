@@ -10,9 +10,9 @@
         <bpmn:flowNodeRef>BusinessRuleTask_0u42roz</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_0usv6f3</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Task_11i0ruy</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Task_016zueb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_13k7143</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0jy6j2h</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_016zueb</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_19jqg1m</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ServiceTask_0b3g5zd</bpmn:flowNodeRef>
       </bpmn:lane>
@@ -20,7 +20,7 @@
         <bpmn:flowNodeRef>StartEvent_1jt3o1e</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEvent_1jt3o1e" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="StartEvent_1jt3o1e" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starterUser">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="matrikelnummer" label="Matrikelnummer" type="long" />
@@ -56,11 +56,6 @@
       <bpmn:incoming>SequenceFlow_1b1vdrg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ev3t5r</bpmn:outgoing>
     </bpmn:businessRuleTask>
-    <bpmn:exclusiveGateway id="ExclusiveGateway_0usv6f3">
-      <bpmn:incoming>SequenceFlow_1ev3t5r</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0pewis8</bpmn:outgoing>
-      <bpmn:outgoing>SequenceFlow_0s3zblb</bpmn:outgoing>
-    </bpmn:exclusiveGateway>
     <bpmn:serviceTask id="Task_11i0ruy" name="Prüfungsstatus prüfen">
       <bpmn:extensionElements>
         <camunda:connector>
@@ -83,12 +78,39 @@
       <bpmn:incoming>SequenceFlow_16nwk2z</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1b1vdrg</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:endEvent id="EndEvent_13k7143" name="Nicht zur Prüfung zugelassen">
-      <bpmn:incoming>SequenceFlow_10goyxj</bpmn:incoming>
-    </bpmn:endEvent>
-    <bpmn:endEvent id="EndEvent_0jy6j2h" name="Zur Prüfung zugelassen">
-      <bpmn:incoming>SequenceFlow_0733rro</bpmn:incoming>
-    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0oufhum" sourceRef="StartEvent_1jt3o1e" targetRef="get_praktikum" />
+    <bpmn:sequenceFlow id="SequenceFlow_16nwk2z" sourceRef="get_praktikum" targetRef="Task_11i0ruy" />
+    <bpmn:sequenceFlow id="SequenceFlow_1b1vdrg" sourceRef="Task_11i0ruy" targetRef="BusinessRuleTask_0u42roz" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ev3t5r" name="voraussetzungen erfüllt" sourceRef="BusinessRuleTask_0u42roz" targetRef="ExclusiveGateway_0usv6f3" />
+    <bpmn:sequenceFlow id="SequenceFlow_0x718z9" sourceRef="Task_016zueb" targetRef="ServiceTask_19jqg1m" />
+    <bpmn:sequenceFlow id="SequenceFlow_0733rro" sourceRef="ServiceTask_19jqg1m" targetRef="EndEvent_0jy6j2h" />
+    <bpmn:sequenceFlow id="SequenceFlow_10goyxj" sourceRef="ServiceTask_0b3g5zd" targetRef="EndEvent_13k7143" />
+    <bpmn:sequenceFlow id="SequenceFlow_0pewis8" name="Ja" sourceRef="ExclusiveGateway_0usv6f3" targetRef="Task_016zueb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${zulassung}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_0s3zblb" name="Nein" sourceRef="ExclusiveGateway_0usv6f3" targetRef="ServiceTask_0b3g5zd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!zulassung}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sendTask id="ServiceTask_0b3g5zd" name="Feedback zur nicht Zulassung geben" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="text">Die Prüfung konnte nicht angemeldet werden, da Sie die voraussetzungen nicht erfüllen.</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Prüfungsanmeldung</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0s3zblb</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_10goyxj</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="ServiceTask_19jqg1m" name="Feedback zur Zulassung geben" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="text">Die Prüfung wurde erfolgreich angemeldet.</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Prüfungsanmeldung</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0x718z9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0733rro</bpmn:outgoing>
+    </bpmn:sendTask>
     <bpmn:serviceTask id="Task_016zueb" name="Prüfung anmelden">
       <bpmn:extensionElements>
         <camunda:connector>
@@ -108,39 +130,17 @@
       <bpmn:incoming>SequenceFlow_0pewis8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0x718z9</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0oufhum" sourceRef="StartEvent_1jt3o1e" targetRef="get_praktikum" />
-    <bpmn:sequenceFlow id="SequenceFlow_16nwk2z" sourceRef="get_praktikum" targetRef="Task_11i0ruy" />
-    <bpmn:sequenceFlow id="SequenceFlow_1b1vdrg" sourceRef="Task_11i0ruy" targetRef="BusinessRuleTask_0u42roz" />
-    <bpmn:sequenceFlow id="SequenceFlow_1ev3t5r" name="voraussetzungen erfüllt" sourceRef="BusinessRuleTask_0u42roz" targetRef="ExclusiveGateway_0usv6f3" />
-    <bpmn:sequenceFlow id="SequenceFlow_0s3zblb" name="Nein" sourceRef="ExclusiveGateway_0usv6f3" targetRef="ServiceTask_0b3g5zd">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!zulassung}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0pewis8" name="Ja" sourceRef="ExclusiveGateway_0usv6f3" targetRef="Task_016zueb">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${zulassung}</bpmn:conditionExpression>
-    </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_0x718z9" sourceRef="Task_016zueb" targetRef="ServiceTask_19jqg1m" />
-    <bpmn:sendTask id="ServiceTask_19jqg1m" name="Feedback zur Zulassung geben" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="text">Die Prüfung wurde erfolgreich angemeldet.</camunda:inputParameter>
-          <camunda:inputParameter name="subject">Prüfungsanmeldung</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0x718z9</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0733rro</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:sequenceFlow id="SequenceFlow_0733rro" sourceRef="ServiceTask_19jqg1m" targetRef="EndEvent_0jy6j2h" />
-    <bpmn:sendTask id="ServiceTask_0b3g5zd" name="Feedback zur nicht Zulassung geben" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:inputParameter name="text">Die Prüfung konnte nicht angemeldet werden, da Sie die voraussetzungen nicht erfüllen.</camunda:inputParameter>
-          <camunda:inputParameter name="subject">Prüfungsanmeldung</camunda:inputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0s3zblb</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_10goyxj</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:sequenceFlow id="SequenceFlow_10goyxj" sourceRef="ServiceTask_0b3g5zd" targetRef="EndEvent_13k7143" />
+    <bpmn:endEvent id="EndEvent_0jy6j2h" name="Zur Prüfung zugelassen">
+      <bpmn:incoming>SequenceFlow_0733rro</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_13k7143" name="Nicht zur Prüfung zugelassen">
+      <bpmn:incoming>SequenceFlow_10goyxj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0usv6f3">
+      <bpmn:incoming>SequenceFlow_1ev3t5r</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pewis8</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0s3zblb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01mf3rp">
@@ -197,7 +197,7 @@
         <di:waypoint x="687" y="163" />
         <di:waypoint x="727" y="163" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="709.9999999999993" y="193" width="85" height="27" />
+          <dc:Bounds x="710" y="193" width="85" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_0s3zblb_di" bpmnElement="SequenceFlow_0s3zblb">

@@ -21,7 +21,7 @@
     <bpmn:endEvent id="EndEvent_0xs8o7d" name="Prüfung abgemeldet">
       <bpmn:incoming>SequenceFlow_1mgoab6</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:startEvent id="StartEvent_09rgraa" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="StartEvent_09rgraa" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starterUser">
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="matrikelnummer" label="Matrikelnummer" type="long" />
