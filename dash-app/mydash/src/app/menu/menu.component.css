@@ -54,6 +54,11 @@ button:focus {
   background: #0b1a22;
 }
 
+.material-icons {
+  margin-right:10px;
+
+}
+
 .bg-light {
 background:#0b1a22 !important;
 }
@@ -64,6 +69,7 @@ background:#0b1a22 !important;
 
 .mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
   color: white;
+  margin-right:26px;
 }
 
 .mat-list-item:hover {background-color:white; margin:0; padding:0;}

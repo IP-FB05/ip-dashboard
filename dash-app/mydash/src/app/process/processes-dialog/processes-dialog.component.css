@@ -16,7 +16,7 @@ h2 {
 
 .collapse-btn {
     background:none;
-    color: #007a71;
+    color: #00b5ad;
     font-weight: 400;
     font-size:16px !important;
     padding-left:0;
@@ -36,3 +36,13 @@ h2 {
     padding-right:0;
 }
 
+.dialog-form-field
+{
+display:block;
+}
+
+.action-buttons
+{
+    margin-top:15px;
+    margin-bottom: 15px;
+}

@@ -1,14 +1,37 @@
 /* You can add global styles to this file, and also import other style files */
+@media only screen and (max-width: 867px) {
+
+.navbar {
+    text-align:center;
+}
+
+.login-div {
+    margin-bottom:30px;
+}
+.action-buttons {
+    text-align: center;
+}
+
+
+}
+
+body {font-size:14px;}
+.mat-button-wrapper{
+text-align:center;
+}
 
 [class*="col-"] {
     width: 100%;
+    padding-left:15px;
+    padding-right:15px;
+    
   }
   
 
 html, body { height: 100%; }
 
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Verdana';
 }
 
 .h1, h1 {
@@ -35,22 +58,29 @@ body {
 }
 
 .card-header {
-   background-color: #cccccc;
+   background-color:#ececec;
+   font-weight: 400;
 }
 
 .card-header h4 {
     background-color: #00b5ad;
-    color:white;
     text-align: left;
 }
 
 .card-body p {
-    font-size: 15px;
     color: #595757;
     text-align: left;
     font-weight:300;
 }
 
+.card-body a {
+    color:#595757;
+}
+
+.list-processes{
+    color: #595757;
+    padding-bottom: 10px;
+}
 
 a {
     color:white;
@@ -63,13 +93,11 @@ a:link {
 
 a:visited {
     color: white;
-    background-color: #00b5ad;
     border-color: #00b5ad;
 }
 
 a:focus {
     color: white;
-    background-color: #00b5ad;
     border-color: #00b5ad;
 }
 
@@ -87,7 +115,6 @@ a:hover {
 
 a:active {
     color: #00b5ad;
-    background-color: #00b5ad;
     text-align: left;
 }
 
@@ -101,13 +128,22 @@ a:active {
 .btn-secondary {
     background-color: #00b5ad;
     border:1px solid #00b5ad;
+    white-space: normal;
+    text-align:left;
 }
 
 .btn-secondary:hover {
-    color:#4d4d4d;
-    background-color: #ffffff;
-    border: 1px solid #00b5ad;
+    background-color: white;
+    color: #00b5ad;
+    border:1px solid #00b5ad;
 }
+
+.btn-secondary:not(:disabled):not(.disabled).active, .btn-secondary:not(:disabled):not(.disabled):active, .show>.btn-secondary.dropdown-toggle {
+   color:inherit;
+    background-color:inherit;
+    border-color:inherit;
+}
+
 
 .btn-outline-primary {
     border-color: transparent;
@@ -141,10 +177,12 @@ h4 {
 
 
 h2 {
-    font-size: 1.3rem;
+    
     font-weight: 400;
     margin-bottom: 0px;
     color:white;
+    font-size: 1.2em;
+    font-weight:600;
 }
 
 .mat-drawer-inner-container {
@@ -153,42 +191,32 @@ h2 {
   }
 
 
-.light-green {
-    background-color:#007a71;
-    border: 1px solid #007a71;
+.dark-blue {
+    
+    background-color:#0b1a22;
+    border: 1px solid #0b1a22;
 }
 
-.light-green:hover {
-    background-color:#00b5ad;
-    border: 1px solid white;
-    color:white;
+.dark-blue:hover {
+    background-color:white;
+    border: 1px solid #0b1a22;
+    color:#0b1a22;
 }
 
-.card-header:first-child {
-    border-radius: calc(.25rem - 1px) calc(.25rem - 1px) 0 0;
-    color: white;
-    font-weight: 400;
-    text-align:left;
-}
-
-.card-header {
-    font-size: 15px;
-    font-weight: 400;
-}
 
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125);
 }
 
+.mat-icon:hover {color:00b5ad;}
+
 .round-plus-btn {
     border:none;
-    color: #cccccc;
     text-align: center;
     text-decoration: none;
     background:transparent;
     border-color: transparent;
-    font-size: 5.5em;
-    font-weight: bold;
+    color:#cccccc;
     display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -198,16 +226,12 @@ h2 {
 .round-plus-btn:hover {
     border:none;
     background-color:transparent;
-    color:#00b5ad;
+    color:#b5b5b5;
 }
 
 .mat-form-field-flex {
     border-bottom: 1px solid white !important;
   }
-
- 
-
-.btn-sm {float: left;}
 
 .form-control {
     font-size: 14px;
@@ -231,8 +255,6 @@ h2 {
     color:#b3b3b3;
 }
  
-.mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus+.mat-form-field-label-wrapper .mat-form-field-label,  { color:red;}
-
 .mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label, .mat-form-field-empty.mat-form-field-label {
     display: block;
     color: #0b1a22;
@@ -265,17 +287,6 @@ hr {
 }
 
 
-#icon-big{
-    font-size: 27px;
-    float: right;
-    position: absolute;
-    z-index: 0;
-    top: -0.1rem;
-    right: 5.5rem;
-    opacity: 0.2;
-    font-size: 7rem;
-    color: #00615c;
-}
 
 .navbar {
 
@@ -285,6 +296,7 @@ hr {
 
 .delete-dark {
     -webkit-appearance: button;
+
     float: right;
     background: transparent;
     border-radius: 50%;
@@ -297,4 +309,131 @@ hr {
     font-weight:400;
     font-family: sans-serif;
     font-size:14px;
+}
+
+.delete-light {
+    -webkit-appearance: button;
+
+    float: right;
+    background: transparent;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    line-height: 9px;
+    border: 1.5px solid white;
+    color:#00b5ad;
+    background:white;
+    font-weight:400;
+    font-family: sans-serif;
+    font-size:14px;
+}
+
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+
+    font-family: 'Verdana';
+    font-size:13px;
+}
+
+.mat-flat-button[_ngcontent-c1]:not([class*=mat-elevation-z]), .mat-stroked-button[_ngcontent-c1]:not([class*=mat-elevation-z]) {
+    font-family: 'Verdana';
+    font-weight: 600;
+    padding-bottom: 9px;
+}
+
+.mat-list .mat-list-item .mat-list-item-content, .mat-list .mat-list-option .mat-list-item-content, .mat-nav-list .mat-list-item .mat-list-item-content, .mat-nav-list .mat-list-option .mat-list-item-content, .mat-selection-list .mat-list-item .mat-list-item-content, .mat-selection-list .mat-list-option .mat-list-item-content {
+    font-size:14px;
+}
+
+.btn {
+    font-size:12px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-top:50px;
+}
+
+p{
+    font-size:14px;
+}
+
+.mat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+}
+
+.login-icon {
+    color:white;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+    margin-right: 3px !important;
+  
+}
+
+.login-div:hover a
+{
+    color:#00b5ad;
+    text-decoration: none;
+}
+
+
+.login-div:hover .login-icon
+{
+    color:#00b5ad;
+}
+
+.login a {
+    float:right;
+    color:white;
+    margin-bottom:0;
+}
+
+.mat-select-arrow {
+    color:#595757 !important;
+}
+
+.mat-primary .mat-option.mat-selected:not(.mat-option-disabled) {
+    color: #00b5ad;
+}
+
+.mat-dialog-actions .mat-button+.mat-button, .mat-dialog-actions .mat-button+.mat-raised-button, .mat-dialog-actions .mat-raised-button+.mat-button, .mat-dialog-actions .mat-raised-button+.mat-raised-button {
+ margin-left: 0px !important; 
+ flex-wrap: nowrap;
+}
+
+.mat-dialog-actions
+{
+    flex-wrap: nowrap !important;
+}
+
+.card-header a{
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+    }
+
+.start-process-btn
+{float:right;}
+
+.card-header a:hover {
+    text-decoration:none;
+}
+
+.ng-star-inserted a {
+     color: white; 
+}
+
+a.list-documents  {
+    color: #595757;
+ }
+
+ .mat-tab-group.mat-primary .mat-ink-bar, .mat-tab-nav-bar.mat-primary .mat-ink-bar {
+    background-color: #00b5ad;
+}
+
+.btn-abonnieren
+{
+    margin-top:20px;
 }

@@ -2,11 +2,11 @@
   <h2>Prozess hinzufügen</h2>
   <hr>
   <mat-dialog-content [formGroup]="form">
-      <mat-form-field style="width:600px; height:auto;">
+      <mat-form-field class="dialog-form-field">
         <label for="name"></label>
         <input matInput placeholder="Name" formControlName="name">
       </mat-form-field>
-      <mat-form-field style="width:600px; height:auto;">
+      <mat-form-field class="dialog-form-field">
         <label for="beschreibung"></label>
         <input matInput placeholder="Beschreibung" formControlName="description">
       </mat-form-field>
@@ -29,8 +29,8 @@
             </div>
         </div>
   </mat-dialog-content>
-  <mat-dialog-actions>
-    <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" (click)="openSnackBar()" class="bestaetigen-btn"><i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
-    <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i> Abbrechen</button>
+  <mat-dialog-actions class="action-buttons">
+    <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" (click)="openSnackBar()" class="bestaetigen-btn"><mat-icon class="bestaetigen-icon">done</mat-icon>BESTÄTIGEN</button>&nbsp;
+    <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <mat-icon class="abbrechen-icon">clear</mat-icon> ABBRECHEN</button>
   </mat-dialog-actions>
 </div>

@@ -1,19 +1,19 @@
 <div class="profil">
 
-    <div class="row" style="padding: 65px 30px 10px 37px;">
-        <h1 style="color: black; font-weight:400; font-size: 17px;">Dies ist eine Vorschau der Profil-Seite.
+    <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
+        <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Dies ist eine Vorschau der Profil-Seite.
             Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
     </div>
 
 
-    <div class="row" style="padding: 25px 30px 10px 37px;">
+    <div class="row" style="padding-left: 15px; padding-right:15px;">
         <a href="https://www.fh-aachen.de/hochschule/datenverarbeitungszentrale/benutzeraccount/service-seite/anleitungen/aenderung-des-passwortes/"
             target="_blank" style=color:black;>
             Änderung des Passworts
         </a>
     </div>
 
-    <div class="row" style="padding: 25px 0px 0px 57px">
+    <div class="row"  style="padding-left: 35px; padding-right:35px;">
         <label class="form-check-label">
             <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
             Benachrichtigungen aktivieren
@@ -22,7 +22,7 @@
 
 
 
-    <div class="row" style="padding: 30px 0px 0px 22px;">
+    <div class="row"  >
         <div class="col-md-3">
             <label for="Process">Prozess abonnieren</label>
             <form>
@@ -31,13 +31,11 @@
                     <option *ngFor="let process of processes">{{process.name}}</option>
                 </select>
             </form>
-        </div>
-        <div class="col-md-2" style="padding-top:33px">
-            <button type="submit" class="btn btn-lg btn-secondary">Abonnieren</button>
+            <button type="submit" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
         </div>
     </div>
 
-    <div class="row" style="padding: 30px 0px 0px 22px;">
+    <div class="row" >
         <div class="col-md-3">
             <label for="RunningProcess">Laufenden Prozess abonnieren</label>
             <form>
@@ -45,12 +43,10 @@
                     <option value="">-keine Auswahl-</option>
                 </select>
             </form>
-        </div>
-        <div class="col-md-2" style="padding-top:33px">
-            <button type="submit" class="btn btn-lg btn-secondary">Abonnieren</button>
+         <button type="submit" class="btn btn-abonnieren btn-secondary">Abonnieren</button> 
         </div>
     </div>
-    <div class="row" style="padding: 30px 0px 0px 20px;">
+    <div class="row" >
         <div class="col-md-6">
             <mat-tab-group>
                 <mat-tab label="Abonnierte Prozesse">

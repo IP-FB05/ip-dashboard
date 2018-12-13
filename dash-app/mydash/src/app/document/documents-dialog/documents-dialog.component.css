@@ -19,4 +19,13 @@ h2 {
     box-shadow: none;
 }
 
+.action-buttons
+{
+    margin-top:15px;
+    margin-bottom: 15px;
+}
 
+.dialog-form-field
+{
+display:block;
+}

@@ -1,6 +1,6 @@
 <div class="dokumente">
     <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
-        <h2 style="color: black; font-weight:300; font-size: 17px;">Dies ist die Dokumenten Seite.
+        <h2 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Dies ist die Dokumenten Seite.
         Hier können Sie, fürs Studium relevante, Dokumente herrunterladen</h2>
     </div>
 
@@ -49,18 +49,20 @@
             </form>
         </div>
         -->
-        <div class="col-md-1"></div>
-        <div class="col-md-3">
-            <div class="card-deck mb-3 text-center">
-                <div class="card mb-3 box-shadow">
-                    <div class="card-header" style="background-color: #0b1820a8;">Dokument hinzufügen</div>
-                    <div class="card-body" style="height: 300px;">
-                        <p class="card-text" style="text-align:center;">
-                            <button class="btn btn-secondary round-plus-btn" (click)="openDialog()" style="margin-top: 70px; width: 100px; height: 100px">+</button>
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    
+        <div class="col-md-3" style="margin-bottom:20px;">
+        <div class="card-deck">
+    <div class="card" style="border: 1px solid #e2e2e2;">
+      <div class="card-header" style="color: #656565; border-bottom:none;">
+        <h3 style="font-weight:600; font-size:14px; padding-top: 5px; padding-bottom: 5px;">Dokument hochladen</h3>
+      </div>
+      <div class="card-body" style="background-color: #ececec;">
+          <p class="card-text" style="text-align:center;">
+            <button class="round-plus-btn" (click)="openDialog()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
+              padding-bottom: 70px; display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
+      </div>
+      </div>
+    </div>
+  </div>
     </div>
 </div>
