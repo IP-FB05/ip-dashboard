@@ -158,7 +158,7 @@ public class NotificationTaskListener implements TaskListener {
 	          try {
 	            email.setFrom("noreply@camunda.org");
 	            email.setSubject("Task assigned: " + delegateTask.getName());
-	            //email.setMsg("Please complete: http://localhost:8080/camunda/app/tasklist/default/#/task/" + taskId);
+	            email.setMsg(msg);
 
 	            email.addTo(recipient);
 
