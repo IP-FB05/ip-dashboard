@@ -1,20 +1,21 @@
-<div style="padding:10px 5px 25px 5px;">
+<div>
     <h2>Dokument hinzufügen</h2>
     <hr>
     <mat-dialog-content [formGroup]="form">
-        <mat-form-field style="width:600px; height:auto;">
+        <mat-form-field class="dialog-form-field">
             <label for="name"></label>
             <input matInput placeholder="Name" formControlName="name">
         </mat-form-field>
         <hr>
-        <mat-form-field style="width:600px; height:auto">
+        
+        <mat-form-field class="dialog-form-field">
             <label for="kategorie"></label>
             <input matInput placeholder="Kategorie" formControlName="categoriename">
         </mat-form-field>
 
         <hr>
-
-        <mat-form-field>
+        
+        <mat-form-field class="dialog-form-field">
             <mat-select placeholder="Kategorie" formControlName="categoriename">
                 <mat-option *ngFor="let category of categories" [value]="category">
                     {{category.name}}
@@ -31,10 +32,10 @@
 
     <!--<button class="btn btn-success" [disabled]="!selectedFiles" (click)="upload()">Upload</button>-->
 
-    <mat-dialog-actions style="padding-top: 50px">
+    <mat-dialog-actions class="action-buttons">
         <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" (click)="openSnackBar()" class="bestaetigen-btn">
-            <i class="material-icons" style="margin-right:5px;">check</i>Bestätigen</button>&nbsp;
-        <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <i class="material-icons" style="margin-right:5px;">close</i>Abbrechen</button>
+            <mat-icon class="bestaetigen-icon">done</mat-icon>BESTÄTIGEN</button>&nbsp;
+        <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <mat-icon class="abbrechen-icon">clear</mat-icon>ABBRECHEN</button>
     </mat-dialog-actions>
 
     <br>

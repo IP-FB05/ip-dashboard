@@ -7,7 +7,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SubsService } from '../subs/subs.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
 };
 
 @Component({
@@ -39,7 +39,7 @@ export class ProfilComponent implements OnInit {
   }
 
   public getProcesses() {
-    return this.http.get<Process[]>(this.processUrl);
+    return this.http.get<Process[]>(this.processUrl, httpOptions);
   }
 
   

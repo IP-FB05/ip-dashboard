@@ -32,7 +32,7 @@ export class ProcessService {
   getProcesses(): Observable<Process[]> {
     // TODO: send the message _after_ fetching the processes
     this.messageService.add('ProcessService: fetched processes');
-    return this.http.get<Process[]>("http://localhost:9090/processes")
+    return this.http.get<Process[]>("http://localhost:9090/processes", httpOptions)
       .pipe(
         tap(_ => this.log('fetched processes')),
         catchError(this.handleError('getProcesses', []))
@@ -42,7 +42,7 @@ export class ProcessService {
   // GET process by id. Return `undefined` when id not found */
   getProcessNo404<Data>(id: number): Observable<Process> {
     const url = `${this.processesUrl}/?id=${id}`;
-    return this.http.get<Process[]>(url)
+    return this.http.get<Process[]>(url, httpOptions)
       .pipe(
         map(processes => processes[0]), // returns a {0|1} element array
         tap(h => {
@@ -58,7 +58,7 @@ export class ProcessService {
     const url = `http://localhost:9090/process/${id}`;
     // TODO: send the message _after_ fetching the process
     this.messageService.add(`ProcessService: fetched process id=${id}`);
-    return this.http.get<Process>(url).pipe(
+    return this.http.get<Process>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched process id=${id}`)),
       catchError(this.handleError<Process>(`getProcess id=${id}`))
     );

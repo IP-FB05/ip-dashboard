@@ -21,7 +21,7 @@
         <bpmn:flowNodeRef>Task_0x6sqgq</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:userTask id="Task_0ktdczl" name="Noten eintragen" camunda:formKey="embedded:app:forms/SetGrades.html">
+    <bpmn:userTask id="Task_0ktdczl" name="Noten eintragen" camunda:formKey="embedded:app:forms/SetGrades.html" camunda:assignee="${starterUser}">
       <bpmn:incoming>SequenceFlow_0bzv2aa</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_11928cj</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1bxemy6">
@@ -46,7 +46,7 @@
     <bpmn:endEvent id="EndEvent_0n4okog">
       <bpmn:incoming>SequenceFlow_1xgvpa8</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_0k3nwyg" name="Noten bearbeiten" camunda:formKey="embedded:app:forms/SetGrades.html">
+    <bpmn:userTask id="Task_0k3nwyg" name="Noten bearbeiten" camunda:formKey="embedded:app:forms/SetGrades.html" camunda:assignee="${starterUser}">
       <bpmn:incoming>SequenceFlow_05o6ddn</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1xgvpa8</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1200lej">
@@ -82,7 +82,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_08onc1e" sourceRef="IntermediateCatchEvent_1njmnvv" targetRef="SendTask_093pw2a" />
     <bpmn:sequenceFlow id="SequenceFlow_1122c7c" sourceRef="StartEvent_1f00l3d" targetRef="Task_0x6sqgq" />
     <bpmn:sequenceFlow id="SequenceFlow_0e2su5d" sourceRef="Task_0x6sqgq" targetRef="IntermediateCatchEvent_1njmnvv" />
-    <bpmn:startEvent id="StartEvent_1f00l3d" name="Prüfung durchführen" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="StartEvent_1f00l3d" name="Prüfung durchführen" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="starterUser">
       <bpmn:outgoing>SequenceFlow_1122c7c</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_0x6sqgq" name="Den Tag, eine Woche vor der Klausur berechnen" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.GetOneWeekBeforExam">

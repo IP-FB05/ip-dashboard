@@ -1,43 +1,49 @@
 <div class="row" style="margin-top:50px;">
   
   <div class="col-md-6" style="margin-bottom:20px;">
-    <div class="card" style="border-color:#00b5ad;">
-      <div class="card-header" style="border-color:#00b5ad; background:#00b5ad;">
-        <h3 style="font-weight:400; font-size: 17px;">Laufende Prozesse</h3> 
+    <div class="card">
+      <div class="card-header" style="border: 1px solid#0b1a22; color:white; background-color:#0b1a22;">
+         <h3 style="font-weight:600; font-size: 14px;"><mat-icon style="margin-right:10px;">update</mat-icon>Laufende Prozesse </h3> 
       </div>
 
-      <div class="card-body" style="background: #00b5ad;">
-        <div class="card-text" style="color:white;"><mat-icon id="icon-big">update</mat-icon> 
+      <div class="card-body">
+        <div class="card-text">
           <p class="list-processes">Prozess 1</p>
           <p>Prozess 2</p>
         </div>
         
-        <p class="card-text"><a href="#"><button class="btn btn-secondary light-green">Mehr</button></a></p>
+        <p class="card-text"><a href="#"><button class="btn btn-secondary dark-blue">Mehr</button></a></p>
       </div>
     </div>
   </div>
 
   <div class="col-md-3" style="margin-bottom:20px;">
-    <div class="card" style="border: 1px solid #cccccc;">
-      <div class="card-header" style="border: 1px solid#cccccc; color: #656565;">
-        <h3 style="font-weight:400; font-size: 17px;">Prozess hinzufügen</h3>
+  <div class="card-deck h-100 mb-3 text-center fix">
+    <div class="card" style="border: 1px solid#e2e2e2 ;">
+      <div class="card-header" style="color: #656565; border-bottom:none;">
+        <h3 style="font-weight:600; font-size: 14px; padding-top: 5px;padding-bottom: 5px;" >Prozess hinzufügen</h3>
       </div>
-      <div class="card-body" style="background-color: #f5f5f5;">
+      <div class="card-body" style="background-color:#ececec;">
           <p class="card-text" style="text-align:center;"> 
-            <button class="round-plus-btn" (click)="openDialogDocument()">+</button></p>
+            <button class="round-plus-btn" (click)="openDialogProcess()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
+              padding-bottom: 70px;display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
       </div>
+    </div>
     </div>
   </div>
 
   <div class="col-md-3" style="margin-bottom:20px;">
-    <div class="card" style="border: 1px solid #cccccc;">
-      <div class="card-header" style="border: 1px solid #cccccc; color:#656565;">
-        <h3 style="font-weight:400; font-size: 17px;">Dokument hochladen</h3>
+   <div class="card-deck h-100 mb-3 text-center fix">
+    <div class="card" style="border: 1px solid #e2e2e2;">
+      <div class="card-header" style="color: #656565; border-bottom:none;">
+        <h3 style="font-weight:600; font-size:14px; padding-top: 5px; padding-bottom: 5px;">Dokument hochladen</h3>
       </div>
-      <div class="card-body" style="background-color: #f5f5f5;">
+      <div class="card-body" style="background-color: #ececec;">
           <p class="card-text" style="text-align:center;">
-            <button class="round-plus-btn" (click)="openDialogDocument()">+</button></p>
+            <button class="round-plus-btn" (click)="openDialogDocument()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
+              padding-bottom: 70px; display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
       </div>
+    </div>
     </div>
   </div>
 
@@ -48,13 +54,13 @@
   <div class="col-md-3" style="margin-bottom:20px;">
     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
       <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad;">
-        <h3 style="font-weight:400; font-size: 17px;">Systeme</h3>
+        <h3 style="font-weight:600; font-size: 14px; color:white; padding-top: 5px; padding-bottom: 5px;">Systeme</h3>
       </div>
       <div class="card-body" style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
           Hier finden Sie alle notwendigen Systeme wie Campus, ILIAS, QIS ...
         </p>
-        <p class="card-text mt-auto"><a routerLink="/systems"><button class="btn btn-secondary">Zur System-Seite</button></a></p>
+        <p class="card-text mt-auto"><a routerLink="/systems"><button class="btn btn-secondary" >Zur System-Seite</button></a></p>
       </div>
     </div>
   </div>
@@ -62,7 +68,7 @@
   <div class="col-md-3" style="margin-bottom:20px;">
     <div class="card" style="border-color: 1px solid rgba(0, 0, 0, 0.125);">
       <div class="card-header" style="border-color:#f5f5f5;  background:#00b5ad; text-align: left">
-        <h3 style="font-weight:400; font-size: 17px;">Prozesse</h3>
+        <h3 style="font-weight:600; font-size: 14px; color:white; padding-top: 5px; padding-bottom: 5px;">Prozesse</h3>
       </div>
       <div class="card-body " style="background-color: #f5f5f5;">
         <p class="card-text" style="color:#4d4d4d;">
@@ -74,15 +80,15 @@
   </div>
 
   <div class="col-md-6" style="margin-bottom:20px;">
-    <div class="card" style="border-color:#00b5ad;">
-      <div class="card-header"  style="border-color:#00b5ad; background:#00b5ad;">
-        <h3 style="font-weight:400; font-size: 17px;">Dokumente</h3>
+    <div class="card">
+      <div class="card-header"  style="border: 1px solid#0b1a22; color:white; background-color:#0b1a22;">
+        <h3 style="font-weight:600; font-size: 14px;"><mat-icon style="margin-right:10px;">description</mat-icon>Dokumente</h3>
       </div>
-      <div class="card-body" style="background: #00b5ad;"><mat-icon id="icon-big">description</mat-icon> 
+      <div class="card-body"> 
         <div *ngFor="let document of documents">
-          <p><a href={{document.link}} style="color: white">{{document.name}}</a></p>
+          <p><a class="list-documents" href={{document.link}}>{{document.name}}</a></p>
       </div>
-      <a routerLink="/documents"><button class="btn btn-secondary light-green">Alle Dokumente</button></a>
+      <a routerLink="/documents"><button class="btn btn-secondary dark-blue">Alle Dokumente</button></a>
   
       </div>
     </div>

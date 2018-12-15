@@ -1,12 +1,12 @@
 <div class="systems">
-  <div class="row" style="padding: 65px 30px 10px 37px;">
-    <h2 style="color: black; font-weight:300; font-size: 17px;">Dies ist die System-Seite. Man gelangt
+  <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
+    <h2 style="color: black; font-weight:300; font-size: 14px;">Dies ist die System-Seite. Man gelangt
       zu einem System, indem man auf den
       "Zur Seite"-Button klickt.
       Man kann auch jederzeit ein neues System hinzufügen oder Systeme aus der Übersicht löschen.</h2>
   </div>
 
-  <div class="row" style="padding: 10px 30px 10px 21px;">
+  <div class="row">
     <div class="col-md">
       <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
     </div>
@@ -16,27 +16,30 @@
   <app-filter></app-filter>
   -->
 
-  <div class="row" style="padding: 25px 0px 0px 21px;">
+  <div class="row">
     <div *ngFor="let system of systems | textFilterSystems:searchText" class="col-md-3">
-      <div class="card-deck h-100 mb-3 text-center">
-        <div class="card mb-3 box-shadow">
-          <div class="card-header">{{system.name}}&nbsp;
-            <button class="delete" title="delete system" (click)="delete(system)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
-          <div class="card-body text-secondary d-flex flex-column">
-            <p class="card-text">{{system.description}}</p>
-            <a class="btn btn-sm btn-secondary mt-auto" href="{{system.link}}" target="_blank">Zur Seite</a>
+    <div class="card-deck h-100 mb-3 fix">
+     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+          <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad;">
+          <h3 style="font-weight:600; font-size: 14px; color:white; margin-bottom:0;padding-top: 5px; padding-bottom: 5px;">{{system.name}}<button class="delete-light" title="delete system" (click)="delete(system)" (click)="openSnackBar()" matTooltip="Löschen">x</button></h3>
+            </div>
+          <div class="card-body" style="background-color: #f5f5f5;">
+            <p class="card-text"  style="color:#4d4d4d;">{{system.description}}</p>
+            <a class="btn btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
           </div>
         </div>
-      </div>
     </div>
-    <div class="col-md-3">
+    </div>
+    <div class="col-md-3" style="margin-bottom:20px;">
       <div class="card-deck h-100 mb-3 text-center fix">
-        <div class="card mb-3 box-shadow">
-          <div class="card-header" style="background-color: #0b1820a8;">System hinzufügen</div>
-          <div class="card-body">
+        <div class="card"  style="border: 1px solid #e2e2e2;">
+        <div class="card-header" style="color: #656565; border-bottom:none;">
+          <h3 style="font-weight:600; font-size:14px; padding-top: 5px; padding-bottom: 5px;">System hinzufügen</h3>
+          </div>
+          <div class="card-body" style="background-color: #ececec;">
             <p class="card-text" style="text-align:center;">
-              <button class="btn btn-secondary round-plus-btn" (click)="openDialog()" style="margin-top:120px">+</button>
-            </p>
+            <button class="round-plus-btn" (click)="openDialog()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
+              padding-bottom: 70px; display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
           </div>
         </div>
       </div>

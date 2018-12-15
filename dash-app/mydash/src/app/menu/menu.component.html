@@ -2,28 +2,28 @@
   <mat-sidenav #sidenav mode="over" [(opened)]="opened">
     <mat-nav-list>
       <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 10px 20px;" alt="Logo" width="200" height="auto"></p>
-      <p style="color:white; padding-left:30px">Name, Vorname</p>
-      <p style="color:white; padding-left:30px">Rolle</p>
+      <p style="color:white; padding-left:30px; font-size:14px; font-weight:600;">Name, Vorname</p>
+      <p style="color:white; padding-left:30px; font-size:12.5px; margin-top: -12px;">Rolle</p>
       <a mat-list-item routerLink="/dashboard">
-        <mat-icon>apps</mat-icon>&nbsp;Übersicht
+        <mat-icon>apps</mat-icon>&nbsp;ÜBERSICHT
       </a>
       <a mat-list-item routerLink="/processes">
-        <mat-icon>settings</mat-icon>&nbsp;Prozesse
+        <mat-icon>settings</mat-icon>&nbsp;PROZESSE
       </a>
       <a mat-list-item routerLink="/myprocesses">
-        <mat-icon>update</mat-icon>&nbsp;Laufende Prozesse
+        <mat-icon>update</mat-icon>&nbsp;LAUFENDE PROZESSE
       </a>
       <a mat-list-item routerLink="/documents">
-        <mat-icon>description</mat-icon>&nbsp;Dokumente
+        <mat-icon>description</mat-icon>&nbsp;DOKUMENTE
       </a>
       <a mat-list-item routerLink="/systems">
-        <mat-icon>build</mat-icon>&nbsp;Systeme
+        <mat-icon>build</mat-icon>&nbsp;SYSTEME
       </a>
       <a mat-list-item routerLink="/profil">
-        <mat-icon>person</mat-icon>&nbsp;Profil
+        <mat-icon>person</mat-icon>&nbsp;PROFIL
       </a>
       <a mat-list-item href="#">
-        <mat-icon>input</mat-icon>&nbsp;Abmelden
+        <mat-icon>input</mat-icon>&nbsp;ABMELDEN
       </a>
     </mat-nav-list>
   </mat-sidenav>
@@ -59,12 +59,7 @@
         </form>
       </div>
       <div class="col-md-1">
-        <button mat-stroked-button class="login-button">
-          Login
-          <i class="material-icons" style="padding-left: 5px">
-            input
-          </i>
-        </button>
+        <div class="login-div"><a href="#" class="login"><mat-icon class="login-icon">input</mat-icon> Login</a></div>
       </div>
     </nav>
     <router-outlet></router-outlet>

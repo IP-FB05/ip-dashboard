@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Document } from '../document';
 import { UploadFileService } from 'src/app/upload/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
@@ -20,12 +20,12 @@ export class DocumentsDialogComponent implements OnInit {
   documentID: number;
   categoriename: string;
   name: string;
-  lastChanged: string;
+  lastChanged: Date;
   link: string;
 
   selectedFiles: FileList;
   currentFileUpload: File;
-  progress: { percentage: number } = { percentage : 0 };
+  //progress: { percentage: number } = { percentage : 0 };
 
   categories: Category[];
 
@@ -38,15 +38,22 @@ export class DocumentsDialogComponent implements OnInit {
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {documentID, categoriename, name, lastChanged, link }: Document) { 
 
-      this.form = this.fb.group({
+      this.form = new FormGroup({
+        documentID: new FormControl('0'),
+        categoriename: new FormControl(this.categoriename),
+        name: new FormControl(this.name),
+        lastChanged: new FormControl(this.lastChanged),
+        link: new FormControl(this.link)//[this.link ,[]]
+      });
+
+      /*this.form = this.fb.group({
         documentID: 0,
         categoriename: [this.categoriename, []],
         name: [this.name, []],
-        lastChanged: "1999-01-01",
-        // TODO
-        //link: [this._link ,[]]
-        link:"Placeholder until Fileserver"
-      });
+        lastChanged: new FormControl(''),
+        link: new FormControl('')//[this.link ,[]]
+        //link:"Placeholder until Fileserver"
+      });*/
     }
 
   ngOnInit() {
@@ -70,16 +77,17 @@ export class DocumentsDialogComponent implements OnInit {
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
+    this.currentFileUpload = this.selectedFiles.item(0);
+    this.form.controls.link.setValue('http://localhost:9090/files/'+this.currentFileUpload.name);
+    this.form.controls.lastChanged.setValue(new Date());
   }
 
   upload() {
-    this.progress.percentage = 0;
-
- 
-    this.currentFileUpload = this.selectedFiles.item(0);
+    //this.progress.percentage = 0;
+    //this.currentFileUpload = this.selectedFiles.item(0);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
-        this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        //this.progress.percentage = Math.round(100 * event.loaded / event.total);
       } else if (event instanceof HttpResponse) {
         console.log('File is completely uploaded!');
       }

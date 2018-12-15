@@ -36,7 +36,7 @@ export class SystemService {
   // GET system by id. Return `undefined` when id not found */
   getSystemNo404<Data>(id: number): Observable<System> {
     const url = `${this.systemsUrl}/?id=${id}`;
-    return this.http.get<System[]>(url)
+    return this.http.get<System[]>(url, httpOptions)
       .pipe(
         map(systems => systems[0]), // returns a {0|1} element array
         tap(h => {
@@ -52,7 +52,7 @@ export class SystemService {
     const url = `${this.systemsUrl}/${id}`;
     // TODO: send the message _after_ fetching the system
     this.messageService.add(`SystemsService: fetched system id=${id}`);
-    return this.http.get<System>(url).pipe(
+    return this.http.get<System>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched system id=${id}`)),
       catchError(this.handleError<System>(`getSystem id=${id}`))
     );
@@ -64,7 +64,7 @@ export class SystemService {
       // if not search term, return empty system array.
       return of([]);
     }
-    return this.http.get<System[]>(`${this.systemsUrl}/?name=${term}`).pipe(
+    return this.http.get<System[]>(`${this.systemsUrl}/?name=${term}`, httpOptions).pipe(
       tap(_ => this.log(`found systems matching "${term}"`)),
       catchError(this.handleError<System[]>('searchSystems', []))
     );

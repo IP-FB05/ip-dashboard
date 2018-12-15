@@ -24,6 +24,7 @@
     "@angular/router": "~7.0.0",
     "angular-in-memory-web-api": "^0.7.0",
     "auth0-js": "^9.8.1",
+    "bpmn-js": "^3.0.4",
     "core-js": "^2.5.4",
     "hammerjs": "^2.0.8",
     "rxjs": "^6.3.3",
