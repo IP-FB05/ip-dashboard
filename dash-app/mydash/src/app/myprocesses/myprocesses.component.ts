@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import 'camunda-bpm-sdk.js';
 
 @Component({
   selector: 'app-myprocesses',
