@@ -5,7 +5,7 @@ import org.camunda.bpm.engine.identity.User;
 import org.camunda.bpm.engine.task.Task;
 import org.camunda.bpm.engine.test.Deployment;
 
-public class NotificationTest extends ProcessEngineTestCase {
+public class NotificationEmailTest extends ProcessEngineTestCase {
 	
 	//Set the Demo User Email Address 
 		private static final String EMAIL = "testip@gmail.com"; //demo@example.org
