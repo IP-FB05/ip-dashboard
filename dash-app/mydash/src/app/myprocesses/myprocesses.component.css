@@ -1,0 +1,49 @@
+
+  
+  #tasks > li {
+    cursor: pointer;
+    margin-bottom: 4em;
+  }
+  
+  .layout > .column {
+    width: 50%;
+    overflow: auto;
+    position: absolute;
+    min-height: 100%;
+    padding: 1em;
+  }
+  .layout > .right {
+    right: 0;
+  }
+  
+  
+  .form-group {
+    overflow: visible;
+    padding: 1em 0;
+    margin-bottom: 1em;
+  }
+  
+  .control-label,
+  .form-control {
+    float: left;
+  }
+  
+  .control-label,
+  .form-control input{
+    vertical-align: middle;
+    line-height: 2em;
+  }
+  
+  .control-label {
+    text-align: right;
+    width: 33%;
+    padding: 0 1em 0 0;
+  }
+  .form-control {
+    width: 66%;
+    padding: 0 0 0 1em;
+  }
+  
+  .form-control input[type="text"]{
+    width: 100%;
+  }
