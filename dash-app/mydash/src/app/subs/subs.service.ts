@@ -25,6 +25,6 @@ export class SubsService {
     }
 
     public getRunningProcesses() {
-        return this.http.get<Process[]>(this.subsUrl + "/runningProcesses");
+        return this.http.get<Process[]>(this.subsUrl + "/runningProcesses", httpOptions);
     }
 }
