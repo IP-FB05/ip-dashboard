@@ -29,6 +29,7 @@ public class TestPruefungsamt {
 	}
 
 	@Test
+	@Ignore
 	public void testgetCredits() throws SQLException {
 		// Student 2 hat 27 Credits
 		assertEquals(171, pa.getCredits(2));
@@ -148,6 +149,43 @@ public class TestPruefungsamt {
 		
 		assertEquals(1,matrNr);
 		assertEquals("Test1 Student1",studName);
+	}
+	
+	@Test
+	public void testBachelorarbeit() throws SQLException {
+
+		
+		//Student 1 erfuellt zulassungsvoraussetztung
+		assertTrue(pa.getZulassungBA(1));
+		
+		// Fuer Student 1 soll eine BA angelegt werden
+		assertTrue(pa.setAnmeldungBA
+				(1, "Testbetreuer", "TestBA", new java.sql.Date(new java.util.Date().getTime()))
+				);
+		
+		// Fuer Student 1 soll die letzte BA benotet werden
+		assertTrue(pa.setBABenoten(1, 2.7));
+	}
+	
+	@Test
+	public void testBAKolloquium() throws SQLException {
+
+		
+		//Student 1 erfuellt zulassungsvoraussetztung
+		//assertTrue(pa.getZulassungBAKol(1));
+		
+		// Fuer Student 1 soll eine BAKol angelegt werden
+		assertTrue(pa.setAnmeldungBAKol(1, new java.sql.Date(new java.util.Date().getTime())));
+		
+		// Fuer Student 1 soll die letzte BAKol benotet werden
+		assertTrue(pa.setBAKolBenoten(1, 3.3));
+	}
+	
+	@Test
+	public void testLetzteBAverlaengern() throws SQLException {
+
+		// Fuer Student 1 soll letzte BA um 14 Tage verlaengert werden
+		assertTrue(pa.setBAVerlaengerung(1, 14));
 	}
 	
 

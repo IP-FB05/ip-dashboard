@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.mysql.jdbc.Statement;
 
 import utils.Config;
 
@@ -495,9 +496,9 @@ public class Pruefungsamt {
 		
 		int idAbschlussarbeit = -1;
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO `pruefungsamt`.`abschlussarbeit` (`name`) VALUES (?);");
+				"INSERT INTO `pruefungsamt`.`abschlussarbeit` (`name`) VALUES (?);", Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, nameBA);
-		int resultSet = preparedStatement.executeUpdate();
+		int lineEdit = preparedStatement.executeUpdate();
 		ResultSet rs=preparedStatement.getGeneratedKeys();
 		
 		if(rs.next()){
@@ -508,11 +509,11 @@ public class Pruefungsamt {
 		//anlegen pruefung
 		int idPruefung = -1;
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefer`, `pruefungszeitpunkt`, `abschlussarbeitnr`) VALUES ('8998', ?, ?, ?);");
+				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefer`, `pruefungszeitpunkt`, `abschlussarbeitnr`) VALUES ('8998', ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, betreuer);
 		preparedStatement.setDate(2, startdatum);
 		preparedStatement.setInt(3, idAbschlussarbeit);
-		resultSet = preparedStatement.executeUpdate();
+		lineEdit = preparedStatement.executeUpdate();
 		rs=preparedStatement.getGeneratedKeys();
 		
 		if(rs.next()){
@@ -529,9 +530,9 @@ public class Pruefungsamt {
 		preparedStatement.setInt(1, matrikelnr);
 		preparedStatement.setInt(2, idPruefung); //LAST_INSERT_ID()
 		
-		resultSet = preparedStatement.executeUpdate();
+		lineEdit = preparedStatement.executeUpdate();
 		
-		if(resultSet == 1) {
+		if(lineEdit == 1) {
 			return true;
 		}
 		return false;
@@ -541,9 +542,9 @@ public class Pruefungsamt {
 		//anlegen pruefung
 				int idPruefung = -1;
 				preparedStatement = connect.prepareStatement(
-						"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefungszeitpunkt`) VALUES ('8999', ?);");
+						"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefungszeitpunkt`) VALUES ('8999', ?);", Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setDate(1, startdatum);
-				int resultSet = preparedStatement.executeUpdate();
+				int lineEdit = preparedStatement.executeUpdate();
 				ResultSet rs=preparedStatement.getGeneratedKeys();
 				
 				if(rs.next()){
@@ -560,9 +561,9 @@ public class Pruefungsamt {
 				preparedStatement.setInt(1, matrikelnr);
 				preparedStatement.setInt(2, idPruefung); //LAST_INSERT_ID()
 				
-				resultSet = preparedStatement.executeUpdate();
+				lineEdit = preparedStatement.executeUpdate();
 				
-				if(resultSet == 1) {
+				if(lineEdit == 1) {
 					return true;
 				}
 				return false;
@@ -633,8 +634,42 @@ public class Pruefungsamt {
 		return false;
 	}
 	
-	public boolean setBAVerlaengerung(int matrikelnr, int days) {
-		// TODO Auto-generated method stub
+	public boolean setBAVerlaengerung(int matrikelnr, int days) throws SQLException {
+		int lastBA = -1;
+		
+		preparedStatement = connect.prepareStatement(
+				"SELECT abschlussarbeitnr FROM `pruefungsamt`.`pruefung_student` AS t1 "
+				+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
+				+ "WHERE (`student` = ?) and (t2.`modulnr` = '8998') "
+				+ "order by t2.pruefungszeitpunkt desc "
+				+ "LIMIT 1; ");					
+	
+		preparedStatement.setInt(1, matrikelnr);
+		resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.first()) {
+			lastBA = resultSet.getInt(1);
+		}
+		
+		preparedStatement.clearParameters();
+		
+		
+		if(lastBA != -1) {
+			
+			
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`abschlussarbeit` SET `verlaengert` = ? "
+					+ "WHERE (`idabschlussarbeit` = ?);");					
+		
+			preparedStatement.setInt(1, days);
+			preparedStatement.setInt(2, lastBA);
+			int resultSet = preparedStatement.executeUpdate();
+			
+			if(resultSet == 1) {
+				return true;
+			}	
+		}
+
 		return false;
 	}
 	
