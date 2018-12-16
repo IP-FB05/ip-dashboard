@@ -115,7 +115,7 @@ deleteDocument(document: Document): Observable<Document> {
   getDocumentsByCategory(name: string): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/filter/documents?name="+ name)
+    return this.http.get<Document[]>("http://localhost:9090/filter/documents?name="+ name, httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocumentsByCategory', []))

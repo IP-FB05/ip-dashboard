@@ -40,6 +40,7 @@ import { ListUploadComponent } from './upload/list-upload/list-upload.component'
 import { DetailsUploadComponent } from './upload/details-upload/details-upload.component';
 import { FormUploadComponent } from './upload/form-upload/form-upload.component';
 import { SubsComponent } from './subs/subs/subs.component';
+import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 
 
 
@@ -69,7 +70,8 @@ import { SubsComponent } from './subs/subs/subs.component';
     ListUploadComponent,
     DetailsUploadComponent,
     FormUploadComponent,
-    SubsComponent
+    SubsComponent,
+    MyprocessesComponent
   ],
   imports: [
     BrowserModule,
