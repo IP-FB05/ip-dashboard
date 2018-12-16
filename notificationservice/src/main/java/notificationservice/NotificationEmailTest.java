@@ -7,19 +7,10 @@ import org.camunda.bpm.engine.test.Deployment;
 
 public class NotificationEmailTest extends ProcessEngineTestCase {
 	
-	//Set the Demo User Email Address 
-		private static final String EMAIL = "testip@gmail.com";
+	  @Deployment (resources="ModulAbmeldung.bpmn")
+		public void testModulAbmeldungProcess() {
 
-
-	  @Deployment (resources="NotificationEmail.bpmn")
-		public void testSimpleProcess() {
-
-			// Create the user that will be informed on assignment
-		  User newUser = identityService.newUser("demo");
-			newUser.setEmail(EMAIL);
-			identityService.saveUser(newUser);
-			
-			runtimeService.startProcessInstanceByKey("NotificationEmail");
+		  runtimeService.startProcessInstanceByKey("modulabmeldung");
 
 		  Task task = taskService.createTaskQuery().singleResult();
 
