@@ -8,7 +8,7 @@ import org.camunda.bpm.engine.test.Deployment;
 public class NotificationEmailTest extends ProcessEngineTestCase {
 	
 	//Set the Demo User Email Address 
-		private static final String EMAIL = "testip@gmail.com"; //demo@example.org
+		private static final String EMAIL = "testip@gmail.com";
 
 
 	  @Deployment (resources="NotificationEmail.bpmn")
