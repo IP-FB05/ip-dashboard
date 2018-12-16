@@ -339,4 +339,26 @@ public class Dashboard {
 				}
 				return null;	
 	}
+
+	// Running Processes
+	public Process[] getRunningProcesses() throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_process_instance ON dashboardDB.processes.processID = dashboardDB.processes_has_process_instance.processes_processID JOIN dashboardDB.process_instance ON dashboardDB.process_instance.instanceID = dashboardDB.processes_has_process_instance.process_instance_instanceID");
+				//preparedStatement.setString(1, username);
+				resultSet = preparedStatement.executeQuery();
+				if (resultSet.first()) {
+					resultSet.last();
+					int rowNumber = resultSet.getRow();
+					Process[] process = new Process[rowNumber];
+					resultSet.first();
+					for (int i = 0; i < rowNumber; i++) {
+						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+								resultSet.getString("description"), resultSet.getString("pic"),
+								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
+						resultSet.next();
+					}
+					return process;
+				}
+				return null;	
+	}
 }

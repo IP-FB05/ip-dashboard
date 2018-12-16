@@ -23,4 +23,8 @@ export class SubsService {
     public getMySuscribedProcessInstances(user: string) {
         return this.http.get<Process[]>(this.subsUrl + "/mysubscribedProcessInstances?user=" + user, httpOptions);
     }
+
+    public getRunningProcesses() {
+        return this.http.get<Process[]>(this.subsUrl + "/runningProcesses");
+    }
 }

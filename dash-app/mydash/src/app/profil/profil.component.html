@@ -41,6 +41,7 @@
             <form>
                 <select class="form-control" id="SelectRunningProcess" name="processRunningSelect">
                     <option value="">-keine Auswahl-</option>
+                    <option *ngFor="let process of runningProcesses">{{process.name}}</option>
                 </select>
             </form>
          <button type="submit" class="btn btn-abonnieren btn-secondary">Abonnieren</button> 
