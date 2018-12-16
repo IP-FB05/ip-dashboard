@@ -20,11 +20,12 @@
   <div class="row">
     <ng-container *ngFor="let process of processes | textFilterProcesses:searchText">
       <div class="col-md-3" style="margin-bottom:20px;">
+      <div class="card-deck h-100 mb-3 fix">
           <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-            <div class="card-header" style="border-color:#f5f5f5; background:#00b5ad;"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
+            <div class="card-header" style="border-color:#f5f5f5; background:#ececec;"><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
               <button class="delete-light" title="delete process" (click)="delete(process)" (click)="openSnackBar()" matTooltip="Löschen">x</button></div>
             <div class="card-body" style="background-color: #f5f5f5;">
-              <p class="card-text" style="color:#4d4d4d;">{{process.description}}</p>
+              <p class="card-text" style="color:#656565;">{{process.description}}</p>
               <a class="btn btn-secondary" routerLink="/detail/{{process.processID}}">MEHR</a>
               <ng-container *ngIf="process.camunda_processID != 'None'">
                 <button class="btn btn-secondary start-process-btn" (click)="startProcess(process)">PROZESS STARTEN</button>
@@ -35,18 +36,21 @@
             </div>
           </div>
       </div>
+      </div>
     </ng-container>
 
 <div class="col-md-3" style="margin-bottom:20px;">
+<div class="card-deck h-100 mb-3 fix">
     <div class="card" style="border: 1px solid#e2e2e2 ;">
       <div class="card-header" style="color: #656565; border-bottom:none; bpadding-top: 5px; padding-bottom: 5px;">
         <h3 style="font-weight:600; font-size: 14px;" >Prozess hinzufügen</h3>
       </div>
       <div class="card-body" style="background-color:#ececec;">
           <p class="card-text" style="text-align:center;"> 
-            <button class="round-plus-btn" (click)="openDialog()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
+            <button class="plus-btn" (click)="openDialog()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
               padding-bottom: 70px;display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
       </div>
     </div>
+  </div>
   </div>
 </div>
