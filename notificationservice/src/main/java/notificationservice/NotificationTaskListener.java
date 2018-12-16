@@ -46,7 +46,7 @@ public class NotificationTaskListener implements TaskListener {
   public void notify(DelegateTask delegateTask){
     delegateTask.getProcessDefinitionId();
     delegateTask.getProcessInstanceId();
-    //1. in der DB schauen, ob dieser Task notifikationswürdig ist, falls nein, abbrechen <-- Nicht mehr!!
+    //1. in der DB schauen, ob dieser Task notifikationswï¿½rdig ist, falls nein, abbrechen <-- Nicht mehr!!
     
   //TODO!!!
     Connection connect = null;
@@ -108,26 +108,43 @@ public class NotificationTaskListener implements TaskListener {
 	}
     
     //4. allen beteiligten und subscribern nachrichten verschicken
-	//Mail über den Camunda identification service
+	//Mail ï¿½ber den Camunda identification service
 	String subscriber_msg = "The defined process " +  delegateTask.getProcessDefinitionId()
 							+ " has a Task " + delegateTask.getName();
 	
-	for(String process_subscriber_id : subscriber_list) {
-		//Send mail to the subscriber of the process definition
-		sendMail(delegateTask, process_subscriber_id, subscriber_msg);
+	if(subscriber_list.size() != 0) {
+		
+		for(String process_subscriber_id : subscriber_list) {
+			
+			assigneeList.add(process_subscriber_id);
+			//Send mail to the subscriber of the process definition
+			sendMail(delegateTask, process_subscriber_id, subscriber_msg);
+		}
+		
+	}else {
+		LOGGER.info("There are no subscriber fot the process!" + delegateTask.getProcessDefinitionId());
 	}
+	
+	
 	
 	String beteiligte_msg = "Please coplete the Task " +  delegateTask.getName() 
 	+ " of the process instance " +  delegateTask.getProcessInstanceId();
 
-	
-	for(String process_beteiligte_id :  processbeteiligte_list) {
+	if(processbeteiligte_list.size() != 0) {
 		
-		//Send mail to the participants of the process intance
-		sendMail(delegateTask, process_beteiligte_id, beteiligte_msg);
+		for(String process_beteiligte_id :  processbeteiligte_list) {
+			
+			assigneeList.add(process_beteiligte_id);
+			
+			//Send mail to the participants of the process intance
+			sendMail(delegateTask, process_beteiligte_id, beteiligte_msg);
+		}
+		
+	}else {
+		LOGGER.info("There are no participants fort the process instance " + delegateTask.getProcessInstanceId());
 	}
 	
-	
+
   }
   
   public void sendMail(DelegateTask delegateTask, String assignee, String msg) {
