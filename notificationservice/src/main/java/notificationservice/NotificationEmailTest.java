@@ -7,10 +7,10 @@ import org.camunda.bpm.engine.test.Deployment;
 
 public class NotificationEmailTest extends ProcessEngineTestCase {
 	
-	  @Deployment (resources="ModulAbmeldung.bpmn")
+	  @Deployment (resources="testprocess.bpmn")
 		public void testModulAbmeldungProcess() {
 
-		  runtimeService.startProcessInstanceByKey("modulabmeldung");
+		  runtimeService.startProcessInstanceByKey("testprocess");
 
 		  Task task = taskService.createTaskQuery().singleResult();
 
