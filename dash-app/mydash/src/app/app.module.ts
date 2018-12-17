@@ -42,6 +42,8 @@ import { FormUploadComponent } from './upload/form-upload/form-upload.component'
 import { SubsComponent } from './subs/subs/subs.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 
+// Cookie
+import { CookieService } from 'ngx-cookie-service';   
 
 
 
@@ -101,7 +103,8 @@ import { MyprocessesComponent } from './myprocesses/myprocesses.component';
     FilterComponent,
     ProcessesComponent,
     SystemsComponent,
-    DocumentsComponent
+    DocumentsComponent,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })
