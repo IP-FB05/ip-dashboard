@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import 'camunda-bpm-sdk-js';
+import * as CamSDK from './camunda-bpm-sdk.js';
 import 'jquery';
 
 declare var CamSDK: any;
@@ -44,7 +44,7 @@ function showTasks(results) {
     .html(items.join(''))
 
     // attach click events to the task list items
-    .find('> li').on("click", function () {
+    .find('> li').click(function () {
 
       // load the the task form (getting the task ID from the tag attribute)
       loadTaskForm($(this).attr('data-task-id'), function(err, camForm) {
