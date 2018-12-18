@@ -634,7 +634,7 @@ public class Pruefungsamt {
 		return false;
 	}
 	
-	public boolean setBAVerlaengerung(int matrikelnr, int days) throws SQLException {
+	public boolean setBAVerlaengerung(int matrikelnr, Date verlaengerungDate) throws SQLException {
 		int lastBA = -1;
 		
 		preparedStatement = connect.prepareStatement(
@@ -661,7 +661,7 @@ public class Pruefungsamt {
 					"UPDATE `pruefungsamt`.`abschlussarbeit` SET `verlaengert` = ? "
 					+ "WHERE (`idabschlussarbeit` = ?);");					
 		
-			preparedStatement.setInt(1, days);
+			preparedStatement.setDate(1, verlaengerungDate);
 			preparedStatement.setInt(2, lastBA);
 			int resultSet = preparedStatement.executeUpdate();
 			

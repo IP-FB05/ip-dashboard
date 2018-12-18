@@ -185,7 +185,8 @@ public class TestPruefungsamt {
 	public void testLetzteBAverlaengern() throws SQLException {
 
 		// Fuer Student 1 soll letzte BA um 14 Tage verlaengert werden
-		assertTrue(pa.setBAVerlaengerung(1, 14));
+		// schlaegt fehl wenn noch keine BA angelegt wurde
+		assertTrue(pa.setBAVerlaengerung(1, new java.sql.Date(new java.util.Date().getTime())));
 	}
 	
 
