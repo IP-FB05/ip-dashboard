@@ -74,5 +74,13 @@ public class SubsController {
     	return result;
 	}
 
+	@GetMapping(path = "/runningProcesses")
+	public @ResponseBody Process[] getRunningProcesses() throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+		Process[] result = dash.getRunningProcesses();
+    	dash.close();
+    	return result;
+	}
+
 
 }

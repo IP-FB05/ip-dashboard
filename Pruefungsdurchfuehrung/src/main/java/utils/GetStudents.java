@@ -4,11 +4,14 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
+import utils.GetStudents;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class GetStudents {
     public static String[][] Get(String modul){
+    	
         //Initialisiere REST call
         Client client = Client.create();
 
@@ -17,7 +20,7 @@ public class GetStudents {
         WebResource webResource = client.resource(restcall);
 
         //Speichere die Entgegengenommenden daten
-        ClientResponse response = webResource.accept("application/json").get(ClientResponse.class);
+        ClientResponse response = webResource.accept("application/json").header("Authorization", "Basic ZGVtbzpkZW1v").get(ClientResponse.class);
 
 
         if (response.getStatus() != 200) {

@@ -1,10 +1,11 @@
+<!--
 <div class="row bg-dark bgbild">
   <div class="offset-md-4">
   </div>
   <div class="col-md-4" style="text-align: center">
-    <!-- Logo -->
+
     <img src="assets/img/fh/logo.png" alt="Logo" height="250" width="400" style="align-content: center">
-    <!-- Login -->
+
     <form>
       <div class="form-group">
         <div class="col-md">
@@ -32,16 +33,43 @@
       <br>
       <br>
 
-      <!-- Als Admin anmelden-->
       <button type="submit" class="btn btn-outline btn-sm btn-block" style="background-color:#246766">Als
         Administrator anmelden</button>
 
       <br>
 
-      <!-- Als Gast anmelden-->
       <button type="submit" class="btn btn-outline btn-sm btn-block" style="background-color:#246766">Als Gast
         anmelden</button>
     </form>
 
   </div>
-</div>
+</div> -->
+*<ng-container *ngIf="!(this.authService.isLoggedin); else elseTemplate">
+    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.username.errors }" />
+            <div *ngIf="submitted && loginForm.controls.username.errors" class="invalid-feedback">
+                <div *ngIf="loginForm.controls.username.errors.required">Username is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.password.errors }" />
+            <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-feedback">
+                <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
+            </div>
+        </div>
+        <div class="form-group">
+            <button class="btn btn-primary">Login</button>
+        </div>
+      </form>
+</ng-container>
+<ng-template #elseTemplate>
+      <button (click)="logout()">Logout</button>
+</ng-template>
+
+
+
+

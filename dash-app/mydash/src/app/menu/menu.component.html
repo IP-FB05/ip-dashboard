@@ -42,25 +42,7 @@
         <h2 *ngIf="router.url == '/profil'">Profil</h2>
       </div>
 
-      <div class="col-md-2 example-container">
-        <form class="example-form">
-          <mat-form-field>
-            <input matInput type="text" style="color:white;">
-            <mat-placeholder class="placeholder" style="color:white;">Benutzername</mat-placeholder>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="col-md-2">
-        <form class="example-form">
-          <mat-form-field>
-            <input matInput type="password" style="color:white;">
-            <mat-placeholder class="placeholder" style="color:white;">Passwort</mat-placeholder>
-          </mat-form-field>
-        </form>
-      </div>
-      <div class="col-md-1">
-        <div class="login-div"><a href="#" class="login"><mat-icon class="login-icon">input</mat-icon> Login</a></div>
-      </div>
+<app-login></app-login>
     </nav>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

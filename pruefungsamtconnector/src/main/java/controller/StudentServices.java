@@ -110,10 +110,10 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/pruefungBenotung/{matrikelnr}/{fachnr}/{note}/{finale_note}")
-	public boolean pruefungBenotung(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable double note, @PathVariable boolean finale_note) throws SQLException, ClassNotFoundException{
+	@RequestMapping("/pruefungBenotung/{matrikelnr}/{fachnr}/{note}")
+	public boolean pruefungBenotung(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable double note) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
-		boolean result = amt.pruefungBenotung(matrikelnr, fachnr, note, finale_note);
+		boolean result = amt.pruefungBenotung(matrikelnr, fachnr, note);
 		amt.close();
 		return result;
 	}
