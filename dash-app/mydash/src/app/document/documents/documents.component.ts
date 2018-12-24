@@ -45,7 +45,8 @@ export class DocumentsComponent implements OnInit {
 
   delete(document: Document): void {
     this.documents = this.documents.filter(d => d !== document);
-    this.documentsService.deleteDocument(document).subscribe();
+    this.documentsService.deleteDocument(document).subscribe(); 
+    this.documentsService.deleteDocumentFromFileServer(document.link).subscribe();
   }
 
   openDialog() {

@@ -6,13 +6,14 @@ import { MessageService } from '../message.service';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { System } from '../system/system';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
 };
 
 const httpOptionsCamundaREST = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -86,7 +87,7 @@ export class ProcessService {
 
   // POST: add a new process to the server */
   addProcess(process: Process): Observable<Process> {
-    if(!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { return; }
+    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { return; }
     return this.http.post<Process>("http://localhost:9090/processAdd", process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
@@ -114,6 +115,19 @@ export class ProcessService {
     );
   }
 
+
+  /** DELETE: delete BPMN/WAR from the Fileserver */
+  deleteProcessFilesFromFileServer(linkBPMN: string, linkWAR: string): Observable<Process> {
+    const substringBPMN = linkBPMN.substring(linkBPMN.lastIndexOf("/") + 1);
+    const substringWAR = linkWAR.substring(linkWAR.lastIndexOf("/") + 1);
+    console.log(substringBPMN + substringWAR);
+    this.messageService.add('ProcessService: Deleted BPMN/WAR from FileServer');
+
+    return this.http.delete<Process>("http://localhost:9090/deleteFiles?filenameBPMN=" + substringBPMN + "&filenameWAR=" + substringWAR, httpOptions).pipe(
+      tap(_ => this.log(`deleted files from fileserver`)),
+      catchError(this.handleError<Process>('deleteFiles'))
+    );
+  }
 
 
   /* Original (not Observable)

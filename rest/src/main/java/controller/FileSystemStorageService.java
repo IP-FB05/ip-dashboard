@@ -2,7 +2,10 @@ package controller;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.File;
 import java.net.MalformedURLException;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -90,6 +93,16 @@ public class FileSystemStorageService implements StorageService {
     @Override
     public void deleteAll() {
         FileSystemUtils.deleteRecursively(rootLocation.toFile());
+    }
+
+    @Override
+    public void deleteOne(String filename) {
+        Path path = rootLocation.resolve(filename);
+        try {
+            Files.deleteIfExists(path);
+        } catch (IOException e) {
+            throw new StorageFileNotFoundException("Could not find file: " + filename, e);
+        } 
     }
 
     @Override

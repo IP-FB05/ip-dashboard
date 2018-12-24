@@ -26,6 +26,7 @@ export class ProcessesDialogComponent implements OnInit {
   fileUploads: Observable<string[]>;
   selectedFiles: FileList;
   currentFileUpload: File;
+  currentFileUpload1: File;
   //progress: { percentage: number } = { percentage : 0 };
 
   constructor(
@@ -74,8 +75,8 @@ export class ProcessesDialogComponent implements OnInit {
 
   selectFile1(event) {
     this.selectedFiles = event.target.files;
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
+    this.currentFileUpload1 = this.selectedFiles.item(0);
+    this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload1.name);
     this.form.controls.lastChanged.setValue(new Date());
   }
 
@@ -89,6 +90,15 @@ export class ProcessesDialogComponent implements OnInit {
         console.log('File is completely uploaded!');
       }
     });
+
+    this.uploadService.pushFileToStorage(this.currentFileUpload1).subscribe(event => {
+      if (event.type === HttpEventType.UploadProgress) {
+        //this.progress.percentage = Math.round(100 * event.loaded / event.total);
+      } else if (event instanceof HttpResponse) {
+        console.log('File is completely uploaded!');
+      }
+    });
+
 
     this.selectedFiles = undefined;
   }

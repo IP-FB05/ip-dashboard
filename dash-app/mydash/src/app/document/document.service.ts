@@ -111,6 +111,16 @@ deleteDocument(document: Document): Observable<Document> {
   );
 }
 
+/** DELETE: delete the Document from the FileServer */
+deleteDocumentFromFileServer(link: string): Observable<Document> {
+  const substring = link.substring(link.lastIndexOf("/") + 1);
+  this.messageService.add('DocumentService: Deleted Document from FileServer');
+  return this.http.delete<Document>("http://localhost:9090/deleteFile?filename="+ substring, httpOptions).pipe(
+    tap(_ => this.log(`deleted document from fileserver`)),
+    catchError(this.handleError<Document>('deleteFile'))
+  );
+}
+
   // GET documents from the server
   getDocumentsByCategory(name: string): Observable<Document[]> {
     // TODO: send the message _after_ fetching the documents

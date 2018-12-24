@@ -6,6 +6,9 @@ import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import javax.xml.ws.Response;
+
 import java.lang.System;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -115,7 +119,45 @@ public class UploadController {
 		}
     }
     
-    //TODO - Delete
+    @DeleteMapping("/deleteFile")
+    public ResponseEntity<String> handleFileDelete(@RequestParam String filename) {
+        String message = "";
+        try {
+            storageService.deleteOne(filename);
+            //message = "You successfully deleted " + filename + "!";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            message = "FAIL to delete " + filename;
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
+
+    @DeleteMapping("/deleteFiles")
+    public ResponseEntity<String> handleFileDeleteProcess(@RequestParam String filenameBPMN, @RequestParam String filenameWAR) {
+        String message = "";
+        try {
+            storageService.deleteOne(filenameBPMN);
+            storageService.deleteOne(filenameWAR);
+            //message = "You successfully deleted " + filename + "!";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            message = "FAIL to delete " + filenameBPMN + " and " + filenameWAR ;
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
+
+    @DeleteMapping("/deleteWAR")
+    public ResponseEntity<String> handleFileDeleteWAR(@RequestParam String filename) {
+        String message = "";
+        try {
+            storageService.deleteOne(filename);
+            //message = "You successfully deleted " + filename + "!";
+            return ResponseEntity.status(HttpStatus.OK).body(message);
+        } catch (Exception e) {
+            message = "FAIL to delete " + filename;
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+        }
+    }
  
 	
 

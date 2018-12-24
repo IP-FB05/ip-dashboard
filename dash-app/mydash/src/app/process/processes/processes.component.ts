@@ -53,6 +53,7 @@ export class ProcessesComponent implements OnInit {
   delete(process: Process): void {
     this.processes = this.processes.filter(p => p !== process);
     this.processService.deleteProcess(process).subscribe();
+    this.processService.deleteProcessFilesFromFileServer(process.bpmn,process.warFile).subscribe();
   }
 
   openDialog() {
