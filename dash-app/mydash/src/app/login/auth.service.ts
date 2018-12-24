@@ -25,7 +25,7 @@ export class AuthService {
   ){ } 
 
   login(username: string, password: string) {
-      return this.http.post<any>(this.localUrl, { username: username, password: password }, httpOptions)
+      return this.http.post<any>(this.authUrl, { username: username, password: password }, httpOptions)
           .pipe(map(user => {
               if (user && user.authenticatedUser == username && user.authenticated) {
                 this.cookieService.set( 'UserName', user.authenticatedUser);

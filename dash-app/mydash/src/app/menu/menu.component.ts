@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../login/auth.service'
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -17,6 +18,11 @@ import { Router } from '@angular/router';
 
 export class MenuComponent {
   showFiller = false;
-  constructor(public router: Router) { }
+  constructor(public router: Router, private authService: AuthService) { 
+  }
+
+  logout() {
+    this.authService.logout();
+  }
 }
 export class FormFieldOverviewExample { }

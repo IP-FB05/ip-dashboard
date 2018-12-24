@@ -83,3 +83,34 @@ background:#0b1a22 !important;
   
 }
 
+a {
+  color:white;
+}
+
+a:focus {
+  color: #00b5ad;
+}
+
+.btn {
+  margin: 10px 10px 10px 0px;
+}
+
+p {
+  color:white; 
+  padding-top: 15px; 
+  font-size:14px; 
+  font-weight:600;
+}
+
+.btn-secondary {
+  background-color: black;
+  text-align:left;
+  font-weight:600;
+}
+
+.btn-secondary:hover {
+  background-color: black;
+  color: #00b5ad !important;
+  border:1px solid #00b5ad;
+}
+

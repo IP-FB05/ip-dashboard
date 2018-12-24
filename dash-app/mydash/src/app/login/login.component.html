@@ -44,32 +44,41 @@
 
   </div>
 </div> -->
-*<ng-container *ngIf="!(this.authService.isLoggedin); else elseTemplate">
-    <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.username.errors }" />
-            <div *ngIf="submitted && loginForm.controls.username.errors" class="invalid-feedback">
-                <div *ngIf="loginForm.controls.username.errors.required">Username is required</div>
-            </div>
+<ng-container *ngIf="!(this.authService.isLoggedin); else logoutTemplate">
+  <div class="bgbild">
+    <div class="col-md-4 offset-md-4" style="text-align: center;">
+      <div class="img-div">
+        <img src="assets/img/fh/logo.png" alt="Logo" width="350" height="130">
+      </div>
+      <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="form-group input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><img src="assets/img/fh/user.png" alt="user" width="20" height="20"></span>
+          </div>
+          <label for="username"></label>
+          <input type="text" formControlName="username" placeholder="Benutzername" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.username.errors }" required />
+          <div *ngIf="submitted && loginForm.controls.username.errors" class="invalid-feedback">
+            <div *ngIf="loginForm.controls.username.errors.required">Benutzername erforderlich</div>
+          </div>
+        </div>
+        <div class="form-group input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text"><img src="assets/img/fh/password.png" alt="user" width="20" height="20"></span>
+          </div>
+          <label for="password"></label>
+          <input type="password" formControlName="password" placeholder="Passwort" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.password.errors }" required />
+          <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-feedback">
+            <div *ngIf="loginForm.controls.password.errors.required">Passwort erforderlich</div>
+          </div>
         </div>
         <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && loginForm.controls.password.errors }" />
-            <div *ngIf="submitted && loginForm.controls.password.errors" class="invalid-feedback">
-                <div *ngIf="loginForm.controls.password.errors.required">Password is required</div>
-            </div>
-        </div>
-        <div class="form-group">
-            <button class="btn btn-primary">Login</button>
+          <button class="btn btn-secondary btn-block">Login</button>
         </div>
       </form>
+    </div>
+  </div>
 </ng-container>
-<ng-template #elseTemplate>
-      <button (click)="logout()">Logout</button>
+<ng-template #logoutTemplate>
+  <button  (click)="logout()">Logout</button>
 </ng-template>
-
-
-
-
