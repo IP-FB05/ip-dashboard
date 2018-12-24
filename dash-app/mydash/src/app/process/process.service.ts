@@ -120,7 +120,7 @@ export class ProcessService {
   deleteProcessFilesFromFileServer(linkBPMN: string, linkWAR: string): Observable<Process> {
     const substringBPMN = linkBPMN.substring(linkBPMN.lastIndexOf("/") + 1);
     const substringWAR = linkWAR.substring(linkWAR.lastIndexOf("/") + 1);
-    console.log(substringBPMN + substringWAR);
+    //console.log(substringBPMN + substringWAR);
     this.messageService.add('ProcessService: Deleted BPMN/WAR from FileServer');
 
     return this.http.delete<Process>("http://localhost:9090/deleteFiles?filenameBPMN=" + substringBPMN + "&filenameWAR=" + substringWAR, httpOptions).pipe(
