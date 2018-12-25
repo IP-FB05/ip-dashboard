@@ -3,8 +3,8 @@
     <mat-nav-list>
       <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 10px 20px;" alt="Logo" width="200" height="auto"></p>
       <div *ngIf="this.authService.isLoggedin">
-        <p style="color:white; padding-left:30px; font-size:14px; font-weight:600;">Name, Vorname</p>
-        <p style="color:white; padding-left:30px; font-size:12.5px; margin-top: -12px;">Rolle</p>
+        <p style="color:white; padding-left:30px; font-size:14px; font-weight:600;">{{this.authService.currentUser.lastName}}, {{this.authService.currentUser.firstName}}</p>
+        <p style="color:white; padding-left:30px; font-size:12.5px; margin-top: -12px;">{{this.authService.currentUser.role}}</p>
       </div>
       <a mat-list-item routerLink="/dashboard">
         <mat-icon>apps</mat-icon>&nbsp;ÜBERSICHT
@@ -56,8 +56,6 @@
         </div>
       </ng-container>
       <ng-template #elseTemplate>
-        <p>Name, Vorname</p>
-        <p>Admin</p>
         <button class="btn btn-secondary" (click)="logout()">Logout</button>
       </ng-template>
     </nav>

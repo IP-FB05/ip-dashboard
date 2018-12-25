@@ -6,6 +6,10 @@ import { Subs } from '../subs/subs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SubsService } from '../subs/subs.service';
 
+import { AuthService } from '../login/auth.service';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+
+
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
 };
@@ -17,23 +21,34 @@ const httpOptions = {
 })
 export class ProfilComponent implements OnInit {
 
-  constructor(private pc: ProcessesComponent, private http: HttpClient, private subsService: SubsService) { }
+  constructor(private pc: ProcessesComponent, 
+              private http: HttpClient, 
+              private subsService: SubsService,
+              private authService: AuthService) { 
+  }
 
   processes: Process[];
   subscribedProcesses: Process[];
   subscribedProcessInstances: Process[];
   runningProcesses: Process[];
 
+  formProcessSub: FormGroup;
+  
+
   private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 
+    this.formProcessSub = new FormGroup({
+      proccessSubControl: new FormControl()
+    });
+
     this.getProcesses().subscribe(process => this.processes = process);
 
-    this.subsService.getMySuscribedProcesses("aa1234s")
+    this.subsService.getMySuscribedProcesses(this.authService.currentUser.id)
       .subscribe(process => this.subscribedProcesses = process);
 
-    this.subsService.getMySuscribedProcessInstances("aa1234s")
+    this.subsService.getMySuscribedProcessInstances(this.authService.currentUser.id)
       .subscribe(process => this.subscribedProcessInstances = process);
 
     this.subsService.getRunningProcesses()
@@ -44,6 +59,11 @@ export class ProfilComponent implements OnInit {
 
   public getProcesses() {
     return this.http.get<Process[]>(this.processUrl, httpOptions);
+  }
+
+  follow() {
+    console.log('Process to follow: '+ this.formProcessSub.controls.proccessSubControl.value);
+
   }
 
 

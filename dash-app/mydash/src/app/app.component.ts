@@ -15,7 +15,8 @@ export class AppComponent implements OnInit {
   } 
   
   ngOnInit(): void {
-    this.cookieService.set('UserName', 'NULL');
+    this.cookieService.set('userID', 'NULL');
+    this.cookieService.set('userRole', 'NULL');
     //this.cookieUsername = this.cookieService.get('UserName');
   }
 }

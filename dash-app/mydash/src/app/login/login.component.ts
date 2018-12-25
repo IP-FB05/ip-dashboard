@@ -50,6 +50,8 @@ export class LoginComponent implements OnInit {
             error => {
                 console.log(error);
             });
+
+    this.router.navigate(['/dashboard']);
 }
 
 

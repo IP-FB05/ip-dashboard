@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../login/auth.service'
+import { AuthService } from '../login/auth.service';
+
+
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
@@ -18,7 +20,8 @@ import { AuthService } from '../login/auth.service'
 
 export class MenuComponent {
   showFiller = false;
-  constructor(public router: Router, private authService: AuthService) { 
+  constructor(public router: Router, 
+              private authService: AuthService) { 
   }
 
   logout() {
