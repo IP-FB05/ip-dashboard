@@ -11,8 +11,10 @@ import javax.mail.internet.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.camunda.bpm.engine.variable.*;
 
 public class StudentenLaden implements JavaDelegate {
+
 
     public void execute(DelegateExecution execution) throws Exception {
     	String[][] students = GetStudents.Get(execution.getVariable("modul").toString());
@@ -30,10 +32,10 @@ public class StudentenLaden implements JavaDelegate {
     	}
     	
     	JSONObject json = new JSONObject(map);
-    	
-    	
+
+		execution.setVariable("Students", Variables.objectValue(json.toString()).serializationDataFormat("application/json").create());
     	//execution.setVariable("Students", json);
-    	execution.setVariable("Students", json.toString());
+    	//execution.setVariable("Students_S", json.toString());
     	
     }
 }

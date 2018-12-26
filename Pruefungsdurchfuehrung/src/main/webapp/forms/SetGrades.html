@@ -22,12 +22,14 @@
       		variableManager.fetchVariable('modul');
 			variableManager.fetchVariable('final');
 			variableManager.fetchVariable('Students');
+
 		});
 
 		camForm.on('variables-fetched', function() {
       		modulID = variableManager.variableValue('modul');
 			final = variableManager.variableValue('final');
 			studentsList = variableManager.variableValue('Students');
+
 
 			//document.getElementById('gadget_url').value = studentsList;
 			studentsList = JSON.parse(studentsList);
@@ -48,10 +50,20 @@
 
 			for (let i = 0; i <  Object.keys(studentsList).length; i++) {
 				studentsList[Object.keys(studentsList)[i]] = angular.element(document.getElementById($scope.students[i].ID)).val();
-			}		
+			}
 
     		//variableManager.createVariable({name: 'Students',type: 'json', value:JSON.stringify(studentsList) });
-			variableManager.variableValue('Students',JSON.stringify(studentsList));
+			//variableManager.variableValue('Students',JSON.stringify(studentsList));
+
+			variableManager.destroyVariable('Students');
+
+			camForm.variableManager.createVariable({
+			  name: 'Students', //_List',
+			  type: 'json',//'String',
+			  value: JSON.stringify(studentsList)
+			});
+
+
 
 		});
 
