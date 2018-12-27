@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatDialogModule } from '@angular/material';
 import { MatCardModule } from '@angular/material';
 import { MatButtonModule } from '@angular/material';
@@ -43,7 +43,11 @@ import { SubsComponent } from './subs/subs/subs.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 
 // Cookie
-import { CookieService } from 'ngx-cookie-service';   
+import { CookieService } from 'ngx-cookie-service';
+
+//Interceptors
+import { BasicAuthInterceptor } from './login/auth/basic-auth-interceptor';
+import { ErrorInterceptor } from './login/auth/error-interceptor';
 
 
 
@@ -100,6 +104,8 @@ import { CookieService } from 'ngx-cookie-service';
   ],
   entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
   providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     FilterComponent,
     ProcessesComponent,
     SystemsComponent,

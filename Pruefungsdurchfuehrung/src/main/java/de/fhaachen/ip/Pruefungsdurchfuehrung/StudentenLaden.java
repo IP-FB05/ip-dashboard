@@ -11,29 +11,29 @@ import javax.mail.internet.*;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.camunda.bpm.engine.variable.*;
 
 public class StudentenLaden implements JavaDelegate {
 
+
     public void execute(DelegateExecution execution) throws Exception {
+    	//Studenten laden
     	String[][] students = GetStudents.Get(execution.getVariable("modul").toString());
     	
     	HashMap map = new HashMap();
 
-    	//JSONArray jsonArr = new JSONArray();
+		//Studenten in eine Map eintragen
     	for(int i = 0; i < students.length; i++) {
     		map.put(students[i][0].toString(), "");
-    		//JSONObject json = new JSONObject();
-    		//json.put("Note","");
-    		//json.put("ID",students[i][0]);
-    		
+	
     		
     	}
     	
+    	// Map als JSON exportierten
     	JSONObject json = new JSONObject(map);
-    	
-    	
-    	//execution.setVariable("Students", json);
-    	execution.setVariable("Students", json.toString());
+
+    	//JSON als Prozessvariable speichern
+		execution.setVariable("Students", Variables.objectValue(json.toString()).serializationDataFormat("application/json").create());
     	
     }
 }

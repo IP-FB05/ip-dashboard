@@ -10,9 +10,10 @@ import { DocumentsComponent } from './document/documents/documents.component';
 import { CategoryComponent } from './category/category/category.component';
 import { ProfilComponent } from './profil/profil.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
+import { AuthGuard } from './login/auth/auth-guard';
 
 const routes: Routes = [
- { path: '', redirectTo: '/dashboard', pathMatch: 'full' },
+ { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
  { path: 'dashboard', component: DashboardComponent },
  { path: 'detail/:id', component: ProcessDetailComponent },
  { path: 'login', component: LoginComponent },
@@ -22,7 +23,10 @@ const routes: Routes = [
  { path: 'documents', component: DocumentsComponent},
  { path: 'category', component: CategoryComponent},
  { path: 'profil', component: ProfilComponent},
- { path: 'myprocesses', component: MyprocessesComponent}
+ { path: 'myprocesses', component: MyprocessesComponent},
+
+ // otherwise redirect to login
+ { path: '**', redirectTo: '/login' }
 ];
 
 @NgModule({

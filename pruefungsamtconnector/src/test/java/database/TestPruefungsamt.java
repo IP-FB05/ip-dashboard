@@ -126,11 +126,11 @@ public class TestPruefungsamt {
 	public void testPruefungBenotung() throws SQLException {
 		// Student 1 bekommt seine letzte Pruefung in Prüfung 552011 mit 2.0 benotet
 		pa.pruefungAnmelden(1, 55606);	
-		assertTrue(pa.pruefungBenotung(1, 55606, 5.0, false));
+		assertTrue(pa.pruefungBenotung(1, 55606, 5.0));
 		pa.pruefungAbmelden(1, 55606);
 		
 		// Fehler da Student 1 nicht zur Pruefung in Modul 552011 angemeldet ist
-		assertFalse(pa.pruefungBenotung(1, 552011, 2.0, false));
+		assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
 	}
 	
 	@Test
