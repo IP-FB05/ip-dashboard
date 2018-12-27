@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Process } from '../process/process';
+import { Subscription } from './subscription';
 
 const httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
@@ -28,8 +29,8 @@ export class SubsService {
         return this.http.get<Process[]>(this.subsUrl + "/runningProcesses", httpOptions);
     }
 
-    public checkUserNotification(checkboxValue: boolean, username: string) {
-        return this.http.post<any>(this.subsUrl + "/checkNotification?checkboxValue=" + checkboxValue + "&username=" + username, httpOptions);
+    public getUserNotification(username: string) {
+        return this.http.get<any>('http://localhost:9090/notification/get?username=' + username, httpOptions);
     }
 
     public addSubscribedProcess(processId: number, username: string) {
@@ -42,7 +43,13 @@ export class SubsService {
                 console.log("Error", error);
             }
         );
+    public switchUserNotification(username: string) {
+        return this.http.post<any>('http://localhost:9090/notification/switch?username=' + username, httpOptions);
     }
+
+    public addSubscribedProcess(sub) {
+        return this.http.post<Subscription>(this.subsUrl + '/addSub', sub, httpOptions);
+    } 
 
     public addSubscribedRunningProcess(processId: number, username: string) {
         return this.http.post<any>(this.subsUrl + "/addRunningSub?processId=" + processId + "&username=" + username, httpOptions);

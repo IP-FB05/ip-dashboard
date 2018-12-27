@@ -430,37 +430,66 @@ public class Dashboard {
 		return true;
 	}
 
-	public boolean checkNotification(boolean checkboxValue, String username)
-			throws SQLException, ClassNotFoundException {
+	public boolean getNotification(String username) throws SQLException, ClassNotFoundException {
 
-		if (checkboxValue) {
-			preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+		preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.first())
+			return true;
+		else
+			return false;
+
+		/*
+		 * else { preparedStatement =
+		 * connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
+		 * preparedStatement.setString(1, username); preparedStatement.execute();
+		 * 
+		 * return false; } } else { preparedStatement = connect.
+		 * prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+		 * preparedStatement.setString(1, username); resultSet =
+		 * preparedStatement.executeQuery();
+		 * 
+		 * if (resultSet.first()) { preparedStatement =
+		 * connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+		 * preparedStatement.setString(1, username); preparedStatement.execute();
+		 * 
+		 * return true; } else { return true; } }
+		 */
+	}
+
+	public void switchNotification(String username) throws SQLException, ClassNotFoundException {
+
+		preparedStatement = connect.prepareStatement("SELECT * FROM notification WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.first()) {
+			preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
 			preparedStatement.setString(1, username);
-			resultSet = preparedStatement.executeQuery();
-
-			if (resultSet.first())
-				return true;
-			else {
-				preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
-				preparedStatement.setString(1, username);
-				preparedStatement.execute();
-
-				return true;
-			}
+			preparedStatement.execute();
 		} else {
-			preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+			preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES ?");
 			preparedStatement.setString(1, username);
-			resultSet = preparedStatement.executeQuery();
+			preparedStatement.execute();
 
-			if (resultSet.first()) {
-				preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
-				preparedStatement.setString(1, username);
-				preparedStatement.execute();
-
-				return true;
-			} else {
-				return true;
-			}
+			/*
+			 * else { preparedStatement =
+			 * connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
+			 * preparedStatement.setString(1, username); preparedStatement.execute();
+			 * 
+			 * return false; } } else { preparedStatement = connect.
+			 * prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+			 * preparedStatement.setString(1, username); resultSet =
+			 * preparedStatement.executeQuery();
+			 * 
+			 * if (resultSet.first()) { preparedStatement =
+			 * connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+			 * preparedStatement.setString(1, username); preparedStatement.execute();
+			 * 
+			 * return true; } else { return true; } }
+			 */
 		}
 	}
 
@@ -479,14 +508,16 @@ public class Dashboard {
 		preparedStatement.setInt(2, subID);
 		preparedStatement.execute();
 
-		preparedStatement = connect.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID LIKE ?");
+		preparedStatement = connect
+				.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID LIKE ?");
 		preparedStatement.setInt(1, subID);
 		resultSet = preparedStatement.executeQuery();
 
 		if (resultSet.first()) {
 			return true;
 		} else {
-			preparedStatement = connect.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID LIKE ?");
+			preparedStatement = connect
+					.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID LIKE ?");
 			preparedStatement.setInt(1, subID);
 			resultSet = preparedStatement.executeQuery();
 
@@ -524,14 +555,16 @@ public class Dashboard {
 		preparedStatement.setInt(2, subID);
 		preparedStatement.execute();
 
-		preparedStatement = connect.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID = ?");
+		preparedStatement = connect
+				.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID = ?");
 		preparedStatement.setInt(1, subID);
 		resultSet = preparedStatement.executeQuery();
 
 		if (resultSet.first()) {
 			return true;
 		} else {
-			preparedStatement = connect.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID = ?");
+			preparedStatement = connect
+					.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID = ?");
 			preparedStatement.setInt(1, subID);
 			resultSet = preparedStatement.executeQuery();
 

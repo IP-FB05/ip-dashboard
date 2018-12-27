@@ -9,9 +9,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import java.lang.System;
+
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +26,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import controller.Subs;
 import controller.SubsRepository;
+import controller.Subscription;
 import controller.Process;
 import database.Dashboard;
 
@@ -84,12 +88,14 @@ public class SubsController {
 
 	@PostMapping(path = "/addSub")
 	@ResponseBody
-	public boolean addSubscribedProcess(@RequestParam int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
+	public boolean addSubscribedProcess(@RequestBody Subscription subscription) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
-		boolean result = dash.addSubscribedProcess(processId, username);
+		boolean result = dash.addSubscribedProcess(subscription.getProcessID(),subscription.getUsername());
     	dash.close();
     	return result;
 	}
+
+	
 
 	@PostMapping(path = "/addRunningSub")
 	@ResponseBody
@@ -99,16 +105,7 @@ public class SubsController {
     	dash.close();
     	return result;
 	}
-
-	@PostMapping(path = "/checkNotification")
-	@ResponseBody
-	public boolean checkNotification(@RequestParam boolean checkboxValue, @RequestParam String username) throws SQLException, ClassNotFoundException {
-		Dashboard dash = new Dashboard();
-		boolean result = dash.checkNotification(checkboxValue, username);
-		dash.close();
-		return result;
-	}
-
+	
 	@DeleteMapping(path = "deleteSubscribedProcess/{processID}")
 	@ResponseBody
 	public boolean deleteSubscribedProcess(@PathVariable int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
