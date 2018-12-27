@@ -33,15 +33,27 @@ export class ProfilComponent implements OnInit {
   runningProcesses: Process[];
 
   formProcessSub: FormGroup;
+  formRunningProcessSub: FormGroup;
+  formNotification: FormGroup;
   
 
   private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 
+    
+
     this.formProcessSub = new FormGroup({
-      proccessSubControl: new FormControl()
+      processSubControl: new FormControl()
     });
+
+    this.formRunningProcessSub = new FormGroup({
+      processRunningSubControl: new FormControl()
+    });
+
+    this.formNotification = new FormGroup({
+      notifyControl: new FormControl(true)
+    })
 
     this.getProcesses().subscribe(process => this.processes = process);
 
@@ -55,18 +67,33 @@ export class ProfilComponent implements OnInit {
       .subscribe(process => this.runningProcesses = process);
 
 
+
   }
 
   public getProcesses() {
     return this.http.get<Process[]>(this.processUrl, httpOptions);
   }
 
-  follow() {
-    console.log('Process to follow: '+ this.formProcessSub.controls.proccessSubControl.value);
-
+  subscribeProcess() {
+    console.log('ProcessID: '+ this.formProcessSub.controls.processSubControl.value + ' User: ' + this.authService.currentUser.id);
+    this.subsService.addSubscribedProcess(this.formProcessSub.controls.processSubControl.value, this.authService.currentUser.id);
+    this.checkNotification();
   }
 
+  subscribeRunningProcess() {
+    console.log('ProcessID: '+ this.formProcessSub.controls.processSubControl.value + ' User: ' + this.authService.currentUser.id);
+    this.subsService.addSubscribedRunningProcess(this.formProcessSub.controls.processRunningSubControl.value, this.authService.currentUser.id);
+    this.checkNotification();
+  }
 
+  checkNotification() {
+    this.subsService.checkUserNotification(this.formNotification.controls.notifyControl.value, this.authService.currentUser.id);
+  }
+
+  deleteSubscribedProcess(process: Process){
+    this.subscribedProcesses = this.subscribedProcesses.filter(p => p !== process);
+    this.subsService.deleteSubscribedProcess(process, this.authService.currentUser.id).subscribe();
+  }
 
 
 
