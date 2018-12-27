@@ -27,4 +27,24 @@ export class SubsService {
     public getRunningProcesses() {
         return this.http.get<Process[]>(this.subsUrl + "/runningProcesses", httpOptions);
     }
+
+    public checkUserNotification(checkboxValue: boolean, username: string) {
+        return this.http.post<any>(this.subsUrl + "/checkNotification?checkboxValue=" + checkboxValue + "&username=" + username, httpOptions);
+    }
+
+    public addSubscribedProcess(processId: number, username: string) {
+        console.log('Request wird geschickt.'+processId+username);
+        return this.http.post<any>(this.subsUrl + "/addSub?processID=" + processId + "&username=" + username, httpOptions);
+    }
+
+    public addSubscribedRunningProcess(processId: number, username: string) {
+        return this.http.post<any>(this.subsUrl + "/addRunningSub?processID=" + processId + "&username=" + username, httpOptions);
+    }
+
+    public deleteSubscribedProcess(process: Process | number, username: string) {
+        const id = typeof process === 'number' ? process : process.processID;
+        const url = `http://localhost:9090/deleteSubscribedProcess/${id}`;
+    
+        return this.http.delete<Process>(url + "?username=" + username, httpOptions);
+      }
 }

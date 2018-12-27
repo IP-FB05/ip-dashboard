@@ -15,10 +15,12 @@
         </div>
 
         <div class="row" style="padding-left: 35px; padding-right:35px;">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input" name="" id="" value="checkedValue" checked>
-                Benachrichtigungen aktivieren
-            </label>
+            <form [formGroup]="formNotification">
+                <label class="form-check-label">
+                    <input type="checkbox" formControlName="notifyControl" class="form-check-input" value="checkedValue" checked>
+                    Benachrichtigungen aktivieren
+                </label>
+            </form>
         </div>
 
 
@@ -27,28 +29,27 @@
             <div class="col-md-3">
                 <label for="Process">Prozess abonnieren</label>
                 <form [formGroup]="formProcessSub">
-                    <select formControlName="proccessSubControl" id="processSelect" name="processSelect" class="form-control">
-                        <option selected="selected" value="">- keine Auswahl -</option>
+                    <select formControlName="processSubControl" id="processSelect" name="processSelect" class="form-control">
+                        <option selected="selected" value="null">- keine Auswahl -</option>
                         <option *ngFor="let process of processes" value="{{process.processID}}">
                             {{ process.name }}
                         </option>
                     </select>
                 </form>
-                <!-- hier nicht value relevant sondern die ProcessID -->
-                <button (click)="follow()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
+                <button (click)="subscribeProcess()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
             </div>
         </div>
 
         <div class="row">
             <div class="col-md-3">
                 <label for="RunningProcess">Laufenden Prozess abonnieren</label>
-                <form>
-                    <select class="form-control" id="SelectRunningProcess" name="processRunningSelect">
-                        <option value="">-keine Auswahl-</option>
+                <form [formGroup]="formRunningProcessSub">
+                    <select formControlName="processRunningSubControl" class="form-control" id="SelectRunningProcess" name="processRunningSelect">
+                        <option selected="selected" value="null">-keine Auswahl-</option>
                         <option *ngFor="let process of runningProcesses">{{process.name}}</option>
                     </select>
                 </form>
-                <button type="submit" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
+                <button (click)="subscribeRunningProcess()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
             </div>
         </div>
         <div class="row">
@@ -59,7 +60,7 @@
                             <tbody>
                                 <tr *ngFor="let process of subscribedProcesses">
                                     <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="placeholder">x</button></td>
+                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedProcess()">x</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -69,7 +70,7 @@
                             <tbody>
                                 <tr *ngFor="let process of subscribedProcessInstances">
                                     <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="placeholder">x</button></td>
+                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedRunningProcess">x</button></td>
                                 </tr>
                             </tbody>
                         </table>

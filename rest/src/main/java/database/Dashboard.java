@@ -24,7 +24,7 @@ public class Dashboard {
 	public Dashboard() throws SQLException, ClassNotFoundException {
 		String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com:3306/dashboardDB";
 		Properties props = new Properties();
-		props.setProperty("user" , Config.getConfig(Config.DB_USER));
+		props.setProperty("user", Config.getConfig(Config.DB_USER));
 		props.setProperty("password", Config.getConfig(Config.DB_PASS));
 		props.setProperty("useSSL", "false");
 		props.setProperty("autoReconnect", "true");
@@ -121,8 +121,7 @@ public class Dashboard {
 			preparedStatement.setString(1, input.getCategoriename());
 			preparedStatement.execute();
 
-			preparedStatement = connect
-					.prepareStatement("SELECT categoryID FROM category WHERE category.name LIKE ?");
+			preparedStatement = connect.prepareStatement("SELECT categoryID FROM category WHERE category.name LIKE ?");
 			preparedStatement.setString(1, input.getCategoriename());
 			resultSet = preparedStatement.executeQuery();
 			resultSet.first();
@@ -158,8 +157,9 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("pic"),
-						resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
+						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("bpmn"), resultSet.getString("added"),
+						resultSet.getString("camunda_processID"));
 				resultSet.next();
 			}
 			return process;
@@ -174,7 +174,8 @@ public class Dashboard {
 		if (resultSet.first()) {
 			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
 					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
-					resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
+					resultSet.getString("bpmn"), resultSet.getString("added"),
+					resultSet.getString("camunda_processID"));
 			return process;
 		}
 		return null;
@@ -195,8 +196,7 @@ public class Dashboard {
 	}
 
 	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement(
-				"INSERT INTO process_instance (camunda_instanceID) VALUES (?)");
+		preparedStatement = connect.prepareStatement("INSERT INTO process_instance (camunda_instanceID) VALUES (?)");
 		preparedStatement.setString(1, input.getId());
 		preparedStatement.execute();
 
@@ -206,18 +206,17 @@ public class Dashboard {
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			instanceID = resultSet.getInt(1);
-		}
-		else {
+		} else {
 			return false;
 		}
 
-		preparedStatement = connect.prepareStatement("SELECT processID FROM dashboardDB.processes WHERE camunda_processID LIKE ?");
+		preparedStatement = connect
+				.prepareStatement("SELECT processID FROM dashboardDB.processes WHERE camunda_processID LIKE ?");
 		preparedStatement.setString(1, input.getDefinitionId());
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			processID = resultSet.getInt(1);
-		}
-		else {
+		} else {
 			return false;
 		}
 
@@ -248,7 +247,7 @@ public class Dashboard {
 		preparedStatement = connect.prepareStatement(
 				"SELECT documentID, category.name AS 'Categoriename', documents.name, lastChanged, link FROM documents JOIN category ON category.categoryID = documents.categoryID WHERE category.name = ?");
 		preparedStatement.setString(1, name);
-				resultSet = preparedStatement.executeQuery();
+		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
 			int rowNumber = resultSet.getRow();
@@ -263,7 +262,6 @@ public class Dashboard {
 		}
 		return null;
 	}
-
 
 	// SUBS
 	public Subs[] getSubs() throws SQLException, ClassNotFoundException {
@@ -283,7 +281,6 @@ public class Dashboard {
 		return null;
 	}
 
-
 	public Subs getSub(int subID) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement("SELECT * FROM subs WHERE subID = ?");
 		preparedStatement.setInt(1, subID);
@@ -295,70 +292,259 @@ public class Dashboard {
 		return null;
 	}
 
-
 	// Subscribed Processes
 	public Process[] getMySubscribedProcesses(String username) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
 				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_subs ON dashboardDB.processes.processID = dashboardDB.processes_has_subs.processes_processID JOIN dashboardDB.subs ON dashboardDB.subs.subID = dashboardDB.processes_has_subs.subs_subID WHERE subs.username = ?");
-				preparedStatement.setString(1, username);
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.first()) {
-					resultSet.last();
-					int rowNumber = resultSet.getRow();
-					Process[] process = new Process[rowNumber];
-					resultSet.first();
-					for (int i = 0; i < rowNumber; i++) {
-						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-								resultSet.getString("description"), resultSet.getString("pic"),
-								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
-						resultSet.next();
-					}
-					return process;
-				}
-				return null;	
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Process[] process = new Process[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("bpmn"), resultSet.getString("added"),
+						resultSet.getString("camunda_processID"));
+				resultSet.next();
+			}
+			return process;
+		}
+		return null;
 	}
 
 	// Subscribed Processes with ProcessInstance
 	public Process[] getMySubscribedProcessInstances(String username) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
 				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_process_instance ON dashboardDB.processes.processID = dashboardDB.processes_has_process_instance.processes_processID JOIN dashboardDB.process_instance ON dashboardDB.process_instance.instanceID = dashboardDB.processes_has_process_instance.process_instance_instanceID JOIN dashboardDB.process_instance_has_subs ON dashboardDB.process_instance.instanceID = dashboardDB.process_instance_has_subs.process_instance_instanceID JOIN dashboardDB.subs ON dashboardDB.subs.subID = dashboardDB.process_instance_has_subs.subs_subID WHERE subs.username = ?");
-				preparedStatement.setString(1, username);
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.first()) {
-					resultSet.last();
-					int rowNumber = resultSet.getRow();
-					Process[] process = new Process[rowNumber];
-					resultSet.first();
-					for (int i = 0; i < rowNumber; i++) {
-						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-								resultSet.getString("description"), resultSet.getString("pic"),
-								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
-						resultSet.next();
-					}
-					return process;
-				}
-				return null;	
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Process[] process = new Process[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("bpmn"), resultSet.getString("added"),
+						resultSet.getString("camunda_processID"));
+				resultSet.next();
+			}
+			return process;
+		}
+		return null;
 	}
 
 	// Running Processes
 	public Process[] getRunningProcesses() throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
 				"SELECT * FROM dashboardDB.processes JOIN dashboardDB.processes_has_process_instance ON dashboardDB.processes.processID = dashboardDB.processes_has_process_instance.processes_processID JOIN dashboardDB.process_instance ON dashboardDB.process_instance.instanceID = dashboardDB.processes_has_process_instance.process_instance_instanceID");
-				//preparedStatement.setString(1, username);
-				resultSet = preparedStatement.executeQuery();
-				if (resultSet.first()) {
-					resultSet.last();
-					int rowNumber = resultSet.getRow();
-					Process[] process = new Process[rowNumber];
-					resultSet.first();
-					for (int i = 0; i < rowNumber; i++) {
-						process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-								resultSet.getString("description"), resultSet.getString("pic"),
-								resultSet.getString("warFile"), resultSet.getString("bpmn"), resultSet.getString("added"), resultSet.getString("camunda_processID"));
-						resultSet.next();
-					}
-					return process;
-				}
-				return null;	
+		// preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Process[] process = new Process[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
+						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("bpmn"), resultSet.getString("added"),
+						resultSet.getString("camunda_processID"));
+				resultSet.next();
+			}
+			return process;
+		}
+		return null;
 	}
+
+	public boolean addSubscribedProcess(int processId, String username) throws SQLException, ClassNotFoundException {
+
+		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+
+		int subID = 0;
+		if (resultSet.first()) {
+			subID = resultSet.getInt(1);
+		} else {
+			preparedStatement = connect.prepareStatement("INSERT INTO subs (username) VALUES (?)");
+			preparedStatement.setString(1, username);
+			preparedStatement.execute();
+
+			preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			resultSet.first();
+			subID = resultSet.getInt(1);
+		}
+
+		preparedStatement = connect
+				.prepareStatement("INSERT INTO processes_has_subs (processes_processID, subs_subID) VALUES (?, ?)");
+		preparedStatement.setInt(1, processId);
+		preparedStatement.setInt(2, subID);
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean addSubscribedRunningProcess(int processId, String username)
+			throws SQLException, ClassNotFoundException {
+
+		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+
+		int subID = 0;
+		int instanceID = 0;
+		if (resultSet.first()) {
+			subID = resultSet.getInt(1);
+		} else {
+			preparedStatement = connect.prepareStatement("INSERT INTO subs (username) VALUES (?)");
+			preparedStatement.setString(1, username);
+			preparedStatement.execute();
+
+			preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+			resultSet.first();
+			subID = resultSet.getInt(1);
+		}
+
+		preparedStatement = connect.prepareStatement(
+				"SELECT process_instance_instanceID FROM processes_has_process_instance WHERE processes_processID = ?");
+		preparedStatement.setInt(1, processId);
+		resultSet = preparedStatement.executeQuery();
+		resultSet.first();
+		instanceID = resultSet.getInt(1);
+
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO process_instance_has_subs (process_instance_instanceID, subs_subID) VALUES (?, ?)");
+		preparedStatement.setInt(1, instanceID);
+		preparedStatement.setInt(2, subID);
+		preparedStatement.execute();
+
+		return true;
+	}
+
+	public boolean checkNotification(boolean checkboxValue, String username)
+			throws SQLException, ClassNotFoundException {
+
+		if (checkboxValue) {
+			preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.first())
+				return true;
+			else {
+				preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
+				preparedStatement.setString(1, username);
+				preparedStatement.execute();
+
+				return true;
+			}
+		} else {
+			preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+			preparedStatement.setString(1, username);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.first()) {
+				preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+				preparedStatement.setString(1, username);
+				preparedStatement.execute();
+
+				return true;
+			} else {
+				return true;
+			}
+		}
+	}
+
+	public boolean deleteSubscribedProcess(int processID, String username) throws SQLException, ClassNotFoundException {
+
+		int subID = 0;
+		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+		resultSet.first();
+		subID = resultSet.getInt(1);
+
+		preparedStatement = connect
+				.prepareStatement("DELETE FROM processes_has_subs WHERE processes_processID LIKE ? AND subs_subID LIKE ?");
+		preparedStatement.setInt(1, processID);
+		preparedStatement.setInt(2, subID);
+		preparedStatement.execute();
+
+		preparedStatement = connect.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID LIKE ?");
+		preparedStatement.setInt(1, subID);
+		resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.first()) {
+			return true;
+		} else {
+			preparedStatement = connect.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID LIKE ?");
+			preparedStatement.setInt(1, subID);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.first()) {
+				return true;
+			} else {
+				preparedStatement = connect.prepareStatement("DELETE FROM subs WHERE subID = ?");
+				preparedStatement.setInt(1, subID);
+				preparedStatement.execute();
+			}
+		}
+
+		return true;
+	}
+
+	public boolean deleteSubscribedRunningProcess(int processID, String username)
+			throws SQLException, ClassNotFoundException {
+
+		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
+		preparedStatement.setString(1, username);
+		resultSet = preparedStatement.executeQuery();
+		resultSet.first();
+		int subID = resultSet.getInt(1);
+
+		preparedStatement = connect.prepareStatement(
+				"SELECT process_instance_instanceID FROM processes_has_process_instance WHERE processes_processID LIKE ?");
+		preparedStatement.setInt(1, processID);
+		resultSet = preparedStatement.executeQuery();
+		resultSet.first();
+		int instanceID = resultSet.getInt(1);
+
+		preparedStatement = connect.prepareStatement(
+				"DELETE FROM process_instance_has_subs WHERE process_instance_instanceID = ? AND subs_subID = ?");
+		preparedStatement.setInt(1, instanceID);
+		preparedStatement.setInt(2, subID);
+		preparedStatement.execute();
+
+		preparedStatement = connect.prepareStatement("SELECT subs_subID FROM process_instance_has_subs WHERE subs_subID = ?");
+		preparedStatement.setInt(1, subID);
+		resultSet = preparedStatement.executeQuery();
+
+		if (resultSet.first()) {
+			return true;
+		} else {
+			preparedStatement = connect.prepareStatement("SELECT subs_subID FROM processes_has_subs WHERE subs_subID = ?");
+			preparedStatement.setInt(1, subID);
+			resultSet = preparedStatement.executeQuery();
+
+			if (resultSet.first()) {
+				return true;
+			} else {
+				preparedStatement = connect.prepareStatement("DELETE FROM subs WHERE subID = ?");
+				preparedStatement.setInt(1, subID);
+				preparedStatement.execute();
+			}
+		}
+
+		return true;
+	}
+
 }

@@ -25,7 +25,7 @@
         <mat-icon>person</mat-icon>&nbsp;PROFIL
       </a>
       <div *ngIf="this.authService.isLoggedin">
-        <a mat-list-item href="#">
+        <a mat-list-item (click)="logout()">
           <mat-icon>input</mat-icon>&nbsp;ABMELDEN
         </a>
       </div>

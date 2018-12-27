@@ -82,5 +82,49 @@ public class SubsController {
     	return result;
 	}
 
+	@PostMapping(path = "/addSub")
+	@ResponseBody
+	public boolean addSubscribedProcess(@RequestParam int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+		boolean result = dash.addSubscribedProcess(processId, username);
+    	dash.close();
+    	return result;
+	}
+
+	@PostMapping(path = "/addRunningSub")
+	@ResponseBody
+	public boolean addSubscribedRunningProcess(@RequestParam int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+		boolean result = dash.addSubscribedRunningProcess(processId, username);
+    	dash.close();
+    	return result;
+	}
+
+	@PostMapping(path = "/checkNotification")
+	@ResponseBody
+	public boolean checkNotification(@RequestParam boolean checkboxValue, @RequestParam String username) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard();
+		boolean result = dash.checkNotification(checkboxValue, username);
+		dash.close();
+		return result;
+	}
+
+	@DeleteMapping(path = "deleteSubscribedProcess/{processID}")
+	@ResponseBody
+	public boolean deleteSubscribedProcess(@PathVariable int processID, @RequestParam String username) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard();
+		boolean result = dash.deleteSubscribedProcess(processID, username);
+		dash.close();
+		return result;
+	}
+
+	@DeleteMapping(path = "deleteSubscribedRunningProcess/{processID}")
+	@ResponseBody
+	public boolean deleteSubscribedRunningProcess(@PathVariable int processID, @RequestParam String username) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard();
+		boolean result = dash.deleteSubscribedRunningProcess(processID, username);
+		dash.close();
+		return result;
+	}
 
 }

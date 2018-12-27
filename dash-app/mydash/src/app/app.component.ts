@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CookieService} from 'ngx-cookie-service';  
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -8,15 +6,10 @@ import { CookieService} from 'ngx-cookie-service';
 })
 export class AppComponent implements OnInit {
   title = 'Dashboard zur Prozesslandschaft des FB05';
-  //cookieUsername = '';
-  //cookieUsersGroup = '';
-  constructor ( private cookieService: CookieService) {
-
-  } 
   
+  constructor ( ) {
+  }  
+
   ngOnInit(): void {
-    this.cookieService.set('userID', 'NULL');
-    this.cookieService.set('userRole', 'NULL');
-    //this.cookieUsername = this.cookieService.get('UserName');
   }
 }
