@@ -464,7 +464,7 @@ public class Dashboard {
 		}
 	}
 
-	public boolean deleteSubscribedProcess(int processID, String username) throws SQLException, ClassNotFoundException {
+	public boolean deleteSubscribedProcess(int processId, String username) throws SQLException, ClassNotFoundException {
 
 		int subID = 0;
 		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
@@ -475,7 +475,7 @@ public class Dashboard {
 
 		preparedStatement = connect
 				.prepareStatement("DELETE FROM processes_has_subs WHERE processes_processID LIKE ? AND subs_subID LIKE ?");
-		preparedStatement.setInt(1, processID);
+		preparedStatement.setInt(1, processId);
 		preparedStatement.setInt(2, subID);
 		preparedStatement.execute();
 
@@ -502,7 +502,7 @@ public class Dashboard {
 		return true;
 	}
 
-	public boolean deleteSubscribedRunningProcess(int processID, String username)
+	public boolean deleteSubscribedRunningProcess(int processId, String username)
 			throws SQLException, ClassNotFoundException {
 
 		preparedStatement = connect.prepareStatement("SELECT subID FROM subs WHERE username LIKE ?");
@@ -513,7 +513,7 @@ public class Dashboard {
 
 		preparedStatement = connect.prepareStatement(
 				"SELECT process_instance_instanceID FROM processes_has_process_instance WHERE processes_processID LIKE ?");
-		preparedStatement.setInt(1, processID);
+		preparedStatement.setInt(1, processId);
 		resultSet = preparedStatement.executeQuery();
 		resultSet.first();
 		int instanceID = resultSet.getInt(1);

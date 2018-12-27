@@ -81,8 +81,8 @@ export class ProfilComponent implements OnInit {
   }
 
   subscribeRunningProcess() {
-    console.log('ProcessID: '+ this.formProcessSub.controls.processSubControl.value + ' User: ' + this.authService.currentUser.id);
-    this.subsService.addSubscribedRunningProcess(this.formProcessSub.controls.processRunningSubControl.value, this.authService.currentUser.id);
+    console.log('ProcessID: '+ this.formRunningProcessSub.controls.processRunningSubControl.value + ' User: ' + this.authService.currentUser.id);
+    this.subsService.addSubscribedRunningProcess(this.formRunningProcessSub.controls.processRunningSubControl.value, this.authService.currentUser.id);
     this.checkNotification();
   }
 
@@ -93,6 +93,11 @@ export class ProfilComponent implements OnInit {
   deleteSubscribedProcess(process: Process){
     this.subscribedProcesses = this.subscribedProcesses.filter(p => p !== process);
     this.subsService.deleteSubscribedProcess(process, this.authService.currentUser.id).subscribe();
+  }
+
+  deleteSubscribedRunningProcess(process: Process){
+    this.subscribedProcessInstances = this.subscribedProcessInstances.filter(p => p !== process);
+    this.subsService.deleteSubscribedRunningProcess(process, this.authService.currentUser.id).subscribe();
   }
 
 

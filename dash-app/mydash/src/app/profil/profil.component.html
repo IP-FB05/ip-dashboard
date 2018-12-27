@@ -60,7 +60,7 @@
                             <tbody>
                                 <tr *ngFor="let process of subscribedProcesses">
                                     <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedProcess()">x</button></td>
+                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedProcess(process)">x</button></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -70,7 +70,7 @@
                             <tbody>
                                 <tr *ngFor="let process of subscribedProcessInstances">
                                     <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedRunningProcess">x</button></td>
+                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedRunningProcess(process)">x</button></td>
                                 </tr>
                             </tbody>
                         </table>

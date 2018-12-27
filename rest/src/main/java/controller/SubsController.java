@@ -111,18 +111,18 @@ public class SubsController {
 
 	@DeleteMapping(path = "deleteSubscribedProcess/{processID}")
 	@ResponseBody
-	public boolean deleteSubscribedProcess(@PathVariable int processID, @RequestParam String username) throws SQLException, ClassNotFoundException {
+	public boolean deleteSubscribedProcess(@PathVariable int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard();
-		boolean result = dash.deleteSubscribedProcess(processID, username);
+		boolean result = dash.deleteSubscribedProcess(processId, username);
 		dash.close();
 		return result;
 	}
 
 	@DeleteMapping(path = "deleteSubscribedRunningProcess/{processID}")
 	@ResponseBody
-	public boolean deleteSubscribedRunningProcess(@PathVariable int processID, @RequestParam String username) throws SQLException, ClassNotFoundException {
+	public boolean deleteSubscribedRunningProcess(@PathVariable int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard();
-		boolean result = dash.deleteSubscribedRunningProcess(processID, username);
+		boolean result = dash.deleteSubscribedRunningProcess(processId, username);
 		dash.close();
 		return result;
 	}
