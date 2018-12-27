@@ -1,25 +1,29 @@
 <div *ngIf="process">
 
-  <div class="row" style="padding: 10px 30px 10px 37px;">
-    <div class="col-md-10">
+  <div class="row">
+    <div class="col-md-12">
         <h1 style="color: black; font-weight:400; font-size: 30px;">{{process.name}}</h1>
     </div>
-    <div class="col-md-2">
+    <div class="col-md-12">
         <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
     </div>
   </div>
 
-  <div class="row" style="padding: 0px 0px 0px 52px;">
+  <div class="row">
+    <div class= "col-md-12">
     <p style="color: black">{{process.description}}</p>
+  </div>
   </div> 
 
   <div class="diagram-parent" style="padding: 10px 30px 10px 37px;">
       <app-diagram url={{process.bpmn}}></app-diagram>
   </div>
 
-  <div class="row" style="padding: 0px 0px 0px 52px;">
-    <p style="color: black">Sie können das Diagramm nach rechts bzw. links verschieben, indem Sie die linke Maustaste geklickt halten und dabei verschieben.</p>
-    <p style="color: black">Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
-  </div>
+  <div class="row">
+    <div class="col md-12"><p style="color: black">Sie können das Diagramm nach rechts bzw. links verschieben, indem Sie die linke Maustaste geklickt halten und dabei verschieben.
+    Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
+  
+    </div>
+</div>
 
 </div>
