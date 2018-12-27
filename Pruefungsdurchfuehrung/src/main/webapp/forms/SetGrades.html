@@ -6,8 +6,6 @@
 	Note: <input type="text" value={{x.note}} name={{x.ID}} id={{x.ID}}><br>
 	</div>
 	
-	<input type="text" name="gadget_url" id="gadget_url">
-	
 	<script cam-script type="text/form-script">
 
 
@@ -30,17 +28,12 @@
 			final = variableManager.variableValue('final');
 			studentsList = variableManager.variableValue('Students');
 
-
-			//document.getElementById('gadget_url').value = studentsList;
 			studentsList = JSON.parse(studentsList);
 
 			
 			for (let i = 0; i <  Object.keys(studentsList).length; i++) {
 				
 				$scope.students.push({ID:Object.keys(studentsList)[i],note:studentsList[Object.keys(studentsList)[i]]});
-				//document.getElementById('gadget_url').value = Object.keys(studentsList)[i];
-				//document.getElementById('gadget_url').value = studentsList[Object.keys(studentsList)[i]];
-
 			}
   	
 		});
@@ -52,14 +45,11 @@
 				studentsList[Object.keys(studentsList)[i]] = angular.element(document.getElementById($scope.students[i].ID)).val();
 			}
 
-    		//variableManager.createVariable({name: 'Students',type: 'json', value:JSON.stringify(studentsList) });
-			//variableManager.variableValue('Students',JSON.stringify(studentsList));
-
 			variableManager.destroyVariable('Students');
 
 			camForm.variableManager.createVariable({
-			  name: 'Students', //_List',
-			  type: 'json',//'String',
+			  name: 'Students',
+			  type: 'json',
 			  value: JSON.stringify(studentsList)
 			});
 

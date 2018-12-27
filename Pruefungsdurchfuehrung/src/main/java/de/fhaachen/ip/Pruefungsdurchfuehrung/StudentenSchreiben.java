@@ -19,15 +19,18 @@ import com.sun.jersey.api.client.WebResource;
 public class StudentenSchreiben implements JavaDelegate {
 	
     public void execute(DelegateExecution execution) throws Exception {
-	String students = execution.getVariable("Students").toString();
+    	//Prozessvariablen Laden
+    	String students = execution.getVariable("Students").toString();
     	String modul = execution.getVariable("modul").toString();
 
+    	//Studentenliste verarbeiten
         students = students.replace("\\","");
         students = students.substring(1,students.length()-1);
 
 
 		JSONObject json = new JSONObject(students);
 
+		//Studenten in Server eintragen
 		String[][] studentsList = GetStudents.Get(execution.getVariable("modul").toString());
         for (int i = 0; i < json.length(); i++) {
             String ID = studentsList[i][0];
