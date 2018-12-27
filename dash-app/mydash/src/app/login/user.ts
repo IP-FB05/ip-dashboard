@@ -1,4 +1,5 @@
 import {Group} from './group';
+import { group } from '@angular/animations';
 
 export class User {
     id: string;
@@ -8,5 +9,5 @@ export class User {
     groups: Group[];
     authenticated: boolean;
     role: string;
-    token: string;
+    authdata: string;
 } 

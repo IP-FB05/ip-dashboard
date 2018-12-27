@@ -6,7 +6,7 @@ import { Subs } from '../subs/subs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SubsService } from '../subs/subs.service';
 
-import { AuthService } from '../login/auth.service';
+import { AuthService } from '../login/auth/auth.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 
 
