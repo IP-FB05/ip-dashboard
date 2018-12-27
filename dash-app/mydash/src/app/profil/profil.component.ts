@@ -8,6 +8,8 @@ import { SubsService } from '../subs/subs.service';
 
 import { AuthService } from '../login/auth/auth.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Subscription } from '../subs/subscription';
+import { ProcessService } from '../process/process.service';
 
 
 const httpOptions = {
@@ -24,7 +26,8 @@ export class ProfilComponent implements OnInit {
   constructor(private pc: ProcessesComponent, 
               private http: HttpClient, 
               private subsService: SubsService,
-              private authService: AuthService) { 
+              private authService: AuthService,
+              private processService: ProcessService) { 
   }
 
   processes: Process[];
@@ -35,6 +38,8 @@ export class ProfilComponent implements OnInit {
   formProcessSub: FormGroup;
   formRunningProcessSub: FormGroup;
   formNotification: FormGroup;
+
+  sub: Subscription;
   
 
   private processUrl = 'http://localhost:9090/processes';
@@ -52,7 +57,7 @@ export class ProfilComponent implements OnInit {
     });
 
     this.formNotification = new FormGroup({
-      notifyControl: new FormControl(true)
+      notifyControl: new FormControl()
     })
 
     this.getProcesses().subscribe(process => this.processes = process);
@@ -75,19 +80,27 @@ export class ProfilComponent implements OnInit {
   }
 
   subscribeProcess() {
-    console.log('ProcessID: '+ this.formProcessSub.controls.processSubControl.value + ' User: ' + this.authService.currentUser.id);
-    this.subsService.addSubscribedProcess(this.formProcessSub.controls.processSubControl.value, this.authService.currentUser.id);
-    this.checkNotification();
+    var curProcessID = this.formProcessSub.controls.processSubControl.value.trim();
+    var curUsername = this.authService.currentUser.id.trim();
+    if( !curProcessID || !curUsername) {
+      return;
+    }
+    this.sub = new Subscription(curProcessID,curUsername);
+    this.subsService.addSubscribedProcess(this.sub)
+    .subscribe( data => {
+      alert("Process subscribed successfully.");
+    });
   }
+
+
 
   subscribeRunningProcess() {
     console.log('ProcessID: '+ this.formProcessSub.controls.processSubControl.value + ' User: ' + this.authService.currentUser.id);
     this.subsService.addSubscribedRunningProcess(this.formProcessSub.controls.processRunningSubControl.value, this.authService.currentUser.id);
-    this.checkNotification();
   }
 
-  checkNotification() {
-    this.subsService.checkUserNotification(this.formNotification.controls.notifyControl.value, this.authService.currentUser.id);
+  getNotification() {
+    this.subsService.checkUserNotification(this.authService.currentUser.id);
   }
 
   deleteSubscribedProcess(process: Process){
