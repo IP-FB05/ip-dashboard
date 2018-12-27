@@ -175,8 +175,8 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:formData>
           <camunda:formField id="verlaengerung" label="Für wielange magst du deine Bachelorarbeit verlängern?" type="date" />
-          <camunda:formField id="grund" />
-          <camunda:formField id="anhang" />
+          <camunda:formField id="grund" type="string" />
+          <camunda:formField id="anhang" type="boolean" />
         </camunda:formData>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0ao20gn</bpmn:incoming>
