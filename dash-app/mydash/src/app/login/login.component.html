@@ -49,7 +49,9 @@
   <div class="bgbild">
     <div class="col-md-4 offset-md-4" style="text-align: center;">
       <div class="img-div">
-        <img src="assets/img/fh/logo.png" alt="Logo" width="350" height="130">
+        <a mat-list-item routerLink="/dashboard" class="logo-login-link">
+          <img src="assets/img/fh/logo.png" alt="Logo" width="350" height="130">
+        </a>
       </div>
       <form class="example-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
         <div class="form-group input-group mb-3">
@@ -73,7 +75,7 @@
           </div>
         </div>
         <div class="form-group">
-          <button class="btn btn-secondary btn-block">Login</button>
+          <button class="btn btn-secondary btn-block btn-login">Login</button>
         </div>
       </form>
     </div>

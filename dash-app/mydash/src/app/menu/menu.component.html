@@ -1,7 +1,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav mode="over" [(opened)]="opened">
     <mat-nav-list>
-      <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 10px 20px;" alt="Logo" width="200" height="auto"></p>
+      <p><img src="assets/img/fh/logo.png" style="padding: 10px 20px 50px 20px;" alt="Logo" width="200" height="auto"></p>
       <div *ngIf="this.authService.isLoggedin">
         <p style="color:white; padding-left:30px; font-size:14px; font-weight:600;">{{this.authService.currentUser.lastName}}, {{this.authService.currentUser.firstName}}</p>
         <p style="color:white; padding-left:30px; font-size:12.5px; margin-top: -12px;">{{this.authService.currentUser.role}}</p>
@@ -34,21 +34,22 @@
 
   <mat-sidenav-content>
     <nav class="navbar bg-light">
-      <div class="col-md-1">
+      
+      <div class="col-3 col-sm-1 col-md-1">
         <button mat-button (click)="sidenav.toggle()"><i class="material-icons">menu</i></button>
       </div>
-      <div class="col-md-1">
-        <h2 *ngIf="router.url == '/dashboard'">ÜBERSICHT</h2>
-        <h2 *ngIf="router.url == '/processes'">PROZESSE</h2>
-        <h2 *ngIf="router.url == '/myprocesses'">LAUFENDE PROZESSE</h2>
-        <h2 *ngIf="router.url == '/documents'">DOKUMENTE</h2>
-        <h2 *ngIf="router.url == '/systems'">SYSTEME</h2>
-        <h2 *ngIf="router.url == '/profil'">PROFIL</h2>
-        <h2 *ngIf="router.url == '/login'">LOGIN</h2>
+      <div class="col-5 col-sm-8 col-md-9">
+        <h2 *ngIf="router.url == '/dashboard'">Übersicht</h2>
+        <h2 *ngIf="router.url == '/processes'">Prozesse</h2>
+        <h2 *ngIf="router.url == '/myprocesses'">Laufende Prozesse</h2>
+        <h2 *ngIf="router.url == '/documents'">Dokumente</h2>
+        <h2 *ngIf="router.url == '/systems'">Systeme</h2>
+        <h2 *ngIf="router.url == '/profil'">Profil</h2>
+        
       </div>
       <ng-container *ngIf="!(this.authService.isLoggedin); else elseTemplate">
-        <div class="col-md-1">
-          <div class="login-div">
+        <div class="col-4 col-sm-3 col-md-2">
+          <div class="login-div" style="float:right;">
             <a href="/login" class="login">
               <mat-icon class="login-icon">input</mat-icon> Login
             </a>
@@ -58,6 +59,7 @@
       <ng-template #elseTemplate>
         <button class="btn btn-secondary" (click)="logout()">Logout</button>
       </ng-template>
+  
     </nav>
     <router-outlet></router-outlet>
   </mat-sidenav-content>

@@ -1,19 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-@media only screen and (max-width: 867px) {
 
-.navbar {
-    text-align:center;
-}
-
-.login-div {
-    margin-bottom:30px;
-}
-.action-buttons {
-    text-align: center;
-}
-
-
-}
 
 body {font-size:14px;}
 .mat-button-wrapper{
@@ -123,9 +109,6 @@ a:active {
     border-color: 1px solid #00b5ad;
 }
 
-.btn{
-    float:left;
-}
 
 
 
@@ -170,6 +153,7 @@ h2 {
     color:white;
     font-size: 1.2em;
     font-weight:600;
+    text-align:left;
 }
 
 .mat-drawer-inner-container {
@@ -237,6 +221,15 @@ h2 {
 .mat-list-item {
     border-left: 10px solid #0b1921;
 }
+
+.logo-login-link {
+    border:none !important;
+}
+
+a.logo-login-link {
+    text-align: center;
+}
+
 .mat-list-item:visited {
     border-left: 10px solid #0b1921;
 }
@@ -265,6 +258,11 @@ hr {
 .navbar {
 
     padding:0;
+    height:65px;
+    padding-left: 5px;
+    padding-right: 9px;
+    height: 65px;
+    margin: 0 auto;
 
 }
 
@@ -428,6 +426,7 @@ a.list-documents  {
     
     background-color:#0b1a22;
     border: 1px solid #0b1a22;
+    float:left;
 }
 
 .dark-blue:hover {
@@ -452,3 +451,39 @@ color:#656565 !important;}
     background-color:white;
     border-color:#00b5ad;
     color:#00b5ad !important;}
+
+    input[_ngcontent-c7] {
+        
+        border: solid 1px white;
+        border-width: 1px !important;
+        
+    }
+
+    .btn-login
+    {
+        width:40%;
+        border: 1px solid #00b5ad;
+    }
+    .btn-login:hover
+    {
+        width:40%;
+        border: 1px solid white;
+        color: white !important;
+        background:transparent;
+    }
+
+form[_ngcontent-c7] {
+        text-align: -webkit-center;
+    }
+
+.input-group {
+    width:80%;
+}
+
+input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
+    border-color: white !important;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.2rem #00b5ad3b;
+}
