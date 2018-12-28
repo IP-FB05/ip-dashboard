@@ -126,7 +126,7 @@ a:active {
 .btn-group-lg>.btn, .btn-lg {
     padding: .5rem 1rem;
     font-size: 10.5pt;
-    line-height: 1.5;
+
     border-radius: .3rem;
 }
 
@@ -250,17 +250,15 @@ hr {
 }
 
 .row{
-    margin:20px;
+    
 }
 
 
 
 .navbar {
 
-    padding:0;
+    
     height:80px;
-    padding-left: 5px;
-    padding-right: 9px;
     height: 80px;
     margin: 0 auto;
 
@@ -409,11 +407,12 @@ a.list-documents  {
 }
 
 .btn-secondary {
-    background-color: #B3B3B3;
+    background-color: white;
     border:1px solid #B3B3B3;
     white-space: normal;
+    color:#595757;
     text-align:left;
-    color:white !important;
+   
 }
 
 .btn-secondary:hover {
@@ -428,6 +427,8 @@ a.list-documents  {
     background-color:#0b1a22;
     border: 1px solid #0b1a22;
     float:left;
+    color:white;
+    
 }
 
 .dark-blue:hover {
@@ -486,10 +487,23 @@ input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
 }
 
 .form-control:focus {
-    box-shadow: 0 0 0 0.2rem #00b5ad3b;
+    box-shadow:0 0 0 0.2rem rgba(0,0,0,.12);
 }
 
 .mat-list, .mat-nav-list, .mat-selection-list
 {
     text-align:center;
+}
+
+#suchbegriff 
+{
+    border: 1px solid #ced4da;
+    margin-top:10px;
+    margin-bottom:10px;
+    
+}
+
+.table-responsive
+{
+    margin-bottom:30px;
 }

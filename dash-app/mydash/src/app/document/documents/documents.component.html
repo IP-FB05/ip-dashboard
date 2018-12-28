@@ -1,10 +1,10 @@
-<div class="dokumente">
-    <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
-        <h2 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Dies ist die Dokumenten Seite.
+<div class="dokumente" style="margin-left:30px; margin-right:30px;">
+    <div class="row" style=" margin-top:50px; margin-left:0; margin-right:0;">
+        <h2 style="font-weight:300; font-size: 14px; color: #4d4d4d; margin-bottom:10px;">Dies ist die Dokumenten Seite.
         Hier können Sie, fürs Studium relevante, Dokumente herrunterladen</h2>
     </div>
 
-    <div class="row" style="padding-left: 15px; padding-right:15px; margin-left:0; margin-right:0;">
+    <div class="row" >
         <div class="col-md-12">
             <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
         </div>
@@ -18,14 +18,14 @@
 
     
 
-    <div class="row">
-        <div class="col-md-8">
-            <table class="table">
+    <div class="row" style="margin-top:30px;">
+        <div class="col-md-9 table-responsive">
+            <table class=" table table-striped">
                 <thead>
                     <tr>
-                        <th>Name:</th>
-                        <th>Kategorie:</th>
-                        <th>Zuletzt geändert am:</th>
+                        <th scope="col">Name:</th>
+                        <th scope="col">Kategorie:</th>
+                        <th scope="col">Zuletzt geändert am:</th>
                     </tr>
                 </thead>
                 <tbody>

@@ -70,6 +70,7 @@ background:#0b1a22 !important;
 .mat-list .mat-list-item, .mat-nav-list .mat-list-item, .mat-selection-list .mat-list-item {
   color: white;
   margin-right:26px;
+  margin-bottom: 10px;
 }
 
 .mat-list-item:hover {background-color:white; margin:0; padding:0;}

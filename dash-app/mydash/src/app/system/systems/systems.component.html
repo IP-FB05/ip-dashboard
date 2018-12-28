@@ -1,6 +1,6 @@
-<div class="systems">
+<div class="systems" style="margin-left:30px; margin-right:30px;">
   <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
-    <h2 style="color: black; font-weight:300; font-size: 14px;">Dies ist die System-Seite. Man gelangt
+    <h2 style="color: black; font-weight:300; font-size: 14px; margin-bottom:10px;">Dies ist die System-Seite. Man gelangt
       zu einem System, indem man auf den
       "Zur Seite"-Button klickt.
       Man kann auch jederzeit ein neues System hinzufügen oder Systeme aus der Übersicht löschen.</h2>
@@ -16,7 +16,7 @@
   <app-filter></app-filter>
   -->
 
-  <div class="row">
+  <div class="row" style="margin-top:50px;">
     <div *ngFor="let system of systems | textFilterSystems:searchText" class="col-md-3">
     <div class="card-deck h-100 mb-3 fix">
      <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
