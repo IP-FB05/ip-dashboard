@@ -147,7 +147,7 @@ export class ProfilComponent implements OnInit {
     this.notification = new Notification(curUsername);
     if (e.target.checked) {
       console.log(curUsername);
-      this.subsService.deleteUserFromNotification(this.notification).subscribe(
+      this.subsService.deleteUserFromNotification(curUsername).subscribe(
         data => {
           this.openSnackBar("Benachrichtigungen aktiviert");
         }, 

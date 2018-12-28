@@ -34,8 +34,8 @@ export class SubsService {
         return this.http.post<Notification>("http://localhost:9090/notification/add", notification, httpOptions);
     }
 
-    public deleteUserFromNotification(notification) {
-        return this.http.delete("http://localhost:9090/notification/delete/"+ notification.username, httpOptions);
+    public deleteUserFromNotification(username: string) {
+        return this.http.delete<Notification>("http://localhost:9090/notification/delete"+ "?username=" + username, httpOptions);
     }
 
 

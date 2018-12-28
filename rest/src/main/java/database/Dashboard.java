@@ -432,15 +432,9 @@ public class Dashboard {
 
 	public boolean deleteUserFromNotification(String username) throws SQLException, ClassNotFoundException {
 
-		preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+		preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username LIKE ()");
 		preparedStatement.setString(1, username);
-		resultSet = preparedStatement.executeQuery();
-
-		if (resultSet.first()) {
-			preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
-			preparedStatement.setString(1, username);
-			preparedStatement.execute();
-		} else return false;
+		preparedStatement.execute();
 
 		return true;
 

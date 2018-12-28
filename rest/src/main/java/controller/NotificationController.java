@@ -53,9 +53,9 @@ public class NotificationController {
 	
 	@DeleteMapping(path = "/delete")
 	@ResponseBody
-	public boolean deleteUserFromNotification(@RequestBody Notification notification) throws SQLException, ClassNotFoundException {
+	public boolean deleteUserFromNotification(@RequestParam String username) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard();
-		boolean result = dash.deleteUserFromNotification(notification.getUsername());
+		boolean result = dash.deleteUserFromNotification(username);
 		dash.close();
 		return result;
 	}
