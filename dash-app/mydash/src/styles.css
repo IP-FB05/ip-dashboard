@@ -465,6 +465,7 @@ color:#656565 !important;}
     {
         width:40%;
         border: 1px solid #00b5ad;
+        color:white;
     }
     .btn-login:hover
     {
@@ -506,4 +507,22 @@ input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
 .table-responsive
 {
     margin-bottom:30px;
+}
+
+.btn-secondary[_ngcontent-c1] {
+    background-color: transparent !important;
+    color: white;
+    border: none;
+    text-transform: none;
+    font-size: 14px;
+    font-weight:300 !important;
+}
+
+.btn-secondary[_ngcontent-c1]:hover {
+    background-color: transparent !important;
+    color: #00b5ad;
+    border: none !important;
+    text-transform: none;
+    font-size: 14px;
+    font-weight:300;
 }
