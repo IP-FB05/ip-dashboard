@@ -96,17 +96,16 @@ public class SubsController {
 	}
 
 	
-
 	@PostMapping(path = "/addRunningSub")
 	@ResponseBody
-	public boolean addSubscribedRunningProcess(@RequestParam int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
+	public boolean addSubscribedRunningProcess(@RequestBody Subscription subscription) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
-		boolean result = dash.addSubscribedRunningProcess(processId, username);
+		boolean result = dash.addSubscribedRunningProcess(subscription.getProcessID(), subscription.getUsername());
     	dash.close();
     	return result;
 	}
 	
-	@DeleteMapping(path = "deleteSubscribedProcess/{processID}")
+	@DeleteMapping(path = "deleteSubscribedProcess/{processId}")
 	@ResponseBody
 	public boolean deleteSubscribedProcess(@PathVariable int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard();
@@ -115,7 +114,7 @@ public class SubsController {
 		return result;
 	}
 
-	@DeleteMapping(path = "deleteSubscribedRunningProcess/{processID}")
+	@DeleteMapping(path = "deleteSubscribedRunningProcess/{processId}")
 	@ResponseBody
 	public boolean deleteSubscribedRunningProcess(@PathVariable int processId, @RequestParam String username) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard();

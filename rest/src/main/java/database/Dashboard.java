@@ -430,16 +430,19 @@ public class Dashboard {
 		return true;
 	}
 
-	public boolean getNotification(String username) throws SQLException, ClassNotFoundException {
+	public boolean deleteUserFromNotification(String username) throws SQLException, ClassNotFoundException {
 
 		preparedStatement = connect.prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
 		preparedStatement.setString(1, username);
 		resultSet = preparedStatement.executeQuery();
 
-		if (resultSet.first())
-			return true;
-		else
-			return false;
+		if (resultSet.first()) {
+			preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+			preparedStatement.setString(1, username);
+			preparedStatement.execute();
+		} else return false;
+
+		return true;
 
 		/*
 		 * else { preparedStatement =
@@ -459,38 +462,43 @@ public class Dashboard {
 		 */
 	}
 
-	public void switchNotification(String username) throws SQLException, ClassNotFoundException {
+	public boolean addUserToNotification(String username) throws SQLException, ClassNotFoundException {
 
-		preparedStatement = connect.prepareStatement("SELECT * FROM notification WHERE username LIKE ?");
+		/*
+		 * preparedStatement =
+		 * connect.prepareStatement("SELECT * FROM notification WHERE username LIKE ?");
+		 * preparedStatement.setString(1, username); resultSet =
+		 * preparedStatement.executeQuery();
+		 * 
+		 * if (resultSet.first()) { preparedStatement =
+		 * connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+		 * preparedStatement.setString(1, username); preparedStatement.execute(); } else
+		 * {
+		 */
+		preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
 		preparedStatement.setString(1, username);
-		resultSet = preparedStatement.executeQuery();
+		preparedStatement.execute();
 
-		if (resultSet.first()) {
-			preparedStatement = connect.prepareStatement("DELETE FROM notification WHERE username = ?");
-			preparedStatement.setString(1, username);
-			preparedStatement.execute();
-		} else {
-			preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES ?");
-			preparedStatement.setString(1, username);
-			preparedStatement.execute();
+		return true;
 
-			/*
-			 * else { preparedStatement =
-			 * connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
-			 * preparedStatement.setString(1, username); preparedStatement.execute();
-			 * 
-			 * return false; } } else { preparedStatement = connect.
-			 * prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
-			 * preparedStatement.setString(1, username); resultSet =
-			 * preparedStatement.executeQuery();
-			 * 
-			 * if (resultSet.first()) { preparedStatement =
-			 * connect.prepareStatement("DELETE FROM notification WHERE username = ?");
-			 * preparedStatement.setString(1, username); preparedStatement.execute();
-			 * 
-			 * return true; } else { return true; } }
-			 */
-		}
+		/*
+		 * else { preparedStatement =
+		 * connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
+		 * preparedStatement.setString(1, username); preparedStatement.execute();
+		 * 
+		 * return false; } } else { preparedStatement = connect.
+		 * prepareStatement("SELECT username FROM notification WHERE username LIKE ?");
+		 * preparedStatement.setString(1, username); resultSet =
+		 * preparedStatement.executeQuery();
+		 * 
+		 * if (resultSet.first()) { preparedStatement =
+		 * connect.prepareStatement("DELETE FROM notification WHERE username = ?");
+		 * preparedStatement.setString(1, username); preparedStatement.execute();
+		 * 
+		 * return true; } else { return true; } }
+		 * 
+		 * }
+		 */
 	}
 
 	public boolean deleteSubscribedProcess(int processId, String username) throws SQLException, ClassNotFoundException {
@@ -502,8 +510,8 @@ public class Dashboard {
 		resultSet.first();
 		subID = resultSet.getInt(1);
 
-		preparedStatement = connect
-				.prepareStatement("DELETE FROM processes_has_subs WHERE processes_processID LIKE ? AND subs_subID LIKE ?");
+		preparedStatement = connect.prepareStatement(
+				"DELETE FROM processes_has_subs WHERE processes_processID LIKE ? AND subs_subID LIKE ?");
 		preparedStatement.setInt(1, processId);
 		preparedStatement.setInt(2, subID);
 		preparedStatement.execute();

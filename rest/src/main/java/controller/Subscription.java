@@ -2,15 +2,15 @@ package controller;
 
 public class Subscription {
 
-    private int processID;
+    private Integer processID;
     private String username;
 
-    public Subscription(int pid, String uname) {
+    public Subscription(Integer pid, String uname) {
         this.processID = pid;
         this.username = uname;
     }
 
-    public void setProcessID(int pid) {
+    public void setProcessID(Integer pid) {
         this.processID = pid;
     }
 
@@ -18,7 +18,7 @@ public class Subscription {
         this.username = uname;
     }
 
-    public int getProcessID(){
+    public Integer getProcessID(){
         return this.processID;
     }
 

@@ -15,12 +15,11 @@
         </div>
 
         <div class="row" style="padding-left: 35px; padding-right:35px;">
-            <form [formGroup]="formNotification">
                 <label class="form-check-label">
-                    <input type="checkbox" formControlName="notifyControl" class="form-check-input" value="checkedValue" checked>
+                    <input type="checkbox" class="form-check-input" value="checkedValue" (change)="eventNotification($event)"
+                        checked>
                     Benachrichtigungen aktivieren
                 </label>
-            </form>
         </div>
 
 
@@ -44,9 +43,10 @@
             <div class="col-md-3">
                 <label for="RunningProcess">Laufenden Prozess abonnieren</label>
                 <form [formGroup]="formRunningProcessSub">
-                    <select formControlName="processRunningSubControl" class="form-control" id="SelectRunningProcess" name="processRunningSelect">
-                        <option selected="selected" value="null">-keine Auswahl-</option>
-                        <option *ngFor="let process of runningProcesses">{{process.name}}</option>
+                    <select formControlName="processRunningSubControl" class="form-control" id="SelectRunningProcess"
+                        name="processRunningSelect">
+                        <option selected="selected" value="null">- keine Auswahl -</option>
+                        <option *ngFor="let process of runningProcesses" value="{{process.processID}}">{{process.name}}</option>
                     </select>
                 </form>
                 <button (click)="subscribeRunningProcess()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 
 import { User } from '../user';
 import { Group } from '../group';
@@ -22,7 +23,8 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private cookieService: CookieService
+        private cookieService: CookieService,
+        public snackBar: MatSnackBar
     ) { }
 
     login(username: string, password: string) {
@@ -77,12 +79,19 @@ export class AuthService {
         // remove user from session storage to log user out
         sessionStorage.removeItem('currentUser');
         this.isLoggedin = false;
+        this.openSnackBar("Erfolgreich abgemeldet");
     }
 
     private setAuthData(username: string, password: string) {
         // Basic Auth Token
         this.currentUser.authdata = window.btoa(username + ':' + password);
     }
+
+    openSnackBar(text: string) {
+        this.snackBar.open(text, '', {
+          duration: 2000,
+        });
+      }
 
 }
 

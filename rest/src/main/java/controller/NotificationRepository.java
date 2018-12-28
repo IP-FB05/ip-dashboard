@@ -1,6 +1,10 @@
 package controller;
 
 import org.springframework.data.repository.CrudRepository;
+
+import javax.transaction.Transactional;
+
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
@@ -10,7 +14,9 @@ import controller.Notification;
 // CRUD refers Create, Read, Update, Delete
 
 public interface NotificationRepository extends CrudRepository<Notification, Integer> {
+    public Boolean existsByUsername(String username);
 
-    @Query("SELECT notification.username FROM dashboardDB.notification WHERE username = :username") 
-    String findByUsername(@Param("username") String username);
+    @Transactional
+    Long deleteByUsername(String username);
+
 }

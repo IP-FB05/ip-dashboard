@@ -16,8 +16,13 @@ import { DocumentsDialogComponent } from '../document/documents-dialog/documents
 export class DashboardComponent implements OnInit {
   processes: Process[] = [];
   documents: Document[] = [];
+  
 
-  constructor(private processService: ProcessService, private documentsService: DocumentService, public dialog: MatDialog) { }
+  constructor(
+    private processService: ProcessService,
+    private documentsService: DocumentService, 
+    public dialog: MatDialog,
+    public snackBar: MatSnackBar) { }
 
   ngOnInit() {
     this.getProcesses();
@@ -45,6 +50,7 @@ export class DashboardComponent implements OnInit {
   addDocument(doc : Document): void {
     this.documentsService.addDocument(doc)
       .subscribe(dokument => {
+        
         this.documents.push(dokument);
         this.getDocuments();
       });
@@ -93,6 +99,12 @@ export class DashboardComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       this.addDocument(data);
+    });
+  }
+
+  openSnackBar(text: string) {
+    this.snackBar.open(text , '', {
+      duration: 2000,
     });
   }
 

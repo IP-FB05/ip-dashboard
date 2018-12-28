@@ -10,6 +10,7 @@ import { AuthService } from '../login/auth/auth.service';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { Subscription } from '../subs/subscription';
 import { ProcessService } from '../process/process.service';
+import { MatSnackBar } from '@angular/material';
 
 
 const httpOptions = {
@@ -23,11 +24,12 @@ const httpOptions = {
 })
 export class ProfilComponent implements OnInit {
 
-  constructor(private pc: ProcessesComponent, 
-              private http: HttpClient, 
-              private subsService: SubsService,
-              private authService: AuthService,
-              private processService: ProcessService) { 
+  constructor(private pc: ProcessesComponent,
+    private http: HttpClient,
+    private subsService: SubsService,
+    private authService: AuthService,
+    private processService: ProcessService,
+    public snackBar: MatSnackBar) {
   }
 
   processes: Process[];
@@ -40,13 +42,12 @@ export class ProfilComponent implements OnInit {
   formNotification: FormGroup;
 
   sub: Subscription;
-  
+  notification: Notification;
+
 
   private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
-
-    
 
     this.formProcessSub = new FormGroup({
       processSubControl: new FormControl()
@@ -55,10 +56,6 @@ export class ProfilComponent implements OnInit {
     this.formRunningProcessSub = new FormGroup({
       processRunningSubControl: new FormControl()
     });
-
-    this.formNotification = new FormGroup({
-      notifyControl: new FormControl()
-    })
 
     this.getProcesses().subscribe(process => this.processes = process);
 
@@ -70,51 +67,112 @@ export class ProfilComponent implements OnInit {
 
     this.subsService.getRunningProcesses()
       .subscribe(process => this.runningProcesses = process);
-
-
-
   }
 
   public getProcesses() {
     return this.http.get<Process[]>(this.processUrl, httpOptions);
   }
 
+  public getProcessById(id: number) {
+    return this.http.get<Process>(this.processUrl + "/" + id);
+  }
+
   subscribeProcess() {
     var curProcessID = this.formProcessSub.controls.processSubControl.value.trim();
     var curUsername = this.authService.currentUser.id.trim();
-    if( !curProcessID || !curUsername) {
+    if (!curProcessID || !curUsername) {
       return;
     }
-    this.sub = new Subscription(curProcessID,curUsername);
+    this.sub = new Subscription(curProcessID, curUsername);
     this.subsService.addSubscribedProcess(this.sub)
-    .subscribe( data => {
-      alert("Process subscribed successfully.");
-    });
+      .subscribe(
+        data => {
+          this.openSnackBar("Prozess erfolgreich abonniert");
+        },
+        error => {
+          this.openSnackBar("Prozess konnte nicht abonniert werden");
+        });
   }
-
-
 
   subscribeRunningProcess() {
-
-    console.log('ProcessID: '+ this.formRunningProcessSub.controls.processRunningSubControl.value + ' User: ' + this.authService.currentUser.id);
-    this.subsService.addSubscribedRunningProcess(this.formRunningProcessSub.controls.processRunningSubControl.value, this.authService.currentUser.id);
-    
+    var curProcessID = this.formRunningProcessSub.controls.processRunningSubControl.value.trim();
+    var curUsername = this.authService.currentUser.id.trim();
+    if (!curProcessID || !curUsername) {
+      return;
+    }
+    this.sub = new Subscription(curProcessID, curUsername);
+    this.subsService.addSubscribedRunningProcess(this.sub)
+      .subscribe(
+        data => {
+          this.openSnackBar("Prozess erfolgreich abonniert");
+        },
+        error => {
+          this.openSnackBar("Prozess konnte nicht abonniert werden");
+          console.log(error);
+        });
   }
 
-  getNotification() {
-    this.subsService.checkUserNotification(this.authService.currentUser.id);
-  }
-
-  deleteSubscribedProcess(process: Process){
+  deleteSubscribedProcess(process: Process) {
     this.subscribedProcesses = this.subscribedProcesses.filter(p => p !== process);
-    this.subsService.deleteSubscribedProcess(process, this.authService.currentUser.id).subscribe();
+    var curUsername = this.authService.currentUser.id.trim();
+    if (!process.processID || !curUsername) {
+      return;
+    }
+    this.subsService.deleteSubscribedProcess(process, curUsername).subscribe(
+      data => {
+        this.openSnackBar("Prozess erfolgreich deabonniert");
+      },
+      error => {
+        this.openSnackBar("Prozess konnte nicht deabonniert werden");
+      });
   }
 
-  deleteSubscribedRunningProcess(process: Process){
+  deleteSubscribedRunningProcess(process: Process) {
     this.subscribedProcessInstances = this.subscribedProcessInstances.filter(p => p !== process);
-    this.subsService.deleteSubscribedRunningProcess(process, this.authService.currentUser.id).subscribe();
+    var curUsername = this.authService.currentUser.id.trim();
+    if (!process.processID || !curUsername) {
+      return;
+    }
+    this.subsService.deleteSubscribedRunningProcess(process, curUsername).subscribe(
+      data => {
+        this.openSnackBar("Prozess erfolgreich deabonniert");
+      },
+      error => {
+        this.openSnackBar("Prozess konnte nicht deabonniert werden");
+      });
   }
 
+  eventNotification(e) {
+    var curUsername = this.authService.currentUser.id.trim();
+    this.notification = new Notification(curUsername);
+    if (e.target.checked) {
+      console.log(curUsername);
+      this.subsService.deleteUserFromNotification(this.notification).subscribe(
+        data => {
+          this.openSnackBar("Benachrichtigungen aktiviert");
+        }, 
+        error => {
+          console.log(error);
+          this.openSnackBar("Benachrichtigungen konnten nicht aktiviert werden");
+        });
+    }
+    else {
+      console.log(curUsername);
+      this.subsService.addUserToNotification(this.notification).subscribe(
+        
+        data => {
+          this.openSnackBar("Benachrichtigungen deaktiviert");
+        }, 
+        error => {
+          console.log(error);
+          this.openSnackBar("Benachrichtigungen konnten nicht deaktiviert werden");
+        });
+    }
+  }
 
-
+  openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
+  }
 }

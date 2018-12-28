@@ -68,8 +68,8 @@ export class DocumentsDialogComponent implements OnInit {
     this.thisDialogRef.close('Cancel');
   }
 
-  openSnackBar() {
-    this.snackBar.open('Hinzufügen erfolgreich' , '', {
+  openSnackBar(text: string) {
+    this.snackBar.open(text , '', {
       duration: 2000,
     });
   }

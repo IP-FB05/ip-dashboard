@@ -3,6 +3,7 @@ import { AuthService } from './auth/auth.service';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { first } from 'rxjs/operators';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,8 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService,
               private fb: FormBuilder,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              public snackBar: MatSnackBar) {
 
     this.loginForm = this.fb.group({
       username: ['', Validators.required],
@@ -45,9 +47,10 @@ export class LoginComponent implements OnInit {
         .pipe(first())
         .subscribe(
             data => {
-                window.alert('Erfolgreich angemeldet.');
+                this.openSnackBar("Erfolgreich angemeldet");
             },
             error => {
+                this.openSnackBar("Benutzer konnte nicht angemeldet werden");
                 console.log(error);
             });
 
@@ -58,5 +61,11 @@ export class LoginComponent implements OnInit {
 logout() {
     this.authService.logout();
 }
+
+openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
+  }
 
 }
