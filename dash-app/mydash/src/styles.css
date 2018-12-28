@@ -258,10 +258,10 @@ hr {
 .navbar {
 
     padding:0;
-    height:65px;
+    height:80px;
     padding-left: 5px;
     padding-right: 9px;
-    height: 65px;
+    height: 80px;
     margin: 0 auto;
 
 }
@@ -409,7 +409,7 @@ a.list-documents  {
 }
 
 .btn-secondary {
-    background-color: ##B3B3B3;
+    background-color: #B3B3B3;
     border:1px solid #B3B3B3;
     white-space: normal;
     text-align:left;
@@ -421,6 +421,7 @@ a.list-documents  {
     color: #00b5ad !important;
     border:1px solid #00b5ad;
 }
+
 
 .dark-blue {
     
@@ -486,4 +487,9 @@ input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
 
 .form-control:focus {
     box-shadow: 0 0 0 0.2rem #00b5ad3b;
+}
+
+.mat-list, .mat-nav-list, .mat-selection-list
+{
+    text-align:center;
 }
