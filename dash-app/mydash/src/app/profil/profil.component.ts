@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProcessesComponent } from '../process/processes/processes.component';
 import { Process } from '../process/process';
 import { Subs } from '../subs/subs';
+import { Notification } from '../subs/notification'
 
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { SubsService } from '../subs/subs.service';
@@ -145,8 +146,8 @@ export class ProfilComponent implements OnInit {
   eventNotification(e) {
     var curUsername = this.authService.currentUser.id.trim();
     this.notification = new Notification(curUsername);
+    console.log(this.notification);
     if (e.target.checked) {
-      console.log(curUsername);
       this.subsService.deleteUserFromNotification(curUsername).subscribe(
         data => {
           this.openSnackBar("Benachrichtigungen aktiviert");
@@ -157,9 +158,7 @@ export class ProfilComponent implements OnInit {
         });
     }
     else {
-      console.log(curUsername);
       this.subsService.addUserToNotification(this.notification).subscribe(
-        
         data => {
           this.openSnackBar("Benachrichtigungen deaktiviert");
         }, 
