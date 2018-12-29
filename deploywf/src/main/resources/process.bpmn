@@ -2,6 +2,17 @@
 <bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" id="Definitions_1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
   <bpmn:process id="deploywf" name="deploywf" isExecutable="true">
     <bpmn:startEvent id="StartEventProcessStarted" name="Process&#10;started" camunda:initiator="user">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="name" label="Prozess Name" type="string" defaultValue="Test prozess" />
+          <camunda:formField id="beschreibung" label="Prozess Beschreibung" type="string" defaultValue="Test beschreibung" />
+          <camunda:formField id="pic" label="Bild Pfad(?)" type="string" defaultValue="Test Pfad" />
+          <camunda:formField id="warFile_path" label="warFile Pfad" type="string" defaultValue="Test Pfad" />
+          <camunda:formField id="bpmn" label="BPMN Pfad(?)" type="string" defaultValue="Test Pfad" />
+          <camunda:formField id="camunda_processID" label="Camunda ProcessID" type="string" defaultValue="Test ID" />
+          <camunda:formField id="zielEmail" label="Ziel Email" type="string" defaultValue="dashboarddonotreply@gmail.com" />
+        </camunda:formData>
+      </bpmn:extensionElements>
       <bpmn:outgoing>SequenceFlow1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:endEvent id="EndEventProcessEnded" name="Prozess erfolgreich deployt&#10;">
@@ -9,9 +20,8 @@
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="Task_1bfjlpp" />
     <bpmn:sequenceFlow id="SequenceFlow_0zc8m57" sourceRef="Task_1bfjlpp" targetRef="Task_01f231g" />
-    <bpmn:sequenceFlow id="SequenceFlow_1on72dp" sourceRef="Task_01f231g" targetRef="ExclusiveGateway_179qdod" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_179qdod" name="Deployment erfolgreich?" camunda:asyncBefore="true" default="SequenceFlow_0l7q9tr">
-      <bpmn:incoming>SequenceFlow_1on72dp</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1560glh</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1yp1ixg</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0l7q9tr</bpmn:outgoing>
     </bpmn:exclusiveGateway>
@@ -22,7 +32,6 @@
     <bpmn:endEvent id="EndEvent_08htgy7" name="Prozess nicht deployt">
       <bpmn:incoming>SequenceFlow_0tsh55i</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0tsh55i" sourceRef="Task_1intp8z" targetRef="EndEvent_08htgy7" />
     <bpmn:sequenceFlow id="SequenceFlow_1ep086l" sourceRef="Task_09k7k1c" targetRef="ExclusiveGateway_1mcufvn" />
     <bpmn:exclusiveGateway id="ExclusiveGateway_1mcufvn" name="Deployment erfolgreich?" default="SequenceFlow_1jkh9qd">
       <bpmn:incoming>SequenceFlow_1ep086l</bpmn:incoming>
@@ -32,33 +41,12 @@
     <bpmn:sequenceFlow id="SequenceFlow_09c8wak" name="ja" sourceRef="ExclusiveGateway_1mcufvn" targetRef="Task_0u76mm0">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${camundasuccess}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
-    <bpmn:sequenceFlow id="SequenceFlow_1jkh9qd" name="nein" sourceRef="ExclusiveGateway_1mcufvn" targetRef="Task_0s7j793" />
+    <bpmn:sequenceFlow id="SequenceFlow_1jkh9qd" name="nein" sourceRef="ExclusiveGateway_1mcufvn" targetRef="SendTask_0fv8466" />
     <bpmn:endEvent id="EndEvent_19tjfbo" name="Prozess nicht deployt">
-      <bpmn:incoming>SequenceFlow_0ac09vp</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_13gqtl8</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sequenceFlow id="SequenceFlow_0ac09vp" sourceRef="Task_0s7j793" targetRef="EndEvent_19tjfbo" />
-    <bpmn:serviceTask id="Task_1bfjlpp" name="Prozess deployen" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow1</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0zc8m57</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_01f231g" name="Deployment prüfen (Tomcat)" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_0zc8m57</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1on72dp</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_09k7k1c" name="Deployment prüfen (Camunda)" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_1yp1ixg</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1ep086l</bpmn:outgoing>
-    </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_0s7j793" name="Mail versenden" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_1jkh9qd</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0ac09vp</bpmn:outgoing>
-    </bpmn:sendTask>
-    <bpmn:sendTask id="Task_1intp8z" name="Mail versenden" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_0l7q9tr</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_0tsh55i</bpmn:outgoing>
-    </bpmn:sendTask>
     <bpmn:sequenceFlow id="SequenceFlow_0wea333" sourceRef="Task_0u76mm0" targetRef="Task_0f2gk08" />
-    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:asyncBefore="true">
+    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:class="de.fhaachen.deploywf.ProzessAnlegen">
       <bpmn:incoming>SequenceFlow_09c8wak</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0wea333</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0deioxh">
@@ -87,14 +75,45 @@
     <bpmn:endEvent id="EndEvent_0dqwewl" name="Prozess nicht deployt">
       <bpmn:incoming>SequenceFlow_11bn5fd</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_1dl2ulf" name="Deployment löschen" camunda:asyncBefore="true">
-      <bpmn:incoming>SequenceFlow_0z8os9e</bpmn:incoming>
-      <bpmn:outgoing>SequenceFlow_1ohlod0</bpmn:outgoing>
-    </bpmn:serviceTask>
     <bpmn:sequenceFlow id="SequenceFlow_0z8os9e" name="nein" sourceRef="ExclusiveGateway_05gej8j" targetRef="Task_1dl2ulf" />
     <bpmn:sequenceFlow id="SequenceFlow_1ohlod0" sourceRef="Task_1dl2ulf" targetRef="Task_0tlaukk" />
     <bpmn:sequenceFlow id="SequenceFlow_1xpg72q" sourceRef="Task_07lsfu0" targetRef="EndEventProcessEnded" />
     <bpmn:sequenceFlow id="SequenceFlow_11bn5fd" sourceRef="Task_0tlaukk" targetRef="EndEvent_0dqwewl" />
+    <bpmn:manualTask id="Task_09k7k1c" name="Deployment prüfen (Camunda)" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_1yp1ixg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ep086l</bpmn:outgoing>
+    </bpmn:manualTask>
+    <bpmn:sendTask id="Task_1intp8z" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="subject">Deployment</camunda:inputParameter>
+          <camunda:inputParameter name="text">Bei dem Deployen eines Prozesses ist ein Fehler aufgetreten</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0l7q9tr</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0tsh55i</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_0tsh55i" sourceRef="Task_1intp8z" targetRef="EndEvent_08htgy7" />
+    <bpmn:sendTask id="SendTask_0fv8466" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="subject">Deployment</camunda:inputParameter>
+          <camunda:inputParameter name="text">Bei dem Deployen eines Prozesses ist ein Fehler aufgetreten</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_1jkh9qd</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_13gqtl8</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sequenceFlow id="SequenceFlow_13gqtl8" sourceRef="SendTask_0fv8466" targetRef="EndEvent_19tjfbo" />
+    <bpmn:sequenceFlow id="SequenceFlow_1560glh" sourceRef="Task_01f231g" targetRef="ExclusiveGateway_179qdod" />
+    <bpmn:serviceTask id="Task_1bfjlpp" name="Prozess deployen" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow1</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0zc8m57</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_01f231g" name="Deployment prüfen (Tomcat)" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_0zc8m57</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1560glh</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:serviceTask id="Task_07lsfu0" name="Prozess veröffentlichen" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_0bfzt1s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1xpg72q</bpmn:outgoing>
@@ -102,6 +121,10 @@
     <bpmn:serviceTask id="Task_0tlaukk" name="Datenbankeintrag löschen" camunda:asyncBefore="true">
       <bpmn:incoming>SequenceFlow_1ohlod0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_11bn5fd</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Task_1dl2ulf" name="Deployment löschen" camunda:asyncBefore="true">
+      <bpmn:incoming>SequenceFlow_0z8os9e</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ohlod0</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_0fhm1rh">
       <bpmn:text>Tomcat Manager</bpmn:text>
@@ -132,7 +155,7 @@
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_08va5r8_di" bpmnElement="SequenceFlow1">
         <di:waypoint x="211" y="174" />
-        <di:waypoint x="249" y="174" />
+        <di:waypoint x="248" y="174" />
         <bpmndi:BPMNLabel>
           <dc:Bounds x="337.5" y="110" width="90" height="20" />
         </bpmndi:BPMNLabel>
@@ -140,10 +163,6 @@
       <bpmndi:BPMNEdge id="SequenceFlow_0zc8m57_di" bpmnElement="SequenceFlow_0zc8m57">
         <di:waypoint x="349" y="174" />
         <di:waypoint x="389" y="174" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="SequenceFlow_1on72dp_di" bpmnElement="SequenceFlow_1on72dp">
-        <di:waypoint x="489" y="174" />
-        <di:waypoint x="518" y="174" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="ExclusiveGateway_179qdod_di" bpmnElement="ExclusiveGateway_179qdod" isMarkerVisible="true">
         <dc:Bounds x="518" y="149" width="50" height="50" />
@@ -162,7 +181,7 @@
         <di:waypoint x="543" y="199" />
         <di:waypoint x="543" y="236" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="550" y="203" width="21" height="14" />
+          <dc:Bounds x="551" y="203" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_08htgy7_di" bpmnElement="EndEvent_08htgy7">
@@ -171,10 +190,6 @@
           <dc:Bounds x="622" y="301" width="67" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0tsh55i_di" bpmnElement="SequenceFlow_0tsh55i">
-        <di:waypoint x="593" y="276" />
-        <di:waypoint x="637" y="276" />
-      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1ep086l_di" bpmnElement="SequenceFlow_1ep086l">
         <di:waypoint x="715" y="174" />
         <di:waypoint x="764" y="174" />
@@ -196,7 +211,7 @@
         <di:waypoint x="789" y="199" />
         <di:waypoint x="789" y="236" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="795" y="204" width="21" height="14" />
+          <dc:Bounds x="796" y="204" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_19tjfbo_di" bpmnElement="EndEvent_19tjfbo">
@@ -204,25 +219,6 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds x="881" y="301" width="67" height="27" />
         </bpmndi:BPMNLabel>
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNEdge id="SequenceFlow_0ac09vp_di" bpmnElement="SequenceFlow_0ac09vp">
-        <di:waypoint x="839" y="276" />
-        <di:waypoint x="896" y="276" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_00xvbd1_di" bpmnElement="Task_1bfjlpp">
-        <dc:Bounds x="249" y="134" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_180bvi6_di" bpmnElement="Task_01f231g">
-        <dc:Bounds x="389" y="134" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1nwwmns_di" bpmnElement="Task_09k7k1c">
-        <dc:Bounds x="615" y="134" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SendTask_0yu8hom_di" bpmnElement="Task_0s7j793">
-        <dc:Bounds x="739" y="236" width="100" height="80" />
-      </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="SendTask_0cfoq86_di" bpmnElement="Task_1intp8z">
-        <dc:Bounds x="493" y="236" width="100" height="80" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0fhm1rh_di" bpmnElement="TextAnnotation_0fhm1rh">
         <dc:Bounds x="313" y="79" width="100" height="40" />
@@ -281,14 +277,11 @@
           <dc:Bounds x="1423" y="301" width="67" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_1656ns1_di" bpmnElement="Task_1dl2ulf">
-        <dc:Bounds x="1131" y="236" width="100" height="80" />
-      </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0z8os9e_di" bpmnElement="SequenceFlow_0z8os9e">
         <di:waypoint x="1181" y="199" />
         <di:waypoint x="1181" y="236" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="1186" y="215" width="21" height="14" />
+          <dc:Bounds x="1187" y="215" width="20" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1ohlod0_di" bpmnElement="SequenceFlow_1ohlod0">
@@ -303,11 +296,41 @@
         <di:waypoint x="1389" y="276" />
         <di:waypoint x="1438" y="276" />
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="ServiceTask_04n4tni_di" bpmnElement="Task_07lsfu0">
+      <bpmndi:BPMNShape id="ManualTask_109tx92_di" bpmnElement="Task_09k7k1c">
+        <dc:Bounds x="615" y="134" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="SendTask_0cfoq86_di" bpmnElement="Task_1intp8z">
+        <dc:Bounds x="493" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0tsh55i_di" bpmnElement="SequenceFlow_0tsh55i">
+        <di:waypoint x="593" y="276" />
+        <di:waypoint x="637" y="276" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0fv8466_di" bpmnElement="SendTask_0fv8466">
+        <dc:Bounds x="739" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_13gqtl8_di" bpmnElement="SequenceFlow_13gqtl8">
+        <di:waypoint x="839" y="276" />
+        <di:waypoint x="896" y="276" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1560glh_di" bpmnElement="SequenceFlow_1560glh">
+        <di:waypoint x="489" y="174" />
+        <di:waypoint x="518" y="174" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1m06k0u_di" bpmnElement="Task_1bfjlpp">
+        <dc:Bounds x="249" y="134" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1to46zp_di" bpmnElement="Task_01f231g">
+        <dc:Bounds x="389" y="134" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_03m4ted_di" bpmnElement="Task_07lsfu0">
         <dc:Bounds x="1245" y="134" width="100" height="80" />
       </bpmndi:BPMNShape>
-      <bpmndi:BPMNShape id="ServiceTask_02un9l0_di" bpmnElement="Task_0tlaukk">
+      <bpmndi:BPMNShape id="ServiceTask_0c6cpnb_di" bpmnElement="Task_0tlaukk">
         <dc:Bounds x="1289" y="236" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1s2vfzd_di" bpmnElement="Task_1dl2ulf">
+        <dc:Bounds x="1131" y="236" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
