@@ -41,6 +41,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
 import { FormUploadComponent } from './upload/form-upload/form-upload.component';
 import { SubsComponent } from './subs/subs/subs.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
+import { ProcessStartComponent } from './process/process-start/process-start.component';
 
 // Cookie
 import { CookieService } from 'ngx-cookie-service';
@@ -77,7 +78,8 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
     DetailsUploadComponent,
     FormUploadComponent,
     SubsComponent,
-    MyprocessesComponent
+    MyprocessesComponent,
+    ProcessStartComponent
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,7 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
 
     
   ],
-  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
+  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent, ProcessStartComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

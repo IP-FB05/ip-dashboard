@@ -1,0 +1,54 @@
+<form class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label">E-Mail f&uumlr Informationen</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="mail"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Betreuender Professor</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="profName"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Matrikelnummer</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="matrikelnr"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Betreuer Name (extern)</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuerName"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Betreuer E-Mail (extern)</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuerMail"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Vertrag</label>
+		<div class="controls">
+			<input type="file" cam-variable-name="contract"
+				cam-variable-type="File" cam-max-filesize="10000000" />
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
+  // custom JavaScript goes here
+  </script>
+</form>
