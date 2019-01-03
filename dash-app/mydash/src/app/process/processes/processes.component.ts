@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
 import { ProcessInstance } from '../processInstance';
 import { ProcessService } from '../process.service';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component';
 import { AuthorizationService } from '../../login/auth/authorization.service';
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+import { ProcessStartComponent} from '../process-start/process-start.component'
 
 
 @Component({
@@ -43,10 +44,18 @@ export class ProcessesComponent implements OnInit {
   }
 
   startProcess(process: Process): void {
-    this.processService.startProcess(process)
-    .subscribe(processInstance => {
-      this.processInstance = processInstance;
-      this.processService.addInstance(processInstance).subscribe();
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      processDefinitionId: process.camunda_processID
+    };
+
+    let dialogRef = this.dialog.open(ProcessStartComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
     });
   }
 

@@ -2,7 +2,7 @@ package fhaachen.ip.viewcampusdashboard.bachelorarbeit;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import utils.Config;
+//import utils.Config;
 
 import java.util.*;
 import javax.mail.*;
@@ -14,7 +14,7 @@ public class SendEmail implements JavaDelegate {
 
     public void execute(DelegateExecution execution) throws Exception {
 	
-        final String username = "dashboarddonotreply@gmail.com";
+        /*final String username = "dashboarddonotreply@gmail.com";
         final String password = Config.getConfig(Config.MAIL_PASS);
 
         Properties props = new Properties();
@@ -49,7 +49,7 @@ public class SendEmail implements JavaDelegate {
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
-        }
+        }*/
     }
 
 }

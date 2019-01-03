@@ -1,20 +1,21 @@
 <ng-container *ngIf="(this.authService.isLoggedin); else logoutTemplate">
-    <div class="profil">
+    <div class="profil" style="margin-left:30px; margin-right:30px;">
 
-        <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
+        <div class="row"  style=" margin-top:50px; margin-left:0; margin-right:0;">
             <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Dies ist eine Vorschau der Profil-Seite.
                 Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
         </div>
 
 
-        <div class="row" style="padding-left: 15px; padding-right:15px;">
+        <div class="row"  style=" margin-left:0; margin-right:0; margin-bottom:20px;" >
+            <button class="btn btn-abonnieren btn-secondary">Änderung des Passworts
             <a href="https://www.fh-aachen.de/hochschule/datenverarbeitungszentrale/benutzeraccount/service-seite/anleitungen/aenderung-des-passwortes/"
-                target="_blank" style=color:black;>
-                Änderung des Passworts
-            </a>
+                target="_blank" style=color:black;> </a>
+            </button>
+            
         </div>
 
-        <div class="row" style="padding-left: 35px; padding-right:35px;">
+        <div class="row"   style=" margin-left:20; margin-bottom:20px;">
                 <label class="form-check-label">
                     <input type="checkbox" class="form-check-input" value="checkedValue" (change)="eventNotification($event)"
                         checked>
@@ -24,7 +25,7 @@
 
 
 
-        <div class="row">
+        <div class="row" style="margin-top:50px;">
             <div class="col-md-3">
                 <label for="Process">Prozess abonnieren</label>
                 <form [formGroup]="formProcessSub">
@@ -35,7 +36,7 @@
                         </option>
                     </select>
                 </form>
-                <button (click)="subscribeProcess()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
+                <button (click)="subscribeProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:20px; margin-bottom:50px;">Abonnieren</button>
             </div>
         </div>
 
@@ -49,7 +50,7 @@
                         <option *ngFor="let process of runningProcesses" value="{{process.processID}}">{{process.name}}</option>
                     </select>
                 </form>
-                <button (click)="subscribeRunningProcess()" class="btn btn-abonnieren btn-secondary">Abonnieren</button>
+                <button (click)="subscribeRunningProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:10px; margin-bottom:50px;" >Abonnieren</button>
             </div>
         </div>
         <div class="row">
@@ -82,8 +83,8 @@
 </ng-container>
 
 <ng-template #logoutTemplate>
-    <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
-        <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Sie sind nicht angemeldet!</h1>
+    <div class="row"  style=" margin-left:0; margin-right:0; padding-left: 15px; margin-top:50px;" >
+       <div class="col-md-10"> <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Sie sind nicht angemeldet!</h1> </div>
     </div>
 
 </ng-template>

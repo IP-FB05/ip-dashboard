@@ -1,0 +1,173 @@
+13-Dec-2018 15:53:17.270 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Server version:        Apache Tomcat/9.0.12
+13-Dec-2018 15:53:17.285 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Server built:          Sep 4 2018 22:13:41 UTC
+13-Dec-2018 15:53:17.285 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Server number:         9.0.12.0
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log OS Name:               Windows 10
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log OS Version:            10.0
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Architecture:          amd64
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Java Home:             C:\Program Files\Java\jdk1.8.0_191\jre
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Version:           1.8.0_191-b12
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log JVM Vendor:            Oracle Corporation
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_BASE:         C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12
+13-Dec-2018 15:53:17.286 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log CATALINA_HOME:         C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12
+13-Dec-2018 15:53:17.287 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.config.file=C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\conf\logging.properties
+13-Dec-2018 15:53:17.287 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.util.logging.manager=org.apache.juli.ClassLoaderLogManager
+13-Dec-2018 15:53:17.287 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djdk.tls.ephemeralDHKeySize=2048
+13-Dec-2018 15:53:17.287 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.protocol.handler.pkgs=org.apache.catalina.webresources
+13-Dec-2018 15:53:17.287 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Xmx512m
+13-Dec-2018 15:53:17.288 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -XX:MaxPermSize=256m
+13-Dec-2018 15:53:17.288 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -XX:PermSize=256m
+13-Dec-2018 15:53:17.288 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dignore.endorsed.dirs=
+13-Dec-2018 15:53:17.289 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.base=C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12
+13-Dec-2018 15:53:17.289 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Dcatalina.home=C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12
+13-Dec-2018 15:53:17.289 INFORMATION [main] org.apache.catalina.startup.VersionLoggerListener.log Command line argument: -Djava.io.tmpdir=C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\temp
+13-Dec-2018 15:53:17.290 INFORMATION [main] org.apache.catalina.core.AprLifecycleListener.lifecycleEvent The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_191\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\ProgramData\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Skype\Phone\;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;C:\Program Files (x86)\Yarn\bin\;C:\Users\Mario\AppData\Local\Microsoft\WindowsApps;C:\Users\Mario\AppData\Local\GitHubDesktop\bin;C:\Users\Mario\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Mario\AppData\Roaming\npm;C:\Users\Mario\AppData\Local\Yarn\bin;C:\Users\Mario\Desktop\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;;.]
+13-Dec-2018 15:53:17.763 INFORMATION [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["http-nio-8080"]
+13-Dec-2018 15:53:17.837 INFORMATION [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Dec-2018 15:53:17.842 INFORMATION [main] org.apache.coyote.AbstractProtocol.init Initializing ProtocolHandler ["ajp-nio-8009"]
+13-Dec-2018 15:53:17.844 INFORMATION [main] org.apache.tomcat.util.net.NioSelectorPool.getSharedSelector Using a shared selector for servlet write/read
+13-Dec-2018 15:53:17.844 INFORMATION [main] org.apache.catalina.startup.Catalina.load Initialization processed in 1029 ms
+13-Dec-2018 15:53:18.121 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08046 Found camunda bpm platform configuration in CATALINA_BASE/CATALINA_HOME conf directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\conf\bpm-platform.xml] at 'file:/C:/Users/Mario/Desktop/camunda-bpm-tomcat-7.10.0/server/apache-tomcat-9.0.12/conf/bpm-platform.xml'
+13-Dec-2018 15:53:18.340 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-12003 Plugin 'ProcessApplicationEventListenerPlugin' activated on process engine 'default'
+13-Dec-2018 15:53:18.349 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-12003 Plugin 'SpinProcessEnginePlugin' activated on process engine 'default'
+13-Dec-2018 15:53:18.353 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+13-Dec-2018 15:53:18.600 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+13-Dec-2018 15:53:18.614 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+13-Dec-2018 15:53:18.614 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+13-Dec-2018 15:53:18.615 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-12003 Plugin 'ConnectProcessEnginePlugin' activated on process engine 'default'
+13-Dec-2018 15:53:18.881 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo CNCT-01004 Discovered provider for connector id 'http-connector' and class 'org.camunda.connect.httpclient.impl.HttpConnectorImpl': 'org.camunda.connect.httpclient.impl.HttpConnectorProviderImpl'
+13-Dec-2018 15:53:18.884 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo CNCT-01004 Discovered provider for connector id 'soap-http-connector' and class 'org.camunda.connect.httpclient.soap.impl.SoapHttpConnectorImpl': 'org.camunda.connect.httpclient.soap.impl.SoapHttpConnectorProviderImpl'
+13-Dec-2018 15:53:21.200 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-00001 Process Engine default created.
+13-Dec-2018 15:53:21.202 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-14014 Starting up the JobExecutor[org.camunda.bpm.engine.impl.jobexecutor.RuntimeContainerJobExecutor].
+13-Dec-2018 15:53:21.203 INFORMATION [Thread-6] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-14018 JobExecutor[org.camunda.bpm.engine.impl.jobexecutor.RuntimeContainerJobExecutor] starting to acquire jobs
+13-Dec-2018 15:53:21.341 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08048 Camunda BPM platform sucessfully started at 'Apache Tomcat/9.0.12'.
+13-Dec-2018 15:53:21.358 INFORMATION [main] org.apache.catalina.core.StandardService.startInternal Starting service [Catalina]
+13-Dec-2018 15:53:21.358 INFORMATION [main] org.apache.catalina.core.StandardEngine.startInternal Starting Servlet Engine: Apache Tomcat/9.0.12
+13-Dec-2018 15:53:21.426 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\bachelorthesis.war]
+13-Dec-2018 15:53:23.411 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07015 Detected @ProcessApplication class 'de.fhaachen.gpm.practicum.CamundaBpmProcessApplication'
+13-Dec-2018 15:53:23.445 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:23.472 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08024 Found processes.xml file at file:/C:/Users/Mario/Desktop/camunda-bpm-tomcat-7.10.0/server/apache-tomcat-9.0.12/webapps/bachelorthesis/WEB-INF/classes/META-INF/processes.xml
+13-Dec-2018 15:53:23.497 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08023 Deployment summary for process archive 'bachelorthesis': 
+
+        Gr2 - GPM P3 -incl SOAP- SOLL Prozess.bpmn
+
+13-Dec-2018 15:53:23.843 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07021 ProcessApplication 'bachelorthesis' registered for DB deployments [9042cb1e-f8b7-11e8-b43c-d0509993700d]. Will execute process definitions 
+
+        Process_1[version: 1, id: Process_1:1:904a1e20-f8b7-11e8-b43c-d0509993700d]
+Deployment does not provide any case definitions.
+13-Dec-2018 15:53:23.848 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+13-Dec-2018 15:53:23.850 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+13-Dec-2018 15:53:23.852 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+13-Dec-2018 15:53:23.852 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+13-Dec-2018 15:53:23.854 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08050 Process application bachelorthesis successfully deployed
+13-Dec-2018 15:53:23.871 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\bachelorthesis.war] has finished in [2,444] ms
+13-Dec-2018 15:53:23.920 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\praxissemester.war]
+13-Dec-2018 15:53:25.518 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07015 Detected @ProcessApplication class 'de.fhaachen.praxissemester.CamundaBpmProcessApplication'
+13-Dec-2018 15:53:25.545 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:25.547 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08024 Found processes.xml file at file:/C:/Users/Mario/Desktop/camunda-bpm-tomcat-7.10.0/server/apache-tomcat-9.0.12/webapps/praxissemester/WEB-INF/classes/META-INF/processes.xml
+13-Dec-2018 15:53:25.562 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08023 Deployment summary for process archive 'praxissemester': 
+
+        praxissemester.bpmn
+
+13-Dec-2018 15:53:25.604 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07021 ProcessApplication 'praxissemester' registered for DB deployments [15aac73c-f97a-11e8-bc42-d0509993700d]. Will execute process definitions 
+
+        Praxissemester[version: 1, id: Praxissemester:1:15ad5f4e-f97a-11e8-bc42-d0509993700d]
+Deployment does not provide any case definitions.
+13-Dec-2018 15:53:25.607 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+13-Dec-2018 15:53:25.609 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+13-Dec-2018 15:53:25.611 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+13-Dec-2018 15:53:25.611 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+13-Dec-2018 15:53:25.612 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08050 Process application praxissemester successfully deployed
+13-Dec-2018 15:53:25.615 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\praxissemester.war] has finished in [1,695] ms
+13-Dec-2018 15:53:25.624 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deploying web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\pruefungabmelden.war]
+13-Dec-2018 15:53:27.544 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07015 Detected @ProcessApplication class 'de.fhaachen.ip.pruefungabmelden.CamundaBpmProcessApplication'
+13-Dec-2018 15:53:27.565 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:27.567 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08024 Found processes.xml file at file:/C:/Users/Mario/Desktop/camunda-bpm-tomcat-7.10.0/server/apache-tomcat-9.0.12/webapps/pruefungabmelden/WEB-INF/classes/META-INF/processes.xml
+13-Dec-2018 15:53:27.579 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08023 Deployment summary for process archive 'pruefungabmelden': 
+
+        process.bpmn
+
+13-Dec-2018 15:53:27.603 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07021 ProcessApplication 'pruefungabmelden' registered for DB deployments [6a793cdc-fb17-11e8-8b11-d0509993700d]. Will execute process definitions 
+
+        pruefungabmelden[version: 1, id: pruefungabmelden:1:6a8041be-fb17-11e8-8b11-d0509993700d]
+Deployment does not provide any case definitions.
+13-Dec-2018 15:53:27.607 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+13-Dec-2018 15:53:27.609 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+13-Dec-2018 15:53:27.611 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+13-Dec-2018 15:53:27.612 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+13-Dec-2018 15:53:27.612 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08050 Process application pruefungabmelden successfully deployed
+13-Dec-2018 15:53:27.616 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployWAR Deployment of web application archive [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\pruefungabmelden.war] has finished in [1,992] ms
+13-Dec-2018 15:53:27.617 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\browser-forms-angular]
+13-Dec-2018 15:53:29.007 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:29.010 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\browser-forms-angular] has finished in [1,393] ms
+13-Dec-2018 15:53:29.010 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda]
+13-Dec-2018 15:53:32.164 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:32.475 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda] has finished in [3,465] ms
+13-Dec-2018 15:53:32.475 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda-invoice]
+13-Dec-2018 15:53:33.984 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07015 Detected @ProcessApplication class 'org.camunda.bpm.example.invoice.InvoiceProcessApplication'
+13-Dec-2018 15:53:34.004 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:34.006 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08024 Found processes.xml file at file:/C:/Users/Mario/Desktop/camunda-bpm-tomcat-7.10.0/server/apache-tomcat-9.0.12/webapps/camunda-invoice/WEB-INF/classes/META-INF/processes.xml
+13-Dec-2018 15:53:34.037 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08023 Deployment summary for process archive 'camunda-invoice': 
+
+        invoiceBusinessDecisions.dmn
+        invoice.v2.bpmn
+        review-invoice.cmmn
+
+13-Dec-2018 15:53:34.167 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-07021 ProcessApplication 'camunda-invoice' registered for DB deployments [9d23bf59-f8b3-11e8-b43c-d0509993700d, 9cf227ff-f8b3-11e8-b43c-d0509993700d]. Will execute process definitions 
+
+        invoice[version: 2, id: invoice:2:9d26a58d-f8b3-11e8-b43c-d0509993700d]
+        invoice[version: 1, id: invoice:1:9cfe0ee3-f8b3-11e8-b43c-d0509993700d]
+
+Will execute case definitions 
+
+        ReviewInvoiceCase[version: 2, id: ReviewInvoiceCase:2:9d2a27ff-f8b3-11e8-b43c-d0509993700d]
+        ReviewInvoiceCase[version: 1, id: ReviewInvoiceCase:1:9d123325-f8b3-11e8-b43c-d0509993700d]
+
+13-Dec-2018 15:53:34.170 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormatProvider[name = application/json]
+13-Dec-2018 15:53:34.172 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01010 Discovered Spin data format provider: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormatProvider[name = application/xml]
+13-Dec-2018 15:53:34.173 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.xml.dom.format.DomXmlDataFormat[name = application/xml]
+13-Dec-2018 15:53:34.174 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo SPIN-01009 Discovered Spin data format: org.camunda.spin.impl.json.jackson.format.JacksonJsonDataFormat[name = application/json]
+13-Dec-2018 15:53:34.222 INFORMATION [main] org.camunda.bpm.example.invoice.InvoiceProcessApplication.startProcessInstances No new instances of Invoice Receipt version 1 started, there are 3 instances running
+13-Dec-2018 15:53:34.245 INFORMATION [main] org.camunda.bpm.example.invoice.InvoiceProcessApplication.startProcessInstances No new instances of Invoice Receipt version 2 started, there are 3 instances running
+13-Dec-2018 15:53:34.246 INFORMATION [main] org.camunda.commons.logging.BaseLogger.logInfo ENGINE-08050 Process application camunda-invoice successfully deployed
+13-Dec-2018 15:53:34.249 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda-invoice] has finished in [1,773] ms
+13-Dec-2018 15:53:34.249 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda-welcome]
+13-Dec-2018 15:53:35.612 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:35.614 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\camunda-welcome] has finished in [1,365] ms
+13-Dec-2018 15:53:35.614 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\docs]
+13-Dec-2018 15:53:36.970 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:36.972 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\docs] has finished in [1,358] ms
+13-Dec-2018 15:53:36.973 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\engine-rest]
+13-Dec-2018 15:53:39.152 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:39.299 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\engine-rest] has finished in [2,326] ms
+13-Dec-2018 15:53:39.299 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\examples]
+13-Dec-2018 15:53:41.599 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:41.637 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\examples] has finished in [2,338] ms
+13-Dec-2018 15:53:41.637 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\h2]
+13-Dec-2018 15:53:43.030 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:43.036 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\h2] has finished in [1,399] ms
+13-Dec-2018 15:53:43.036 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\host-manager]
+13-Dec-2018 15:53:44.384 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:44.388 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\host-manager] has finished in [1,352] ms
+13-Dec-2018 15:53:44.388 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\manager]
+13-Dec-2018 15:53:45.727 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:45.730 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\manager] has finished in [1,342] ms
+13-Dec-2018 15:53:45.730 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\ROOT]
+13-Dec-2018 15:53:47.057 INFORMATION [main] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:53:47.060 INFORMATION [main] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\ROOT] has finished in [1,330] ms
+13-Dec-2018 15:53:47.062 INFORMATION [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["http-nio-8080"]
+13-Dec-2018 15:53:47.068 INFORMATION [main] org.apache.coyote.AbstractProtocol.start Starting ProtocolHandler ["ajp-nio-8009"]
+13-Dec-2018 15:53:47.071 INFORMATION [main] org.apache.catalina.startup.Catalina.start Server startup in 29226 ms
+13-Dec-2018 15:54:37.116 INFORMATION [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.deployDirectory Deploying web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\browser-forms]
+13-Dec-2018 15:54:38.431 INFORMATION [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.jasper.servlet.TldScanner.scanJars At least one JAR was scanned for TLDs yet contained no TLDs. Enable debug logging for this logger for a complete list of JARs that were scanned but no TLDs were found in them. Skipping unneeded JARs during scanning can improve startup time and JSP compilation time.
+13-Dec-2018 15:54:38.441 INFORMATION [ContainerBackgroundProcessor[StandardEngine[Catalina]]] org.apache.catalina.startup.HostConfig.deployDirectory Deployment of web application directory [C:\Users\Mario\Desktop\camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps\browser-forms] has finished in [1,325] ms
+13-Dec-2018 15:54:40.544 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Deploying javax.ws.rs.core.Application: class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.559 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.559 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.exception.ProcessEngineExceptionHandler from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.560 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.mapper.MultipartPayloadProvider from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.560 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.exception.JsonParseExceptionHandler from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.561 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.hal.JacksonHalJsonProvider from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.561 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.exception.RestExceptionHandler from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.562 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding class resource org.camunda.bpm.engine.rest.impl.JaxRsTwoNamedProcessEngineRestServiceImpl from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.562 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding class resource org.camunda.bpm.engine.rest.impl.JaxRsTwoDefaultProcessEngineRestServiceImpl from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.563 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.mapper.JacksonConfigurator from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication
+13-Dec-2018 15:54:40.564 INFORMATION [http-nio-8080-exec-4] org.jboss.resteasy.logging.impl.Slf4jLogger.info Adding provider class org.camunda.bpm.engine.rest.exception.JsonMappingExceptionHandler from Application class org.camunda.bpm.engine.rest.impl.application.DefaultApplication

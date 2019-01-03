@@ -1,14 +1,7 @@
-<strong>Here you would put the actual form to start the process</strong>
-
-<p>
-	Bitte geben Sie hier
-	<code>embedded:app:forms/start-form.html</code>
-</p>
-
 <form class="form-horizontal">
 
 	<div class="control-group">
-		<label class="control-label">Für wie lange magst du deine Bachelorarbeit verlängern:</label>
+		<label class="control-label">Für wie lange magst du deine Bachelorarbeit verlängern: (yyyy-MM-dd'T'HH:mm:ss)</label>
 		<div class="controls">
 			<input type="text" cam-variable-name="verlaengerung"
 				cam-variable-type="Date" required class="form-control" />
@@ -27,10 +20,10 @@
 	</div>
 	
 	<div class="control-group">
-		<label class="control-label">Dein Wunschbetreuer:</label>
+		<label class="control-label">Atteste oder sonstige Dateien:</label>
 		<div class="controls">
 			<input type="file" cam-variable-name="Attest_DOCUMENT"
-				cam-variable-type="File" cam-max-filesize="10000000" required class="form-control" />
+				cam-variable-type="File" cam-max-filesize="10000000" class="form-control" />
 		</div>
 	</div>
 	

@@ -261,6 +261,8 @@ hr {
     height:80px;
     height: 80px;
     margin: 0 auto;
+    padding-left: 0;
+    padding-right: ß;
 
 }
 
@@ -525,4 +527,8 @@ input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
     text-transform: none;
     font-size: 14px;
     font-weight:300;
+}
+
+.form-check-label {
+    margin-left: 35px;
 }

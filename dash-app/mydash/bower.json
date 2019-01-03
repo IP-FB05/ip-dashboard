@@ -1,0 +1,20 @@
+{
+  "name": "mydash",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Mario Trappein <34215934+Moonprayer@users.noreply.github.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/IP-FB05/ip-dashboard",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "camunda-bpm-sdk-js": "^7.10.1"
+  }
+}
