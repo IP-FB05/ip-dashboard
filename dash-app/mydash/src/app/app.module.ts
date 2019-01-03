@@ -49,6 +49,10 @@ import { CookieService } from 'ngx-cookie-service';
 import { BasicAuthInterceptor } from './login/auth/basic-auth-interceptor';
 import { ErrorInterceptor } from './login/auth/error-interceptor';
 
+// Angular-JWT
+import { AuthorizationService } from './login/auth/authorization.service';
+import { Error401Component } from './helper/error/error401/error401.component';
+
 
 
 
@@ -77,7 +81,8 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
     DetailsUploadComponent,
     FormUploadComponent,
     SubsComponent,
-    MyprocessesComponent
+    MyprocessesComponent,
+    Error401Component
   ],
   imports: [
     BrowserModule,
@@ -91,7 +96,7 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
     MatCardModule,
     MatButtonModule,
     MatSnackBarModule,
-    DiagramModule
+    DiagramModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
@@ -110,7 +115,8 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
     ProcessesComponent,
     SystemsComponent,
     DocumentsComponent,
-    CookieService
+    CookieService,
+    AuthorizationService
   ],
   bootstrap: [AppComponent]
 })

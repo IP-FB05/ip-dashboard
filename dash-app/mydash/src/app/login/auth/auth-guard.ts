@@ -1,19 +1,32 @@
 import { Injectable } from '@angular/core';
-import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, CanActivateChild } from '@angular/router';
+import { AuthorizationService } from './authorization.service';
+import { Observable } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
 
-    constructor(private router: Router) { }
+    constructor(private authorizationService: AuthorizationService, private router: Router) { }
 
-    canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (sessionStorage.getItem('currentUser')) {
-            // logged in so return true
-            return true;
+    canActivate(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        const allowedRoles = next.data.allowedRoles;
+        const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
+
+        if (!isAuthorized) {
+            this.router.navigate(['login']);
         }
 
-        // not logged in so redirect to login page with the return url
-        this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
-        return false;
+        return isAuthorized;
+    }
+
+    canActivateChild(next: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+        const allowedRoles = next.data.allowedRoles;
+        const isAuthorized = this.authorizationService.isAuthorized(allowedRoles);
+
+        if (!isAuthorized) {
+            this.router.navigate(['login']);
+        }
+
+        return isAuthorized
     }
 }

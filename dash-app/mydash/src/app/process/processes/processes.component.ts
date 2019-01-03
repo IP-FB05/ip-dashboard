@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Process } from '../process';
 import { ProcessInstance } from '../processInstance';
 import { ProcessService } from '../process.service';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
-import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component'
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
+import { ProcessesDialogComponent} from '../processes-dialog/processes-dialog.component';
+import { AuthorizationService } from '../../login/auth/authorization.service';
 
 
 @Component({
@@ -19,7 +20,10 @@ export class ProcessesComponent implements OnInit {
   searchText:string;
   processInstance: ProcessInstance;
 
-  constructor(private processService: ProcessService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
+  constructor(private processService: ProcessService, 
+    public dialog: MatDialog, 
+    public snackBar:MatSnackBar,
+    public authorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.getProcesses();
