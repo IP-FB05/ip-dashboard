@@ -41,6 +41,7 @@ import { DetailsUploadComponent } from './upload/details-upload/details-upload.c
 import { FormUploadComponent } from './upload/form-upload/form-upload.component';
 import { SubsComponent } from './subs/subs/subs.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
+import { ProcessStartComponent } from './process/process-start/process-start.component';
 
 
 
@@ -71,7 +72,8 @@ import { MyprocessesComponent } from './myprocesses/myprocesses.component';
     DetailsUploadComponent,
     FormUploadComponent,
     SubsComponent,
-    MyprocessesComponent
+    MyprocessesComponent,
+    ProcessStartComponent
   ],
   imports: [
     BrowserModule,
@@ -96,7 +98,7 @@ import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 
     
   ],
-  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent],
+  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent, ProcessStartComponent],
   providers: [
     FilterComponent,
     ProcessesComponent,

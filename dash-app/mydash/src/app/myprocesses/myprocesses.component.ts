@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import * as CamSDK from './camunda-bpm-sdk.js';
+import * as CamSDK from './../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
 
 declare var CamSDK: any;
 
-var $formContainer = $('.column.right');
+var $formContainer;
 
 var camClient = new CamSDK.Client({
   mock: false,
@@ -71,7 +71,6 @@ function showTasks(results) {
 }
 
 
-
 function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
   taskService.form(taskId, function(err, taskFormInfo) {
@@ -102,6 +101,7 @@ export class MyprocessesComponent implements OnInit {
 
   ngOnInit() {
     // load the tasks at start
+    $formContainer = $('.column.right');
     loadTasks();
   }
 
