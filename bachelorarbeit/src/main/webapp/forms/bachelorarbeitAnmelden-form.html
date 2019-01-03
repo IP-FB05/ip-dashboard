@@ -1,12 +1,21 @@
-<strong>Here you would put the actual form to start the process</strong>
+<p id="Infotext"></p>
 
 <p>
-	Bitte geben Sie hier
-	<code>embedded:app:forms/start-form.html</code>
+	Mögliche Wunschbetreuer:
+	<p></p>
+	demo : Demo Demo
 </p>
 
 <form class="form-horizontal">
 
+
+	<div class="control-group">
+		<label class="control-label">Dein Wunschbetreuer:</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuer"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
 
 	<div class="control-group">
 		<label class="control-label">Dein Wuschthema:</label>
@@ -15,15 +24,7 @@
 				cam-variable-type="String" required class="form-control" />
 		</div>
 	</div>
-	
-	<div class="control-group">
-		<label class="control-label">Dein Wunschbetreuer:</label>
-		<div class="controls">
-			<input type="text" cam-variable-name="betreuer"
-				cam-variable-type="String" required class="form-control" />
-		</div>
-	</div>
-	
+
 	<div class="control-group">
 		<label class="control-label">Der Titel deiner Bachelorarbeit:</label>
 		<div class="controls">
@@ -34,7 +35,7 @@
 
 
 	<div class="control-group">
-		<label class="control-label">An welchem Datum magst du die BA starten:</label>
+		<label class="control-label">An welchem Datum magst du die BA starten: (yyyy-MM-dd'T'HH:mm:ss)</label>
 		<div class="controls">
 			<input type="text" cam-variable-name="startDatum"
 				cam-variable-type="Date" required class="form-control" />
@@ -42,6 +43,18 @@
 	</div>
 
 	<script cam-script type="text/form-script">
-  // custom JavaScript goes here
+		 var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('betreuervar');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var betreuervar = variableManager.variableValue('betreuer');
+			if(betreuervar) {
+				document.getElementById("Infotext").innerHTML =
+					"Der Betreuer "+ betreuervar + " hat die Betreuung deiner Bachelararbeit abgelehnt";
+			}
+		});
   </script>
 </form>
