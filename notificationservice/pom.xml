@@ -6,7 +6,7 @@
   <artifactId>notificationservice</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <packaging>war</packaging>
+  <packaging>jar</packaging>
 
   <properties>
     <camunda.version>7.9.0</camunda.version>
