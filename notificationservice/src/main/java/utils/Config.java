@@ -1,13 +1,10 @@
 package utils;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 
 public class Config {
 	
@@ -15,6 +12,7 @@ public class Config {
 	public static final String REST_PASS = "restpass";
 	public static final String DB_USER = "dbuser";
 	public static final String DB_PASS = "dbpass";
+	public static final String MAIL_PASS = "mailpass";
 	static Map<String, String> configMap = null;
 	
 	public static String getConfig(String property) {

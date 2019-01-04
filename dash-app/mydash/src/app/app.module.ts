@@ -83,7 +83,7 @@ import { Error401Component } from './helper/error/error401/error401.component';
     FormUploadComponent,
     SubsComponent,
     MyprocessesComponent,
-    Error401Component
+    Error401Component,
     ProcessStartComponent
   ],
   imports: [
