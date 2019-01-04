@@ -11,6 +11,7 @@ import { CategoryComponent } from './category/category/category.component';
 import { ProfilComponent } from './profil/profil.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 import { AuthGuard } from './login/auth/auth-guard';
+import { Error401Component } from './helper/error/error401/error401.component';
 
 /*const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -78,6 +79,11 @@ const routes: Routes = [
       {
         path: 'documents',
         component: DocumentsComponent,
+        data: {}
+      },
+      {
+        path: 'error401',
+        component: Error401Component,
         data: {}
       },
       {
