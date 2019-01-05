@@ -6,6 +6,8 @@ import { DocumentService } from '../document/document.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { ProcessesDialogComponent} from '../process/processes-dialog/processes-dialog.component'
 import { DocumentsDialogComponent } from '../document/documents-dialog/documents-dialog.component';
+import { AuthorizationService } from '../login/auth/authorization.service';
+import { AuthService } from '../login/auth/auth.service';
 
 
 @Component({
@@ -22,7 +24,9 @@ export class DashboardComponent implements OnInit {
     private processService: ProcessService,
     private documentsService: DocumentService, 
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private authorizationService: AuthorizationService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.getProcesses();

@@ -9,7 +9,6 @@ import { AuthService } from './auth.service';
 export class AuthorizationService {
 
   constructor(private authService: AuthService) {
-
   }
 
   currentUser: User = new User();

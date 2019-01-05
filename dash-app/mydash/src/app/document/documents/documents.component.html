@@ -33,7 +33,9 @@
                         <td><a href={{document.link}} style="color: black">{{document.name}}</a></td>
                         <td>{{document.categoriename}}</td>
                         <td>{{document.lastChanged}}</td>
+                        <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
                         <td><button class="delete-dark" (click)="delete(document)" (click)="openSnackBar()" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
+                        </ng-container>
                     </tr>
                 </tbody>
             </table>
@@ -49,7 +51,7 @@
             </form>
         </div>
         -->
-    
+        <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
         <div class="col-md-3" style="margin-bottom:20px;">
         <div class="card-deck">
     <div class="card" style="border: 1px solid #e2e2e2;">
@@ -64,5 +66,6 @@
       </div>
     </div>
   </div>
+</ng-container>
     </div>
 </div>

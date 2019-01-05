@@ -3,6 +3,7 @@ import { Document } from '../document';
 import { DocumentService } from '../document.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { DocumentsDialogComponent } from '../documents-dialog/documents-dialog.component';
+import { AuthorizationService } from 'src/app/login/auth/authorization.service';
 
 
 
@@ -18,7 +19,10 @@ export class DocumentsComponent implements OnInit {
   searchText:string;
   //flag: boolean;
 
-  constructor(private documentsService: DocumentService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
+  constructor(private documentsService: DocumentService,
+              public dialog: MatDialog, 
+              public snackBar:MatSnackBar,
+              private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.getDokumente();
