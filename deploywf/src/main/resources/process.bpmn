@@ -46,7 +46,7 @@
       <bpmn:incoming>SequenceFlow_13gqtl8</bpmn:incoming>
     </bpmn:endEvent>
     <bpmn:sequenceFlow id="SequenceFlow_0wea333" sourceRef="Task_0u76mm0" targetRef="Task_0zcgohg" />
-    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.ProzessAnlegen">
+    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.deploywf.ProzessAnlegen">
       <bpmn:incoming>SequenceFlow_09c8wak</bpmn:incoming>
       <bpmn:incoming>SequenceFlow1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0wea333</bpmn:outgoing>

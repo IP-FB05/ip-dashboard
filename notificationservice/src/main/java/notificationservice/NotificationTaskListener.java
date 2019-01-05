@@ -96,47 +96,49 @@ public class NotificationTaskListener implements TaskListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-
-		// 4. email addressen besorgen
-		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
-		String cslDestination = "";
-		for (String subscriber : subscriber_list) {
-			cslDestination = cslDestination
-					+ processEngine.getIdentityService().createUserQuery().userId(subscriber).singleResult().getEmail() + ",";
-		}
-		for (String subscriber : processbeteiligte_list) {
-			cslDestination = cslDestination
-					+ processEngine.getIdentityService().createUserQuery().userId(subscriber).singleResult().getEmail() + ",";
-		}
-		cslDestination = cslDestination.substring(0, cslDestination.length() - 1);
-		
-		// 5. mail versenden
-		final String username = "dashboarddonotreply@gmail.com";
-		final String password = Config.getConfig(Config.MAIL_PASS);
-
-		props = new Properties();
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.port", "587");
-
-		Session session = Session.getInstance(props, new Authenticator() {
-			protected PasswordAuthentication getPasswordAuthentication() {
-				return new PasswordAuthentication(username, password);
+		if (processbeteiligte_list.size() >= 0 || subscriber_list.size() >= 0) {
+			// 4. email addressen besorgen
+			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+			String cslDestination = "";
+			for (String subscriber : subscriber_list) {
+				cslDestination = cslDestination + processEngine.getIdentityService().createUserQuery()
+						.userId(subscriber).singleResult().getEmail() + ",";
 			}
-		});
+			for (String subscriber : processbeteiligte_list) {
+				cslDestination = cslDestination + processEngine.getIdentityService().createUserQuery()
+						.userId(subscriber).singleResult().getEmail() + ",";
+			}
+			cslDestination = cslDestination.substring(0, cslDestination.length() - 1);
 
-		try {
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(cslDestination));
-			message.setSubject("Der Prozess geht weiter");
-			message.setText("Blah blah blah");
-			Transport.send(message);
-		} catch (MessagingException e) {
-			LOGGER.log(Level.SEVERE, "Destination: " + cslDestination);
-			throw new RuntimeException(e);
+			// 5. mail versenden
+			final String username = "dashboarddonotreply@gmail.com";
+			final String password = Config.getConfig(Config.MAIL_PASS);
+
+			props = new Properties();
+			props.put("mail.smtp.auth", "true");
+			props.put("mail.smtp.starttls.enable", "true");
+			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.port", "587");
+
+			Session session = Session.getInstance(props, new Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication(username, password);
+				}
+			});
+
+			try {
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
+				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(cslDestination));
+				message.setSubject("Der Prozess geht weiter");
+				message.setText("Blah blah blah");
+				Transport.send(message);
+			} catch (MessagingException e) {
+				LOGGER.log(Level.SEVERE, "Destination: " + cslDestination);
+				throw new RuntimeException(e);
+			}
 		}
+
 	}
 
 }
