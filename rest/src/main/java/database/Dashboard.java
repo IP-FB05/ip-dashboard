@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import controller.System;
+import controller.Usergroup;
 import controller.Document;
 import controller.Process;
 import controller.Subs;
@@ -580,6 +581,25 @@ public class Dashboard {
 		}
 
 		return true;
+	}
+
+
+
+	public Usergroup[] getUsergroups() throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM usergroups");
+		resultSet = preparedStatement.executeQuery();
+		if (resultSet.first()) {
+			resultSet.last();
+			int rowNumber = resultSet.getRow();
+			Usergroup[] usergroups = new Usergroup[rowNumber];
+			resultSet.first();
+			for (int i = 0; i < rowNumber; i++) {
+				usergroups[i] = new Usergroup(resultSet.getInt(1), resultSet.getString("usergroup_name"));
+				resultSet.next();
+			}
+			return usergroups;
+		}
+		return null;
 	}
 
 }

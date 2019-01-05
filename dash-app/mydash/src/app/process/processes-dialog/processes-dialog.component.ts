@@ -5,6 +5,8 @@ import { Process } from '../process';
 import { Observable } from 'rxjs';
 import { UploadFileService } from 'src/app/upload/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Usergroup } from 'src/app/usergroup/usergroup';
+import { UsergroupService } from 'src/app/usergroup/usergroup.service';
 
 @Component({
   selector: 'app-processes-dialog',
@@ -22,7 +24,9 @@ export class ProcessesDialogComponent implements OnInit {
   bpmn: string;
   added: string;
   camunda_processID: string;
+  usergroup: string;
 
+  usergroups: Usergroup[];
   fileUploads: Observable<string[]>;
   selectedFiles: FileList;
   currentFileUpload: File;
@@ -30,6 +34,7 @@ export class ProcessesDialogComponent implements OnInit {
   //progress: { percentage: number } = { percentage : 0 };
 
   constructor(
+    private usergroupService: UsergroupService,
     private uploadService: UploadFileService,
     public snackBar: MatSnackBar,
     public fb: FormBuilder,
@@ -45,13 +50,22 @@ export class ProcessesDialogComponent implements OnInit {
       //bpmn: [this.bpmn, []], 
       bpmn: new FormControl(this.bpmn),
       added: "Now",
-      camunda_processID: "None"
+      camunda_processID: "None",
+      usergroup: new FormControl(this.usergroup),
     });
 
   }
 
   ngOnInit() {
+    this.usergroupService.getUsergroups()
+      .subscribe(group => {
+        this.usergroups = group;
+        console.log('Groups successfully fetched: ' + JSON.stringify(group));
+      });
+
+
   }
+
 
   onCloseConfirm() {
     this.thisDialogRef.close(this.form.value);
@@ -80,6 +94,8 @@ export class ProcessesDialogComponent implements OnInit {
     this.form.controls.lastChanged.setValue(new Date());
   }
 
+
+
   upload() {
     //this.progress.percentage = 0;
     //this.currentFileUpload = this.selectedFiles.item(0);
@@ -103,11 +119,5 @@ export class ProcessesDialogComponent implements OnInit {
     this.selectedFiles = undefined;
   }
 
-
-  /*
-  updateFile1() {
-    this.bpmn = "http://localhost:9090/files/" + file.value;
-  }
-  */
 
 }

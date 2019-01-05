@@ -365,6 +365,10 @@ p{
     color: #00b5ad;
 }
 
+.mat-primary .mat-pseudo-checkbox-checked, .mat-primary .mat-pseudo-checkbox-indeterminate {
+    background: #00b5ad;
+}
+
 .mat-dialog-actions .mat-button+.mat-button, .mat-dialog-actions .mat-button+.mat-raised-button, .mat-dialog-actions .mat-raised-button+.mat-button, .mat-dialog-actions .mat-raised-button+.mat-raised-button {
  margin-left: 0px !important; 
  flex-wrap: nowrap;
