@@ -35,23 +35,23 @@ public class ProzessAnlegen implements JavaDelegate {
 			Class.forName("com.mysql.jdbc.Driver");
 			
 			//bei dieser zeile wirft er immer einen Fehler (com.mysql.jdbc.exceptions.jdbc4.MySQLNonTransientConnectionException: Could not create connection to database server. Attempted reconnect 3 times. Giving up.)
-			connect = DriverManager.getConnection(url, props);;
+			connect = DriverManager.getConnection(url, props);
 			
 			//wenn das auskommentiert wird, sollte er einen Datensatz schreiben
-			/*	
+				
 	        preparedStatement = connect.prepareStatement("insert into processes (name, description,pic ,warFile,bpmn,added,camunda_processID) values ('T1','T1','Placeholder','Placeholder','Placeholder','2018-12-29','Process_1:1');");
-	    	//preparedStatement.setInt(1, Integer.parseInt(delegateTask.getId()));
-	        preparedStatement.executeQuery();
-			*/
+	        preparedStatement.executeUpdate();
 			
-			//connect.close();
+			
+			connect.close();
 			
 			//falls ein Fehler gefangen wird schreibt er den in eine Prozessvariable
     	} catch (SQLException e) {
     		execution.setVariable("err1", e.toString());
         	
     	}catch (Exception e) {
-    		execution.setVariable("err2", e.toString());
+    		execution.setVariable("err2", e.getMessage());
+    	    		e.printStackTrace();
 
     	}
         
