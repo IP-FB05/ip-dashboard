@@ -54,6 +54,9 @@ const routes: Routes = [
           //allowedRoles: ['admin', 'author']
         }
       },
+      { 
+        path: 'detail/:id', 
+        component: ProcessDetailComponent } ,
       {
         path: 'category',
         component: CategoryComponent,
