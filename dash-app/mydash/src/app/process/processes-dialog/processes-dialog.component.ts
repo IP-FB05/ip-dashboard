@@ -24,7 +24,7 @@ export class ProcessesDialogComponent implements OnInit {
   bpmn: string;
   added: string;
   camunda_processID: string;
-  usergroup: string;
+  selectedUsergroups: [];
 
   usergroups: Usergroup[];
   fileUploads: Observable<string[]>;
@@ -36,7 +36,6 @@ export class ProcessesDialogComponent implements OnInit {
   constructor(
     private usergroupService: UsergroupService,
     private uploadService: UploadFileService,
-    public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
     @Inject(MAT_DIALOG_DATA) { processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
@@ -51,7 +50,7 @@ export class ProcessesDialogComponent implements OnInit {
       bpmn: new FormControl(this.bpmn),
       added: "Now",
       camunda_processID: "None",
-      usergroup: new FormControl(this.usergroup),
+      selectedUsergroups: new FormControl(this.selectedUsergroups),
     });
 
   }
@@ -62,10 +61,12 @@ export class ProcessesDialogComponent implements OnInit {
         this.usergroups = group;
         console.log('Groups successfully fetched: ' + JSON.stringify(group));
       });
-
-
   }
 
+  getSelectedValue(event: any) {
+    console.log(event);
+    this.selectedUsergroups = event;
+  }
 
   onCloseConfirm() {
     this.thisDialogRef.close(this.form.value);
@@ -74,11 +75,6 @@ export class ProcessesDialogComponent implements OnInit {
     this.thisDialogRef.close('Cancel');
   }
 
-  openSnackBar() {
-    this.snackBar.open('Hinzufügen erfolgreich', '', {
-      duration: 2000,
-    });
-  }
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
