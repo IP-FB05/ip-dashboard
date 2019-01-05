@@ -18,7 +18,6 @@ export class SystemsComponent implements OnInit {
 
   constructor(private systemService: SystemService, 
               public dialog: MatDialog,
-              public snackBar:MatSnackBar,
               private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
@@ -62,13 +61,6 @@ export class SystemsComponent implements OnInit {
       this.add(data);
     });
   }
-
-  openSnackBar() {
-    this.snackBar.open('Löschen erfolgreich' , '', {
-      duration: 2000,
-    });
-  }
-
 }
 
 

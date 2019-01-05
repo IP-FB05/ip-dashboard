@@ -7,6 +7,7 @@ import { MessageService } from '../message.service';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { System } from '../system/system';
+import { MatSnackBar } from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
@@ -27,7 +28,8 @@ export class ProcessService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public snackBar: MatSnackBar) { }
 
   // GET Processes from the server
   getProcesses(): Observable<Process[]> {
@@ -87,7 +89,11 @@ export class ProcessService {
 
   // POST: add a new process to the server */
   addProcess(process: Process): Observable<Process> {
-    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { return; }
+    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { 
+      this.openSnackBar("Prozess wurde nicht hinzugefügt !");
+      return; 
+    }
+    this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
     return this.http.post<Process>("http://localhost:9090/processAdd", process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
@@ -109,6 +115,7 @@ export class ProcessService {
     const id = typeof process === 'number' ? process : process.processID;
     const url = `http://localhost:9090/processDelete/${id}`;
 
+    this.openSnackBar("Prozess wurde erfolgreich gelöscht !");
     return this.http.delete<Process>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted process id=${id}`)),
       catchError(this.handleError<Process>('deleteProcess'))
@@ -157,5 +164,12 @@ export class ProcessService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+
+  openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
   }
 }

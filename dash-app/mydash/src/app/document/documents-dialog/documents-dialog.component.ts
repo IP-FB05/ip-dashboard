@@ -33,7 +33,6 @@ export class DocumentsDialogComponent implements OnInit {
   constructor(
     public cs: CategoryService,
     public uploadService: UploadFileService,
-    public snackBar: MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {documentID, categoriename, name, lastChanged, link }: Document) { 
@@ -67,13 +66,6 @@ export class DocumentsDialogComponent implements OnInit {
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
   }
-
-  openSnackBar(text: string) {
-    this.snackBar.open(text , '', {
-      duration: 2000,
-    });
-  }
-
 
   selectFile(event) {
     this.selectedFiles = event.target.files;
