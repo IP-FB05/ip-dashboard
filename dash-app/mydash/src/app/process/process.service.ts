@@ -102,7 +102,12 @@ export class ProcessService {
 
   addProcessWithUG(process: Process, selectedUserGroups: number[]): Observable<Process> {
     if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "" || selectedUserGroups == null) { 
-      this.openSnackBar("Prozess wurde nicht hinzugefügt !");
+      
+      if(!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
+      else if(!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
+      else if(selectedUserGroups == null) this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle Sichtbarkeit aus!");
+      else if(!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
+      else this.openSnackBar("Prozess wurde nicht hinzugefügt !");
       return; 
     }
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");

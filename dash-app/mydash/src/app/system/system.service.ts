@@ -83,8 +83,13 @@ export class SystemService {
   // POST: add a new system to the server */
   addSystem(system: System): Observable<System> {
     if(!system.name || system.name == "" || !system.description || system.description == "" || !system.link || system.link == "") {
-      this.openSnackBar("System wurde nicht hinzugefügt !"); 
+      
+      if(!system.name || system.name == "") this.openSnackBar("System wurde nicht hinzugefügt! Name erforderlich!");
+      else if(!system.description || system.description == "") this.openSnackBar("System wurde nicht hinzugefügt! Beschreibung erforderlich!");
+      else if(!system.link || system.link == "") this.openSnackBar("System wurde nicht hinzugefügt! Link erforderlich !");
+      else this.openSnackBar("System wurde nicht hinzugefügt !");
       return; 
+
     }
     this.openSnackBar("System wurde erfolgreich hinzugefügt !"); 
     return this.http.post<System>("http://localhost:9090/systemAdd", system, httpOptions).pipe(

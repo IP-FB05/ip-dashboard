@@ -96,7 +96,10 @@ export class DocumentService {
   // POST: add a new document to the server */
   addDocument(document: Document): Observable<Document> {
     if (!document.categoriename || document.categoriename == "" || !document.link || document.link == "" || !document.name || document.name == "") { 
-      this.openSnackBar("Dokument wurde nicht hinzugefügt");
+      if(!document.categoriename || document.categoriename == "") this.openSnackBar("Dokument wurde nicht hinzugefügt! Kategorieangabe erforderlich!");
+      else if(!document.link || document.link == "") this.openSnackBar("Dokument wurde nicht hinzugefügt! Link erforderlich!");
+      else if(!document.name || document.name == "") this.openSnackBar("Dokument wurde nicht hinzugefügt! Name erfoderlich !");
+      else this.openSnackBar("Dokument wurde nicht hinzugefügt !");
       return; 
     }
 
