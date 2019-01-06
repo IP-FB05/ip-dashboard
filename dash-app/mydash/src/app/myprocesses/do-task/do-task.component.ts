@@ -3,25 +3,32 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 
 import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
+import { ProcessInstance } from 'src/app/process/processInstance.js';
+import { DoTaskService } from './do-task.service';
 
-var processDefinitionId: String;
+var taskId: String;
+var instance: String
 
 @Component({
-  selector: 'app-process-start',
-  templateUrl: './process-start.component.html',
-  styleUrls: ['./process-start.component.css']
+  selector: 'app-do-task',
+  templateUrl: './do-task.component.html',
+  styleUrls: ['./do-task.component.css']
 })
-export class ProcessStartComponent implements OnInit {  
+export class DoTaskComponent implements OnInit {
 
   constructor(
-    public thisDialogRef: MatDialogRef<ProcessStartComponent>,
+    private doTaskService: DoTaskService,
+    public thisDialogRef: MatDialogRef<DoTaskComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
-      processDefinitionId = data.processDefinitionId;
+      instance = data.instance;
   };
 
   ngOnInit() {
-    $formContainer = $('#start');
-    showTask('');
+    $formContainer = $('#task');
+    //this.taskId = "";
+    //this.curr = new ProcessInstance;
+    //this.getTaskId(instance);
+    loadTasks();
   }
 
   onCloseConfirm() {
@@ -29,6 +36,11 @@ export class ProcessStartComponent implements OnInit {
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
+  }
+
+  getTaskId(instance: String) {
+    this.doTaskService.getTaskId(instance)
+      .subscribe(data => taskId = data.id);
   }
 }
 
@@ -41,11 +53,27 @@ var camClient = new CamSDK.Client({
   apiUri: 'http://localhost:8080/engine-rest'
 });
 
-var taskService = new camClient.resource('process-definition');
+var taskService = new camClient.resource('task');
 
-function showTask(results) {
+function loadTasks() {
+  // fetch the list of available tasks
+  taskService.list({
+    "processInstanceId" : instance
+  }, function (err, results) {
+    if (err) {
+      throw err;
+    }
+    showTasks(results);
+  });
+}
+
+function showTasks(results) {
+  // generate the HTML for the list of tasks
+  var items = results._embedded.task[0].id;
+  
+
       // load the the task form (getting the task ID from the tag attribute)
-      loadTaskForm(processDefinitionId, function(err, camForm) {
+      loadTaskForm(items, function(err, camForm) {
         if (err) {
           throw err;
         }
@@ -58,25 +86,24 @@ function showTask(results) {
 
             // clear the form
             $formContainer.html('');
-
             location.reload();
           });
         });
 
         camForm.containerElement.append($submitBtn);
       });
-
 }
 
-function loadTaskForm(processDefinitionId, callback) {
+
+function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
-  taskService.startForm({ "id" :processDefinitionId }, function(err, taskFormInfo) {
+  taskService.form(taskId, function(err, taskFormInfo) {
     var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,
       formUrl: url,
-      processDefinitionId: processDefinitionId,
+      taskId: taskId,
       containerElement: $formContainer,
 
       // continue the logic with the callback
@@ -84,3 +111,4 @@ function loadTaskForm(processDefinitionId, callback) {
     });
   });
 }
+

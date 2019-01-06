@@ -54,6 +54,7 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
 import { AuthorizationService } from './login/auth/authorization.service';
 import { Error401Component } from './helper/error/error401/error401.component';
 import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
+import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
 
 
 
@@ -86,7 +87,8 @@ import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
     MyprocessesComponent,
     Error401Component,
     ProcessStartComponent,
-    UsergroupComponent
+    UsergroupComponent,
+    DoTaskComponent
   ],
   imports: [
     BrowserModule,
@@ -111,7 +113,7 @@ import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
 
     
   ],
-  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent, ProcessStartComponent],
+  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent, ProcessStartComponent, DoTaskComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
