@@ -53,6 +53,7 @@ import { ErrorInterceptor } from './login/auth/error-interceptor';
 // Angular-JWT
 import { AuthorizationService } from './login/auth/authorization.service';
 import { Error401Component } from './helper/error/error401/error401.component';
+import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
 
 
 
@@ -84,7 +85,8 @@ import { Error401Component } from './helper/error/error401/error401.component';
     SubsComponent,
     MyprocessesComponent,
     Error401Component,
-    ProcessStartComponent
+    ProcessStartComponent,
+    UsergroupComponent
   ],
   imports: [
     BrowserModule,

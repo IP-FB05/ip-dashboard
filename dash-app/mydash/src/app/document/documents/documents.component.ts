@@ -20,8 +20,7 @@ export class DocumentsComponent implements OnInit {
   //flag: boolean;
 
   constructor(private documentsService: DocumentService,
-              public dialog: MatDialog, 
-              public snackBar:MatSnackBar,
+              public dialog: MatDialog,
               private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
@@ -72,12 +71,6 @@ export class DocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       this.add(data);
-    });
-  }
-
-  openSnackBar() {
-    this.snackBar.open('Löschen erfolgreich' , '', {
-      duration: 2000,
     });
   }
 

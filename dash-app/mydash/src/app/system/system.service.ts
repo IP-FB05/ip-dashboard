@@ -5,6 +5,7 @@ import { MessageService } from '../message.service';
 
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { MatSnackBar } from '@angular/material';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
@@ -20,7 +21,8 @@ export class SystemService {
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    public snackBar: MatSnackBar) { }
 
   // GET Systems from the server
   getSystems(): Observable<System[]> {
@@ -80,7 +82,11 @@ export class SystemService {
 
   // POST: add a new system to the server */
   addSystem(system: System): Observable<System> {
-    if(!system.name || system.name == "" || !system.description || system.description == "" || !system.link || system.link == "") { return; }
+    if(!system.name || system.name == "" || !system.description || system.description == "" || !system.link || system.link == "") {
+      this.openSnackBar("System wurde nicht hinzugefügt !"); 
+      return; 
+    }
+    this.openSnackBar("System wurde erfolgreich hinzugefügt !"); 
     return this.http.post<System>("http://localhost:9090/systemAdd", system, httpOptions).pipe(
       tap(_ => this.log(`added system w/ id=${system.systemID}`)),
       catchError(this.handleError<System>('addSystem'))
@@ -92,6 +98,7 @@ export class SystemService {
     const id = typeof system === 'number' ? system : system.systemID;
     const url = `http://localhost:9090/systemDelete/${id}`;
 
+    this.openSnackBar("System wurde erfolgreich gelöscht !");
     return this.http.delete<System>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted system id=${id}`)),
       catchError(this.handleError<System>('systemDelete'))
@@ -120,5 +127,11 @@ export class SystemService {
       // Let the app keep running by returning an empty result.
       return of(result as T);
     };
+  }
+
+  openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
   }
 }
