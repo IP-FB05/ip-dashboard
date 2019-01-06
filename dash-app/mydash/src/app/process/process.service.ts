@@ -136,6 +136,17 @@ export class ProcessService {
     );
   }
 
+  deleteBPMNFromFileServer(linkBPMN: string): Observable<Process> {
+    const substringBPMN = linkBPMN.substring(linkBPMN.lastIndexOf("/") + 1);
+    //console.log(substringBPMN + substringWAR);
+    this.messageService.add('ProcessService: Deleted BPMN/WAR from FileServer');
+
+    return this.http.delete<Process>("http://localhost:9090/deleteBPMN?filenameBPMN=" + substringBPMN, httpOptions).pipe(
+      tap(_ => this.log(`deleted files from fileserver`)),
+      catchError(this.handleError<Process>('deleteFiles'))
+    );
+  }
+
 
   /* Original (not Observable)
     getProcesses(): Process[] {

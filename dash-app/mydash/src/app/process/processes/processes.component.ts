@@ -39,7 +39,7 @@ export class ProcessesComponent implements OnInit {
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
-    });
+      });
   }
 
   startProcess(process: Process): void {
@@ -65,7 +65,11 @@ export class ProcessesComponent implements OnInit {
   delete(process: Process): void {
     this.processes = this.processes.filter(p => p !== process);
     this.processService.deleteProcess(process).subscribe();
-    this.processService.deleteProcessFilesFromFileServer(process.bpmn, process.warFile).subscribe();
+    if (process.warFile == null) {
+      this.processService.deleteBPMNFromFileServer(process.bpmn).subscribe();
+    } else {
+      this.processService.deleteProcessFilesFromFileServer(process.bpmn, process.warFile).subscribe();
+    }
   }
 
   openDialog() {
@@ -92,7 +96,7 @@ export class ProcessesComponent implements OnInit {
         console.log(data);
         this.add(data);
       });
-    }
+  }
 
-  
+
 }

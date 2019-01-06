@@ -24,7 +24,7 @@ export class ProcessesDialogComponent implements OnInit {
   bpmn: string;
   added: string;
   camunda_processID: string;
-  selectedUsergroups: [];
+  selectedUsergroups: number[];
 
   usergroups: Usergroup[];
   fileUploads: Observable<string[]>;
@@ -66,6 +66,7 @@ export class ProcessesDialogComponent implements OnInit {
   getSelectedValue(event: any) {
     console.log(event);
     this.selectedUsergroups = event;
+    console.log(this.selectedUsergroups);
   }
 
   onCloseConfirm() {
@@ -80,14 +81,14 @@ export class ProcessesDialogComponent implements OnInit {
     this.selectedFiles = event.target.files;
     this.currentFileUpload = this.selectedFiles.item(0);
     this.form.controls.bpmn.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
-    this.form.controls.lastChanged.setValue(new Date());
+    //this.form.controls.lastChanged.setValue(new Date());
   }
 
   selectFile1(event) {
     this.selectedFiles = event.target.files;
     this.currentFileUpload1 = this.selectedFiles.item(0);
     this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload1.name);
-    this.form.controls.lastChanged.setValue(new Date());
+    //this.form.controls.lastChanged.setValue(new Date());
   }
 
 
