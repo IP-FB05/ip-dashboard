@@ -91,10 +91,9 @@ export class ProcessesComponent implements OnInit {
       processID: 0,
       name: "",
       description: "",
-      // TODO
-      pic: "Placeholder bis Fileserver",
-      warFile: "Placeholder bis Fileserver",
-      bpmn: "Placeholder bis Fileserver",
+      pic: "Placeholder",
+      warFile: "",
+      bpmn: "",
       added: "Now",
       camunda_processID: "None"
     };

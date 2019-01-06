@@ -44,7 +44,7 @@ export class ProcessesDialogComponent implements OnInit {
       processID: new FormControl('0'),
       name: new FormControl(this.name),
       description: new FormControl(this.description),
-      pic: "Placeholder until Fileserver",
+      pic: "Placeholder",
       warFile: new FormControl(this.warFile),
       //bpmn: [this.bpmn, []], 
       bpmn: new FormControl(this.bpmn),
@@ -104,13 +104,17 @@ export class ProcessesDialogComponent implements OnInit {
       }
     });
 
-    this.uploadService.pushFileToStorage(this.currentFileUpload1).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        //this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    });
+    if (this.currentFileUpload1 != null) {
+
+      this.uploadService.pushFileToStorage(this.currentFileUpload1).subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          //this.progress.percentage = Math.round(100 * event.loaded / event.total);
+        } else if (event instanceof HttpResponse) {
+          console.log('File is completely uploaded!');
+        }
+      });
+
+    }
 
 
     this.selectedFiles = undefined;
