@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import * as CamSDK from './../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
+import { AuthService } from '../login/auth/auth.service';
 
 declare var CamSDK: any;
 
@@ -97,7 +98,7 @@ function loadTaskForm(taskId, callback) {
 export class MyprocessesComponent implements OnInit {
 
   
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
     // load the tasks at start

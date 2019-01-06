@@ -1,3 +1,4 @@
+<ng-container *ngIf="this.authService.isLoggedin; else guestView">
 <div class="layout">
   <div class="column left">
     
@@ -8,3 +9,8 @@
   <div id="test" class="column right">
   </div>
 </div>
+</ng-container>
+
+<ng-template #guestView>
+  <app-error401></app-error401>
+</ng-template>

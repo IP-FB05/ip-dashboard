@@ -3,6 +3,8 @@ import { System } from '../system';
 import { SystemService } from '../system.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.component';
+import { AuthorizationService } from 'src/app/login/auth/authorization.service';
+
 
 @Component({
   selector: 'app-systems',
@@ -14,7 +16,9 @@ export class SystemsComponent implements OnInit {
   public systems: System[];
   searchText: string;
 
-  constructor(private systemService: SystemService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
+  constructor(private systemService: SystemService, 
+              public dialog: MatDialog,
+              private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.getSystems();
@@ -57,13 +61,6 @@ export class SystemsComponent implements OnInit {
       this.add(data);
     });
   }
-
-  openSnackBar() {
-    this.snackBar.open('Löschen erfolgreich' , '', {
-      duration: 2000,
-    });
-  }
-
 }
 
 

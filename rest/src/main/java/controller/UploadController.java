@@ -145,15 +145,15 @@ public class UploadController {
         }
     }
 
-    @DeleteMapping("/deleteWAR")
-    public ResponseEntity<String> handleFileDeleteWAR(@RequestParam String filename) {
+    @DeleteMapping("/deleteBPMN")
+    public ResponseEntity<String> handleFileDeleteBPMN(@RequestParam String filenameBPMN) {
         String message = "";
         try {
-            storageService.deleteOne(filename);
+            storageService.deleteOne(filenameBPMN);
             //message = "You successfully deleted " + filename + "!";
             return ResponseEntity.status(HttpStatus.OK).body(message);
         } catch (Exception e) {
-            message = "FAIL to delete " + filename;
+            message = "FAIL to delete " + filenameBPMN;
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
         }
     }

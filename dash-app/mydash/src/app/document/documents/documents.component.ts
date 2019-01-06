@@ -3,6 +3,7 @@ import { Document } from '../document';
 import { DocumentService } from '../document.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { DocumentsDialogComponent } from '../documents-dialog/documents-dialog.component';
+import { AuthorizationService } from 'src/app/login/auth/authorization.service';
 
 
 
@@ -18,7 +19,9 @@ export class DocumentsComponent implements OnInit {
   searchText:string;
   //flag: boolean;
 
-  constructor(private documentsService: DocumentService, public dialog: MatDialog, public snackBar:MatSnackBar) { }
+  constructor(private documentsService: DocumentService,
+              public dialog: MatDialog,
+              private authorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.getDokumente();
@@ -68,12 +71,6 @@ export class DocumentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
       this.add(data);
-    });
-  }
-
-  openSnackBar() {
-    this.snackBar.open('Löschen erfolgreich' , '', {
-      duration: 2000,
     });
   }
 

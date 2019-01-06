@@ -1,90 +1,117 @@
-<ng-container *ngIf="(this.authService.isLoggedin); else logoutTemplate">
+<ng-container *ngIf="(this.authService.isLoggedin); else loginTemplate">
     <div class="profil" style="margin-left:30px; margin-right:30px;">
-
-        <div class="row"  style=" margin-top:50px; margin-left:0; margin-right:0;">
-            <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Dies ist eine Vorschau der Profil-Seite.
-                Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.</h1>
-        </div>
-
-
-        <div class="row"  style=" margin-left:0; margin-right:0; margin-bottom:20px;" >
-            <button class="btn btn-abonnieren btn-secondary">Änderung des Passworts
-            <a href="https://www.fh-aachen.de/hochschule/datenverarbeitungszentrale/benutzeraccount/service-seite/anleitungen/aenderung-des-passwortes/"
-                target="_blank" style=color:black;> </a>
-            </button>
+        <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d; margin-top:50px; margin-bottom: 50px">Dies
+            ist eine Vorschau der
+            Profil-Seite.
+            Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.
+        </h1>
+        <div class="row">
             
-        </div>
-
-        <div class="row"   style=" margin-left:20; margin-bottom:20px;">
-                <label class="form-check-label">
-                    <input type="checkbox" class="form-check-input" value="checkedValue" (change)="eventNotification($event)"
-                        checked>
-                    Benachrichtigungen aktivieren
-                </label>
-        </div>
-
-
-
-        <div class="row" style="margin-top:50px;">
+            <!--First Column-->
             <div class="col-md-3">
-                <label for="Process">Prozess abonnieren</label>
-                <form [formGroup]="formProcessSub">
-                    <select formControlName="processSubControl" id="processSelect" name="processSelect" class="form-control">
-                        <option selected="selected" value="null">- keine Auswahl -</option>
-                        <option *ngFor="let process of processes" value="{{process.processID}}">
-                            {{ process.name }}
-                        </option>
-                    </select>
-                </form>
-                <button (click)="subscribeProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:20px; margin-bottom:50px;">Abonnieren</button>
+                <p style="font-weight: 600">Name:</p>
+                <p>{{this.authService.currentUser.lastName}}</p>
+                <p style="font-weight: 600">Vorname:</p>
+                <p>{{this.authService.currentUser.firstName}}</p>
+                <p style="font-weight: 600">Rolle:</p>
+                <p>{{this.authService.currentUser.role | titlecase }}</p>
+                <div class="row" style="margin-left:0px; margin-bottom: 25px" >
+                    <a class="btn btn-abonnieren btn-secondary" href="https://www.fh-aachen.de/hochschule/datenverarbeitungszentrale/benutzeraccount/service-seite/anleitungen/aenderung-des-passwortes/"
+                        target="_blank" style=color:black;>Änderung des Passworts</a>
+                </div>
+                <div class="row">
+                    <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" value="checkedValue" (change)="eventNotification($event)"
+                            checked>
+                        Benachrichtigungen aktivieren
+                    </label>
+                </div>
             </div>
-        </div>
 
-        <div class="row">
-            <div class="col-md-3">
-                <label for="RunningProcess">Laufenden Prozess abonnieren</label>
-                <form [formGroup]="formRunningProcessSub">
-                    <select formControlName="processRunningSubControl" class="form-control" id="SelectRunningProcess"
-                        name="processRunningSelect">
-                        <option selected="selected" value="null">- keine Auswahl -</option>
-                        <option *ngFor="let process of runningProcesses" value="{{process.processID}}">{{process.name}}</option>
-                    </select>
-                </form>
-                <button (click)="subscribeRunningProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:10px; margin-bottom:50px;" >Abonnieren</button>
+            <!--Divider-->
+            <mat-divider [vertical]="true"></mat-divider>
+
+            <!--Second Column-->
+            <div class="col-md-8" style="margin-left:20px">
+                <div class="row">
+                    <div class="col-md">
+                        <label for="Process">Prozess abonnieren</label>
+                        <form [formGroup]="formProcessSub">
+                            <select formControlName="processSubControl" id="processSelect" name="processSelect" class="form-control">
+                                <option selected="selected" value="null">- keine Auswahl -</option>
+                                <option *ngFor="let process of processes" value="{{process.processID}}">
+                                    {{ process.name }}
+                                </option>
+                            </select>
+                        </form>
+                        <button (click)="subscribeProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:20px; margin-bottom:50px;">Abonnieren</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md">
+                        <label for="RunningProcess">Laufenden Prozess abonnieren</label>
+                        <form [formGroup]="formRunningProcessSub">
+                            <select formControlName="processRunningSubControl" class="form-control" id="SelectRunningProcess"
+                                name="processRunningSelect">
+                                <option selected="selected" value="null">- keine Auswahl -</option>
+                                <option *ngFor="let process of runningProcesses" value="{{process.processID}}">{{process.name}}</option>
+                            </select>
+                        </form>
+                        <button (click)="subscribeRunningProcess()" class="btn btn-secondary start-process-btn" style="float:left; margin-top:10px; margin-bottom:50px;">Abonnieren</button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md">
+                        <mat-tab-group>
+                            <mat-tab label="Abonnierte Prozesse">
+                                <table class="table">
+                                    <tbody>
+                                        <tr *ngFor="let process of subscribedProcesses">
+                                            <td>{{process.name}}</td>
+                                            <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedProcess(process)">x</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+                            <mat-tab label="Abonnierte laufende Prozesse">
+                                <table class="table">
+                                    <tbody>
+                                        <tr *ngFor="let process of subscribedProcessInstances">
+                                            <td>{{process.name}}</td>
+                                            <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedRunningProcess(process)">x</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-tab>
+                        </mat-tab-group>
+                    </div>
+
+                </div>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-6">
-                <mat-tab-group>
-                    <mat-tab label="Abonnierte Prozesse">
-                        <table class="table">
-                            <tbody>
-                                <tr *ngFor="let process of subscribedProcesses">
-                                    <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedProcess(process)">x</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </mat-tab>
-                    <mat-tab label="Abonnierte laufende Prozesse">
-                        <table class="table">
-                            <tbody>
-                                <tr *ngFor="let process of subscribedProcessInstances">
-                                    <td>{{process.name}}</td>
-                                    <td><button class="delete-dark" title="deabonnieren" (click)="deleteSubscribedRunningProcess(process)">x</button></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </mat-tab>
-                </mat-tab-group>
-            </div>
+
+
         </div>
     </div>
 </ng-container>
 
-<ng-template #logoutTemplate>
-    <div class="row"  style=" margin-left:0; margin-right:0; padding-left: 15px; margin-top:50px;" >
-       <div class="col-md-10"> <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d;">Sie sind nicht angemeldet!</h1> </div>
-    </div>
+<ng-template #loginTemplate>
+    <div class="error-login" style="text-align:center;">
+        <div class="row">
+            <div class="col-md-12">
+                <h1 style="margin-top:100px; font-size:7em; font-weight:600;">
+                    <span style="color:#0b1921;">4</span>
+                    <span style="color:#00b5ad;">0</span>
+                    <span style="color:#0b1921;">1</span>
 
+                </h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <h6 style="color:#595757; text-transform: uppercase; font-weight:200; "> Sie sind nicht angemeldet.</h6>
+                ​<a routerLink="/login"><button class="btn btn-secondary">Zur Login-Seite</button></a>
+            </div>
+        </div>
+    </div>
 </ng-template>

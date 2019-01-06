@@ -17,7 +17,6 @@ export class SystemsDialogComponent implements OnInit {
   link: string;
 
   constructor(
-    public snackBar:MatSnackBar,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<SystemsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {systemID, name, description, link }: System) {
@@ -39,11 +38,4 @@ export class SystemsDialogComponent implements OnInit {
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
   }
-
-  openSnackBar() {
-    this.snackBar.open('Hinzufügen erfolgreich' , '', {
-      duration: 2000,
-    });
-  }
-
 }

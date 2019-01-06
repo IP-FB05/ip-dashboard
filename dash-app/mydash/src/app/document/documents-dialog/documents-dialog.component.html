@@ -4,19 +4,19 @@
     <mat-dialog-content [formGroup]="form">
         <mat-form-field class="dialog-form-field">
             <label for="name"></label>
-            <input matInput placeholder="Name" formControlName="name">
+            <input matInput placeholder="Name" formControlName="name" required>
         </mat-form-field>
         <hr>
         
         <mat-form-field class="dialog-form-field">
             <label for="kategorie"></label>
-            <input matInput placeholder="Kategorie" formControlName="categoriename">
+            <input matInput placeholder="Kategorie" formControlName="categoriename" required>
         </mat-form-field>
 
         <hr>
         
         <mat-form-field class="dialog-form-field">
-            <mat-select placeholder="Kategorie" formControlName="categoriename">
+            <mat-select placeholder="Kategorie" formControlName="categoriename" required>
                 <mat-option *ngFor="let category of categories" [value]="category">
                     {{category.name}}
                 </mat-option>
@@ -26,7 +26,7 @@
         <hr>
 
         <label for="link"></label>
-        <input #file type="file" (change)="selectFile($event)">
+        <input #file type="file" (change)="selectFile($event)" required>
 
     </mat-dialog-content>
 

@@ -43,16 +43,19 @@ export class LoginComponent implements OnInit {
     // reset login status
     this.authService.logout();
 
-    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value)
-        .pipe(first())
+    this.authService.login(this.loginForm.controls.username.value, this.loginForm.controls.password.value).toPromise();
+       /* .pipe(first())
         .subscribe(
             data => {
-                this.openSnackBar("Erfolgreich angemeldet");
+                if(sessionStorage.getItem('currentUser')) {
+                    this.openSnackBar("Erfolgreich angemeldet");
+                } else {
+                    this.openSnackBar("Benutzer konnte nicht angemeldet werden");
+                }
             },
             error => {
-                this.openSnackBar("Benutzer konnte nicht angemeldet werden");
                 console.log(error);
-            });
+            }); */
 
     this.router.navigate(['/dashboard']);
 }

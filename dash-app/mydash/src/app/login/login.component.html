@@ -83,4 +83,5 @@
 </ng-container>
 <ng-template #logoutTemplate>
   <button  (click)="logout()">Logout</button>
+  <button (click)="this.authService.checkAuth()">Check Authorization</button>
 </ng-template>

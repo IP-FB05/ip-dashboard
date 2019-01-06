@@ -11,8 +11,9 @@ import { CategoryComponent } from './category/category/category.component';
 import { ProfilComponent } from './profil/profil.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 import { AuthGuard } from './login/auth/auth-guard';
+import { Error401Component } from './helper/error/error401/error401.component';
 
-const routes: Routes = [
+/*const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
  { path: 'dashboard', component: DashboardComponent },
  { path: 'detail/:id', component: ProcessDetailComponent },
@@ -27,7 +28,79 @@ const routes: Routes = [
 
  // otherwise redirect to login
  { path: '**', redirectTo: '/login' }
+];*/
+
+const routes: Routes = [
+  {
+    path: '',
+    canActivateChild: [AuthGuard],
+    children: [
+      {
+        path: 'dashboard',
+        component: DashboardComponent,
+        data: {}
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        data: {
+          //allowedRoles: ['admin', 'writer', 'author']
+        }
+      },
+      {
+        path: 'processes',
+        component: ProcessesComponent,
+        data: {
+          //allowedRoles: ['admin', 'author']
+        }
+      },
+      { 
+        path: 'detail/:id', 
+        component: ProcessDetailComponent,
+        data: {
+          //allowedRoles: ['admin', 'author']
+        }
+      }, 
+      {
+        path: 'category',
+        component: CategoryComponent,
+        data: {
+          allowedRoles: ['admin']
+        }
+      },
+      {
+        path: 'systems',
+        component: SystemsComponent,
+        data: {}
+      },
+      {
+        path: 'profil',
+        component: ProfilComponent,
+        data: {}
+      },
+      {
+        path: 'myprocesses',
+        component: MyprocessesComponent,
+        data: {}
+      },
+      {
+        path: 'documents',
+        component: DocumentsComponent,
+        data: {}
+      },
+      {
+        path: 'error401',
+        component: Error401Component,
+        data: {}
+      },
+      {
+        path: '**',
+        redirectTo: 'login'
+      }
+    ]
+  }
 ];
+
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
