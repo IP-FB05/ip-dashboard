@@ -36,15 +36,19 @@ export class ProcessesComponent implements OnInit {
   }
 
   add(process: Process, selectedUserGroups: number[]): void {
-    /*if(selectedUserGroups == null) {
+    /*
+    if(selectedUserGroups != null) {
+      console.log("Ich bin in der IF");
       this.processService.addProcessWithUG(process, selectedUserGroups);
     } else {
+      console.log("Ich bin in der ELSE");
       this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
     });
-    }*/
+    }
+    */
     this.processService.addProcess(process)
     .subscribe(process => {
       this.processes.push(process);

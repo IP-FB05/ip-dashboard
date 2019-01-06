@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import com.mysql.cj.x.protobuf.Mysqlx.Ok;
+
 import controller.System;
 import controller.Usergroup;
 import controller.Document;
@@ -206,15 +208,27 @@ public class Dashboard {
 		preparedStatement.setString(5, input.getBpmn());
 		preparedStatement.setString(6, input.getCamunda_processID());
 		preparedStatement.execute();
-		ResultSet resultSet = preparedStatement.getGeneratedKeys();
+		/*ResultSet resultSet = preparedStatement.getGeneratedKeys();
 		int id=0;
 		if(resultSet.next()){
 			id=resultSet.getInt(1);
-		}
-		this.addAllowedUserGroups(userGroups,id);		
+		}*/
+		this.addAllowedUserGroups(userGroups,1111);		
 
 		return true;
 	}
+
+	public boolean addAllowedUserGroups(int[] userGroups, int id) throws SQLException, ClassNotFoundException {
+		for (int i = 0; i < userGroups.length; i++){
+			preparedStatement = connect.prepareStatement(
+				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?, ?)");
+			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(2, userGroups[i]);
+			preparedStatement.execute();
+		}
+		return true;
+	}
+
 
 	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement("INSERT INTO process_instance (camunda_instanceID) VALUES (?)");
@@ -622,15 +636,5 @@ public class Dashboard {
 		return null;
 	}
 
-	public boolean addAllowedUserGroups(int[] userGroups, int id) throws SQLException, ClassNotFoundException {
-		for (int i = 0; i < userGroups.length; i++){
-			preparedStatement = connect.prepareStatement(
-				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?, ?)");
-			preparedStatement.setInt(1, id);
-			preparedStatement.setInt(2, userGroups[i]);
-			preparedStatement.execute();
-		}
-		return true;
-	}
 
 }

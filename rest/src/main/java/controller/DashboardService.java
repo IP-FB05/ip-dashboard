@@ -2,6 +2,7 @@ package controller;
 
 import java.sql.SQLException;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.boot.jackson.JsonObjectSerializer;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -108,14 +109,21 @@ public class DashboardService {
     	return result;
 	}
 
-	/*@RequestMapping(value = "/processAddwithUG", method = RequestMethod.POST)
+	@RequestMapping(value = "/processAddwithUG", method = RequestMethod.POST)
 	@ResponseBody
-    public boolean addProcesswithUG(@RequestParam Process input, @RequestParam int[] selectedUserGroups) throws SQLException, ClassNotFoundException {
-    	Dashboard dash = new Dashboard(); 
-    	boolean result = dash.addProcesswithUG(input,selectedUserGroups);
+    public boolean addProcesswithUG(@RequestBody Process process/*, @RequestParam int[] selectedUserGroups*/) throws SQLException, ClassNotFoundException {
+		/*JSONObject mainJson = new JSONObject(selectedUserGroups);
+		JSONArray jsonMainArr = new JSONArray(mainJson.getJSONArray("selectedUserGroups"));
+		int[] tmpArr = new int[jsonMainArr.length()];
+		for (int i = 0; i < tmpArr.length; i++) {
+			tmpArr[i] = jsonMainArr.getInt(i);
+		}*/
+		int[] arrayTest =  {1,2,3};
+		Dashboard dash = new Dashboard(); 
+    	boolean result = dash.addProcessWithUG(process, arrayTest);
     	dash.close();
     	return result;
-	}*/
+	}
 
 
 	@RequestMapping(value = "/processInstanceAdd", method = RequestMethod.POST)

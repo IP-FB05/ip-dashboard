@@ -90,7 +90,10 @@ export class ProcessService {
   // POST: add a new process to the server */
   addProcess(process: Process): Observable<Process> {
     if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { 
-      this.openSnackBar("Prozess wurde nicht hinzugefügt !");
+      if(!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
+      else if(!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
+      else if(!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
+      else this.openSnackBar("Prozess wurde nicht hinzugefügt !");
       return; 
     }
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
@@ -111,7 +114,7 @@ export class ProcessService {
       return; 
     }
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
-    return this.http.post<Process>("http://localhost:9090/processAddWithUG", JSON.stringify({ input: process, selectedUserGroups: selectedUserGroups}), httpOptions).pipe(
+    return this.http.post<Process>("http://localhost:9090/processAddWithUG", process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
     );
