@@ -24,7 +24,7 @@ export class ProcessesDialogComponent implements OnInit {
   bpmn: string;
   added: string;
   camunda_processID: string;
-  selectedUsergroups: [];
+  selectedUsergroups: number[];
 
   usergroups: Usergroup[];
   fileUploads: Observable<string[]>;
