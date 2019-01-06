@@ -20,6 +20,7 @@ export class ProcessesComponent implements OnInit {
   //selectedProcess: Process;
   searchText: string;
   processInstance: ProcessInstance;
+  processToUpload: Process = new Process();
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
@@ -34,12 +35,21 @@ export class ProcessesComponent implements OnInit {
       .subscribe(processes => this.processes = processes);
   }
 
-  add(process: Process): void {
-    this.processService.addProcess(process)
+  add(process: Process, selectedUserGroups: number[]): void {
+    /*if(selectedUserGroups == null) {
+      this.processService.addProcessWithUG(process, selectedUserGroups);
+    } else {
+      this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
-      });
+    });
+    }*/
+    this.processService.addProcess(process)
+    .subscribe(process => {
+      this.processes.push(process);
+      this.getProcesses();
+    });
   }
 
   startProcess(process: Process): void {
@@ -93,8 +103,16 @@ export class ProcessesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        console.log(data);
-        this.add(data);
+       this.processToUpload.name = data.name;
+       this.processToUpload.description = data.description;
+       this.processToUpload.pic = data.pic;
+       this.processToUpload.warFile = data.warFile;
+       this.processToUpload.bpmn = data.bpmn;
+       this.processToUpload.added = data.added;
+       this.processToUpload.camunda_processID = data.camunda_processID;
+
+       console.log(JSON.stringify({ process: this.processToUpload, selectedUserGroups: data.selectedUsergroups}), );
+       this.add(this.processToUpload, data.selectedUsergroups);
       });
   }
 

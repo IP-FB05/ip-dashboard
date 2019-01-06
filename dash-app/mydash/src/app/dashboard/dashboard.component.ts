@@ -38,13 +38,13 @@ export class DashboardComponent implements OnInit {
       .subscribe(processes => this.processes = processes);
   }
 
-  addProcess(process: Process): void {
+  /*addProcess(process: Process): void {
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
       });
-  }
+  }*/
 
   getDocuments(): void {
     this.documentsService.getDocumentLimit()
@@ -80,7 +80,7 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
-      this.addProcess(data);
+      //this.addProcess(data);
     });
   }
 

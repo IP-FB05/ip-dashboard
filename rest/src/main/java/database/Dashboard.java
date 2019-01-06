@@ -192,6 +192,26 @@ public class Dashboard {
 		preparedStatement.setString(5, input.getBpmn());
 		preparedStatement.setString(6, input.getCamunda_processID());
 		preparedStatement.execute();
+		
+		return true;
+	}
+
+	public boolean addProcessWithUG(Process input, int[] userGroups) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)");
+		preparedStatement.setString(1, input.getName());
+		preparedStatement.setString(2, input.getDescription());
+		preparedStatement.setString(3, input.getPic());
+		preparedStatement.setString(4, input.getwarFile());
+		preparedStatement.setString(5, input.getBpmn());
+		preparedStatement.setString(6, input.getCamunda_processID());
+		preparedStatement.execute();
+		ResultSet resultSet = preparedStatement.getGeneratedKeys();
+		int id=0;
+		if(resultSet.next()){
+			id=resultSet.getInt(1);
+		}
+		this.addAllowedUserGroups(userGroups,id);		
 
 		return true;
 	}
@@ -600,6 +620,17 @@ public class Dashboard {
 			return usergroups;
 		}
 		return null;
+	}
+
+	public boolean addAllowedUserGroups(int[] userGroups, int id) throws SQLException, ClassNotFoundException {
+		for (int i = 0; i < userGroups.length; i++){
+			preparedStatement = connect.prepareStatement(
+				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?, ?)");
+			preparedStatement.setInt(1, id);
+			preparedStatement.setInt(2, userGroups[i]);
+			preparedStatement.execute();
+		}
+		return true;
 	}
 
 }

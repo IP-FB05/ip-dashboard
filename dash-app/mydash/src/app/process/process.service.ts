@@ -100,6 +100,18 @@ export class ProcessService {
     );
   }
 
+  addProcessWithUG(process: Process, selectedUserGroups: number[]): Observable<Process> {
+    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "" || selectedUserGroups == null) { 
+      this.openSnackBar("Prozess wurde nicht hinzugefügt !");
+      return; 
+    }
+    this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
+    return this.http.post<Process>("http://localhost:9090/processAddWithUG", JSON.stringify({ input: process, selectedUserGroups: selectedUserGroups}), httpOptions).pipe(
+      tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
+      catchError(this.handleError<Process>('addProcess'))
+    );
+  }
+
   startProcess(process: Process): Observable<ProcessInstance> {
     const id = process.camunda_processID;
     const url = `http://localhost:8080/engine-rest/process-definition/${id}/start`;
