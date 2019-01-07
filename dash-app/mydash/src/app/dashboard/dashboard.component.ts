@@ -6,6 +6,8 @@ import { DocumentService } from '../document/document.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
 import { ProcessesDialogComponent} from '../process/processes-dialog/processes-dialog.component'
 import { DocumentsDialogComponent } from '../document/documents-dialog/documents-dialog.component';
+import { AuthorizationService } from '../login/auth/authorization.service';
+import { AuthService } from '../login/auth/auth.service';
 
 
 @Component({
@@ -22,7 +24,9 @@ export class DashboardComponent implements OnInit {
     private processService: ProcessService,
     private documentsService: DocumentService, 
     public dialog: MatDialog,
-    public snackBar: MatSnackBar) { }
+    public snackBar: MatSnackBar,
+    private authorizationService: AuthorizationService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.getProcesses();
@@ -34,13 +38,13 @@ export class DashboardComponent implements OnInit {
       .subscribe(processes => this.processes = processes);
   }
 
-  addProcess(process: Process): void {
+  /*addProcess(process: Process): void {
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
       });
-  }
+  }*/
 
   getDocuments(): void {
     this.documentsService.getDocumentLimit()
@@ -76,7 +80,7 @@ export class DashboardComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(data => {
       console.log(data);
-      this.addProcess(data);
+      //this.addProcess(data);
     });
   }
 

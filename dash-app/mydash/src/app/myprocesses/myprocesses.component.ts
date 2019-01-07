@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { MyprocessesService } from './myprocesses.service';
 import * as CamSDK from './../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
+import { ProcessInstance } from '../process/processInstance';
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+import { AuthService } from '../login/auth/auth.service';
+import { DoTaskComponent } from './do-task/do-task.component';
 
 declare var CamSDK: any;
 
@@ -12,6 +17,8 @@ var camClient = new CamSDK.Client({
 });
 
 var taskService = new camClient.resource('task');
+
+var items;
 
 function loadTasks() {
   // fetch the list of available tasks
@@ -25,7 +32,7 @@ function loadTasks() {
   });
 }
 
-function showTasks(results) {
+/*function showTasks(results) {
   // generate the HTML for the list of tasks
   var items = [];
   $.each(results._embedded.task, function (t, task) {
@@ -86,6 +93,13 @@ function loadTaskForm(taskId, callback) {
       done: callback
     });
   });
+}*/
+
+function showTasks(results) {
+  // generate the HTML for the list of tasks
+  $.each(results._embedded.task, function (t, task) {
+    items.push( {id : task.id, processDefinitionName : '', state : '', startTime : '', startUserId : '' } );
+  });
 }
 
 
@@ -96,13 +110,37 @@ function loadTaskForm(taskId, callback) {
 })
 export class MyprocessesComponent implements OnInit {
 
+  public instances: ProcessInstance[];
   
-  constructor() { }
+  constructor(private myprocessService: MyprocessesService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
-    // load the tasks at start
     $formContainer = $('.column.right');
+    items = [];
     loadTasks();
+    this.getInstances();
+  }
+
+  getInstances(): void {
+    this.myprocessService.getProcessInstances()
+      .subscribe(instances => this.instances = instances);
+  }
+
+  doTask(instance: ProcessInstance) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+
+    dialogConfig.data = {
+      instance: instance.id
+    };
+
+    let dialogRef = this.dialog.open(DoTaskComponent, dialogConfig);
+
+    dialogRef.afterClosed().subscribe(data => {
+      console.log(data);
+    });
+
   }
 
 }

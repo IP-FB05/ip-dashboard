@@ -16,7 +16,6 @@ export class ProcessStartComponent implements OnInit {
   constructor(
     public thisDialogRef: MatDialogRef<ProcessStartComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
-
       processDefinitionId = data.processDefinitionId;
   };
 
@@ -42,7 +41,7 @@ var camClient = new CamSDK.Client({
   apiUri: 'http://localhost:8080/engine-rest'
 });
 
-var taskService = new camClient.resource('task');
+var taskService = new camClient.resource('process-definition');
 
 function showTask(results) {
       // load the the task form (getting the task ID from the tag attribute)
@@ -60,7 +59,7 @@ function showTask(results) {
             // clear the form
             $formContainer.html('');
 
-            this.onCloseConfirm();
+            location.reload();
           });
         });
 
@@ -70,7 +69,9 @@ function showTask(results) {
 }
 
 function loadTaskForm(processDefinitionId, callback) {
-    var url = 'http://localhost:8080/camunda-invoice/forms/start-form.html';
+  // loads the task form using the task ID provided
+  taskService.startForm({ "id" :processDefinitionId }, function(err, taskFormInfo) {
+    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,
@@ -81,4 +82,5 @@ function loadTaskForm(processDefinitionId, callback) {
       // continue the logic with the callback
       done: callback
     });
+  });
 }

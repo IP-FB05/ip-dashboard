@@ -2,35 +2,50 @@
   <h2>Prozess hinzufügen</h2>
   <hr>
   <mat-dialog-content [formGroup]="form">
-      <mat-form-field class="dialog-form-field">
-        <label for="name"></label>
-        <input matInput placeholder="Name" formControlName="name">
-      </mat-form-field>
-      <mat-form-field class="dialog-form-field">
-        <label for="beschreibung"></label>
-        <input matInput placeholder="Beschreibung" formControlName="description">
-      </mat-form-field>
-      <hr>
-        <label for="bpmn" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
-        <input #file type="file" class="form-control-file" (change)="selectFile($event)">
+    <mat-form-field class="dialog-form-field">
+      <label for="name"></label>
+      <input matInput placeholder="Name" formControlName="name" required>
+    </mat-form-field>
+    <mat-form-field class="dialog-form-field">
+      <label for="beschreibung"></label>
+      <input matInput placeholder="Beschreibung" formControlName="description" required>
+    </mat-form-field>
 
-        <!--
+    <mat-form-field class="dialog-form-field">
+      <mat-select placeholder="Sichtbar für" formControlName="selectedUsergroups" multiple [(ngModel)]="selectedValue" (ngModelChange)="getSelectedValue($event)" required>
+        <mat-option *ngFor="let usergroup of usergroups" value={{usergroup.usergroupID}}>
+          {{usergroup.usergroupName | titlecase}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <hr>
+    <label for="bpmn" style="margin-top:30px">Laden Sie .bpmn-Datei hoch!</label>
+    <input #file type="file" class="form-control-file" (change)="selectFile($event)">
+
+    <!--
         <label for="BPMNBildhochladen" style="margin-top:30px">Laden Sie .bpmn-Bild hoch!</label>
         <input type="file" formControlName="bpmnBild" class="form-control-file" id="BPMNBildhochladen" (change)="selectFile($event)">
         -->
-        <hr style = "margin-top:30px; margin-bottom:10px;">
+    <hr style="margin-top:30px; margin-bottom:10px;">
 
-       <button mat-raised-button data-toggle="collapse" class="collapse-btn" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">  <i class="material-icons" style="margin-right:5px;">expand_more</i>Prozess automatisieren?</button>
+    <button mat-raised-button data-toggle="collapse" class="collapse-btn" data-target="#collapseExample" aria-expanded="false"
+      aria-controls="collapseExample"> <i class="material-icons" style="margin-right:5px;">expand_more</i>Prozess
+      automatisieren?</button>
 
-        <div class="collapse" id="collapseExample">
-            <div class="card card-body collapse-body">
-                <label for="WARhochladen"> Laden Sie die .war-Datei hoch!</label>
-                <input #file type="file" class="form-control-file" (change)="selectFile1($event)">
-            </div>
-        </div>
+    <div class="collapse" id="collapseExample">
+      <div class="card card-body collapse-body">
+        <label for="WARhochladen"> Laden Sie die .war-Datei hoch!</label>
+        <input #file type="file" class="form-control-file" (change)="selectFile1($event)">
+      </div>
+    </div>
   </mat-dialog-content>
   <mat-dialog-actions class="action-buttons">
-    <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" (click)="openSnackBar()" class="bestaetigen-btn"><mat-icon class="bestaetigen-icon">done</mat-icon>BESTÄTIGEN</button>&nbsp;
-    <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn"> <mat-icon class="abbrechen-icon">clear</mat-icon> ABBRECHEN</button>
+    <button mat-raised-button (click)="onCloseConfirm()" (click)="upload()" class="bestaetigen-btn">
+      <mat-icon class="bestaetigen-icon">done</mat-icon>BESTÄTIGEN
+    </button>&nbsp;
+    <button mat-raised-button (click)="onCloseCancel()" class="abbrechen-btn">
+      <mat-icon class="abbrechen-icon">clear</mat-icon> ABBRECHEN
+    </button>
   </mat-dialog-actions>
 </div>

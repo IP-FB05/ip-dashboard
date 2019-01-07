@@ -1,4 +1,4 @@
-<div class="layout">
+ <!--<div class="layout">
   <div class="column left">
     
     <h2 style=color:black>Available tasks</h2>
@@ -8,3 +8,36 @@
   <div id="test" class="column right">
   </div>
 </div>
+-->
+<ng-container *ngIf="this.authService.isLoggedin; else guestView">
+  <div class="processes" style="margin-left:45px; margin-right:45px;">
+    <div class="row" style="margin-top:50px; margin-left: -30px; margin-right: -30px;">
+      <ng-container *ngFor="let instance of instances">
+          <ng-container *ngIf="instance.state == 'ACTIVE'">
+            <div class="col-md-3" style="margin-bottom:20px;">
+              <div class="card-deck h-100 mb-3 fix">
+                  <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+                    <div class="card-header" style="border-color:#f5f5f5; background:#ececec;">{{instance.processDefinitionName}}</div>
+                    <div class="card-body" style="background-color: #f5f5f5;">
+                        <p class="card-text" style="color:#656565;">Gestartet am: {{instance.startTime}}</p>
+                        <p class="card-text" style="color:#656565;">Gestartet von User: {{instance.startUserId}}</p>
+                    </div>
+                    <div class="card-footer">
+                      <!--<ng-container *ngFor="let item of items">
+                            <ng-container *ngIf="instance.id == item.id">-->
+                              <button class="btn btn-secondary" (click)="doTask(instance)">Task aufrufen</button>
+                              <!--</ng-container>
+                          </ng-container>-->
+                    </div>
+                  </div>
+              </div>
+            </div>
+          </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-container>
+
+<ng-template #guestView>
+  <app-error401></app-error401>
+</ng-template>
