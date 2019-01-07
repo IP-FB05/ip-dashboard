@@ -24,11 +24,10 @@ public class Config {
 	
 	private static void openConfig() {
 		try {
-			InputStream confFile = Thread.currentThread().getContextClassLoader().getResourceAsStream("dashboardDB.conf");
+			InputStream confFile = Thread.currentThread().getContextClassLoader().getResourceAsStream("notification.conf");
 			InputStreamReader isr = new InputStreamReader(confFile);
 			BufferedReader br = new BufferedReader(isr);
 			if(confFile == null) {
-				System.out.println("hier");
 				throw new Exception();
 			}
 			configMap = new HashMap<String, String>();
