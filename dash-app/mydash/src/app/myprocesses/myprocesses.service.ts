@@ -18,7 +18,7 @@ export class MyprocessesService {
     getProcessInstances(): Observable<ProcessInstance[]> {
       // TODO: send the message _after_ fetching the processes
       this.messageService.add('ProcessService: fetched processes');
-      return this.http.get<ProcessInstance[]>("http://localhost:8080/engine-rest/process-instance")
+      return this.http.get<ProcessInstance[]>("http://localhost:8080/engine-rest/history/process-instance")
         .pipe(
           tap(_ => this.log('fetched processes')),
           catchError(this.handleError('getProcesses', []))
