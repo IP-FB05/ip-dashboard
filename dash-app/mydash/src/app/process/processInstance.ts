@@ -1,5 +1,7 @@
 export class ProcessInstance {
     id: string;
-    definitionId: string;
-    ended: boolean;
+    processDefinitionName: string;
+    state: string;
+    startTime: string;
+    startUserId: string;
 } 

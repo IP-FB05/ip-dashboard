@@ -98,7 +98,7 @@ function loadTaskForm(taskId, callback) {
 function showTasks(results) {
   // generate the HTML for the list of tasks
   $.each(results._embedded.task, function (t, task) {
-    items.push( {id: task.id, definitionId: '', ended: false} );
+    items.push( {id : task.id, processDefinitionName : '', state : '', startTime : '', startUserId : '' } );
   });
 }
 
