@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1epr6p3">
     <bpmn:participant id="Participant_0ev72i3" name="Praxissemester" processRef="Praxissemester" />
   </bpmn:collaboration>
-  <bpmn:process id="Praxissemester" isExecutable="true">
+  <bpmn:process id="Praxissemester" name="Praxissemester" isExecutable="true">
     <bpmn:laneSet id="LaneSet_1le3evz">
       <bpmn:lane id="Lane_1l01796" name="System">
         <bpmn:flowNodeRef>Task_0xb1qj8</bpmn:flowNodeRef>
