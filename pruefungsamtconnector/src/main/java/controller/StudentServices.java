@@ -232,7 +232,7 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/BAVerlaengern/{matrikelnr}/{verlaengerungDate}")
+	@RequestMapping("/MAVerlaengern/{matrikelnr}/{verlaengerungDate}")
 	public boolean masterarbeitVerlaengern(@PathVariable int matrikelnr, @PathVariable Date verlaengerungDate) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setMAVerlaengerung(matrikelnr, verlaengerungDate);
