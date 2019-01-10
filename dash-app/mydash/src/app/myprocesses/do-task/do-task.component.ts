@@ -78,7 +78,7 @@ function showTasks(results) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Complete</button>').click(function () {
+        var $submitBtn = $('<button type="submit">Task abschicken</button>').click(function () {
           camForm.submit(function (err) {
             if (err) {
               throw err;
