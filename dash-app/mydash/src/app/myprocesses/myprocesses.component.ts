@@ -3,7 +3,7 @@ import { MyprocessesService } from './myprocesses.service';
 import * as CamSDK from './../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
 import { ProcessInstance } from '../process/processInstance';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
 import { AuthService } from '../login/auth/auth.service';
 import { DoTaskComponent } from './do-task/do-task.component';
 
@@ -13,7 +13,7 @@ var $formContainer;
 
 var camClient = new CamSDK.Client({
   mock: false,
-  apiUri: 'http://localhost:8080/engine-rest'
+  apiUri: 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest'
 });
 
 var taskService = new camClient.resource('task');
@@ -81,7 +81,7 @@ function loadTasks() {
 function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
   taskService.form(taskId, function(err, taskFormInfo) {
-    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,
