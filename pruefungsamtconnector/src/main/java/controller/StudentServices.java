@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import database.Pruefungsamt;
@@ -48,6 +49,14 @@ public class StudentServices {
 	public boolean setNotePraxisSemester(@PathVariable int matrikelnr, @PathVariable int boolBestanden) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setNotePraxisSemester(matrikelnr,boolBestanden);
+		amt.close();
+		return result;
+	}
+	
+	@RequestMapping(value = "/getModulList", method = RequestMethod.GET)
+	public List<RegisteredModulesModel> getModulList() throws SQLException, ClassNotFoundException{
+		Pruefungsamt amt = new Pruefungsamt();
+		List<RegisteredModulesModel> result = amt.getModulList();
 		amt.close();
 		return result;
 	}

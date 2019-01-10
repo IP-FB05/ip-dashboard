@@ -208,6 +208,24 @@ public class Pruefungsamt {
 		}
 		return false;
 	}
+	
+	// output: alle gespeicherten module insgesamt
+		public List<RegisteredModulesModel> getModulList() throws SQLException {
+			preparedStatement = connect.prepareStatement(
+					"SELECT modulnr as modul,modultext FROM pruefungsamt.module WHERE modulnr NOT IN ('0','8998','8999','9998','9999');");
+			// '0' = Praxissemester,'8998' = BA,'8999' = BAKol, '9998' = MA, '9999' = MAKol
+			resultSet = preparedStatement.executeQuery();
+			
+			
+			List<RegisteredModulesModel> resultList = newRegisteredModulesModelListing(resultSet);
+			
+			
+			if(resultList != null) {
+				return resultList;
+			}
+			return null;	
+		}
+	
 	// output: alle angemeldeten module eines Studenten
 	public List<RegisteredModulesModel> getModulStudent(int matrikelnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
@@ -381,7 +399,8 @@ public class Pruefungsamt {
 			return true;
 		}	
 		return false;
-	}	
+	}
+	
 	
 	// output: alle angemeldeten module eines Studenten
 	public List<RegisteredPruefungModel> getPruefungStudentList(int fachnr) throws SQLException {
