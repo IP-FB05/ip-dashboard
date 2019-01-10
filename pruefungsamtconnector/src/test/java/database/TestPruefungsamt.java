@@ -105,7 +105,7 @@ public class TestPruefungsamt {
 	}
 	
 	@Test
-	public void testGetModuleList() throws SQLException {
+	public void testGetModuleStudentList() throws SQLException {
 		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
 		
 		int modNr = 0;
@@ -121,6 +121,27 @@ public class TestPruefungsamt {
 		assertEquals(8998,modNr);
 		assertEquals("Bachelorarbeit",modName);
 	}
+	
+	@Test
+	public void testGetModuleListAll() throws SQLException {
+		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
+		
+		int modNr = 0;
+		String modName = "";
+		
+		List<RegisteredModulesModel> testList = pa.getModulList();
+		
+		RegisteredModulesModel firstModule = testList.get(0);
+		modNr = firstModule.getId();
+		modName = firstModule.getModule();
+		
+		
+		assertEquals(52106,modNr);
+		assertEquals("Algorithmen und Datenstrukturen",modName);
+	}
+	
+	
+	
 	
 	@Test
 	public void testPruefungBenotung() throws SQLException {
