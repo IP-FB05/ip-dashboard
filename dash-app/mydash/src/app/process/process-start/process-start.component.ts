@@ -1,10 +1,14 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { ProcessService } from '../process.service';
 
 import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
 
-var processDefinitionId: String;
+var processDefinitionId: string;
+var instanceID: string;
+
+var processService: ProcessService;
 
 @Component({
   selector: 'app-process-start',
@@ -50,11 +54,17 @@ function showTask(results) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Complete</button>').click(function () {
-          camForm.submit(function (err) {
+        var $submitBtn = $('<button type="submit">Prozess starten</button>').click(function () {
+          camForm.submit(function (err, result) {
             if (err) {
               throw err;
             }
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "http://localhost:9090/processInstanceAdd", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Authorization", "Basic " + btoa('dashboard:dashboardPW'))
+            xhttp.send(JSON.stringify({id : result.id, definitionId : result.definitionId}));
 
             // clear the form
             $formContainer.html('');
