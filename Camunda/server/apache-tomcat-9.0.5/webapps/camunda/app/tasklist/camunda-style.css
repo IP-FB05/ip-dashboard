@@ -1,0 +1,20 @@
+.form-control:hover {
+    color: red !important;
+  }
+  
+  .three-cols-layout .column-left .list-unstyled>.item.active, .three-cols-layout .column-center .list-unstyled>li.active, .three-cols-layout .column-left .list-unstyled>.item.active:hover, .three-cols-layout .column-center .list-unstyled>li.active:hover {
+    border-color: #00b5ad;
+      border-top-color:#00b5ad;
+      border-right-color: #00b5ad;
+      border-bottom-color: #00b5ad;
+      border-left-color: #00b5ad;
+  }
+  
+  .three-cols-layout .column-left .list-unstyled>.item:hover, .three-cols-layout .column-center .list-unstyled>li:hover {
+    border-color: #00b5ad;
+  }
+  
+    .three-cols-layout .column-left .list-unstyled>.item h4 a, .three-cols-layout .column-center .list-unstyled>li h4 a {
+      color: #ec1717;
+      transition: color 0.218s ease;
+  }
