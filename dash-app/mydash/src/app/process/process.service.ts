@@ -89,12 +89,12 @@ export class ProcessService {
 
   // POST: add a new process to the server */
   addProcess(process: Process): Observable<Process> {
-    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") { 
-      if(!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
-      else if(!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
-      else if(!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
+    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "") {
+      if (!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
+      else if (!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
+      else if (!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
       else this.openSnackBar("Prozess wurde nicht hinzugefügt !");
-      return; 
+      return;
     }
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
     return this.http.post<Process>("http://localhost:9090/processAdd", process, httpOptions).pipe(
@@ -103,18 +103,27 @@ export class ProcessService {
     );
   }
 
+  private userGroupIDs: string = '';
   addProcessWithUG(process: Process, selectedUserGroups: number[]): Observable<Process> {
-    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "" || selectedUserGroups == null) { 
-      
-      if(!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
-      else if(!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
-      else if(selectedUserGroups == null) this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle Sichtbarkeit aus!");
-      else if(!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
+    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "" || selectedUserGroups == null) {
+
+      if (!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
+      else if (!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
+      else if (selectedUserGroups == null) this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle Sichtbarkeit aus!");
+      else if (!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
       else this.openSnackBar("Prozess wurde nicht hinzugefügt !");
-      return; 
+      return;
     }
+    for (var i = 0; i < selectedUserGroups.length; i++) {
+        this.userGroupIDs += selectedUserGroups[i];
+      if(i != selectedUserGroups.length - 1) {
+        this.userGroupIDs += ',';
+      }
+    }
+    console.log(this.userGroupIDs);
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
-    return this.http.post<Process>("http://localhost:9090/processAddWithUG", process, httpOptions).pipe(
+    console.log("http://localhost:9090/processAddwithUG" + "?selectedUserGroups=" + this.userGroupIDs);
+    return this.http.post<Process>("http://localhost:9090/processAddwithUG" + "?selectedUserGroups=" + this.userGroupIDs, process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
     );
