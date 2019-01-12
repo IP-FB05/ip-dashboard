@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ProcessesComponent } from './process/processes/processes.component';
+import { MessagesComponent } from './messages//messages.component';
 import { DashboardComponent }   from './dashboard/dashboard.component';
 import { ProcessDetailComponent }  from './process/process-detail/process-detail.component';
 import { LoginComponent } from './login/login.component'; 
@@ -38,27 +39,33 @@ const routes: Routes = [
       {
         path: 'dashboard',
         component: DashboardComponent,
-        data: {}
+        data: {
+
+        }
+      },
+      {
+        path: 'messages',
+        component: MessagesComponent,
+        data: {
+
+        }
       },
       {
         path: 'login',
         component: LoginComponent,
         data: {
-          //allowedRoles: ['admin', 'writer', 'author']
         }
       },
       {
         path: 'processes',
         component: ProcessesComponent,
         data: {
-          //allowedRoles: ['admin', 'author']
         }
       },
       { 
         path: 'detail/:id', 
         component: ProcessDetailComponent,
         data: {
-          //allowedRoles: ['admin', 'author']
         }
       }, 
       {
@@ -71,31 +78,41 @@ const routes: Routes = [
       {
         path: 'systems',
         component: SystemsComponent,
-        data: {}
+        data: {
+
+        }
       },
       {
         path: 'profil',
         component: ProfilComponent,
-        data: {}
+        data: {
+
+        }
       },
       {
         path: 'myprocesses',
         component: MyprocessesComponent,
-        data: {}
+        data: {
+
+        }
       },
       {
         path: 'documents',
         component: DocumentsComponent,
-        data: {}
+        data: {
+
+        }
       },
       {
         path: 'error401',
         component: Error401Component,
-        data: {}
+        data: {
+          
+        }
       },
       {
         path: '**',
-        redirectTo: 'login'
+        redirectTo: 'dashboard'
       }
     ]
   }

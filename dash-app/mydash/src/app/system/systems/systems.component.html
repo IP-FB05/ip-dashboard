@@ -1,54 +1,64 @@
-<div class="systems" style="margin-left:30px; margin-right:30px;">
+<div class="systems">
+
+  <!--First Row-->
   <div class="row" style="padding-left: 15px; padding-right:15px; margin-top:50px;">
-    <h2 style="color: black; font-weight:300; font-size: 14px; margin-bottom:10px;">Dies ist die System-Seite. Man gelangt
+    <h2>Dies ist die System-Seite. Man gelangt
       zu einem System, indem man auf den
       "Zur Seite"-Button klickt.
       Man kann auch jederzeit ein neues System hinzufügen oder Systeme aus der Übersicht löschen.</h2>
   </div>
+  <!--First Row-->
 
+  <!--Second Row-->
   <div class="row">
     <div class="col-md">
       <input type="suchbegriff" [(ngModel)]="searchText" class="form-control" id="suchbegriff" placeholder="Suchen">
     </div>
   </div>
+  <!--Second Row-->
 
-  <!--
-  <app-filter></app-filter>
-  -->
-
+  <!--Third Row-->
   <div class="row" style="margin-top:50px;">
+
+    <!--Show Systems-->
     <div *ngFor="let system of systems | textFilterSystems:searchText" class="col-md-3">
-    <div class="card-deck h-100 mb-3 fix">
-     <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
-          <div class="card-header" style="border-color:#f5f5f5; background:#e2e2e2;">
-          <h3 style="font-weight:600; font-size: 14px; color:#656565; margin-bottom:0;padding-top: 5px; padding-bottom: 5px;">{{system.name}}
-            <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
-            <button class="delete-light" title="delete system" (click)="delete(system)" matTooltip="Löschen">x</button>
-            </ng-container>
-          </h3>
-            </div>
-          <div class="card-body" style="background-color: #f5f5f5;">
-            <p class="card-text"  style="color:#4d4d4d;">{{system.description}}</p>
-            <a class="btn btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
-          </div>
-        </div>
-    </div>
-    </div>
-    <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
-    <div class="col-md-3" style="margin-bottom:20px;">
       <div class="card-deck h-100 mb-3 fix">
-        <div class="card"  style="border: 1px solid #e2e2e2;">
-        <div class="card-header" style="color: #656565; border-bottom:none;">
-          <h3 style="font-weight:600; font-size:14px; padding-top: 5px; padding-bottom: 5px;">System hinzufügen</h3>
+        <div class="card" style="border: 1px solid rgba(0, 0, 0, 0.125);">
+          <div class="card-header" style="border-color:#f5f5f5; background:#e2e2e2;">
+            <h3 style="font-weight:600; font-size: 14px; color:#656565; margin-bottom:0;padding-top: 5px; padding-bottom: 5px;">{{system.name}}
+              <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
+                <button class="delete-light" title="delete system" (click)="delete(system)" matTooltip="Löschen">x</button>
+              </ng-container>
+            </h3>
           </div>
-          <div class="card-body" style="background-color: #ececec;">
-            <p class="card-text" style="text-align:center;">
-            <button class="plus-btn" (click)="openDialog()"><mat-icon class="add_icon"style="font-size:70px;     padding-top: 50px;
-              padding-bottom: 70px; display: inline-flex;flex-direction: column; justify-content: center; align-items: center; text-align:center;">library_add</mat-icon></button></p>
+          <div class="card-body" style="background-color: #f5f5f5;">
+            <p class="card-text" style="color:#4d4d4d;">{{system.description}}</p>
+            <a class="btn btn-secondary" href="{{system.link}}" target="_blank">Zur Seite</a>
           </div>
         </div>
       </div>
     </div>
+    <!--Show Systems-->
+
+    <!--Add System-->
+    <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt'])">
+      <div class="col-md-3">
+        <div class="card-deck h-100 mb-3 fix">
+          <div class="card" style="border: 1px solid #e2e2e2;">
+            <div class="card-header" style="color: #656565; border-bottom:none;">
+              <h3 style="font-weight:600; font-size:14px; padding-top: 5px; padding-bottom: 5px;">System hinzufügen</h3>
+            </div>
+            <div class="card-body" style="background-color: #ececec;">
+              <p class="card-text" style="text-align:center;">
+                <button class="plus-btn" (click)="openDialog()">
+                  <mat-icon class="add_icon">library_add</mat-icon>
+                </button>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
     </ng-container>
+    <!--Add System-->
   </div>
 </div>

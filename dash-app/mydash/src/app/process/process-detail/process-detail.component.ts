@@ -1,9 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Process } from '../process'; 
-
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
+// Import Models
+import { Process } from '../process'; 
+
+// Import Components
+
+// Import Services
 import { ProcessService }  from '../process.service';
 
 @Component({

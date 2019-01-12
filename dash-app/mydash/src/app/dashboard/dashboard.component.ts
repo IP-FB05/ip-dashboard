@@ -1,11 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Process } from '../process/process';
-import { ProcessService } from '../process/process.service';
-import { Document } from '../document/document';
-import { DocumentService } from '../document/document.service';
 import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+
+// Import Models
+import { Process } from '../process/process';
+import { Document } from '../document/document';
+
+// Import Components
 import { ProcessesDialogComponent} from '../process/processes-dialog/processes-dialog.component'
 import { DocumentsDialogComponent } from '../document/documents-dialog/documents-dialog.component';
+
+// Import Services
+import { ProcessService } from '../process/process.service';
+import { DocumentService } from '../document/document.service';
 import { AuthorizationService } from '../login/auth/authorization.service';
 import { AuthService } from '../login/auth/auth.service';
 
@@ -69,10 +75,9 @@ export class DashboardComponent implements OnInit {
       processID: 0,
       name: "",
       description: "",
-      // TODO
-      pic: "Placeholder bis Fileserver",
-      warFile: "Placeholder bis Fileserver",
-      bpmn: "Placeholder bis Fileserver",
+      pic: "",
+      warFile: "",
+      bpmn: "",
       added: "Now"
     };
 
@@ -94,8 +99,7 @@ export class DashboardComponent implements OnInit {
       kategoriename: "",
       name: "",
       lastChanged: "1999-01-01",
-      // TODO
-      link: "Placeholder bis Fileserver"
+      link: ""
     };
 
     let dialogRef = this.dialog.open(DocumentsDialogComponent, dialogConfig);

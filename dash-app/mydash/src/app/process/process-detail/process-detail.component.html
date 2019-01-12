@@ -1,29 +1,39 @@
 <div *ngIf="process">
 
-  <div class="row"  style="margin-top:50px; margin-left:15px; margin-right:15px;">
-    <div class="col-md-12">
-        <h1 style="color: black; font-weight:400; font-size: 30px;">{{process.name}}</h1>
+    <!--First Row-->
+    <div class="row" style="margin-top:50px;">
+        <div class="col-md-12">
+            <h1 >{{process.name}}</h1>
+        </div>
+        <div class="col-md-12">
+            <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
+        </div>
     </div>
-    <div class="col-md-12">
-        <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
+    <!--First Row-->
+
+    <!--Second Row-->
+    <div class="row">
+        <div class="col-md-12">
+            <p>{{process.description}}</p>
+        </div>
     </div>
-  </div>
+    <!--Second Row-->
 
-  <div class="row" style=" margin-left:15px; margin-right:15px;">
-    <div class= "col-md-12">
-    <p style="color: black; margin-top:30px;" margin->{{process.description}}</p>
-  </div>
-  </div> 
-
-  <div class="diagram-parent" style="padding: 10px 30px 10px 37px;">
-      <app-diagram url={{process.bpmn}}></app-diagram>
-  </div>
-
-  <div class="row"  style=" margin-left:15px; margin-right:15px;">
-    <div class="col md-12"><p style="color: black; margin-top:30px;">Sie können das Diagramm nach rechts bzw. links verschieben, indem Sie die linke Maustaste geklickt halten und dabei verschieben.
-    Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
-  
+    <!--BPMN-->
+    <div class="diagram-parent">
+        <app-diagram url={{process.bpmn}}></app-diagram>
     </div>
-</div>
+    <!--BPMN-->
 
+
+    <!--Third Row-->
+    <div class="row">
+        <div class="col md-12">
+            <p >Sie können das Diagramm nach rechts bzw. links verschieben, indem
+                Sie die linke Maustaste geklickt halten und dabei verschieben.
+                Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
+
+        </div>
+    </div>
+    <!--Third Row-->
 </div>

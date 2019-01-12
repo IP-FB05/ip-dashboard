@@ -4,6 +4,10 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { Router } from '@angular/router';
 
+// Import Models
+// Import Components
+
+// Import Services
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -14,8 +18,8 @@ export class ErrorInterceptor implements HttpInterceptor {
         return next.handle(request).pipe(catchError(err => {
             if (err.status === 401) {
                 // auto logout if 401 response returned from api
-                //this.authService.logout();
-                //location.reload(true);
+                // this.authService.logout();
+                // location.reload(true);
                 this.router.navigate(['/error401']);
             }
             

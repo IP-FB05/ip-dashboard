@@ -1,6 +1,5 @@
 .table td, .table th {
     border-top: none;
-   
 }
 
 .table th:nth-child(1) {
@@ -10,5 +9,52 @@
     font-weight:500;
 }.table th:nth-child(3) {
     font-weight:500;
+}
+
+.dokumente {
+    margin-left:30px; 
+    margin-right:30px;
+}
+
+h2 {
+    font-weight:300;
+    font-size: 14px; 
+    color: #4d4d4d; 
+    margin-bottom:10px;
+}
+
+h3 {
+    font-weight:600; 
+    font-size:14px; 
+    padding-top: 5px; 
+    padding-bottom: 5px;
+}
+
+.card-body {
+    background-color: #ececec;
+}
+
+.card-header {
+    color: #656565; 
+    border-bottom:none;
+}
+
+.card {
+    border: 1px solid #e2e2e2;
+}
+
+p {
+    text-align:center;
+}
+
+.add_icon {
+    font-size:70px; 
+    padding-top: 50px;
+    padding-bottom: 70px; 
+    display: inline-flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    text-align:center;
 }
 

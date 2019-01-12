@@ -1,11 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { MyprocessesService } from './myprocesses.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+
 import * as CamSDK from './../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
+
+// Import Models
 import { ProcessInstance } from '../process/processInstance';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material';
-import { AuthService } from '../login/auth/auth.service';
+
+// Import Components
 import { DoTaskComponent } from './do-task/do-task.component';
+
+// Import Services
+import { MyprocessesService } from './myprocesses.service';
+import { AuthService } from '../login/auth/auth.service';
 
 declare var CamSDK: any;
 

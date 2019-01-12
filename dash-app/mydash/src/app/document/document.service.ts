@@ -1,11 +1,18 @@
 import { Injectable } from '@angular/core';
-import { Document } from './document';
-import { Observable, of } from 'rxjs';
-import { MessageService } from '../message.service';
-
-import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
+import { catchError, map, tap } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+
+// Import Models
+import { Document } from './document';
+
+// Import Components
+
+// Import Services
+import { MessageService } from '../message.service';
+
+
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
@@ -17,7 +24,9 @@ const httpOptions = {
 
 export class DocumentService {
 
-  private documentsUrl = 'api/documents'; // URL to web api
+  //private documentsUrl = 'api/documents'; 
+
+  private documentsUrl = "http://localhost:9090/"
 
   constructor(
     private http: HttpClient,
@@ -26,9 +35,8 @@ export class DocumentService {
 
   // GET documents from the server
   getDocumente(): Observable<Document[]> {
-    // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/documents", httpOptions)
+    return this.http.get<Document[]>(this.documentsUrl + "documents", httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -37,60 +45,12 @@ export class DocumentService {
 
   // GET documents from the server
   getDocumentLimit(): Observable<Document[]> {
-    // TODO: send the message _after_ fetching the documents
-    this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/documentsLimit", httpOptions)
+    this.messageService.add('DocumentService: fetched documents');
+    return this.http.get<Document[]>(this.documentsUrl + "documentsLimit", httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
       );
-  }
-
-  // GET document by id. Return `undefined` when id not found */
-  getDocumentNo404<Data>(id: number): Observable<Document> {
-    const url = `${this.documentsUrl}/?id=${id}`;
-    return this.http.get<Document[]>(url, httpOptions)
-      .pipe(
-        map(documente => documente[0]), // returns a {0|1} element array
-        tap(h => {
-          const outcome = h ? `fetched` : `did not find`;
-          this.log(`${outcome} document id=${id}`);
-        }),
-        catchError(this.handleError<Document>(`getDocument id=${id}`))
-      );
-  }
-
-  // GET document by id. Will 404 if id not found */
-  getDocument(id: number): Observable<Document> {
-    const url = `${this.documentsUrl}/${id}`;
-    // TODO: send the message _after_ fetching the document
-    this.messageService.add(`DocumentService: fetched document id=${id}`);
-    return this.http.get<Document>(url, httpOptions).pipe(
-      tap(_ => this.log(`fetched document id=${id}`)),
-      catchError(this.handleError<Document>(`getDocument id=${id}`))
-    );
-  }
-
-  // GET documente whose name contains search term */
-  searchDocument(term: string): Observable<Document[]> {
-    if (!term.trim()) {
-      // if not search term, return empty documente array.
-      return of([]);
-    }
-    return this.http.get<Document[]>(`${this.documentsUrl}/?name=${term}`, httpOptions).pipe(
-      tap(_ => this.log(`found document matching "${term}"`)),
-      catchError(this.handleError<Document[]>('searchDocumente', []))
-    );
-  }
-
-
-  // PUT: update the documente on the server */
-  updateDocument(document: Document): Observable<any> {
-    if (!document.name || !document.categoriename || !document.link) { return; }
-    return this.http.post(this.documentsUrl, document, httpOptions).pipe(
-      tap(_ => this.log(`updated document id=${document.documentID}`)),
-      catchError(this.handleError<any>('updateDocument'))
-    );
   }
 
   // POST: add a new document to the server */
@@ -104,7 +64,8 @@ export class DocumentService {
     }
 
     this.openSnackBar("Dokument wurde erfolgreich hinzugefügt");
-    return this.http.post<Document>("http://localhost:9090/documentAdd", document, httpOptions).pipe(
+    this.messageService.add('DocumentService: added document');
+    return this.http.post<Document>(this.documentsUrl + "documentAdd", document, httpOptions).pipe(
       tap((Document: Document) => this.log(`added document w/ id=${document.documentID}`)),
       catchError(this.handleError<Document>('addDocument'))
     );
@@ -115,6 +76,7 @@ export class DocumentService {
     const id = typeof document === 'number' ? document : document.documentID;
     const url = `http://localhost:9090/documentDelete/${id}`;
 
+    this.messageService.add('DocumentService: deleted document');
     return this.http.delete<Document>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted document id=${id}`)),
       catchError(this.handleError<Document>('deleteDocument'))
@@ -125,7 +87,7 @@ export class DocumentService {
   deleteDocumentFromFileServer(link: string): Observable<Document> {
     const substring = link.substring(link.lastIndexOf("/") + 1);
     this.messageService.add('DocumentService: Deleted Document from FileServer');
-    return this.http.delete<Document>("http://localhost:9090/deleteFile?filename=" + substring, httpOptions).pipe(
+    return this.http.delete<Document>(this.documentsUrl + "deleteFile?filename=" + substring, httpOptions).pipe(
       tap(_ => this.log(`deleted document from fileserver`)),
       catchError(this.handleError<Document>('deleteFile'))
     );
@@ -133,9 +95,8 @@ export class DocumentService {
 
   // GET documents from the server
   getDocumentsByCategory(name: string): Observable<Document[]> {
-    // TODO: send the message _after_ fetching the documents
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>("http://localhost:9090/filter/documents?name=" + name, httpOptions)
+    return this.http.get<Document[]>(this.documentsUrl + "/filter/documents?name=" + name, httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocumentsByCategory', []))
@@ -172,5 +133,67 @@ export class DocumentService {
       duration: 2000,
     });
   }
+
+
+
+
+
+
+
+
+
+/*
+  // GET document by id. Return `undefined` when id not found
+  getDocumentNo404<Data>(id: number): Observable<Document> {
+    const url = `${this.documentsUrl}/?id=${id}`;
+    return this.http.get<Document[]>(url, httpOptions)
+      .pipe(
+        map(documente => documente[0]), // returns a {0|1} element array
+        tap(h => {
+          const outcome = h ? `fetched` : `did not find`;
+          this.log(`${outcome} document id=${id}`);
+        }),
+        catchError(this.handleError<Document>(`getDocument id=${id}`))
+      );
+  }
+  
+
+  
+  // GET document by id. Will 404 if id not found
+  getDocument(id: number): Observable<Document> {
+    const url = `${this.documentsUrl}/${id}`;
+    // TODO: send the message _after_ fetching the document
+    this.messageService.add(`DocumentService: fetched document id=${id}`);
+    return this.http.get<Document>(url, httpOptions).pipe(
+      tap(_ => this.log(`fetched document id=${id}`)),
+      catchError(this.handleError<Document>(`getDocument id=${id}`))
+    );
+  }
+
+
+  // GET documente whose name contains search term 
+  searchDocument(term: string): Observable<Document[]> {
+    if (!term.trim()) {
+      // if not search term, return empty documente array.
+      return of([]);
+    }
+    return this.http.get<Document[]>(`${this.documentsUrl}/?name=${term}`, httpOptions).pipe(
+      tap(_ => this.log(`found document matching "${term}"`)),
+      catchError(this.handleError<Document[]>('searchDocumente', []))
+    );
+  }
+
+
+  // PUT: update the documente on the server
+  updateDocument(document: Document): Observable<any> {
+    if (!document.name || !document.categoriename || !document.link) { return; }
+    return this.http.post(this.documentsUrl, document, httpOptions).pipe(
+      tap(_ => this.log(`updated document id=${document.documentID}`)),
+      catchError(this.handleError<any>('updateDocument'))
+    );
+  }
+
+  */
+
 
 }

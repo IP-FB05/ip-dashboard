@@ -1,7 +1,10 @@
 import { Pipe, PipeTransform } from "@angular/core";
+
+// Import Models
 import { Process } from '../process/process';
 
-
+// Import Components
+// Import Services
 
 @Pipe({
     name: 'textFilterProcesses'

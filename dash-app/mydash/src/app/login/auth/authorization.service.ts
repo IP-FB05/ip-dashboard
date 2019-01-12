@@ -1,6 +1,13 @@
 import { Injectable } from '@angular/core';
-import { User } from '../user';
+
 import * as jwt from 'jsonwebtoken';
+
+// Import Models
+import { User } from '../user';
+
+// Import Components
+
+// Import Services
 import { AuthService } from './auth.service';
 
 @Injectable({

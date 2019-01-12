@@ -1,15 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { FormControl, FormGroup } from '@angular/forms';
 
+// Import Models
 import { Category } from '../category/category';
-import { CategoryService } from '../category/category.service'
 
+// Import Components
 import { DocumentsComponent } from '../document/documents/documents.component';
 import { ProcessesComponent } from '../process/processes/processes.component';
 import { SystemsComponent } from '../system/systems/systems.component';
+
+// Import Services
+import { CategoryService } from '../category/category.service'
+
+
 
 @Component({
   selector: 'app-filter',

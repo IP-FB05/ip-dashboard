@@ -18,3 +18,12 @@ h2 {
     box-shadow: none;
 }
 
+.mat-form-field {
+    width:600px; 
+    height:auto;
+}
+
+i {
+    margin-right:5px;
+}
+
