@@ -105,7 +105,7 @@ public class TestPruefungsamt {
 	}
 	
 	@Test
-	public void testGetModuleList() throws SQLException {
+	public void testGetModuleStudentList() throws SQLException {
 		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
 		
 		int modNr = 0;
@@ -123,6 +123,27 @@ public class TestPruefungsamt {
 	}
 	
 	@Test
+	public void testGetModuleListAll() throws SQLException {
+		// Fuer Student 1 sollte das erste Modul 8998 mit Name Bachelorarbeit sein
+		
+		int modNr = 0;
+		String modName = "";
+		
+		List<RegisteredModulesModel> testList = pa.getModulList();
+		
+		RegisteredModulesModel firstModule = testList.get(0);
+		modNr = firstModule.getId();
+		modName = firstModule.getModule();
+		
+		
+		assertEquals(52106,modNr);
+		assertEquals("Algorithmen und Datenstrukturen",modName);
+	}
+	
+	
+	
+	
+	@Test
 	public void testPruefungBenotung() throws SQLException {
 		// Student 1 bekommt seine letzte Pruefung in Prüfung 552011 mit 2.0 benotet
 		pa.pruefungAnmelden(1, 55606);	
@@ -133,6 +154,7 @@ public class TestPruefungsamt {
 		assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
 	}
 	
+	@Ignore
 	@Test
 	public void testGetPruefungStudentList() throws SQLException {
 		// Fuer Modul 51101 sollen alle angemeldeten Studenten ausgegeben werden
@@ -187,6 +209,44 @@ public class TestPruefungsamt {
 		// Fuer Student 1 soll letzte BA um 14 Tage verlaengert werden
 		// schlaegt fehl wenn noch keine BA angelegt wurde
 		assertTrue(pa.setBAVerlaengerung(1, new java.sql.Date(new java.util.Date().getTime())));
+	}
+	
+	@Test
+	public void testMasterarbeit() throws SQLException {
+
+		
+		//Student 1 erfuellt zulassungsvoraussetztung
+		assertTrue(pa.getZulassungMA(1));
+		
+		// Fuer Student 1 soll eine BA angelegt werden
+		assertTrue(pa.setAnmeldungMA
+				(1, "Testbetreuer", "TestBA", new java.sql.Date(new java.util.Date().getTime()))
+				);
+		
+		// Fuer Student 1 soll die letzte BA benotet werden
+		assertTrue(pa.setMABenoten(1, 2.7));
+	}
+	
+	@Test
+	public void testMAKolloquium() throws SQLException {
+
+		
+		//Student 1 erfuellt zulassungsvoraussetztung
+		//assertTrue(pa.getZulassungMAKol(1));
+		
+		// Fuer Student 1 soll eine BAKol angelegt werden
+		assertTrue(pa.setAnmeldungMAKol(1, new java.sql.Date(new java.util.Date().getTime())));
+		
+		// Fuer Student 1 soll die letzte BAKol benotet werden
+		assertTrue(pa.setMAKolBenoten(1, 3.3));
+	}
+	
+	@Test
+	public void testLetzteMAverlaengern() throws SQLException {
+
+		// Fuer Student 1 soll letzte BA um 14 Tage verlaengert werden
+		// schlaegt fehl wenn noch keine BA angelegt wurde
+		assertTrue(pa.setMAVerlaengerung(1, new java.sql.Date(new java.util.Date().getTime())));
 	}
 	
 

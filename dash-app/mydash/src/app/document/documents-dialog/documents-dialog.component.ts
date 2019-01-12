@@ -90,7 +90,7 @@ export class DocumentsDialogComponent implements OnInit {
 
   /*
   updateFile(file: HTMLInputElement) {
-    this.link = "http://localhost:8080/files/" + file.value;
+    this.link = "http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/files/" + file.value;
   }
   */
   

@@ -34,7 +34,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_0uvpcve" sourceRef="ExclusiveGateway_1wfiknm" targetRef="EndEvent_063ml65" />
     <bpmn:sequenceFlow id="SequenceFlow_12ahmdu" sourceRef="Task_0xo6248" targetRef="Task_0wmrezp" />
     <bpmn:sequenceFlow id="SequenceFlow_0jbq7k4" sourceRef="Task_0wmrezp" targetRef="Task_1yzvi8v" />
-    <bpmn:startEvent id="StartEvent_1" name="Wunsch Modul anmeldung" camunda:formKey="embedded:app:forms/start-form.html">
+    <bpmn:startEvent id="StartEvent_1" name="Wunsch Modul anmeldung" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="initiator">
       <bpmn:outgoing>SequenceFlow_12gd3xw</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:serviceTask id="Task_0xo6248" name="Credits abfragen" camunda:asyncBefore="true">
@@ -134,23 +134,21 @@
         <bpmn:targetRef>DataStoreReference_10x7cta</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_193dmy6" name="Student nicht zugelassen benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendMail">
+    <bpmn:sendTask id="Task_193dmy6" name="Student nicht zugelassen benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="subjectInput">Ablehnung Modulanmeldung</camunda:inputParameter>
-          <camunda:inputParameter name="messageInput">Leider erfuellen sie nicht alle Vorraussetzungen</camunda:inputParameter>
-          <camunda:inputParameter name="targetEmail">${targetEmail}</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Ablehnung Modulanmeldung</camunda:inputParameter>
+          <camunda:inputParameter name="text">Leider erfuellen sie nicht alle Vorraussetzungen</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_1p1zba6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1hegben</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Task_14strkd" name="Student zugelassen benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendMail">
+    <bpmn:sendTask id="Task_14strkd" name="Student zugelassen benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
-          <camunda:inputParameter name="subjectInput">Modul angemeldet</camunda:inputParameter>
-          <camunda:inputParameter name="messageInput">Sie sind zum Modul angemeldet</camunda:inputParameter>
-          <camunda:inputParameter name="targetEmail">${targetEmail}</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Modul angemeldet</camunda:inputParameter>
+          <camunda:inputParameter name="text">Sie sind zum Modul angemeldet</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_19inv06</bpmn:incoming>
@@ -162,7 +160,6 @@
       <bpmn:text>Fragt ab:
 - matrikelnummer (des anmeldenden Studenten)
 - studiengang (des anmeldenden Studenten)
-- targetEmail (Email des anmeldenden Studenten)
 - fachnummer (des Wunschmoduls)</bpmn:text>
     </bpmn:textAnnotation>
   </bpmn:process>
@@ -228,7 +225,7 @@
       <bpmndi:BPMNShape id="StartEvent_15ft8oh_di" bpmnElement="StartEvent_1">
         <dc:Bounds x="213" y="144" width="36" height="36" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="194" y="106.5" width="73" height="27" />
+          <dc:Bounds x="194" y="107" width="73" height="27" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="BusinessRuleTask_07gn6uq_di" bpmnElement="Task_1yzvi8v">
@@ -289,11 +286,11 @@
         <di:waypoint x="261" y="280" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="TextAnnotation_1xqtinv_di" bpmnElement="TextAnnotation_1xqtinv">
-        <dc:Bounds x="301" y="79" width="369" height="82" />
+        <dc:Bounds x="301" y="79" width="369" height="68" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="Association_0qyphlp_di" bpmnElement="Association_0qyphlp">
-        <di:waypoint x="249" y="159" />
-        <di:waypoint x="301" y="150" />
+        <di:waypoint x="248" y="159" />
+        <di:waypoint x="306" y="147" />
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

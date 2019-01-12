@@ -5,6 +5,7 @@ import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camun
 import 'jquery';
 import { ProcessInstance } from 'src/app/process/processInstance.js';
 import { DoTaskService } from './do-task.service';
+import { AuthService } from '../../login/auth/auth.service';
 
 var taskId: String;
 var instance: String
@@ -17,6 +18,7 @@ var instance: String
 export class DoTaskComponent implements OnInit {
 
   constructor(
+    private authService: AuthService,
     private doTaskService: DoTaskService,
     public thisDialogRef: MatDialogRef<DoTaskComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
@@ -50,7 +52,7 @@ var $formContainer;
 
 var camClient = new CamSDK.Client({
   mock: false,
-  apiUri: 'http://localhost:8080/engine-rest'
+  apiUri: 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest'
 });
 
 var taskService = new camClient.resource('task');
@@ -78,7 +80,7 @@ function showTasks(results) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Complete</button>').click(function () {
+        var $submitBtn = $('<button type="submit">Task abschicken</button>').click(function () {
           camForm.submit(function (err) {
             if (err) {
               throw err;
@@ -98,7 +100,7 @@ function showTasks(results) {
 function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
   taskService.form(taskId, function(err, taskFormInfo) {
-    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,

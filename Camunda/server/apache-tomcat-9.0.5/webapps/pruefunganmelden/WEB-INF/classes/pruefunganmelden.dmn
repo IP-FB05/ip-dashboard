@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/DMN/20151101/dmn.xsd" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/1.0" id="pruefunganmelden_dmn" name="DRD" namespace="http://camunda.org/schema/1.0/dmn">
+  <decision id="Decision_zulassung" name="Decision_zulassung">
+    <extensionElements>
+      <biodi:bounds x="342" y="422" width="180" height="80" />
+      <biodi:edge source="InputData_0ok1xyy">
+        <biodi:waypoints x="554" y="599" />
+        <biodi:waypoints x="464" y="502" />
+      </biodi:edge>
+      <biodi:edge source="InputData_04029jw">
+        <biodi:waypoints x="265" y="590" />
+        <biodi:waypoints x="393" y="502" />
+      </biodi:edge>
+    </extensionElements>
+    <informationRequirement>
+      <requiredInput href="#InputData_0ok1xyy" />
+    </informationRequirement>
+    <informationRequirement>
+      <requiredInput href="#InputData_04029jw" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0hlxov4" hitPolicy="FIRST">
+      <input id="InputClause_1llywf5" label="Praktikum">
+        <inputExpression id="LiteralExpression_0sqqqz9" typeRef="boolean">
+          <text>praktikum</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0wvvvvg" label="Pruefung">
+        <inputExpression id="LiteralExpression_1aphkbw" typeRef="boolean">
+          <text>pruefung</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1unf9y1" label="Zulassung" name="zulassung" typeRef="boolean" />
+      <rule id="DecisionRule_17sr0ep">
+        <inputEntry id="UnaryTests_16vba4p">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nghj8q">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0om7cw2">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_12nslgn">
+        <inputEntry id="UnaryTests_0021e17">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0eg89v0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gknj8z">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+</definitions>

@@ -208,6 +208,24 @@ public class Pruefungsamt {
 		}
 		return false;
 	}
+	
+	// output: alle gespeicherten module insgesamt
+		public List<RegisteredModulesModel> getModulList() throws SQLException {
+			preparedStatement = connect.prepareStatement(
+					"SELECT modulnr as modul,modultext FROM pruefungsamt.module WHERE modulnr NOT IN ('0','8998','8999','9998','9999');");
+			// '0' = Praxissemester,'8998' = BA,'8999' = BAKol, '9998' = MA, '9999' = MAKol
+			resultSet = preparedStatement.executeQuery();
+			
+			
+			List<RegisteredModulesModel> resultList = newRegisteredModulesModelListing(resultSet);
+			
+			
+			if(resultList != null) {
+				return resultList;
+			}
+			return null;	
+		}
+	
 	// output: alle angemeldeten module eines Studenten
 	public List<RegisteredModulesModel> getModulStudent(int matrikelnr) throws SQLException {
 		preparedStatement = connect.prepareStatement(
@@ -381,7 +399,8 @@ public class Pruefungsamt {
 			return true;
 		}	
 		return false;
-	}	
+	}
+	
 	
 	// output: alle angemeldeten module eines Studenten
 	public List<RegisteredPruefungModel> getPruefungStudentList(int fachnr) throws SQLException {
@@ -413,6 +432,260 @@ public class Pruefungsamt {
 	    }
 	 
 	    return resources;
+	}
+	
+	public boolean getZulassungMA(int matrikelnr) throws SQLException {
+		
+		boolean istZugelassen = true;
+
+		//praxissemester
+		int studiengangMat = 0;
+		
+		preparedStatement = connect.prepareStatement(
+                "SELECT studiengang FROM pruefungsamt.student\n" + 
+                " WHERE matrikelnr = ?;");
+        preparedStatement.setInt(1, matrikelnr);
+        resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()) {
+        	studiengangMat =  resultSet.getInt(1);
+        }
+		
+        preparedStatement.clearParameters();
+        
+		if(studiengangMat == 2) {
+			preparedStatement = connect.prepareStatement(
+	                "Select * from `pruefungsamt`.`pruefung_student` \n" + 
+	                "INNER JOIN `pruefungsamt`.`pruefungen` ON `pruefungsamt`.`pruefung_student`.pruefung = `pruefungsamt`.`pruefungen`.pruefungsnr \n" + 
+	                "WHERE (`student` = ?) and (`pruefungsamt`.`pruefungen`.`modulnr` = '0') and (`pruefungsamt`.`pruefung_student`.`status` = 'bestanden');");
+	        preparedStatement.setInt(1, matrikelnr);
+	        resultSet = preparedStatement.executeQuery();
+	        if(!resultSet.first()) {
+	        	return false;
+	        }
+		}
+		
+		preparedStatement.clearParameters();
+		
+		//bestandende leistungen
+		
+		int bestandendeLeistungenMat = 0;
+		
+		preparedStatement = connect.prepareStatement(
+                "select count(*) as number from pruefungsamt.pruefung_student \n" + 
+                "where pruefungsamt.pruefung_student.student= ? and pruefungsamt.pruefung_student.status = 'bestanden';");
+        preparedStatement.setInt(1, matrikelnr);
+        resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()) {
+        	bestandendeLeistungenMat =  resultSet.getInt(1);
+        }
+		
+        if(bestandendeLeistungenMat<19) {
+        	return false;
+        }
+		
+		return true;
+	}
+	
+	public boolean getZulassungMAKol(int matrikelnr) throws SQLException {
+		int bestandendeLeistungenMat = 0;
+		
+		preparedStatement = connect.prepareStatement(
+                "select count(*) as number from pruefungsamt.pruefung_student \n" + 
+                "where pruefungsamt.pruefung_student.student= ? and pruefungsamt.pruefung_student.status = 'bestanden';");
+        preparedStatement.setInt(1, matrikelnr);
+        resultSet = preparedStatement.executeQuery();
+        if(resultSet.first()) {
+        	bestandendeLeistungenMat =  resultSet.getInt(1);
+        }
+		
+        if(bestandendeLeistungenMat<21) {
+        	return false;
+        }
+		
+		return true;
+	}
+	
+	public boolean setAnmeldungMA(int matrikelnr, String betreuer, String nameMA, Date startdatum) throws SQLException {
+
+		//anlegen abschlussarbeit
+		
+		int idAbschlussarbeit = -1;
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO `pruefungsamt`.`abschlussarbeit` (`name`) VALUES (?);", Statement.RETURN_GENERATED_KEYS);
+		preparedStatement.setString(1, nameMA);
+		int lineEdit = preparedStatement.executeUpdate();
+		ResultSet rs=preparedStatement.getGeneratedKeys();
+		
+		if(rs.next()){
+			idAbschlussarbeit=rs.getInt(1);
+        }		
+		preparedStatement.clearParameters();
+		
+		//anlegen pruefung
+		int idPruefung = -1;
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefer`, `pruefungszeitpunkt`, `abschlussarbeitnr`) VALUES ('8998', ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+		preparedStatement.setString(1, betreuer);
+		preparedStatement.setDate(2, startdatum);
+		preparedStatement.setInt(3, idAbschlussarbeit);
+		lineEdit = preparedStatement.executeUpdate();
+		rs=preparedStatement.getGeneratedKeys();
+		
+		if(rs.next()){
+			idPruefung=rs.getInt(1);
+        }		
+		preparedStatement.clearParameters();
+		
+
+		
+		//anlegen pruefung_student
+		preparedStatement = connect.prepareStatement(
+				"INSERT INTO `pruefungsamt`.`pruefung_student` (`student`, `pruefung`, `status`)"
+				+ "VALUES (?, ?, 'angemeldet');");
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setInt(2, idPruefung); //LAST_INSERT_ID()
+		
+		lineEdit = preparedStatement.executeUpdate();
+		
+		if(lineEdit == 1) {
+			return true;
+		}
+		return false;
+	}
+	
+	public boolean setAnmeldungMAKol(int matrikelnr, Date startdatum) throws SQLException {
+		//anlegen pruefung
+				int idPruefung = -1;
+				preparedStatement = connect.prepareStatement(
+						"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefungszeitpunkt`) VALUES ('8999', ?);", Statement.RETURN_GENERATED_KEYS);
+				preparedStatement.setDate(1, startdatum);
+				int lineEdit = preparedStatement.executeUpdate();
+				ResultSet rs=preparedStatement.getGeneratedKeys();
+				
+				if(rs.next()){
+					idPruefung=rs.getInt(1);
+		        }		
+				preparedStatement.clearParameters();
+				
+
+				
+				//anlegen pruefung_student
+				preparedStatement = connect.prepareStatement(
+						"INSERT INTO `pruefungsamt`.`pruefung_student` (`student`, `pruefung`, `status`)"
+						+ "VALUES (?, ?, 'angemeldet');");
+				preparedStatement.setInt(1, matrikelnr);
+				preparedStatement.setInt(2, idPruefung); //LAST_INSERT_ID()
+				
+				lineEdit = preparedStatement.executeUpdate();
+				
+				if(lineEdit == 1) {
+					return true;
+				}
+				return false;
+	}
+	
+
+	public boolean setMABenoten(int matrikelnr, double note) throws SQLException {
+		
+		String bestanden = "";
+		
+		if(note < 5.0) {
+			bestanden = "'bestanden'";
+		} else {
+			bestanden = "'durchgefallen'";
+		}
+
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`pruefung_student`  AS prstd "
+					+ "JOIN "
+					+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
+					+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
+					+ "WHERE (`student` = ?) and (t2.`modulnr` = '8998') "
+					+ "order by t2.pruefungszeitpunkt desc "
+					+ "LIMIT 1 "
+					+ ") AS sel "
+					+ "ON sel.pruefung = prstd.pruefung "
+					+ "SET prstd.`note` = ?, prstd.`status` = "+ bestanden + "; ");					
+		
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setDouble(2, note);
+		int resultSet = preparedStatement.executeUpdate();
+		
+		if(resultSet == 1) {
+			return true;
+		}	
+		return false;
+	}
+	
+	public boolean setMAKolBenoten(int matrikelnr, double note) throws SQLException {
+		
+		String bestanden = "";
+		
+		if(note < 5.0) {
+			bestanden = "'bestanden'";
+		} else {
+			bestanden = "'durchgefallen'";
+		}
+
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`pruefung_student`  AS prstd "
+					+ "JOIN "
+					+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
+					+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
+					+ "WHERE (`student` = ?) and (t2.`modulnr` = '8999') "
+					+ "order by t2.pruefungszeitpunkt desc "
+					+ "LIMIT 1 "
+					+ ") AS sel "
+					+ "ON sel.pruefung = prstd.pruefung "
+					+ "SET prstd.`note` = ?, prstd.`status` = "+ bestanden + "; ");					
+		
+		preparedStatement.setInt(1, matrikelnr);
+		preparedStatement.setDouble(2, note);
+		int resultSet = preparedStatement.executeUpdate();
+		
+		if(resultSet == 1) {
+			return true;
+		}	
+		return false;
+	}
+	
+	public boolean setMAVerlaengerung(int matrikelnr, Date verlaengerungDate) throws SQLException {
+		int lastBA = -1;
+		
+		preparedStatement = connect.prepareStatement(
+				"SELECT abschlussarbeitnr FROM `pruefungsamt`.`pruefung_student` AS t1 "
+				+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
+				+ "WHERE (`student` = ?) and (t2.`modulnr` = '8998') "
+				+ "order by t2.pruefungszeitpunkt desc "
+				+ "LIMIT 1; ");					
+	
+		preparedStatement.setInt(1, matrikelnr);
+		resultSet = preparedStatement.executeQuery();
+		
+		if(resultSet.first()) {
+			lastBA = resultSet.getInt(1);
+		}
+		
+		preparedStatement.clearParameters();
+		
+		
+		if(lastBA != -1) {
+			
+			
+			preparedStatement = connect.prepareStatement(
+					"UPDATE `pruefungsamt`.`abschlussarbeit` SET `verlaengert` = ? "
+					+ "WHERE (`idabschlussarbeit` = ?);");					
+		
+			preparedStatement.setDate(1, verlaengerungDate);
+			preparedStatement.setInt(2, lastBA);
+			int resultSet = preparedStatement.executeUpdate();
+			
+			if(resultSet == 1) {
+				return true;
+			}	
+		}
+
+		return false;
 	}
 	
 	public boolean getZulassungBA(int matrikelnr) throws SQLException {
@@ -668,6 +941,9 @@ public class Pruefungsamt {
 
 		return false;
 	}
+	
+	
+	
 	
 	public void close() throws SQLException {
 		connect.close();

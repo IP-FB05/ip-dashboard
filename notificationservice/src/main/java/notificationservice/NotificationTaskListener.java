@@ -8,6 +8,7 @@ import java.sql.SQLException;
 
 import utils.Config;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -18,8 +19,13 @@ import javax.mail.internet.*;
 
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.RuntimeService;
 import org.camunda.bpm.engine.delegate.DelegateTask;
 import org.camunda.bpm.engine.delegate.TaskListener;
+import org.camunda.bpm.engine.history.HistoricProcessInstance;
+import org.camunda.bpm.engine.identity.User;
+import org.camunda.bpm.engine.repository.ProcessDefinition;
+import org.camunda.bpm.engine.runtime.ProcessInstance;
 
 public class NotificationTaskListener implements TaskListener {
 
@@ -96,7 +102,11 @@ public class NotificationTaskListener implements TaskListener {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
+		
 		if (processbeteiligte_list.size() >= 0 || subscriber_list.size() >= 0) {
+			
 			// 4. email addressen besorgen
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 			String cslDestination = "";
@@ -110,7 +120,28 @@ public class NotificationTaskListener implements TaskListener {
 			}
 			cslDestination = cslDestination.substring(0, cslDestination.length() - 1);
 
-			// 5. mail versenden
+			// 5. Jetzt noch den bearbeiter (falls vorhanden und nicht deaktiviert
+			String asignee = delegateTask.getAssignee();
+			boolean notify = true;
+			if(asignee != null) {
+				try {
+					PreparedStatement preparedStatement = connect.prepareStatement("select * from notification where username = ?");
+					preparedStatement.setString(1, asignee);
+					ResultSet res = preparedStatement.executeQuery();
+					if(res.first()) {
+						notify = false;
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			if(notify) {
+				cslDestination = cslDestination + processEngine.getIdentityService().createUserQuery()
+						.userId(asignee).singleResult().getEmail() + ",";
+			}
+			
+			// 6. mail versenden
 			final String username = "dashboarddonotreply@gmail.com";
 			final String password = Config.getConfig(Config.MAIL_PASS);
 
@@ -125,16 +156,28 @@ public class NotificationTaskListener implements TaskListener {
 					return new PasswordAuthentication(username, password);
 				}
 			});
-
+			
+			// Infos zum Prozess holen
+			ProcessDefinition processDefinition = delegateTask.getProcessEngineServices().getRepositoryService().createProcessDefinitionQuery().processDefinitionId(processDefinitionID).singleResult();
+			HistoricProcessInstance processInstance = delegateTask.getProcessEngineServices().getHistoryService().createHistoricProcessInstanceQuery().processDefinitionId(processDefinitionID).singleResult();
+			
+			String processname = processDefinition.getName();
+			User processowner = delegateTask.getProcessEngineServices().getIdentityService().createUserQuery().userId(processInstance.getStartUserId()).singleResult();
+			String started = delegateTask.getProcessEngineServices().getHistoryService().createHistoricActivityInstanceQuery().activityId(processInstance.getStartActivityId()).singleResult().getStartTime().toString();
+			
 			try {
 				Message message = new MimeMessage(session);
 				message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(cslDestination));
-				message.setSubject("Der Prozess geht weiter");
-				message.setText("Blah blah blah");
+				message.setSubject("Task \"" + delegateTask.getName() + "\" wurde erreicht");
+				
+				String text = "Der Prozess \"" + processname + "\", gestartet am " + started + " von " + processowner + " hat den Task " + delegateTask.getName() + " erreicht.";
+				if(asignee != null) {
+					text += "Die Bearbeitung wurde " + asignee + " zugewiesen.";
+				}
+				message.setText(text);
 				Transport.send(message);
 			} catch (MessagingException e) {
-				LOGGER.log(Level.SEVERE, "Destination: " + cslDestination);
 				throw new RuntimeException(e);
 			}
 		}
