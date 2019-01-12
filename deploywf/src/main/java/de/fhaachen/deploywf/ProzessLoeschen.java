@@ -2,8 +2,6 @@ package de.fhaachen.deploywf;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.joda.time.DateTime;
-
 import java.sql.*;
 
 import java.util.Properties;
@@ -18,9 +16,6 @@ public class ProzessLoeschen implements JavaDelegate {
 		try{
 
 	    	Connection connect = null;
-	    	PreparedStatement preparedStatement = null;
-	    	ResultSet resultSet = null;
-
 	    	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com:3306/dashboardDB";
 
 	    	
