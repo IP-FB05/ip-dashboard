@@ -69,9 +69,9 @@ export class ProcessesDialogComponent implements OnInit {
   }
 
   getSelectedValue(event: number[]) {
-    console.log(event);
-    this.selectedUsergroups = event;
-    console.log(this.selectedUsergroups);
+    if(event != undefined) {
+      this.selectedUsergroups = event;
+    } else this.selectedUsergroups = [];
   }
 
   onCloseConfirm() {

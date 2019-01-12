@@ -41,6 +41,7 @@ export class ProcessesComponent implements OnInit {
   }
 
   add(process: Process, selectedUserGroups: number[]): void {
+    /*
     if(selectedUserGroups != null) {
       console.log(JSON.stringify(process));
       console.log(selectedUserGroups);
@@ -52,13 +53,12 @@ export class ProcessesComponent implements OnInit {
         this.getProcesses();
     });
     }
-   /*
+   */
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
         this.getProcesses();
       });
-    */
   }
 
   startProcess(process: Process): void {
