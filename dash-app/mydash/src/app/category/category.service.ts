@@ -1,6 +1,8 @@
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+// Import Components
 import { Category } from '../category/category';
 
 const httpOptions = {
@@ -14,7 +16,6 @@ export class CategoryService {
 
   constructor(private http:HttpClient) {}
 
-  //private categoryUrl = 'http://localhost:9090/category-portal/category';
 	private categoryUrl = 'http://localhost:9090/category';
 
   public getCategories() {

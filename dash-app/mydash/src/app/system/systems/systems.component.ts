@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material'
+
+// Import Models
 import { System } from '../system';
-import { SystemService } from '../system.service';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+
+// Import Components
 import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.component';
+
+// Import Services
+import { SystemService } from '../system.service';
 import { AuthorizationService } from 'src/app/login/auth/authorization.service';
 
 

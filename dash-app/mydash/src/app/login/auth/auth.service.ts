@@ -1,15 +1,18 @@
 import { Injectable } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
+import { Router } from '@angular/router';
 import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 
 import * as jwt from 'jsonwebtoken';
 
+// Import Models
 import { User } from '../user';
-import { Group } from '../group';
 import { Authorization } from './authorization';
-import { Router } from '@angular/router';
+
+// Import Components
+// Import Services
 
 
 const httpOptions = {
@@ -22,7 +25,6 @@ const httpOptions = {
 export class AuthService {
 
     private authUrl = 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest';
-    //private localUrl = 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest';
 
     isLoggedin = false;
     currentUser: User = new User();

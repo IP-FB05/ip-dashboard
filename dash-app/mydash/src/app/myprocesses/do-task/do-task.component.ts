@@ -1,9 +1,16 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
 import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
+
+
+// Import Models
 import { ProcessInstance } from 'src/app/process/processInstance.js';
+
+// Import Components
+
+// Import Services
 import { DoTaskService } from './do-task.service';
 import { AuthService } from '../../login/auth/auth.service';
 

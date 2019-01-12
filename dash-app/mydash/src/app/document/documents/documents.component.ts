@@ -1,11 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material'
+
+// Import Models
 import { Document } from '../document';
-import { DocumentService } from '../document.service';
-import { MatDialog, MatDialogConfig, MatSnackBar } from '@angular/material'
+
+// Import Components
 import { DocumentsDialogComponent } from '../documents-dialog/documents-dialog.component';
-import { AuthorizationService } from 'src/app/login/auth/authorization.service';
 
-
+// Import Services
+import { DocumentService } from '../document.service';
+import { AuthorizationService } from '../../login/auth/authorization.service'
 
 
 @Component({
@@ -16,16 +20,14 @@ import { AuthorizationService } from 'src/app/login/auth/authorization.service';
 export class DocumentsComponent implements OnInit {
 
   documents: Document[];
-  searchText:string;
-  //flag: boolean;
+  searchText: string;
 
   constructor(private documentsService: DocumentService,
               public dialog: MatDialog,
-              private authorizationService: AuthorizationService) { }
+              public authorizationService: AuthorizationService) { }
 
   ngOnInit() {
     this.getDokumente();
-    //this.flag = true;
   }
 
   getDokumente(): void {
@@ -62,7 +64,6 @@ export class DocumentsComponent implements OnInit {
       kategoriename: "",
       name: "",
       lastChanged: new Date(),
-      // TODO
       link: ""
     };
 
@@ -80,40 +81,6 @@ filterDocuments(name: string) {
   .subscribe(documents => this.documents = documents);
 }
 
-
-
-  /* Frontend Filter
-
-  // Funktioniert aber verbuggt
- 
-  filterCategory(name: string) {
-    this.getDokumente();
-    for (var i = 0; i < this.documents.length; i++) {
-      if(!(this.documents[i].categoriename===name)) {
-        this.documents.splice(i,1);
-        i--;
-      }
-    }
-  }
-
-  // Funktioniert nicht =(
-
-  filterCategory(name: string) {
-    this.getDokumente();
-    this.documents.filter(function(document){
-      return document.categoriename === name;
-    });
-  }
-
-  test() {
-    if(this.flag) {
-      this.filterCategory("MCD");
-      this.flag = false;
-    } else {
-      this.filterCategory("Informatik");
-      this.flag = true;
-    }
-  }*/
   sortDocuments() {
     this.documents.sort(this.compareDate);
   } 

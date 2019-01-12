@@ -1,6 +1,22 @@
 .diagram-parent {
     height: 300px;
-  
     border: solid 3px #EEE;
+    padding: 10px 30px 10px 37px;
+  }
+
+  .row {
+    margin-left:15px; 
+    margin-right:15px;
+  }
+
+  p {
+    color: black; 
+    margin-top:30px;
+  }
+
+  h1 {
+    color: black; 
+    font-weight:400; 
+    font-size: 30px;
   }
 

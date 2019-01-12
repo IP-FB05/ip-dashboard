@@ -1,4 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
+
+// Import Models
+// Import Components
+// Import Services
  
 @Component({
   selector: 'details-upload',

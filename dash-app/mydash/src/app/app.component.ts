@@ -1,5 +1,12 @@
 import { Component, OnInit } from '@angular/core';
+
+
+// Import Models
+// Import Components
+
+// Import Services
 import { AuthorizationService } from './login/auth/authorization.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

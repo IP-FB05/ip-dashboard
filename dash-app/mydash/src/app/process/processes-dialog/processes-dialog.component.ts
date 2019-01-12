@@ -1,11 +1,17 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { Process } from '../process';
-import { Observable } from 'rxjs';
-import { UploadFileService } from 'src/app/upload/upload-file.service';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+// Import Models
+import { Process } from '../process';
 import { Usergroup } from 'src/app/usergroup/usergroup';
+
+// Import Components
+
+// Import Services
+import { UploadFileService } from 'src/app/upload/upload-file.service';
 import { UsergroupService } from 'src/app/usergroup/usergroup.service';
 
 @Component({
@@ -31,7 +37,7 @@ export class ProcessesDialogComponent implements OnInit {
   selectedFiles: FileList;
   currentFileUpload: File;
   currentFileUpload1: File;
-  //progress: { percentage: number } = { percentage : 0 };
+
 
   constructor(
     private usergroupService: UsergroupService,
@@ -46,7 +52,6 @@ export class ProcessesDialogComponent implements OnInit {
       description: new FormControl(this.description),
       pic: "Placeholder",
       warFile: new FormControl(this.warFile),
-      //bpmn: [this.bpmn, []], 
       bpmn: new FormControl(this.bpmn),
       added: "Now",
       camunda_processID: "None",
@@ -63,7 +68,7 @@ export class ProcessesDialogComponent implements OnInit {
       });
   }
 
-  getSelectedValue(event: any) {
+  getSelectedValue(event: number[]) {
     console.log(event);
     this.selectedUsergroups = event;
     console.log(this.selectedUsergroups);
@@ -81,21 +86,17 @@ export class ProcessesDialogComponent implements OnInit {
     this.selectedFiles = event.target.files;
     this.currentFileUpload = this.selectedFiles.item(0);
     this.form.controls.bpmn.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
-    //this.form.controls.lastChanged.setValue(new Date());
   }
 
   selectFile1(event) {
     this.selectedFiles = event.target.files;
     this.currentFileUpload1 = this.selectedFiles.item(0);
     this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload1.name);
-    //this.form.controls.lastChanged.setValue(new Date());
   }
 
 
 
   upload() {
-    //this.progress.percentage = 0;
-    //this.currentFileUpload = this.selectedFiles.item(0);
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
       if (event.type === HttpEventType.UploadProgress) {
         //this.progress.percentage = Math.round(100 * event.loaded / event.total);
@@ -105,7 +106,6 @@ export class ProcessesDialogComponent implements OnInit {
     });
 
     if (this.currentFileUpload1 != null) {
-
       this.uploadService.pushFileToStorage(this.currentFileUpload1).subscribe(event => {
         if (event.type === HttpEventType.UploadProgress) {
           //this.progress.percentage = Math.round(100 * event.loaded / event.total);
@@ -115,8 +115,6 @@ export class ProcessesDialogComponent implements OnInit {
       });
 
     }
-
-
     this.selectedFiles = undefined;
   }
 
