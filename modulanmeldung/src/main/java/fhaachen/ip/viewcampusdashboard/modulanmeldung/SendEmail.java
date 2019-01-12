@@ -1,14 +1,21 @@
 package fhaachen.ip.viewcampusdashboard.modulanmeldung;
 
+import java.util.Properties;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import utils.Config;
 
-import java.util.*;
-import javax.mail.*;
-import javax.mail.internet.*;
+import utils.Config;
 
 
 
@@ -18,8 +25,6 @@ public class SendEmail implements JavaDelegate {
 	
     	final String username = "dashboarddonotreply@gmail.com";
 		final String password = Config.getConfig(Config.MAIL_PASS);
-		
-		System.out.println(password);
 
 		Properties props = new Properties();
 		props.put("mail.smtp.auth", "true");
@@ -57,11 +62,11 @@ public class SendEmail implements JavaDelegate {
             String text = execution.getVariable("text").toString();
             message.setText(text);
 
-            Transport.send(message);
+            //Transport.send(message);
 
 
         } catch (MessagingException e) {
-            throw new RuntimeException(password);
+            throw new RuntimeException(e);
         }
     }
 

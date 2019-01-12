@@ -1,12 +1,11 @@
-package de.fhaachen.ip.pruefungabmelden;
+package utils;
 
 import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
 public class Config {
-	
+
 	public static final String REST_USER = "restuser";
 	public static final String REST_PASS = "restpass";
 	public static final String DB_USER = "dbuser";

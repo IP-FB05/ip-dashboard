@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" id="Definitions_10r8q6k" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="2.0.3">
+  <bpmn:collaboration id="Collaboration_01mf3rp">
+    <bpmn:participant id="Participant_163dhim" name="Prüfungsanmeldung" processRef="pruefungsanmeldung" />
+  </bpmn:collaboration>
+  <bpmn:process id="pruefungsanmeldung" name="Prüfungsanmeldung" isExecutable="true">
+    <bpmn:laneSet id="LaneSet_1od4182">
+      <bpmn:lane id="Lane_0dzg3mi" name="System">
+        <bpmn:flowNodeRef>get_praktikum</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>BusinessRuleTask_0u42roz</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_11i0ruy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_0b3g5zd</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ServiceTask_19jqg1m</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_016zueb</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>ExclusiveGateway_0usv6f3</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_1ftigkw" name="Student">
+        <bpmn:flowNodeRef>StartEvent_1jt3o1e</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_13k7143</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>EndEvent_0jy6j2h</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:serviceTask id="get_praktikum" name="Praktikumsstatus abfragen" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8888/student/praktikum/passed/${matrikelnummer}/${fachnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="praktikum">
+              <camunda:script scriptFormat="Javascript">response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0oufhum</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_16nwk2z</bpmn:outgoing>
+      <bpmn:property id="Property_0ihh8cc" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_00ba8bc">
+        <bpmn:sourceRef>DataStoreReference_1x4fz8c</bpmn:sourceRef>
+        <bpmn:targetRef>Property_0ihh8cc</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:businessRuleTask id="BusinessRuleTask_0u42roz" name="Zulassung prüfen" camunda:asyncBefore="true" camunda:resultVariable="zulassung" camunda:decisionRef="Decision_zulassung" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>SequenceFlow_1b1vdrg</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1ev3t5r</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:serviceTask id="Task_11i0ruy" name="Prüfungsstatus prüfen" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/allowedRegister/${matrikelnummer}/${fachnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="method">GET</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+            <camunda:outputParameter name="pruefung">
+              <camunda:script scriptFormat="Javascript">response</camunda:script>
+            </camunda:outputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_16nwk2z</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1b1vdrg</bpmn:outgoing>
+      <bpmn:property id="Property_1ta23em" name="__targetRef_placeholder" />
+      <bpmn:dataInputAssociation id="DataInputAssociation_0afb6p0">
+        <bpmn:sourceRef>DataStoreReference_1x4fz8c</bpmn:sourceRef>
+        <bpmn:targetRef>Property_1ta23em</bpmn:targetRef>
+      </bpmn:dataInputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:sendTask id="ServiceTask_0b3g5zd" name="Feedback zur nicht Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="text">Die Prüfung ${fachnummer} konnte nicht angemeldet werden, da Sie die voraussetzungen nicht erfüllen.</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Prüfungsanmeldung ${fachnummer}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0s3zblb</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_10goyxj</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:sendTask id="ServiceTask_19jqg1m" name="Feedback zur Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="text">Die Prüfung ${fachnummer} wurde erfolgreich angemeldet.</camunda:inputParameter>
+          <camunda:inputParameter name="subject">Prüfungsanmeldung ${fachnummer}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0x718z9</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0733rro</bpmn:outgoing>
+    </bpmn:sendTask>
+    <bpmn:serviceTask id="Task_016zueb" name="Prüfung anmelden" camunda:asyncBefore="true">
+      <bpmn:extensionElements>
+        <camunda:connector>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/${matrikelnummer}/${fachnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="headers">
+              <camunda:map>
+                <camunda:entry key="Accept">application/json</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+              </camunda:map>
+            </camunda:inputParameter>
+          </camunda:inputOutput>
+          <camunda:connectorId>http-connector</camunda:connectorId>
+        </camunda:connector>
+      </bpmn:extensionElements>
+      <bpmn:incoming>SequenceFlow_0pewis8</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0x718z9</bpmn:outgoing>
+      <bpmn:dataOutputAssociation id="DataOutputAssociation_0m6zmh0">
+        <bpmn:targetRef>DataStoreReference_1x4fz8c</bpmn:targetRef>
+      </bpmn:dataOutputAssociation>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="ExclusiveGateway_0usv6f3">
+      <bpmn:incoming>SequenceFlow_1ev3t5r</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_0pewis8</bpmn:outgoing>
+      <bpmn:outgoing>SequenceFlow_0s3zblb</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:startEvent id="StartEvent_1jt3o1e" name="Wunsch Prüfungsanmeldung" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="initiator">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="matrikelnummer" label="Matrikelnummer" type="long" />
+          <camunda:formField id="fachnummer" label="Fachnummer" type="long" />
+          <camunda:formField id="zielEmail" label="Ziel Email" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>SequenceFlow_0oufhum</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="EndEvent_13k7143" name="Nicht zur Prüfung zugelassen">
+      <bpmn:incoming>SequenceFlow_10goyxj</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="EndEvent_0jy6j2h" name="Zur Prüfung zugelassen">
+      <bpmn:incoming>SequenceFlow_0733rro</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="SequenceFlow_0oufhum" sourceRef="StartEvent_1jt3o1e" targetRef="get_praktikum" />
+    <bpmn:sequenceFlow id="SequenceFlow_16nwk2z" sourceRef="get_praktikum" targetRef="Task_11i0ruy" />
+    <bpmn:sequenceFlow id="SequenceFlow_1b1vdrg" sourceRef="Task_11i0ruy" targetRef="BusinessRuleTask_0u42roz" />
+    <bpmn:sequenceFlow id="SequenceFlow_1ev3t5r" name="Voraussetzungen erfüllt?" sourceRef="BusinessRuleTask_0u42roz" targetRef="ExclusiveGateway_0usv6f3" />
+    <bpmn:sequenceFlow id="SequenceFlow_0s3zblb" name="Nein" sourceRef="ExclusiveGateway_0usv6f3" targetRef="ServiceTask_0b3g5zd">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!zulassung}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="SequenceFlow_10goyxj" sourceRef="ServiceTask_0b3g5zd" targetRef="EndEvent_13k7143" />
+    <bpmn:sequenceFlow id="SequenceFlow_0x718z9" sourceRef="Task_016zueb" targetRef="ServiceTask_19jqg1m" />
+    <bpmn:sequenceFlow id="SequenceFlow_0733rro" sourceRef="ServiceTask_19jqg1m" targetRef="EndEvent_0jy6j2h" />
+    <bpmn:sequenceFlow id="SequenceFlow_0pewis8" name="Ja" sourceRef="ExclusiveGateway_0usv6f3" targetRef="Task_016zueb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${zulassung}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:dataStoreReference id="DataStoreReference_1x4fz8c" name="PrüfungsamtDB" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_01mf3rp">
+      <bpmndi:BPMNShape id="Participant_163dhim_di" bpmnElement="Participant_163dhim">
+        <dc:Bounds x="34" y="31" width="909" height="361" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="StartEvent_1jt3o1e_di" bpmnElement="StartEvent_1jt3o1e">
+        <dc:Bounds x="153" y="73" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="206" y="71" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="BusinessRuleTask_0u42roz_di" bpmnElement="BusinessRuleTask_0u42roz">
+        <dc:Bounds x="390" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0oufhum_di" bpmnElement="SequenceFlow_0oufhum">
+        <di:waypoint x="171" y="109" />
+        <di:waypoint x="171" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_0dzg3mi_di" bpmnElement="Lane_0dzg3mi">
+        <dc:Bounds x="64" y="151" width="879" height="241" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="EndEvent_0jy6j2h_di" bpmnElement="EndEvent_0jy6j2h">
+        <dc:Bounds x="812" y="73" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="861" y="77.5" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ExclusiveGateway_0usv6f3_di" bpmnElement="ExclusiveGateway_0usv6f3" isMarkerVisible="true">
+        <dc:Bounds x="530" y="290" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0pewis8_di" bpmnElement="SequenceFlow_0pewis8">
+        <di:waypoint x="580" y="315" />
+        <di:waypoint x="644" y="315" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="604" y="295" width="12" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="EndEvent_13k7143_di" bpmnElement="EndEvent_13k7143">
+        <dc:Bounds x="676" y="73" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="580" y="77.5" width="85" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_04j150a_di" bpmnElement="get_praktikum">
+        <dc:Bounds x="121" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_16nwk2z_di" bpmnElement="SequenceFlow_16nwk2z">
+        <di:waypoint x="221" y="315" />
+        <di:waypoint x="256" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1ev3t5r_di" bpmnElement="SequenceFlow_1ev3t5r">
+        <di:waypoint x="490" y="315" />
+        <di:waypoint x="530" y="315" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="514" y="345" width="84" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_0s3zblb_di" bpmnElement="SequenceFlow_0s3zblb">
+        <di:waypoint x="555" y="290" />
+        <di:waypoint x="555" y="211" />
+        <di:waypoint x="644" y="211" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="568" y="247" width="23" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_067rpgo_di" bpmnElement="Task_11i0ruy">
+        <dc:Bounds x="256" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="ServiceTask_1r0qwws_di" bpmnElement="Task_016zueb">
+        <dc:Bounds x="644" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0x718z9_di" bpmnElement="SequenceFlow_0x718z9">
+        <di:waypoint x="744" y="315" />
+        <di:waypoint x="780" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1b1vdrg_di" bpmnElement="SequenceFlow_1b1vdrg">
+        <di:waypoint x="356" y="315" />
+        <di:waypoint x="390" y="315" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0fpc5m3_di" bpmnElement="ServiceTask_19jqg1m">
+        <dc:Bounds x="780" y="275" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_0733rro_di" bpmnElement="SequenceFlow_0733rro">
+        <di:waypoint x="830" y="275" />
+        <di:waypoint x="830" y="109" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="SendTask_0bw6p1p_di" bpmnElement="ServiceTask_0b3g5zd">
+        <dc:Bounds x="644" y="171" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="SequenceFlow_10goyxj_di" bpmnElement="SequenceFlow_10goyxj">
+        <di:waypoint x="694" y="171" />
+        <di:waypoint x="694" y="109" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Lane_1ftigkw_di" bpmnElement="Lane_1ftigkw">
+        <dc:Bounds x="64" y="31" width="879" height="120" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="DataStoreReference_1x4fz8c_di" bpmnElement="DataStoreReference_1x4fz8c">
+        <dc:Bounds x="331" y="174" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="317" y="231" width="79" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="DataInputAssociation_00ba8bc_di" bpmnElement="DataInputAssociation_00ba8bc">
+        <di:waypoint x="331" y="215" />
+        <di:waypoint x="221" y="284" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataInputAssociation_0afb6p0_di" bpmnElement="DataInputAssociation_0afb6p0">
+        <di:waypoint x="345" y="224" />
+        <di:waypoint x="323" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="DataOutputAssociation_0m6zmh0_di" bpmnElement="DataOutputAssociation_0m6zmh0">
+        <di:waypoint x="653" y="275" />
+        <di:waypoint x="638" y="261" />
+        <di:waypoint x="420" y="261" />
+        <di:waypoint x="420" y="199" />
+        <di:waypoint x="381" y="199" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

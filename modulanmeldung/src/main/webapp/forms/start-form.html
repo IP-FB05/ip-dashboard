@@ -19,10 +19,7 @@
 		</div>
 	</div>
 	
-	<div>
-		<p> </p>
-		<p id="modtable"> <!-- created with createHtmlTable() js--> </p>
-	</div>
+	
 	
 	
 	<div class="control-group">
@@ -32,6 +29,12 @@
 				cam-variable-type="Long" required class="form-control" />
 		</div>
 	</div>
+	
+	<div>
+		<p> </p>
+		<p id="modtable"> <!-- created with createHtmlTable() js--> </p>
+	</div>
+	
 
 	<script cam-script type="text/form-script">
 	
@@ -41,7 +44,7 @@
 			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
 			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
 
-			var rest = 'http://localhost:8888/getModulList/';
+			var rest = 'http://localhost:8888/modulList/';
 
 			const userAction = async () => {
 				const response = await fetch(rest,
