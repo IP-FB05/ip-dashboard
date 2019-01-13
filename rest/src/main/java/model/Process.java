@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 public class Process {
 
@@ -10,8 +10,9 @@ public class Process {
     private String bpmn;
     private String added;
     private String camunda_processID;
+    private String allowed_usergroups;
 
-    public Process(int processID, String name, String description, String pic, String warFile, String bpmn, String added, String camunda_processID) {
+    public Process(int processID, String name, String description, String pic, String warFile, String bpmn, String added, String camunda_processID, String allowed_usergroups) {
         this.processID = processID;
         this.name = name;
         this.description = description;
@@ -20,9 +21,10 @@ public class Process {
         this.bpmn = bpmn;
         this.added = added;
         this.camunda_processID = camunda_processID;
+        this.allowed_usergroups = allowed_usergroups;
     }
 
-    public long getProcessID() {
+    public int getProcessID() {
         return processID;
     }
 
@@ -52,5 +54,9 @@ public class Process {
 
     public String getCamunda_processID() {
         return camunda_processID;
+    }
+
+    public String getAllowed_usergroups() {
+        return allowed_usergroups;
     }
 }

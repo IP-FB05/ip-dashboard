@@ -7,4 +7,5 @@ export class Process {
     bpmn: string;
     added: string;
     camunda_processID: string;
+    allowed_usergroups: string;
 } 

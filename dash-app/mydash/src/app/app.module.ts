@@ -14,7 +14,7 @@ import { ProcessesComponent } from './process/processes/processes.component';
 import { MenuComponent } from './menu/menu.component';
 import { LoginComponent } from './login/login.component';
 import { ProcessDetailComponent } from './process/process-detail/process-detail.component';
-import { MessagesComponent } from './messages/messages.component';
+import { MessagesComponent } from './messages/messages/messages.component';
 import { SystemsComponent } from './system/systems/systems.component';
 import { DocumentsComponent } from './document/documents/documents.component';
 import { DashboardComponent } from './dashboard/dashboard.component';

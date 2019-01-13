@@ -10,7 +10,7 @@ import { Document } from './document';
 // Import Components
 
 // Import Services
-import { MessageService } from '../message.service';
+import { MessageService } from '../messages/message.service';
 
 
 
@@ -96,7 +96,7 @@ export class DocumentService {
   // GET documents from the server
   getDocumentsByCategory(name: string): Observable<Document[]> {
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>(this.documentsUrl + "/filter/documents?name=" + name, httpOptions)
+    return this.http.get<Document[]>(this.documentsUrl + "filter/documents?name=" + name, httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocumentsByCategory', []))

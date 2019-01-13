@@ -1,4 +1,4 @@
-package controller;
+package model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Column;
 
-@Entity // This tells Hibernate to make a table out of this class
+@Entity
 @Table(name = "category")
 public class Category {
 	@Id
@@ -17,6 +17,11 @@ public class Category {
 
 	@Column(name = "name")
 	private String name;
+
+	public Category(int categoryID, String name) {
+        this.categoryID = categoryID;
+        this.name = name;
+    }
 
 	public Integer getId() {
 		return categoryID;

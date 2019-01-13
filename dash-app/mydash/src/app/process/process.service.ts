@@ -13,7 +13,7 @@ import { System } from '../system/system';
 // Import Components
 
 // Import Services
-import { MessageService } from '../message.service';
+import { MessageService } from '../messages/message.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })

@@ -10,7 +10,7 @@ import { ProcessInstance } from '../../process/processInstance';
 // Import Components
 
 // Import Services
-import { MessageService } from '../../message.service';
+import { MessageService } from '../../messages/message.service';
 
 const httpOptionsCamundaREST = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Accept': 'application/json'  })

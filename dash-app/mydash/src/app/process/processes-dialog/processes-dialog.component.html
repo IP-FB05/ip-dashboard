@@ -18,9 +18,9 @@
 
   <!--Usergroups-->
   <mat-form-field class="dialog-form-field">
-    <mat-select placeholder="Sichtbar für" formControlName="selectedUsergroups" multiple [(ngModel)]="selectedValue"
+    <mat-select placeholder="Sichtbar für" formControlName="allowed_usergroups" multiple [(ngModel)]="selectedValue"
       (ngModelChange)="getSelectedValue($event)">
-      <mat-option *ngFor="let usergroup of usergroups" value={{usergroup.usergroupID}}>
+      <mat-option *ngFor="let usergroup of usergroups" value={{usergroup.usergroupName}}>
         {{usergroup.usergroupName | titlecase}}
       </mat-option>
     </mat-select>

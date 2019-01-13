@@ -12,6 +12,7 @@ import { ProcessesDialogComponent } from '../processes-dialog/processes-dialog.c
 // Import Services
 import { ProcessService } from '../process.service';
 import { AuthorizationService } from '../../login/auth/authorization.service';
+import { AuthService } from '../../login/auth/auth.service';
 
 @Component({
   selector: 'app-processes',
@@ -29,7 +30,8 @@ export class ProcessesComponent implements OnInit {
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
-    public authorizationService: AuthorizationService) { }
+    public authorizationService: AuthorizationService,
+    public authService: AuthService) { }
 
   ngOnInit() {
     this.getProcesses();
@@ -40,7 +42,7 @@ export class ProcessesComponent implements OnInit {
       .subscribe(processes => this.processes = processes);
   }
 
-  add(process: Process, selectedUserGroups: number[]): void {
+  add(process: Process, /*selectedUserGroups: number[]*/): void {
     /*
     if(selectedUserGroups != null) {
       console.log(JSON.stringify(process));
@@ -53,7 +55,8 @@ export class ProcessesComponent implements OnInit {
         this.getProcesses();
     });
     }
-   */
+  }
+  */
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
@@ -104,13 +107,15 @@ export class ProcessesComponent implements OnInit {
       warFile: "",
       bpmn: "",
       added: "Now",
-      camunda_processID: "None"
+      camunda_processID: "None",
+      allowed_usergroups: "",
     };
 
     let dialogRef = this.dialog.open(ProcessesDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(
       data => {
+        
         this.processToUpload = new Process();
         this.processToUpload.name = data.name;
         this.processToUpload.description = data.description;
@@ -119,10 +124,13 @@ export class ProcessesComponent implements OnInit {
         this.processToUpload.bpmn = data.bpmn;
         this.processToUpload.added = data.added;
         this.processToUpload.camunda_processID = data.camunda_processID;
+        this.processToUpload.allowed_usergroups = data.allowed_usergroups.toString();
 
 
-        console.log(JSON.stringify({ process: this.processToUpload, selectedUserGroups: data.selectedUsergroups }));
-        this.add(this.processToUpload, data.selectedUsergroups.map(Number));
+        //console.log(JSON.stringify({ process: this.processToUpload, selectedUserGroups: data.selectedUsergroups }));
+        //this.add(this.processToUpload, data.selectedUsergroups.map(Number));
+        //console.log(this.processToUpload.allowed_usergroups);
+        this.add(this.processToUpload);
       });
   }
 }

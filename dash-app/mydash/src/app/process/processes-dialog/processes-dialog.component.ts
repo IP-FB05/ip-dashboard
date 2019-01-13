@@ -30,7 +30,8 @@ export class ProcessesDialogComponent implements OnInit {
   bpmn: string;
   added: string;
   camunda_processID: string;
-  selectedUsergroups: number[];
+  allowed_usergroups: string;
+
 
   usergroups: Usergroup[];
   fileUploads: Observable<string[]>;
@@ -55,7 +56,7 @@ export class ProcessesDialogComponent implements OnInit {
       bpmn: new FormControl(this.bpmn),
       added: "Now",
       camunda_processID: "None",
-      selectedUsergroups: new FormControl(this.selectedUsergroups),
+      allowed_usergroups: new FormControl(this.allowed_usergroups),
     });
 
   }
@@ -68,10 +69,14 @@ export class ProcessesDialogComponent implements OnInit {
       });
   }
 
-  getSelectedValue(event: number[]) {
+
+  getSelectedValue(event: String) {
     if(event != undefined) {
-      this.selectedUsergroups = event;
-    } else this.selectedUsergroups = [];
+
+      this.allowed_usergroups = event.toString();
+      
+      console.log(this.allowed_usergroups);
+    } else this.allowed_usergroups = "";
   }
 
   onCloseConfirm() {
