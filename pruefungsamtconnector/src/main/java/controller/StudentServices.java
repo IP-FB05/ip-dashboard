@@ -21,7 +21,7 @@ public class StudentServices {
 		return "ok";
 	}
 	
-	// used in: Modulanmeldung
+	// used in: Modulanmeldung, Praxissemester
 	@RequestMapping(value = "/student/credits/{matrikelnr}", method = RequestMethod.GET)
 	public int getCredits(@PathVariable int matrikelnr) throws ClassNotFoundException, SQLException {
 		Pruefungsamt amt = new Pruefungsamt();
@@ -39,7 +39,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/neuesPraxisSemester/{matrikelnr}")
+	// used in: Praxissemester
+	@RequestMapping(value = "/pruefung/praxissemester/{matrikelnr}", method = RequestMethod.POST)
 	public boolean setNewPraxisSemester(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setNewPraxisSemester(matrikelnr);
@@ -47,7 +48,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/noteLetztesPraxisSemester/{matrikelnr}/{boolBestanden}")
+	// used in: Praxissemester
+	@RequestMapping(value = "/pruefung/praxissemester/{matrikelnr}/{boolBestanden}", method = RequestMethod.PATCH)
 	public boolean setNotePraxisSemester(@PathVariable int matrikelnr, @PathVariable int boolBestanden) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setNotePraxisSemester(matrikelnr,boolBestanden);
