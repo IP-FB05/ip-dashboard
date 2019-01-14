@@ -33,7 +33,7 @@ public class SendEmail implements JavaDelegate {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
 
-            String ziel = execution.getVariable("zielEmail").toString();
+            String ziel = execution.getProcessEngineServices().getIdentityService().createUserQuery().userId((String) execution.getVariable("user")).singleResult().getEmail();
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(ziel));
 
             String subject = execution.getVariable("subject").toString();

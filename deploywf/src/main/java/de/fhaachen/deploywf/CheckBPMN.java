@@ -1,13 +1,14 @@
 package de.fhaachen.deploywf;
 
 import java.io.InputStream;
+import java.util.Collection;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 import org.camunda.bpm.engine.variable.value.FileValue;
 import org.camunda.bpm.model.bpmn.Bpmn;
 import org.camunda.bpm.model.bpmn.BpmnModelInstance;
-import org.camunda.bpm.model.bpmn.instance.Definitions;
+import org.camunda.bpm.model.bpmn.instance.Process;
 import org.camunda.bpm.model.xml.ModelParseException;
 
 public class CheckBPMN implements JavaDelegate{
@@ -21,10 +22,18 @@ public class CheckBPMN implements JavaDelegate{
 		try {
 			// versuche es zu parsen
 			BpmnModelInstance model = Bpmn.readModelFromStream(fileContentBPMN);
-			Definitions definitions = model.getDefinitions();
-			execution.setVariable("definitionId", definitions.getId());
-			execution.setVariable("definitionName", definitions.getName());
+			Collection<Process> processes = model.getModelElementsByType(Process.class);
+			if(processes.isEmpty()) {
+				throw new ModelParseException("Kein Prozess im BPMN");
+			}
+			Process p = processes.iterator().next();
+			p.getCamundaCandidateStarterGroupsList();
+
+			execution.setVariable("groups", p.getCamundaCandidateStarterGroups());
+			execution.setVariable("definitionId", p.getId());
+			execution.setVariable("definitionName", p.getName());
 			execution.setVariable("bpmnsuccess", true);
+			
 		}catch(ModelParseException e){
 			//Konnte nicht geparst werden
 			execution.setVariable("errorlog", "File konnte nicht geparst werden: " + e.getMessage());

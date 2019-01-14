@@ -1,9 +1,9 @@
 package de.fhaachen.deploywf;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.Paths;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
@@ -21,21 +21,29 @@ public class DeployProcess implements JavaDelegate {
 
 		// Ziel Path bestimmen
 		String catalinaHome = System.getProperty("catalina.base");
-		String outputPath = catalinaHome + System.getProperty("file.separator") + "webapps";
 		
-		// File anlegen
-		File f = new File(outputPath);
-		f.createNewFile();
-		OutputStream out = new FileOutputStream(f);
-
-		// Fileinhalt byteweise rüberschreiben
-		byte[] buf = new byte[1024];
-		int len;
-		while ((len = fileContentWAR.read(buf)) > 0) {
-			out.write(buf, 0, len);
-		}
+		
+		// File kopieren
+		Files.copy(fileContentWAR, Paths.get(catalinaHome, "webapps", (String) execution.getVariable("definitionName") + ".war"),
+                StandardCopyOption.REPLACE_EXISTING);
+		
 		fileContentWAR.close();
-		out.close();
+		
+		
+//		// File anlegen
+//		File f = new File(outputPath);
+//		f.getParentFile().mkdirs();
+//		f.createNewFile();
+//		OutputStream out = new FileOutputStream(f);
+//
+//		// Fileinhalt byteweise rüberschreiben
+//		byte[] buf = new byte[1024];
+//		int len;
+//		while ((len = fileContentWAR.read(buf)) > 0) {
+//			out.write(buf, 0, len);
+//		}
+//		fileContentWAR.close();
+//		out.close();
 
 	}
 
