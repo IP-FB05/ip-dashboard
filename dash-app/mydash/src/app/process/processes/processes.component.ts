@@ -89,11 +89,7 @@ export class ProcessesComponent implements OnInit {
   delete(process: Process): void {
     this.processes = this.processes.filter(p => p !== process);
     this.processService.deleteProcess(process).subscribe();
-    if (process.warFile == null) {
-      this.processService.deleteBPMNFromFileServer(process.bpmn).subscribe();
-    } else {
-      this.processService.deleteProcessFilesFromFileServer(process.bpmn, process.warFile).subscribe();
-    }
+    this.processService.deleteBPMNFromFileServer(process.bpmn).subscribe();
   }
 
   openDialog() {
@@ -105,8 +101,7 @@ export class ProcessesComponent implements OnInit {
       processID: 0,
       name: "",
       description: "",
-      pic: "Placeholder",
-      warFile: "",
+      verbal: "",
       bpmn: "",
       added: "Now",
       camunda_processID: "None",
@@ -121,8 +116,7 @@ export class ProcessesComponent implements OnInit {
         this.processToUpload = new Process();
         this.processToUpload.name = data.name;
         this.processToUpload.description = data.description;
-        this.processToUpload.pic = data.pic;
-        this.processToUpload.warFile = data.warFile;
+        this.processToUpload.verbal = data.verbal;
         this.processToUpload.bpmn = data.bpmn;
         this.processToUpload.added = data.added;
         this.processToUpload.camunda_processID = data.camunda_processID;

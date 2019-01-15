@@ -228,7 +228,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("description"), resultSet.getString("verbal"),
 						resultSet.getString("bpmn"), resultSet.getString("added"),
 						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
 				resultSet.next();
@@ -260,7 +260,7 @@ public class Dashboard {
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
-					resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+					resultSet.getString("description"), resultSet.getString("verbal"),
 					resultSet.getString("bpmn"), resultSet.getString("added"),
 					resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
 			return process;
@@ -280,7 +280,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("description"), resultSet.getString("verbal"),
 						resultSet.getString("bpmn"), resultSet.getString("added"),
 						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
 				resultSet.next();
@@ -293,14 +293,13 @@ public class Dashboard {
 	// ADD Process
 	public boolean addProcess(Process input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID, allowed_usergroups) VALUES (?, ?, ?, ?, ?, CURDATE(), ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				"INSERT INTO processes (name, description, verbal, bpmn, added, camunda_processID, allowed_usergroups) VALUES (?, ?, ?, ?, CURDATE(), ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getDescription());
-		preparedStatement.setString(3, input.getPic());
-		preparedStatement.setString(4, input.getwarFile());
-		preparedStatement.setString(5, input.getBpmn());
-		preparedStatement.setString(6, input.getCamunda_processID());
-		preparedStatement.setString(7, input.getAllowed_usergroups());
+		preparedStatement.setString(3, input.getVerbal());
+		preparedStatement.setString(4, input.getBpmn());
+		preparedStatement.setString(5, input.getCamunda_processID());
+		preparedStatement.setString(6, input.getAllowed_usergroups());
 		preparedStatement.execute();
 
 		resultSet = preparedStatement.getGeneratedKeys();
@@ -336,13 +335,12 @@ public class Dashboard {
 	
 	public boolean addProcessWithUG(Process input, int[] userGroups) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				"INSERT INTO processes (name, description, verbal, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, CURDATE(), ?)", PreparedStatement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getDescription());
-		preparedStatement.setString(3, input.getPic());
-		preparedStatement.setString(4, input.getwarFile());
-		preparedStatement.setString(5, input.getBpmn());
-		preparedStatement.setString(6, input.getCamunda_processID());
+		preparedStatement.setString(3, input.getVerbal());
+		preparedStatement.setString(4, input.getBpmn());
+		preparedStatement.setString(5, input.getCamunda_processID());
 		preparedStatement.executeUpdate();
 
 		resultSet = preparedStatement.getGeneratedKeys();
@@ -537,7 +535,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("description"), resultSet.getString("verbal"),
 						resultSet.getString("bpmn"), resultSet.getString("added"),
 						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
 				resultSet.next();
@@ -560,7 +558,7 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("pic"), resultSet.getString("warFile"),
+						resultSet.getString("description"), resultSet.getString("verbal"),
 						resultSet.getString("bpmn"), resultSet.getString("added"),
 						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
 				resultSet.next();

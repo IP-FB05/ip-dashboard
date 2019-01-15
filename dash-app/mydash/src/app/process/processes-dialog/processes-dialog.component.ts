@@ -25,8 +25,7 @@ export class ProcessesDialogComponent implements OnInit {
   processID: number;
   name: string;
   description: string;
-  pic: string;
-  warFile: string;
+  verbal: string;
   bpmn: string;
   added: string;
   camunda_processID: string;
@@ -45,14 +44,13 @@ export class ProcessesDialogComponent implements OnInit {
     private uploadService: UploadFileService,
     public fb: FormBuilder,
     public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) { processID, name, description, pic, warFile, bpmn, added, camunda_processID }: Process) {
+    @Inject(MAT_DIALOG_DATA) { processID, name, description, verbal, bpmn, added, camunda_processID }: Process) {
 
     this.form = this.fb.group({
       processID: new FormControl('0'),
       name: new FormControl(this.name),
       description: new FormControl(this.description),
-      pic: "Placeholder",
-      warFile: new FormControl(this.warFile),
+      verbal: new FormControl(this.verbal),
       bpmn: new FormControl(this.bpmn),
       added: "Now",
       camunda_processID: "None",
@@ -92,14 +90,6 @@ export class ProcessesDialogComponent implements OnInit {
     this.currentFileUpload = this.selectedFiles.item(0);
     this.form.controls.bpmn.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
   }
-
-  selectFile1(event) {
-    this.selectedFiles = event.target.files;
-    this.currentFileUpload1 = this.selectedFiles.item(0);
-    this.form.controls.warFile.setValue('http://localhost:9090/files/' + this.currentFileUpload1.name);
-  }
-
-
 
   upload() {
     this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
