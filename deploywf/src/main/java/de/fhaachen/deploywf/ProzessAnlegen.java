@@ -17,8 +17,7 @@ public class ProzessAnlegen implements JavaDelegate {
 		String name = execution.getVariable("titel").toString();
 		String beschreibung = execution.getVariable("beschreibung").toString();
 		String bpmn = execution.getVariable("bpmnpath").toString();
-		String pic = ""; // TODO: generate and upload to fileserver
-		String warFile_path = ""; // TODO: nicht benötigt: löschen
+		String verbal = execution.getVariable("verbal").toString();
 		String camunda_processID = execution.getVariable("definitionId").toString();
 		String datum = DateTime.now().year().getAsString() + "-" + DateTime.now().monthOfYear().getAsString() + "-"
 				+ DateTime.now().dayOfMonth().getAsString();
@@ -42,17 +41,16 @@ public class ProzessAnlegen implements JavaDelegate {
 			connect = DriverManager.getConnection(url, props);
 
 			PreparedStatement statement = connect.prepareStatement(
-					"insert into processes (name, description,pic ,warFile,bpmn,added,camunda_processID,creator) values (?,?,?,?,?,?,?,?);",
+					"insert into processes (name, description, verbal, bpmn, added, camunda_processID, creator) values (?,?,?,?,?,?,?);",
 					Statement.RETURN_GENERATED_KEYS);
 
 			statement.setString(1, name);
 			statement.setString(2, beschreibung);
-			statement.setString(3, pic);
-			statement.setString(4, warFile_path);
-			statement.setString(5, bpmn);
-			statement.setString(6, datum);
-			statement.setString(7, camunda_processID);
-			statement.setString(8, ersteller);
+			statement.setString(3, verbal);
+			statement.setString(4, bpmn);
+			statement.setString(5, datum);
+			statement.setString(6, camunda_processID);
+			statement.setString(7, ersteller);
 
 			statement.executeUpdate();
 			ResultSet keys = statement.getGeneratedKeys();

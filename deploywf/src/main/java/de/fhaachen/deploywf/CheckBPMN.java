@@ -29,6 +29,8 @@ public class CheckBPMN implements JavaDelegate{
 			Process p = processes.iterator().next();
 
 			execution.setVariable("groups", p.getCamundaCandidateStarterGroupsList());
+			execution.setVariable("groupsJSON", "");
+			
 			execution.setVariable("definitionId", p.getId());
 			execution.setVariable("definitionName", p.getName());
 			execution.setVariable("bpmnsuccess", true);

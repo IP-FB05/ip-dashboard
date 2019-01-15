@@ -36,6 +36,7 @@
         <bpmn:flowNodeRef>ExclusiveGateway_05gej8j</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0dqwewl</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEventProcessEnded</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_18n94uw</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
     <bpmn:startEvent id="StartEventProcessStarted" name="Process&#10;started" camunda:formKey="embedded:app:forms/start.html" camunda:initiator="user">
@@ -58,12 +59,7 @@
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1cjf5xp" name="nein" sourceRef="ExclusiveGateway_1acqtlm" targetRef="Task_1p1trye" />
     <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.UploadBPMN">
-      <bpmn:extensionElements>
-        <camunda:inputOutput>
-          <camunda:outputParameter name="bpmnpath">placeholder</camunda:outputParameter>
-        </camunda:inputOutput>
-      </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_1a5457s</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_1777bl9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_09svz9f</bpmn:outgoing>
     </bpmn:serviceTask>
     <bpmn:exclusiveGateway id="ExclusiveGateway_0ub8bts" name="automatisiert?" default="SequenceFlow_071gxpb">
@@ -71,7 +67,7 @@
       <bpmn:outgoing>SequenceFlow_071gxpb</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1a5457s</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sequenceFlow id="SequenceFlow_1a5457s" name="ja" sourceRef="ExclusiveGateway_0ub8bts" targetRef="Task_0lj1gc2">
+    <bpmn:sequenceFlow id="SequenceFlow_1a5457s" name="ja" sourceRef="ExclusiveGateway_0ub8bts" targetRef="Task_18n94uw">
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${war != null}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_09svz9f" sourceRef="Task_0lj1gc2" targetRef="Task_1bfjlpp" />
@@ -232,6 +228,11 @@ ${errorlog}</camunda:inputParameter>
     <bpmn:sequenceFlow id="SequenceFlow_1p1qu4f" sourceRef="Task_13xkjx4" targetRef="EndEventProcessEnded" />
     <bpmn:sequenceFlow id="SequenceFlow_14ub8q4" sourceRef="Task_15vkewv" targetRef="EndEvent_0dqwewl" />
     <bpmn:sequenceFlow id="SequenceFlow_1uxhbg2" sourceRef="Task_0hljfta" targetRef="Task_15vkewv" />
+    <bpmn:sequenceFlow id="SequenceFlow_1777bl9" sourceRef="Task_18n94uw" targetRef="Task_0lj1gc2" />
+    <bpmn:serviceTask id="Task_18n94uw" name="Prozess undeployen" camunda:class="de.fhaachen.deploywf.UndeployProcess">
+      <bpmn:incoming>SequenceFlow_1a5457s</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_1777bl9</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:association id="Association_1uskqp0" sourceRef="StartEventProcessStarted" targetRef="TextAnnotation_0pign6i" />
     <bpmn:textAnnotation id="TextAnnotation_0pign6i">
       <bpmn:text>Angabe von
@@ -239,7 +240,7 @@ ${errorlog}</camunda:inputParameter>
 - bpmn Datei
 - Titel
 - Beschreibung
-- Berechtigte Gruppen</bpmn:text>
+</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_0fhm1rh">
       <bpmn:text>Tomcat</bpmn:text>
@@ -252,7 +253,7 @@ ${errorlog}</camunda:inputParameter>
         <dc:Bounds x="76" y="12" width="2006" height="612" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0pign6i_di" bpmnElement="TextAnnotation_0pign6i">
-        <dc:Bounds x="196" y="44" width="544" height="99" />
+        <dc:Bounds x="196" y="44" width="543.9861673414306" height="95.98515519568151" />
       </bpmndi:BPMNShape>
       <bpmndi:BPMNShape id="TextAnnotation_0fhm1rh_di" bpmnElement="TextAnnotation_0fhm1rh">
         <dc:Bounds x="646" y="372" width="100" height="26" />
@@ -547,11 +548,18 @@ ${errorlog}</camunda:inputParameter>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="SequenceFlow_1a5457s_di" bpmnElement="SequenceFlow_1a5457s">
         <di:waypoint x="488" y="298" />
-        <di:waypoint x="488" y="422" />
+        <di:waypoint x="488" y="317" />
         <bpmndi:BPMNLabel>
-          <dc:Bounds x="503" y="314" width="8" height="14" />
+          <dc:Bounds x="503" y="293" width="8" height="14" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_1777bl9_di" bpmnElement="SequenceFlow_1777bl9">
+        <di:waypoint x="488" y="397" />
+        <di:waypoint x="488" y="422" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_0mwod1m_di" bpmnElement="Task_18n94uw">
+        <dc:Bounds x="438" y="317" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>
