@@ -40,7 +40,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getProcesses(): void {
-    this.processService.getProcesses()
+    this.processService.getProcesses(this.authService.currentUser.role)
       .subscribe(processes => this.processes = processes);
   }
 

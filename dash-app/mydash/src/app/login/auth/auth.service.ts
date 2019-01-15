@@ -29,6 +29,7 @@ export class AuthService {
     isLoggedin = false;
     currentUser: User = new User();
     authdata: Authorization = new Authorization();
+    allowedGroups: String = "";
 
     constructor(
         private http: HttpClient,
@@ -60,7 +61,7 @@ export class AuthService {
                                     console.log('User details successfully fetched: ' + JSON.stringify(data));
 
                                     this.setUserRole();
-                                    
+
                                     // store user details and basic auth credentials in session storage 
                                     // to keep user logged in between page refreshes
                                     this.setAuthData(username, password);
@@ -100,7 +101,7 @@ export class AuthService {
         } else {
             this.isLoggedin = false;
         }
-    
+
         this.router.navigate(['/login']);
 
     }
@@ -120,7 +121,7 @@ export class AuthService {
     }
 
     private setUserRole() {
-        for(var i = 0; i < this.currentUser.groups.length; i++) {
+        for (var i = 0; i < this.currentUser.groups.length; i++) {
             if (this.currentUser.groups[i].id == 'camunda-admin') {
                 this.currentUser.role = 'admin';
                 return;
@@ -133,16 +134,28 @@ export class AuthService {
             } else if (this.currentUser.groups[i].id == 'mitarbeiter') {
                 this.currentUser.role = 'mitarbeiter';
                 return;
+            } else if (this.currentUser.groups[i].id == 'student') {
+                this.currentUser.role = 'student'
+                return;
             }
+
         }
-        this.currentUser.role = 'student';
+        this.currentUser.role = 'gast';
     }
+
+    getUsergroups(processID: number){
+       return this.http.get<any>("http://localhost:9090/getUserGroups?pid=" + processID , httpOptions).subscribe(data => {
+        this.allowedGroups = data.allowedGroups;
+        console.log(this.allowedGroups);
+        });
+    }
+
 
     openSnackBar(text: string) {
         this.snackBar.open(text, '', {
-          duration: 2000,
+            duration: 2000,
         });
-      }
+    }
 
 }
 

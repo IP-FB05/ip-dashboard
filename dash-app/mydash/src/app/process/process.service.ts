@@ -39,9 +39,9 @@ export class ProcessService {
     public snackBar: MatSnackBar) { }
 
   // GET Processes from the server
-  getProcesses(): Observable<Process[]> {
+  getProcesses(role: String): Observable<Process[]> {
     this.messageService.add('ProcessService: fetched processes');
-    return this.http.get<Process[]>(this.processesUrl + "processes", httpOptions)
+    return this.http.get<Process[]>(this.processesUrl + "processes?role=" + role, httpOptions)
       .pipe(
         tap(_ => this.log('fetched processes')),
         catchError(this.handleError('getProcesses', []))
@@ -100,6 +100,7 @@ export class ProcessService {
         this.userGroupIDs += ',';
       }
     }
+
     this.messageService.add(`ProcessService: added process`);
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
     return this.http.post<Process>(this.processesUrl + "processAddwithUG?selectedUserGroups=" + this.userGroupIDs, process, httpOptions).pipe(

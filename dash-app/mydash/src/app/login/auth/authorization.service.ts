@@ -56,4 +56,9 @@ export class AuthorizationService {
   public hasRole(allowedRoles: string[]): boolean {
     return allowedRoles.includes(this.authService.currentUser.role);
   } 
+
+  public isAllowed(processID: number):boolean {
+    this.authService.getUsergroups(processID);
+    return this.authService.allowedGroups.includes(this.authService.currentUser.role);
+  }
 }
