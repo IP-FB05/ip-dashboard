@@ -24,64 +24,15 @@
 		</div>
 	</div>
 
-	<div class="control-group">
-		<label class="control-label">Berechtigung</label>
+	<div id="war" class="control-group">
+		<label class="control-label">WAR Datei (optional)</label>
 		<div class="controls">
-			<table>
-			<tr><td>
-				<label class="control-label">Gast</label>
-				<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-					cam-variable-name="authGast" cam-variable-type="Boolean"
-					class="form-control" />
-				<label class="control-label">Studenten</label>
-				<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-					cam-variable-name="authStudenten" cam-variable-type="Boolean"
-					required class="form-control" />
-				<label class="control-label">Professoren</label>
-				<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-					cam-variable-name="authProfs" cam-variable-type="Boolean"
-					class="form-control" />
-				<label class="control-label">Mitarbeiter</label>
-				<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-					cam-variable-name="authMAs" cam-variable-type="Boolean"
-					class="form-control" />
-				<label class="control-label">Pruefungsamt</label>
-				<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-					cam-variable-name="authPA" cam-variable-type="Boolean"
-					class="form-control" />
-				</div>
-				</div>
-				</td></tr>
-			</table>
+			<input type="file" cam-variable-name="war" cam-variable-type="File"
+				cam-max-filesize="10000000" />
+		</div>
+	</div>
 
-
-			<div class="control-group">
-				<label class="control-label">Automatisierter Prozess?</label>
-				<div class="controls">
-					<input id="auto" onclick="javascript:yesnoCheck();" type="checkbox"
-						cam-variable-name="automatisiert" cam-variable-type="Boolean"
-						class="form-control" />
-				</div>
-			</div>
-
-			<div id="war" class="control-group">
-				<label class="control-label">WAR Datei</label>
-				<div class="controls">
-					<input type="file" cam-variable-name="war" cam-variable-type="File"
-						cam-max-filesize="10000000" />
-				</div>
-			</div>
-
-			<script cam-script type="text/form-script">
-
- 		function yesnoCheck() {
-			console.log("Check started");
-			console.log(document.getElementById('auto').value);
-    		if (document.getElementById('auto').value) {
-        		document.getElementById('war').style.display  = 'block';
-    		} else {
-        		document.getElementById('war').style.display  = 'none';
-    		} 
-		}
+	<script cam-script type="text/form-script">
+		
   	</script>
 </form>

@@ -105,7 +105,7 @@ public class NotificationTaskListener implements TaskListener {
 		
 		
 		
-		if (processbeteiligte_list.size() >= 0 || subscriber_list.size() >= 0) {
+		if (processbeteiligte_list.size() > 0 || subscriber_list.size() > 0) {
 			
 			// 4. email addressen besorgen
 			ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
@@ -120,7 +120,7 @@ public class NotificationTaskListener implements TaskListener {
 			}
 			cslDestination = cslDestination.substring(0, cslDestination.length() - 1);
 
-			// 5. Jetzt noch den bearbeiter (falls vorhanden und nicht deaktiviert
+			// 5. Jetzt noch den bearbeiter (falls vorhanden und nicht deaktiviert)
 			String asignee = delegateTask.getAssignee();
 			boolean notify = true;
 			if(asignee != null) {

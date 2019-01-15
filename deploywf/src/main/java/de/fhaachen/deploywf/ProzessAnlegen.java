@@ -16,7 +16,7 @@ public class ProzessAnlegen implements JavaDelegate {
 
 		String name = execution.getVariable("titel").toString();
 		String beschreibung = execution.getVariable("beschreibung").toString();
-		String bpmn = ""; // TODO: upload to fileserver
+		String bpmn = execution.getVariable("bpmnpath").toString();
 		String pic = ""; // TODO: generate and upload to fileserver
 		String warFile_path = ""; // TODO: nicht benötigt: löschen
 		String camunda_processID = execution.getVariable("definitionId").toString();

@@ -27,9 +27,8 @@ public class CheckBPMN implements JavaDelegate{
 				throw new ModelParseException("Kein Prozess im BPMN");
 			}
 			Process p = processes.iterator().next();
-			p.getCamundaCandidateStarterGroupsList();
 
-			execution.setVariable("groups", p.getCamundaCandidateStarterGroups());
+			execution.setVariable("groups", p.getCamundaCandidateStarterGroupsList());
 			execution.setVariable("definitionId", p.getId());
 			execution.setVariable("definitionName", p.getName());
 			execution.setVariable("bpmnsuccess", true);

@@ -4,9 +4,9 @@ package de.fhaachen.deploywf;
 import org.camunda.bpm.engine.AuthorizationService;
 import org.camunda.bpm.engine.authorization.Authorization;
 import org.camunda.bpm.engine.authorization.Permissions;
+import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-
 public class SetAuthentications implements JavaDelegate {
 
 	@Override
@@ -17,6 +17,9 @@ public class SetAuthentications implements JavaDelegate {
 		
 		// create new Authentications
 		Authorization newAuth = authService.createNewAuthorization(Authorization.AUTH_TYPE_GRANT);
+		
+		// set Resource Type
+		newAuth.setResourceType(Resources.PROCESS_DEFINITION.resourceType());
 		
 		// set Process as Ressource
 		newAuth.setResourceId((String) execution.getVariable("definitionId"));
