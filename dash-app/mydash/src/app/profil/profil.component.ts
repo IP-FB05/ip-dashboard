@@ -71,7 +71,7 @@ export class ProfilComponent implements OnInit {
   }
 
   public getProcesses() {
-    return this.http.get<Process[]>(this.processUrl, httpOptions);
+    return this.processService.getProcesses(this.authService.currentUser.role);
   }
 
   public getProcessById(id: number) {

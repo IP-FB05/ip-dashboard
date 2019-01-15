@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import org.springframework.web.bind.annotation.RequestParam;
+
 import model.System;
 import model.Category;
 import model.Usergroup;
@@ -205,6 +207,7 @@ public class Dashboard {
 	 * PROCESSES
 	 * 
 	 * getProcesses
+	 * getUserGroupsFromProcess
 	 * getProcess
 	 * getRunningProcesses
 	 * addProcess
@@ -214,8 +217,9 @@ public class Dashboard {
 	 */
 
 	 // GET Processes
-	public Process[] getProcesses() throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM processes");
+	public Process[] getProcesses(String role) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT * FROM processes WHERE allowed_usergroups LIKE ?");
+		preparedStatement.setString(1, "%" + role + "%");
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			resultSet.last();
@@ -233,6 +237,21 @@ public class Dashboard {
 		}
 		return null;
 	}
+
+	// GET UserGroups from Process
+	public String getUserGroupsFromProcess(int pid) throws SQLException, ClassNotFoundException {
+		preparedStatement = connect.prepareStatement("SELECT allowed_usergroups FROM processes WHERE processID = ?");
+		preparedStatement.setInt(1, pid);
+		resultSet = preparedStatement.executeQuery();
+		String userGroupsProcess = "";
+		if (resultSet.first()) {
+			userGroupsProcess = resultSet.getString("allowed_usergroups");
+			return userGroupsProcess;
+		}
+		return null;
+	}
+
+
 
 	// GET Process with ID
 	public Process getProcess(int processID) throws SQLException, ClassNotFoundException {
@@ -291,6 +310,8 @@ public class Dashboard {
 		}
 
 		String[] userGroupList = input.getAllowed_usergroups().split("\\s*,\\s*");
+		
+		
 
 		int usergroups_usergroup_id = 0;
 		for (int i = 0; i < userGroupList.length; i++){
@@ -301,7 +322,7 @@ public class Dashboard {
 			if (resultSet.first()) {
 				usergroups_usergroup_id = resultSet.getInt(1);
 			}
-
+		
 
 			preparedStatement = connect.prepareStatement(
 				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?,?) ");
@@ -312,7 +333,7 @@ public class Dashboard {
 		return true;
 	}
 
-	/*
+	
 	public boolean addProcessWithUG(Process input, int[] userGroups) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
 				"INSERT INTO processes (name, description, pic, warFile, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, ?, CURDATE(), ?)", PreparedStatement.RETURN_GENERATED_KEYS);
@@ -333,9 +354,9 @@ public class Dashboard {
 
 		return true;
 	}
-	*/
+	
 
-	/*
+	
 	public boolean addAllowedUserGroups(int[] userGroups, int id) throws SQLException, ClassNotFoundException {
 		for (int i = 0; i < userGroups.length; i++){
 			preparedStatement = connect.prepareStatement(
@@ -346,7 +367,7 @@ public class Dashboard {
 		}
 		return true;
 	}
-	*/
+	
 
 	// ADD ProcessInstance
 	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {

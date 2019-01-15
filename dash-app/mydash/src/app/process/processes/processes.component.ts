@@ -27,6 +27,7 @@ export class ProcessesComponent implements OnInit {
   searchText: string;
   processInstance: ProcessInstance;
   processToUpload: Process;
+  selectedUserGroups: number[];
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
@@ -34,33 +35,34 @@ export class ProcessesComponent implements OnInit {
     public authService: AuthService) { }
 
   ngOnInit() {
-    this.getProcesses();
+    this.getProcesses(this.authService.currentUser.role);
   }
 
-  getProcesses(): void {
-    this.processService.getProcesses()
+  getProcesses(role: String): void {
+    this.processService.getProcesses(role)
       .subscribe(processes => this.processes = processes);
   }
 
   add(process: Process, /*selectedUserGroups: number[]*/): void {
     /*
-    if(selectedUserGroups != null) {
-      console.log(JSON.stringify(process));
+    if (selectedUserGroups != null) {
       console.log(selectedUserGroups);
-      this.processService.addProcessWithUG(process, selectedUserGroups);
+      this.processService.addProcessWithUG(process, selectedUserGroups.map(Number));
+      console.log(selectedUserGroups);
     } else {
       this.processService.addProcess(process)
-      .subscribe(process => {
-        this.processes.push(process);
-        this.getProcesses();
-    });
+        .subscribe(process => {
+          this.processes.push(process);
+          this.getProcesses();
+        });
     }
+    
   }
   */
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
-        this.getProcesses();
+        this.getProcesses(this.authService.currentUser.role);
       });
   }
 
@@ -115,7 +117,7 @@ export class ProcessesComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(
       data => {
-        
+
         this.processToUpload = new Process();
         this.processToUpload.name = data.name;
         this.processToUpload.description = data.description;
@@ -125,11 +127,10 @@ export class ProcessesComponent implements OnInit {
         this.processToUpload.added = data.added;
         this.processToUpload.camunda_processID = data.camunda_processID;
         this.processToUpload.allowed_usergroups = data.allowed_usergroups.toString();
+        //this.selectedUserGroups = data.allowed_usergroups;
 
 
-        //console.log(JSON.stringify({ process: this.processToUpload, selectedUserGroups: data.selectedUsergroups }));
-        //this.add(this.processToUpload, data.selectedUsergroups.map(Number));
-        //console.log(this.processToUpload.allowed_usergroups);
+        //this.add(this.processToUpload, this.selectedUserGroups.map(Number));
         this.add(this.processToUpload);
       });
   }

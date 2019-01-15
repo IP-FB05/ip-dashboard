@@ -13,6 +13,7 @@ import { SystemsComponent } from '../system/systems/systems.component';
 
 // Import Services
 import { CategoryService } from '../category/category.service'
+import { AuthService } from '../login/auth/auth.service';
 
 
 
@@ -27,6 +28,7 @@ export class FilterComponent implements OnInit {
     private dc: DocumentsComponent,
     private pc: ProcessesComponent,
     private sc: SystemsComponent,
+    private authService: AuthService,
     location: Location, router: Router) {
 
     router.events.subscribe((val) => {
@@ -53,7 +55,7 @@ export class FilterComponent implements OnInit {
       case '/processes': {
         alert("Kategorien der Prozesse fehlen in der DB")
         if (name === "") {
-          this.pc.getProcesses();
+          this.pc.getProcesses(this.authService.currentUser.role);
         } else {
         //this.pc.filterDocuments(name);
         } 

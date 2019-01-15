@@ -150,9 +150,9 @@ public class DashboardService {
 
 	// GET
 	@RequestMapping(value = "/processes", method = RequestMethod.GET)
-    public Process[] getProcesses() throws SQLException, ClassNotFoundException {
+    public Process[] getProcesses(@RequestParam String role) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
-    	Process[] result = dash.getProcesses();
+    	Process[] result = dash.getProcesses(role);
     	dash.close();
     	return result;
 	}
@@ -176,7 +176,7 @@ public class DashboardService {
     	return result;
 	}
 
-	/*
+	
 	@RequestMapping(value = "/processAddwithUG", method = RequestMethod.POST)
 	@ResponseBody
     public boolean addProcesswithUG(@RequestBody Process process, @RequestParam() int[] selectedUserGroups) throws SQLException, ClassNotFoundException {
@@ -185,7 +185,7 @@ public class DashboardService {
     	dash.close();
     	return result;
 	}
-	*/
+	
 
 	// ADD ProcessInstance
 	@RequestMapping(value = "/processInstanceAdd", method = RequestMethod.POST)
@@ -202,6 +202,14 @@ public class DashboardService {
     public boolean deleteProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	boolean result = dash.deleteProcess(processID);
+    	dash.close();
+    	return result;
+	}
+
+	@RequestMapping(value = "/getUserGroups", method = RequestMethod.GET)
+    public String getUserGroupsFromProcess(@RequestParam int pid) throws SQLException, ClassNotFoundException {
+    	Dashboard dash = new Dashboard(); 
+    	String result = dash.getUserGroupsFromProcess(pid);
     	dash.close();
     	return result;
 	}
