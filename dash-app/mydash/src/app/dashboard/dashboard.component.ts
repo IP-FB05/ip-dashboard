@@ -75,8 +75,7 @@ export class DashboardComponent implements OnInit {
       processID: 0,
       name: "",
       description: "",
-      pic: "",
-      warFile: "",
+      verbal: "",
       bpmn: "",
       added: "Now"
     };
