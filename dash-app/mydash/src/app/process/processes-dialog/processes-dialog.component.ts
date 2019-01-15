@@ -1,18 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { HttpEventType, HttpResponse } from '@angular/common/http';
-import { Observable } from 'rxjs';
 
-// Import Models
-import { Process } from '../process';
-import { Usergroup } from 'src/app/usergroup/usergroup';
-
-// Import Components
-
-// Import Services
-import { UploadFileService } from 'src/app/upload/upload-file.service';
-import { UsergroupService } from 'src/app/usergroup/usergroup.service';
+import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
+import 'jquery';
 
 @Component({
   selector: 'app-processes-dialog',
@@ -21,97 +11,78 @@ import { UsergroupService } from 'src/app/usergroup/usergroup.service';
 })
 export class ProcessesDialogComponent implements OnInit {
 
-  form: FormGroup;
-  processID: number;
-  name: string;
-  description: string;
-  verbal: string;
-  bpmn: string;
-  added: string;
-  camunda_processID: string;
-  allowed_usergroups: string;
-
-
-  usergroups: Usergroup[];
-  fileUploads: Observable<string[]>;
-  selectedFiles: FileList;
-  currentFileUpload: File;
-  currentFileUpload1: File;
-
-
   constructor(
-    private usergroupService: UsergroupService,
-    private uploadService: UploadFileService,
-    public fb: FormBuilder,
-    public thisDialogRef: MatDialogRef<ProcessesDialogComponent>,
-    @Inject(MAT_DIALOG_DATA) { processID, name, description, verbal, bpmn, added, camunda_processID }: Process) {
-
-    this.form = this.fb.group({
-      processID: new FormControl('0'),
-      name: new FormControl(this.name),
-      description: new FormControl(this.description),
-      verbal: new FormControl(this.verbal),
-      bpmn: new FormControl(this.bpmn),
-      added: "Now",
-      camunda_processID: "None",
-      allowed_usergroups: new FormControl(this.allowed_usergroups),
-    });
-
+    public thisDialogRef: MatDialogRef<ProcessesDialogComponent>) {
   }
 
   ngOnInit() {
-    this.usergroupService.getUsergroups()
-      .subscribe(group => {
-        this.usergroups = group;
-        console.log('Groups successfully fetched: ' + JSON.stringify(group));
-      });
-  }
-
-
-  getSelectedValue(event: String) {
-    if(event != undefined) {
-
-      this.allowed_usergroups = event.toString();
-      
-      console.log(this.allowed_usergroups);
-    } else this.allowed_usergroups = "";
+    $formContainer = $('#deploy');
+    showTask('');
   }
 
   onCloseConfirm() {
-    this.thisDialogRef.close(this.form.value);
+    this.thisDialogRef.close('Confirm');
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
   }
+}
 
+declare var CamSDK: any;
 
-  selectFile(event) {
-    this.selectedFiles = event.target.files;
-    this.currentFileUpload = this.selectedFiles.item(0);
-    this.form.controls.bpmn.setValue('http://localhost:9090/files/' + this.currentFileUpload.name);
-  }
+var $formContainer;
 
-  upload() {
-    this.uploadService.pushFileToStorage(this.currentFileUpload).subscribe(event => {
-      if (event.type === HttpEventType.UploadProgress) {
-        //this.progress.percentage = Math.round(100 * event.loaded / event.total);
-      } else if (event instanceof HttpResponse) {
-        console.log('File is completely uploaded!');
-      }
-    });
+var camClient = new CamSDK.Client({
+  mock: false,
+  apiUri: 'http://localhost:8080/engine-rest'
+});
 
-    if (this.currentFileUpload1 != null) {
-      this.uploadService.pushFileToStorage(this.currentFileUpload1).subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          //this.progress.percentage = Math.round(100 * event.loaded / event.total);
-        } else if (event instanceof HttpResponse) {
-          console.log('File is completely uploaded!');
+var taskService = new camClient.resource('process-definition');
+
+function showTask(results) {
+      // load the the task form (getting the task ID from the tag attribute)
+      loadTaskForm("deploywf:1:9fc1f58a-18fa-11e9-83ff-d0509993700d", function(err, camForm) {
+        if (err) {
+          throw err;
         }
+
+        var $submitBtn = $('<button type="submit">Prozess deployen</button>').click(function () {
+          camForm.submit(function (err, result) {
+            if (err) {
+              throw err;
+            }
+
+            var xhttp = new XMLHttpRequest();
+            xhttp.open("POST", "http://localhost:9090/processInstanceAdd", false);
+            xhttp.setRequestHeader("Content-type", "application/json");
+            xhttp.setRequestHeader("Authorization", "Basic " + btoa('dashboard:dashboardPW'))
+            xhttp.send(JSON.stringify({id : result.id, definitionId : result.definitionId}));
+
+            // clear the form
+            $formContainer.html('');
+
+            location.reload();
+          });
+        });
+
+        camForm.containerElement.append($submitBtn);
       });
 
-    }
-    this.selectedFiles = undefined;
-  }
+}
 
+function loadTaskForm(processDefinitionId, callback) {
+  // loads the task form using the task ID provided
+  taskService.startForm({ "id" :processDefinitionId }, function(err, taskFormInfo) {
+    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
+    new CamSDK.Form({
+      client: camClient,
+      formUrl: url,
+      processDefinitionId: processDefinitionId,
+      containerElement: $formContainer,
+
+      // continue the logic with the callback
+      done: callback
+    });
+  });
 }
