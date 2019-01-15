@@ -1,0 +1,40 @@
+<p id="Infotext"></p>
+
+
+<form class="form-horizontal">
+
+
+	<div class="control-group">
+		<label class="control-label">Akzeptirst du die Betreuung dieser Masterarbeit:</label>
+		<div class="controls">
+			<input type="checkbox" cam-variable-name="akzeptiert"
+				cam-variable-type="Boolean" class="form-control" />
+		</div>
+	</div>
+	
+	<div class="control-group">
+		<label class="control-label">Deine Wunsch E-Mail:</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="betreuerEmail"
+				cam-variable-type="String" required class="form-control" />
+		</div>
+	</div>
+	
+
+	<script cam-script type="text/form-script">
+		var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('stdName');
+			variableManager.fetchVariable('thema');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var stdName = variableManager.variableValue('stdName');
+			var thema = variableManager.variableValue('thema');
+
+			document.getElementById("Infotext").innerHTML =
+				"Magst du die Masterarbeit von " + stdName + " ueber das Thema '"+ thema + "' betreuen";
+		});
+  </script>
+</form>
