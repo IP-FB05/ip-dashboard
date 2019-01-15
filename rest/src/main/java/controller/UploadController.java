@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -73,6 +74,20 @@ public class UploadController {
 			return ResponseEntity.status(HttpStatus.OK).body(message);
 		} catch (Exception e) {
 			message = "FAIL to upload " + file.getOriginalFilename() + "!";
+			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
+		}
+    }
+	
+	@PostMapping("/uploadStream/{filename:+}")
+	public ResponseEntity<String> handleStreamUpload(@RequestParam("file") InputStream file, @PathVariable String filename) {
+		String message = "";
+		try {
+			storageService.store(file, filename);
+            files.add(filename);
+			message = "You successfully uploaded " + filename + "!";
+			return ResponseEntity.status(HttpStatus.OK).body(message);
+		} catch (Exception e) {
+			message = "FAIL to upload " + filename + "!";
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(message);
 		}
     }
