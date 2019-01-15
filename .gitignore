@@ -10,3 +10,4 @@ REST-Services/dashboard/target/*
 REST-Services/dashboard/target/classes/application.properties
 *.class
 dash-app/mydash/package-lock.json
+dash-app/mydash/package-lock.json
