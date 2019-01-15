@@ -57,7 +57,7 @@
       <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${bpmnsuccess}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1cjf5xp" name="nein" sourceRef="ExclusiveGateway_1acqtlm" targetRef="Task_1p1trye" />
-    <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.UploadBPMN">
+    <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:class="de.fhaachen.deploywf.UploadBPMN">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:outputParameter name="bpmnpath">placeholder</camunda:outputParameter>
