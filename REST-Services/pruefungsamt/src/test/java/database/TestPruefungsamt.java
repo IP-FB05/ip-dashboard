@@ -154,7 +154,6 @@ public class TestPruefungsamt {
 		assertFalse(pa.pruefungBenotung(1, 552011, 2.0));
 	}
 	
-	@Ignore
 	@Test
 	public void testGetPruefungStudentList() throws SQLException {
 		// Fuer Modul 51101 sollen alle angemeldeten Studenten ausgegeben werden
@@ -162,7 +161,7 @@ public class TestPruefungsamt {
 		int matrNr = 0;
 		String studName = "";
 		
-		List<RegisteredPruefungModel> testList = pa.getPruefungStudentList(51101);
+		List<RegisteredPruefungModel> testList = pa.getPruefungStudentList(51104);
 		
 		RegisteredPruefungModel firstStudent = testList.get(0);
 		matrNr = firstStudent.getId();

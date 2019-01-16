@@ -1,65 +1,61 @@
-<form ng-submit="submit()" role="form" name="form">
+<form role="form" name="form">
 
+	<p id="allNote"> </p>
 
-	<div ng-repeat="x in students">
-	{{x.ID}}
-	Note: <input type="text" value={{x.note}} name={{x.ID}} id={{x.ID}}><br>
-	</div>
-	
 	<script cam-script type="text/form-script">
-
 
 		var variableManager = camForm.variableManager;
 		var modulID;
-		var final;
-		var studentsList;
-		var students = $scope.students = [];
+		var studentsList; // json / array
+		var students ; //unused?
 
-    	camForm.on('form-loaded', function() {
+		camForm.on('form-loaded', 
+			function() {
+				variableManager.fetchVariable('modul');
+				variableManager.fetchVariable('Students');
+			}
+		);
 
-      		variableManager.fetchVariable('modul');
-			variableManager.fetchVariable('final');
-			variableManager.fetchVariable('Students');
+		camForm.on('variables-fetched', 
+			function() {
+				modulID = variableManager.variableValue('modul');
+				studentsList = variableManager.variableValue('Students');
 
-		});
+				studentsList = JSON.parse(studentsList); //
 
-		camForm.on('variables-fetched', function() {
-      		modulID = variableManager.variableValue('modul');
-			final = variableManager.variableValue('final');
-			studentsList = variableManager.variableValue('Students');
+				populateForm(studentsList);
+			}
+		);
+		
+		function populateForm(dataJSON) {
+		
+			var outString = "";
+			for (var i = 0; i < Object.keys(studentsList).length; i++){
+				var id = Object.keys(studentsList)[i];
+				var note = studentsList[Object.keys(studentsList)[i]]
+				outString = outString + "<div> " + id + " Note: <input type=\"text\" value=\"" + note + "\" name=\"" + id + "\" id=\"" + id + "\"> <br> </div>";
+			}
+			console.log(outString)
+			document.getElementById("allNote").innerHTML = outString;
+		}
+		
+		
 
-			studentsList = JSON.parse(studentsList);
-
-			
-			for (let i = 0; i <  Object.keys(studentsList).length; i++) {
+		camForm.on('submit',
+			function(evt) {
+				for (let i = 0; i <  Object.keys(studentsList).length; i++) {
+					studentsList[Object.keys(studentsList)[i]] = document.getElementById(i).value; ; //
+				}
 				
-				$scope.students.push({ID:Object.keys(studentsList)[i],note:studentsList[Object.keys(studentsList)[i]]});
+				variableManager.destroyVariable('Students');
+				camForm.variableManager.createVariable({
+					name: 'Students',
+					type: 'json',
+					value: JSON.stringify(studentsList)
+				});
 			}
-  	
-		});
-
-
-		camForm.on('submit', function(evt) {
-
-			for (let i = 0; i <  Object.keys(studentsList).length; i++) {
-				studentsList[Object.keys(studentsList)[i]] = angular.element(document.getElementById($scope.students[i].ID)).val();
-			}
-
-			variableManager.destroyVariable('Students');
-
-			camForm.variableManager.createVariable({
-			  name: 'Students',
-			  type: 'json',
-			  value: JSON.stringify(studentsList)
-			});
-
-
-
-		});
-
-
-
+		);
+		
 	</script>
 
 </form>
-

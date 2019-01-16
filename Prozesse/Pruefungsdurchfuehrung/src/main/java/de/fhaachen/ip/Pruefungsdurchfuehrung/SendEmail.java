@@ -50,7 +50,7 @@ public class SendEmail implements JavaDelegate {
 
             
             for(int i = 0;i < students.length;i++) {
-            	Transport.send(message);
+            	//Transport.send(message);
             }
             
 
