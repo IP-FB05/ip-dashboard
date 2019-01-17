@@ -16,11 +16,11 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
-public class StudentenSchreiben implements JavaDelegate {
+public class SaveStudents implements JavaDelegate {
 	
     public void execute(DelegateExecution execution) throws Exception {
     	//Prozessvariablen Laden
-    	String students = execution.getVariable("Students").toString();
+    	String students = execution.getVariable("studGradesJSON").toString();
     	String modul = execution.getVariable("modul").toString();
 
     	//Studentenliste verarbeiten
@@ -31,16 +31,16 @@ public class StudentenSchreiben implements JavaDelegate {
 		JSONObject json = new JSONObject(students);
 
 		//Studenten in Server eintragen
-		String[][] studentsList = GetStudents.Get(execution.getVariable("modul").toString());
+		String[][] studentsList = (String[][]) execution.getVariable("studRESTRe");
         for (int i = 0; i < json.length(); i++) {
             String ID = studentsList[i][0];
             execution.setVariable(ID, json.getString(ID));
 
 
             Client client = Client.create();
-            String restcall = "http://localhost:8888/pruefungBenotung/" + ID + "/" + modul + "/" + json.getString(ID);
+            String restcall = "http://localhost:8888/pruefung/student/" + ID + "/" + modul + "/" + json.getString(ID);
             WebResource webResource = client.resource(restcall);
-            ClientResponse response = webResource.accept("application/json").header("Authorization", "Basic ZGVtbzpkZW1v").get(ClientResponse.class);
+            ClientResponse response = webResource.accept("application/json").header("Authorization", "Basic ZGVtbzpkZW1v").put(ClientResponse.class);
             if (response.getStatus() != 200) {
                 throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
             }

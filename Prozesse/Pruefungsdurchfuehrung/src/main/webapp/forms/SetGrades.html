@@ -1,27 +1,24 @@
 <form role="form" name="form">
 
-	<p id="allNote"> </p>
+	<p id="allNote"> <!-- added with populateForm() --> </p>
 
 	<script cam-script type="text/form-script">
 
 		var variableManager = camForm.variableManager;
 		var modulID;
-		var studentsList; // json / array
-		var students ; //unused?
+		var studentsList;
 
 		camForm.on('form-loaded', 
 			function() {
-				variableManager.fetchVariable('modul');
-				variableManager.fetchVariable('Students');
+				variableManager.fetchVariable('studGradesJSON');
 			}
 		);
 
 		camForm.on('variables-fetched', 
 			function() {
-				modulID = variableManager.variableValue('modul');
-				studentsList = variableManager.variableValue('Students');
+				studentsList = variableManager.variableValue('studGradesJSON');
 
-				studentsList = JSON.parse(studentsList); //
+				studentsList = JSON.parse(studentsList);
 
 				populateForm(studentsList);
 			}
@@ -32,10 +29,9 @@
 			var outString = "";
 			for (var i = 0; i < Object.keys(studentsList).length; i++){
 				var id = Object.keys(studentsList)[i];
-				var note = studentsList[Object.keys(studentsList)[i]]
+				var note = studentsList[Object.keys(studentsList)[i]];
 				outString = outString + "<div> " + id + " Note: <input type=\"text\" value=\"" + note + "\" name=\"" + id + "\" id=\"" + id + "\"> <br> </div>";
 			}
-			console.log(outString)
 			document.getElementById("allNote").innerHTML = outString;
 		}
 		
@@ -44,12 +40,12 @@
 		camForm.on('submit',
 			function(evt) {
 				for (let i = 0; i <  Object.keys(studentsList).length; i++) {
-					studentsList[Object.keys(studentsList)[i]] = document.getElementById(i).value; ; //
+					studentsList[Object.keys(studentsList)[i]] = document.getElementById(Object.keys(studentsList)[i]).value; ; //
 				}
 				
-				variableManager.destroyVariable('Students');
+				variableManager.destroyVariable('studGradesJSON');
 				camForm.variableManager.createVariable({
-					name: 'Students',
+					name: 'studGradesJSON',
 					type: 'json',
 					value: JSON.stringify(studentsList)
 				});

@@ -57,7 +57,7 @@ public class StudentServices {
 		return result;
 	}
 	
-	// used in: Modulanmeldung
+	// used in: Modulanmeldung, Pruefungsdurchfuehrung
 	@RequestMapping(value = "/modulList", method = RequestMethod.GET)
 	public List<RegisteredModulesModel> getModulList() throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
@@ -66,7 +66,7 @@ public class StudentServices {
 		return result;
 	}
 	
-	//boolAnmeldung 1 = anmeldung (erzeugen); 0 = abmeldung (loeschen) // used in: Modulanmeldung,Modulabmeldung
+	//boolAnmeldung 1 = anmeldung (create); 0 = abmeldung (delete) // used in: Modulanmeldung,Modulabmeldung
 	@RequestMapping(value = "/modul/{matrikelnr}/{fachnr}/{boolAnmeldung}", method = RequestMethod.POST)
 	public boolean changeModulStudent(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable int boolAnmeldung) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
@@ -129,8 +129,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	
-	@RequestMapping("/pruefungBenotung/{matrikelnr}/{fachnr}/{note}")
+	// used in: Pruefungsdurchfuehrung
+	@RequestMapping(value = "/pruefung/student/{matrikelnr}/{fachnr}/{note}", method = RequestMethod.PUT)
 	public boolean pruefungBenotung(@PathVariable int matrikelnr, @PathVariable int fachnr, @PathVariable double note) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.pruefungBenotung(matrikelnr, fachnr, note);
@@ -138,8 +138,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	//fachnr = modulnr
-	@RequestMapping("/pruefungStudentList/{fachnr}")
+	//fachnr = modulnr; used in: Pruefungsdurchfuehrung
+	@RequestMapping(value = "/pruefung/studentList/{fachnr}", method = RequestMethod.GET)
 	public List<RegisteredPruefungModel> getPruefungStudentList(@PathVariable int fachnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		List<RegisteredPruefungModel> result = amt.getPruefungStudentList(fachnr);

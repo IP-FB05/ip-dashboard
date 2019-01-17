@@ -13,7 +13,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.camunda.bpm.engine.variable.*;
 
-public class StudentenLaden implements JavaDelegate {
+public class LoadStudentls implements JavaDelegate {
 
 
     public void execute(DelegateExecution execution) throws Exception {
@@ -33,7 +33,10 @@ public class StudentenLaden implements JavaDelegate {
     	JSONObject json = new JSONObject(map);
 
     	//JSON als Prozessvariable speichern
-		execution.setVariable("Students", Variables.objectValue(json.toString()).serializationDataFormat("application/json").create());
+		execution.setVariable("studGradesJSON", Variables.objectValue(json.toString()).serializationDataFormat("application/json").create());
     	
+		execution.setVariable("studRESTRe",students);
+		
+		execution.setVariable("studNumber",students.length);
     }
 }
