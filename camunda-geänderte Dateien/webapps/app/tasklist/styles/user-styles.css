@@ -1,0 +1,87 @@
+
+[cam-widget-header] {
+  border-bottom-color: #00b5ad; 
+}
+
+h3{
+  font-size:30px;
+  color:white;
+
+}
+ 
+.form-control {
+  border: 1px solid #aaa;
+  color: #00b5ad;
+} 
+
+.btn-primary {
+  color: #fff;
+  background-color:  #00b5ad;
+  border-color:  #00b5ad;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #007a71;
+  border-color: #007a71;
+}
+
+primary.active, .open>.dropdown-toggle.btn-primary {
+  color: #fff;
+  background-color:#007a71;
+  border-color: #007a71;
+}
+
+.btn-link {
+  color: #00b5ad;
+  font-weight: normal;
+  border-radius: 0;
+}
+
+a {
+  color:#0b1a22;
+  text-decoration: none;
+}
+a:visited {
+  color:#0b1a22;
+  text-decoration: none;
+}
+
+a:focused {
+  color:#0b1a22;
+  text-decoration: none;
+}
+a:hover {
+  color: #00b5ad;
+  text-decoration: none;
+}
+
+a:active {
+  color: #00b5ad;
+  text-decoration: none;
+}
+
+.three-cols-layout .column-left .list-unstyled>.item.active h4 a:hover, .three-cols-layout .column-center .list-unstyled>li.active h4 a:hover, .three-cols-layout .column-left .list-unstyled>.item:hover h4 a:hover, .three-cols-layout .column-center .list-unstyled>li:hover h4 a:hover, .three-cols-layout .column-left .list-unstyled>.item:focus h4 a:hover, .three-cols-layout .column-center .list-unstyled>li:focus h4 a:hover, .three-cols-layout .column-left .list-unstyled>.item.active h4 a:focus, .three-cols-layout .column-center .list-unstyled>li.active h4 a:focus, .three-cols-layout .column-left .list-unstyled>.item:hover h4 a:focus, .three-cols-layout .column-center .list-unstyled>li:hover h4 a:focus, .three-cols-layout .column-left .list-unstyled>.item:focus h4 a:focus, .three-cols-layout .column-center .list-unstyled>li:focus h4 a:focus {
+  color: #00b5ad;
+  transition: color 0.218s ease;
+}
+
+task-filter .counter {
+  color:#00b5ad;
+}
+
+.form-control.ng-dirty.ng-invalid, .has-error .form-control {
+  color: #00b5ad;
+}
+
+.modal-header {
+  border-bottom: 1px solid #0b1a22;
+  background: #0b1a22;
+}
+
+input:-webkit-autofill, textarea:-webkit-autofill, select:-webkit-autofill {
+  background-color:  #00b5ad !important;
+  background-image: none !important;
+  color:white  !important;
+}
+
