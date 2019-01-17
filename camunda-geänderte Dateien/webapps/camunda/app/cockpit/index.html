@@ -55,6 +55,85 @@
           href="$APP_ROOT/app/cockpit/assets/images/camunda.114.png" />
                   
         <style>
+
+.dashboard, .cockpit-section-dashboard {
+    position: absolute;
+    background-color: #ffffff;
+    display: block;
+    overflow: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.dashboard section>.inner, .cockpit-section-dashboard section>.inner {
+    background-color: #fff;
+    padding: 15px;
+    /* box-shadow: 0 2px 8px -4px #555; */
+    border: 1px solid #cecece;
+    border-radius: 5px;
+}
+
+.dashboard .section-title, .cockpit-section-dashboard .section-title {
+    font-size: 20px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top:10px;
+    padding-bottom:16px;
+    font-weight: 100;
+    padding-left: 15px;
+    color:white;
+}
+
+.row {
+    margin-left: 0;
+    margin-right: 0;
+}
+
+.dashboard .stats li, .cockpit-section-dashboard .stats li {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    font-size: 14px;
+}
+
+.dashboard .stats li>a, .cockpit-section-dashboard .stats li>a {
+  color: #595757;
+}
+
+.dashboard section .stats {
+    padding-bottom: 15px;
+}
+
+.btn-link {
+    color: white;
+    font-weight: normal;
+    border-radius: 0;
+}
+
+.inner {padding:0 !important;}
+
+.section-title {background-color:#0b1a22;}
+.section-title a {color:white;}
+.section-title a:hover, .section-title a:focus  {color:#00b5ad;}
+
+[cam-widget-header] a:hover, [cam-widget-header] a:focus {
+    color: #00b5ad;
+    text-decoration: none;
+}
+
+.ctn-wrapper>[ng-view]>.dashboard {
+    top: 0px;
+    margin-top: 50px;
+}
+
+
+
+
+
+
+
        a.value {
   color:#00b5ad !important;
   text-decoration: none;
