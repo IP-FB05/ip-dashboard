@@ -39,7 +39,7 @@
                         <td>{{document.categoriename}}</td>
                         <td>{{document.lastChanged}}</td>
                         <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt', 'professor', 'mitarbeiter'])">
-                        <td><button class="delete-dark" (click)="delete(document)" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
+                        <td><button class="delete-dark" (click)="openDeleteDialog(document)" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
                         </ng-container>
                     </tr>
                 </tbody>

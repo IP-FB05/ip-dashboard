@@ -1,0 +1,26 @@
+h2 {
+    color:black;
+}
+
+.abbrechen-btn {
+    background:#bf4848;
+    color:white;
+    font-weight:400;
+}
+
+.bestaetigen-btn {
+    background:#00b5ad;
+    color:white;
+    font-weight:400;
+}
+
+
+.mat-raised-button:not([class*=mat-elevation-z]) {
+    box-shadow: none;
+}
+
+.action-buttons
+{
+    margin-top:15px;
+    margin-bottom: 15px;
+}

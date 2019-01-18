@@ -55,6 +55,9 @@ import { AuthorizationService } from './login/auth/authorization.service';
 import { Error401Component } from './helper/error/error401/error401.component';
 import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
 import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
+import { DocumentsDeleteDialogComponent } from './document/documents-delete-dialog/documents-delete-dialog.component';
+import { ProcessesDeleteDialogComponent } from './process/processes-delete-dialog/processes-delete-dialog.component';
+import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/systems-delete-dialog.component';
 
 
 
@@ -88,7 +91,10 @@ import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
     Error401Component,
     ProcessStartComponent,
     UsergroupComponent,
-    DoTaskComponent
+    DoTaskComponent,
+    DocumentsDeleteDialogComponent,
+    ProcessesDeleteDialogComponent,
+    SystemsDeleteDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -113,7 +119,7 @@ import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
 
     
   ],
-  entryComponents: [DocumentsDialogComponent, ProcessesDialogComponent, SystemsDialogComponent, ProcessStartComponent, DoTaskComponent],
+  entryComponents: [DocumentsDialogComponent, DocumentsDeleteDialogComponent, ProcessesDialogComponent, ProcessesDeleteDialogComponent, SystemsDialogComponent, SystemsDeleteDialogComponent, ProcessStartComponent, DoTaskComponent],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },

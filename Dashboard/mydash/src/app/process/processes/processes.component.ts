@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material'
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material'
 
 // Import Models
 import { Process } from '../process';
@@ -8,11 +8,13 @@ import { ProcessInstance } from '../processInstance';
 // Import Components
 import { ProcessStartComponent } from '../process-start/process-start.component'
 import { ProcessesDialogComponent } from '../processes-dialog/processes-dialog.component';
+import { ProcessesDeleteDialogComponent } from '../processes-delete-dialog/processes-delete-dialog.component';
 
 // Import Services
 import { ProcessService } from '../process.service';
 import { AuthorizationService } from '../../login/auth/authorization.service';
 import { AuthService } from '../../login/auth/auth.service';
+
 
 @Component({
   selector: 'app-processes',
@@ -28,6 +30,7 @@ export class ProcessesComponent implements OnInit {
   processInstance: ProcessInstance;
   processToUpload: Process;
   selectedUserGroups: number[];
+  dialogRef: MatDialogRef<ProcessesDeleteDialogComponent>;
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
@@ -91,6 +94,21 @@ export class ProcessesComponent implements OnInit {
     this.processService.deleteProcess(process).subscribe();
     this.processService.deleteBPMNFromFileServer(process.bpmn).subscribe();
   }
+
+  openDeleteDialog(process: Process) {
+    this.dialogRef = this.dialog.open(ProcessesDeleteDialogComponent, {
+      disableClose: false
+    });
+    
+    this.dialogRef.componentInstance.confirmMessage = "Wollen Sie diesen Prozess wirklich löschen ?"
+
+    this.dialogRef.afterClosed().subscribe(data => {
+      if(data) this.delete(process);
+
+      this.dialogRef = null;
+    });
+  }
+
 
   openDialog() {
     const dialogConfig = new MatDialogConfig();

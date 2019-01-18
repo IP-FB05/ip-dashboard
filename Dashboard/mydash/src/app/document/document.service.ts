@@ -76,6 +76,7 @@ export class DocumentService {
     const id = typeof document === 'number' ? document : document.documentID;
     const url = `http://localhost:9090/documentDelete/${id}`;
 
+    this.openSnackBar("Dokument wurde erfolgreich gelöscht !");
     this.messageService.add('DocumentService: deleted document');
     return this.http.delete<Document>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted document id=${id}`)),

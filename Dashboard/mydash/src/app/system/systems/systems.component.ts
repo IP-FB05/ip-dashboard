@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog, MatDialogConfig } from '@angular/material'
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material'
 
 // Import Models
 import { System } from '../system';
 
 // Import Components
 import { SystemsDialogComponent } from '../systems-dialog/systems-dialog.component';
+import { SystemsDeleteDialogComponent } from '../systems-delete-dialog/systems-delete-dialog.component';
 
 // Import Services
 import { SystemService } from '../system.service';
 import { AuthorizationService } from 'src/app/login/auth/authorization.service';
+
 
 
 @Component({
@@ -21,6 +23,7 @@ export class SystemsComponent implements OnInit {
 
   public systems: System[];
   searchText: string;
+  dialogRef: MatDialogRef<SystemsDeleteDialogComponent>;
 
   constructor(private systemService: SystemService, 
               public dialog: MatDialog,
@@ -46,6 +49,20 @@ export class SystemsComponent implements OnInit {
   delete (system: System): void {
     this.systems = this.systems.filter(s => s !== system);
     this.systemService.deleteSystem(system).subscribe();
+  }
+
+  openDeleteDialog(system: System) {
+    this.dialogRef = this.dialog.open(SystemsDeleteDialogComponent, {
+      disableClose: false
+    });
+    
+    this.dialogRef.componentInstance.confirmMessage = "Wollen Sie dieses System wirklich löschen ?"
+
+    this.dialogRef.afterClosed().subscribe(data => {
+      if(data) this.delete(system);
+
+      this.dialogRef = null;
+    });
   }
 
   openDialog() {
