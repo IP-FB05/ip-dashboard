@@ -524,7 +524,7 @@ public class Pruefungsamt {
 		//anlegen pruefung
 		int idPruefung = -1;
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefer`, `pruefungszeitpunkt`, `abschlussarbeitnr`) VALUES ('8998', ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
+				"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefer`, `pruefungszeitpunkt`, `abschlussarbeitnr`) VALUES ('9998', ?, ?, ?);", Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, betreuer);
 		preparedStatement.setDate(2, startdatum);
 		preparedStatement.setInt(3, idAbschlussarbeit);
@@ -557,7 +557,7 @@ public class Pruefungsamt {
 		//anlegen pruefung
 				int idPruefung = -1;
 				preparedStatement = connect.prepareStatement(
-						"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefungszeitpunkt`) VALUES ('8999', ?);", Statement.RETURN_GENERATED_KEYS);
+						"INSERT INTO `pruefungsamt`.`pruefungen` (`modulnr`, `pruefungszeitpunkt`) VALUES ('9999', ?);", Statement.RETURN_GENERATED_KEYS);
 				preparedStatement.setDate(1, startdatum);
 				int lineEdit = preparedStatement.executeUpdate();
 				ResultSet rs=preparedStatement.getGeneratedKeys();
@@ -584,7 +584,6 @@ public class Pruefungsamt {
 				return false;
 	}
 	
-
 	public boolean setMABenoten(int matrikelnr, double note) throws SQLException {
 		
 		String bestanden = "";
@@ -600,7 +599,7 @@ public class Pruefungsamt {
 					+ "JOIN "
 					+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
 					+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
-					+ "WHERE (`student` = ?) and (t2.`modulnr` = '8998') "
+					+ "WHERE (`student` = ?) and (t2.`modulnr` = '9998') "
 					+ "order by t2.pruefungszeitpunkt desc "
 					+ "LIMIT 1 "
 					+ ") AS sel "
@@ -632,7 +631,7 @@ public class Pruefungsamt {
 					+ "JOIN "
 					+ "( SELECT pruefung FROM `pruefungsamt`.`pruefung_student` AS t1 "
 					+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
-					+ "WHERE (`student` = ?) and (t2.`modulnr` = '8999') "
+					+ "WHERE (`student` = ?) and (t2.`modulnr` = '9999') "
 					+ "order by t2.pruefungszeitpunkt desc "
 					+ "LIMIT 1 "
 					+ ") AS sel "
@@ -650,12 +649,12 @@ public class Pruefungsamt {
 	}
 	
 	public boolean setMAVerlaengerung(int matrikelnr, Date verlaengerungDate) throws SQLException {
-		int lastBA = -1;
+		int lastMA = -1;
 		
 		preparedStatement = connect.prepareStatement(
 				"SELECT abschlussarbeitnr FROM `pruefungsamt`.`pruefung_student` AS t1 "
 				+ "INNER JOIN `pruefungsamt`.`pruefungen` AS t2 ON t2.pruefungsnr = t1.pruefung "
-				+ "WHERE (`student` = ?) and (t2.`modulnr` = '8998') "
+				+ "WHERE (`student` = ?) and (t2.`modulnr` = '9998') "
 				+ "order by t2.pruefungszeitpunkt desc "
 				+ "LIMIT 1; ");					
 	
@@ -663,13 +662,13 @@ public class Pruefungsamt {
 		resultSet = preparedStatement.executeQuery();
 		
 		if(resultSet.first()) {
-			lastBA = resultSet.getInt(1);
+			lastMA = resultSet.getInt(1);
 		}
 		
 		preparedStatement.clearParameters();
 		
 		
-		if(lastBA != -1) {
+		if(lastMA != -1) {
 			
 			
 			preparedStatement = connect.prepareStatement(
@@ -677,7 +676,7 @@ public class Pruefungsamt {
 					+ "WHERE (`idabschlussarbeit` = ?);");					
 		
 			preparedStatement.setDate(1, verlaengerungDate);
-			preparedStatement.setInt(2, lastBA);
+			preparedStatement.setInt(2, lastMA);
 			int resultSet = preparedStatement.executeUpdate();
 			
 			if(resultSet == 1) {
@@ -838,7 +837,6 @@ public class Pruefungsamt {
 				return false;
 	}
 	
-
 	public boolean setBABenoten(int matrikelnr, double note) throws SQLException {
 		
 		String bestanden = "";

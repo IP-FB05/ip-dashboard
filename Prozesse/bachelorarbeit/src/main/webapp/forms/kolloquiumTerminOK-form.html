@@ -1,3 +1,4 @@
+<p id="Infotext"></p>
 <form class="form-horizontal">
 
 	<div class="control-group">
@@ -10,6 +11,18 @@
 	
 
 	<script cam-script type="text/form-script">
-  // custom JavaScript goes here
+  var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('terminKol');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var terminKolvar = variableManager.variableValue('terminKol');
+			if(terminKolvar) {
+				document.getElementById("Infotext").innerHTML =
+					"Der Betreuer  schl&aumlgt "+ terminKolvar + " als Termin vor";
+			}
+		});
   </script>
 </form>
