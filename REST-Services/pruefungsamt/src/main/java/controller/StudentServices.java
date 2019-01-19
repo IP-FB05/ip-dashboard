@@ -147,8 +147,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	
-	@RequestMapping("/istZugelassenBA/{matrikelnr}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/ba/allowed/{matrikelnr}", method = RequestMethod.GET)
 	public boolean istZugelassenBA(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.getZulassungBA(matrikelnr);
@@ -156,7 +156,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/istZugelassenBAKol/{matrikelnr}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/bakol/allowed/{matrikelnr}", method = RequestMethod.GET)
 	public boolean istZugelassenBAKol(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.getZulassungBAKol(matrikelnr);
@@ -164,7 +165,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/anmeldungBA/{matrikelnr}/{betreuer}/{nameBA}/{startdatum}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/ba/{matrikelnr}/{betreuer}/{nameBA}/{startdatum}", method = RequestMethod.POST)
 	public boolean anmeldungBA(@PathVariable int matrikelnr, @PathVariable String betreuer, @PathVariable String nameBA, @PathVariable Date startdatum) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setAnmeldungBA(matrikelnr,betreuer,nameBA,startdatum);
@@ -172,7 +174,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/anmeldungBAKol/{matrikelnr}/{startdatum}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/bakol/{matrikelnr}/{startdatum}", method = RequestMethod.POST)
 	public boolean anmeldungBAKol(@PathVariable int matrikelnr, @PathVariable Date startdatum) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setAnmeldungBAKol(matrikelnr, startdatum);
@@ -180,7 +183,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/BABenotung/{matrikelnr}/{note}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/ba/{matrikelnr}/{note}", method = RequestMethod.PUT)
 	public boolean bachelorarbeitBenotung(@PathVariable int matrikelnr, @PathVariable double note) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setBABenoten(matrikelnr, note);
@@ -188,7 +192,8 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/BABenotungKol/{matrikelnr}/{note}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/bakol/{matrikelnr}/{note}", method = RequestMethod.PUT)
 	public boolean bachelorarbeitKolBenotung(@PathVariable int matrikelnr, @PathVariable double note) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setBAKolBenoten(matrikelnr, note);
@@ -196,13 +201,15 @@ public class StudentServices {
 		return result;
 	}
 	
-	@RequestMapping("/BAVerlaengern/{matrikelnr}/{verlaengerungDate}")
+	// used in: Bachelorarbeit
+	@RequestMapping(value = "/pruefung/ba/{matrikelnr}/{verlaengerungDate}", method = RequestMethod.PATCH)
 	public boolean bachelorarbeitVerlaengern(@PathVariable int matrikelnr, @PathVariable Date verlaengerungDate) throws SQLException, ClassNotFoundException{
 		Pruefungsamt amt = new Pruefungsamt();
 		boolean result = amt.setBAVerlaengerung(matrikelnr, verlaengerungDate);
 		amt.close();
 		return result;
 	}
+	
 	
 	@RequestMapping("/istZugelassenMA/{matrikelnr}")
 	public boolean istZugelassenMA(@PathVariable int matrikelnr) throws SQLException, ClassNotFoundException{

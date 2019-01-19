@@ -1,9 +1,12 @@
 package utils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 public class Config {
 
 	public static final String REST_USER = "restuser";
@@ -26,7 +29,6 @@ public class Config {
 			InputStreamReader isr = new InputStreamReader(confFile);
 			BufferedReader br = new BufferedReader(isr);
 			if(confFile == null) {
-				System.out.println("hier");
 				throw new Exception();
 			}
 			configMap = new HashMap<String, String>();
