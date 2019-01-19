@@ -1,8 +1,6 @@
-<p id="Infotext"></p>
-
-
 <form class="form-horizontal">
 
+	<p id="Infotext"></p>
 
 	<div class="control-group">
 		<label class="control-label">Akzeptirst du die Betreuung dieser Bachlerarbeit:</label>
@@ -11,7 +9,6 @@
 				cam-variable-type="Boolean" class="form-control" />
 		</div>
 	</div>
-	
 
 	<script cam-script type="text/form-script">
 		var variableManager = camForm.variableManager;
@@ -26,7 +23,7 @@
 			var thema = variableManager.variableValue('thema');
 
 			document.getElementById("Infotext").innerHTML =
-				"Magst du die Bachelorarbeit von " + stdName + " über das Thema '"+ thema + "' betreuen";
+				"Magst du die Bachelorarbeit von " + stdName + " &uuml;ber das Thema '"+ thema + "' betreuen";
 		});
-  </script>
+	</script>
 </form>

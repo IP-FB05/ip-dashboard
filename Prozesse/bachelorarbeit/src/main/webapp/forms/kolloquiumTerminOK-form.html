@@ -1,14 +1,14 @@
-<p id="Infotext"></p>
 <form class="form-horizontal">
 
+	<p id="Infotext"></p>
+
 	<div class="control-group">
-		<label class="control-label">Ist der Termin für dein Kolloquium ok:</label>
+		<label class="control-label">Ist der Termin f&uuml;r dein Kolloquium ok:</label>
 		<div class="controls">
 			<input type="checkbox" cam-variable-name="terminKolOK"
 				cam-variable-type="Boolean" class="form-control" />
 		</div>
 	</div>
-	
 
 	<script cam-script type="text/form-script">
   var variableManager = camForm.variableManager;
@@ -21,8 +21,8 @@
 			var terminKolvar = variableManager.variableValue('terminKol');
 			if(terminKolvar) {
 				document.getElementById("Infotext").innerHTML =
-					"Der Betreuer  schl&aumlgt "+ terminKolvar + " als Termin vor";
+					"Der Betreuer  schl&auml;gt "+ terminKolvar + " als Termin vor";
 			}
 		});
-  </script>
+	</script>
 </form>

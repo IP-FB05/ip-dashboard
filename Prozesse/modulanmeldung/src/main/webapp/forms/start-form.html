@@ -7,7 +7,7 @@
 				cam-variable-type="Long" required class="form-control" />
 		</div>
 	</div>
-	
+
 	<div class="control-group">
 		<label class="control-label">Deine Studiengang:</label>
 		<div class="controls">
@@ -18,26 +18,23 @@
 			</select>
 		</div>
 	</div>
-	
-	
-	
-	
+
 	<div class="control-group">
-		<label class="control-label">Gewuenschte Modulnummer:</label>
+		<label class="control-label">Gew&uuml;nschte Modulnummer:</label>
 		<div class="controls">
 			<input type="text" cam-variable-name="fachnummer"
 				cam-variable-type="Long" required class="form-control" />
 		</div>
 	</div>
-	
+
 	<div>
-		<p> </p>
+		<br>
 		<p id="modtable"> <!-- created with createHtmlTable() js--> </p>
 	</div>
 	
 
 	<script cam-script type="text/form-script">
-	
+
 		camForm.on('variables-fetched', function() {
 
 			var headers = new Headers();
@@ -58,7 +55,7 @@
 			}
 			userAction();
 		});
-		
+
 		function createHtmlTable(dataJSON) {
 			var x, txt = "";
 			txt += "<table border='1'> <th>Modulnummer</th> <th>Modulbezeichnung</th> "
@@ -68,6 +65,6 @@
 			txt += "</table>"
 			document.getElementById("modtable").innerHTML = txt;
 		}
-		
+
 	</script>
 </form>
