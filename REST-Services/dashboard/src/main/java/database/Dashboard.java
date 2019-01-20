@@ -333,39 +333,6 @@ public class Dashboard {
 	}
 
 	
-	public boolean addProcessWithUG(Process input, int[] userGroups) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, verbal, bpmn, added, camunda_processID) VALUES (?, ?, ?, ?, CURDATE(), ?)", PreparedStatement.RETURN_GENERATED_KEYS);
-		preparedStatement.setString(1, input.getName());
-		preparedStatement.setString(2, input.getDescription());
-		preparedStatement.setString(3, input.getVerbal());
-		preparedStatement.setString(4, input.getBpmn());
-		preparedStatement.setString(5, input.getCamunda_processID());
-		preparedStatement.executeUpdate();
-
-		resultSet = preparedStatement.getGeneratedKeys();
-		int id=0;
-		if(resultSet.next()){
-			id=resultSet.getInt(1);
-		}
-		this.addAllowedUserGroups(userGroups,id);		
-
-		return true;
-	}
-	
-
-	
-	public boolean addAllowedUserGroups(int[] userGroups, int id) throws SQLException, ClassNotFoundException {
-		for (int i = 0; i < userGroups.length; i++){
-			preparedStatement = connect.prepareStatement(
-				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?, ?)");
-			preparedStatement.setInt(1, id);
-			preparedStatement.setInt(2, userGroups[i]);
-			preparedStatement.execute();
-		}
-		return true;
-	}
-	
 
 	// ADD ProcessInstance
 	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {

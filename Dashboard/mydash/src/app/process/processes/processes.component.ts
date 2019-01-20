@@ -25,11 +25,9 @@ import { AuthService } from '../../login/auth/auth.service';
 export class ProcessesComponent implements OnInit {
 
   processes: Process[];
-  //selectedProcess: Process;
   searchText: string;
   processInstance: ProcessInstance;
   processToUpload: Process;
-  selectedUserGroups: number[];
   dialogRef: MatDialogRef<ProcessesDeleteDialogComponent>;
 
   constructor(private processService: ProcessService,
@@ -46,22 +44,7 @@ export class ProcessesComponent implements OnInit {
       .subscribe(processes => this.processes = processes);
   }
 
-  add(process: Process, /*selectedUserGroups: number[]*/): void {
-    /*
-    if (selectedUserGroups != null) {
-      console.log(selectedUserGroups);
-      this.processService.addProcessWithUG(process, selectedUserGroups.map(Number));
-      console.log(selectedUserGroups);
-    } else {
-      this.processService.addProcess(process)
-        .subscribe(process => {
-          this.processes.push(process);
-          this.getProcesses();
-        });
-    }
-    
-  }
-  */
+  add(process: Process): void {
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
@@ -139,10 +122,7 @@ export class ProcessesComponent implements OnInit {
         this.processToUpload.added = data.added;
         this.processToUpload.camunda_processID = data.camunda_processID;
         this.processToUpload.allowed_usergroups = data.allowed_usergroups.toString();
-        //this.selectedUserGroups = data.allowed_usergroups;
 
-
-        //this.add(this.processToUpload, this.selectedUserGroups.map(Number));
         this.add(this.processToUpload);
       });
   }

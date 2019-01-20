@@ -83,32 +83,6 @@ export class ProcessService {
     );
   }
 
-  private userGroupIDs: string = '';
-  addProcessWithUG(process: Process, selectedUserGroups: number[]): Observable<Process> {
-    if (!process.name || process.name == "" || !process.description || process.description == "" || !process.bpmn || process.bpmn == "" || selectedUserGroups == null) {
-
-      if (!process.name || process.name == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Name erforderlich!");
-      else if (!process.description || process.description == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Beschreibung erforderlich!");
-      else if (selectedUserGroups == null) this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle Sichtbarkeit aus!");
-      else if (!process.bpmn || process.bpmn == "") this.openSnackBar("Prozess wurde nicht hinzugefügt! Wähle BPMN-Datei aus !");
-      else this.openSnackBar("Prozess wurde nicht hinzugefügt !");
-      return;
-    }
-    for (var i = 0; i < selectedUserGroups.length; i++) {
-        this.userGroupIDs += selectedUserGroups[i];
-      if(i != selectedUserGroups.length - 1) {
-        this.userGroupIDs += ',';
-      }
-    }
-
-    this.messageService.add(`ProcessService: added process`);
-    this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
-    return this.http.post<Process>(this.processesUrl + "processAddwithUG?selectedUserGroups=" + this.userGroupIDs, process, httpOptions).pipe(
-      tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
-      catchError(this.handleError<Process>('addProcess'))
-    );
-  }
-
   startProcess(process: Process): Observable<ProcessInstance> {
     const id = process.camunda_processID;
     const url = `http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest/process-definition/${id}/start`;
