@@ -15,11 +15,10 @@ public class DateParser implements JavaDelegate{
 		Date date = (Date) execution.getVariable("InputDate");
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");  
-        String strDate = dateFormat.format(date);
+		String strDate = dateFormat.format(date);
 		
 		execution.setVariable("OutputDate", strDate);
 		
 		
 	}
-
 }

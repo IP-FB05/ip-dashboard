@@ -32,29 +32,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http
-            // by default uses a Bean by the name of corsConfigurationSource
-            .cors().and()
-            .authorizeRequests().anyRequest().authenticated().and()
-            .httpBasic().and()
-            .csrf().disable();
-    }
+	@Override
+	protected void configure(HttpSecurity http) throws Exception {
+		http
+			// by default uses a Bean by the name of corsConfigurationSource
+			.cors().and()
+			.authorizeRequests().anyRequest().authenticated().and()
+			.httpBasic().and()
+			.csrf().disable();
+	}
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication().withUser(Config.getConfig(Config.REST_USER)).password("{noop}" + Config.getConfig(Config.REST_PASS)).roles("USER");
-    }
-    
-    @Bean
-    CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE","PUT","OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
-    }
+	}
+
+	@Bean
+	CorsConfigurationSource corsConfigurationSource() {
+	CorsConfiguration configuration = new CorsConfiguration();
+	configuration.setAllowedOrigins(Arrays.asList("*"));
+	configuration.setAllowedMethods(Arrays.asList("GET","POST","DELETE","PUT","OPTIONS"));
+	configuration.setAllowedHeaders(Arrays.asList("*"));
+	UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+	source.registerCorsConfiguration("/**", configuration);
+	return source;
+	}
 }

@@ -1,4 +1,5 @@
 <form role="form" class="form-horizontal">
+
 	<div class="control-group">
 		<label class="control-label">Welches Modul magst du abmelden:</label>
 		<p></p>
@@ -8,27 +9,23 @@
 	</div>
 
 	<script cam-script type="text/form-script">
-	
+
 		var variableManager = camForm.variableManager;
 
-		
 		camForm.on('form-loaded', function() {
-      		variableManager.fetchVariable('matrikelnummer');
-    	});
-	
-	
+			variableManager.fetchVariable('matrikelnummer');
+		});
+
 		camForm.on('variables-fetched', function() {
-		
+
 			var matrikelnummer = variableManager.variableValue('matrikelnummer');
-			
-		
+
 			var headers = new Headers();
 			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
 			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
 
 			var rest = 'http://localhost:8888/student/modul/';
 			rest = rest.concat(matrikelnummer);
-
 
 			const userAction = async () => {
 				const response = await fetch(rest,
@@ -42,7 +39,6 @@
 			}
 			userAction();
 		});
-		
 
 		function populateSelect(dataJSON) {
 			let dropdown = document.getElementById('modul-dropdown');
@@ -62,11 +58,6 @@
 				option.value = dataJSON[i].id;
 				dropdown.add(option);
 			}
-
-
 		}
-
-		
-
 	</script>
 </form>

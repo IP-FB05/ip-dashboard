@@ -76,6 +76,7 @@ export class ProcessesComponent implements OnInit {
     this.processes = this.processes.filter(p => p !== process);
     this.processService.deleteProcess(process).subscribe();
     this.processService.deleteBPMNFromFileServer(process.bpmn).subscribe();
+    this.processService.deleteProcessFromCamunda(process).subscribe();
   }
 
   openDeleteDialog(process: Process) {

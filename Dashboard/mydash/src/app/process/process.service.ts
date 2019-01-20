@@ -93,7 +93,7 @@ export class ProcessService {
     return this.http.post<ProcessInstance>("http://localhost:9090/processInstanceAdd", processInstance, httpOptions)
   }
 
-  /** DELETE: delete the Process from the server */
+  /** DELETE: delete the Process from the database */
   deleteProcess(process: Process | number): Observable<Process> {
     const id = typeof process === 'number' ? process : process.processID;
     const url = `http://localhost:9090/processDelete/${id}`;
@@ -106,12 +106,24 @@ export class ProcessService {
     );
   }
 
+  /** DELETE: delete the Process from the camunda server */
+  deleteProcessFromCamunda(process: Process): Observable<Process> {
+    const id = process.camunda_processID;
+    const url = `http://localhost:8080/engine-rest/process-definition/${id}`;
 
-  // DELETE: delete BPMN/WAR from the Fileserver
+    this.messageService.add(`ProcessService: deleted process from Cmaunda Server`);
+    return this.http.delete<Process>(url, httpOptionsCamundaREST).pipe(
+      tap(_ => this.log(`deleted process id=${id} from Cmaunda Server`)),
+      catchError(this.handleError<Process>('deleteProcessFromCamunda'))
+    );
+  }
+
+
+  // DELETE: delete BPMN from the Fileserver
   deleteProcessFilesFromFileServer(linkBPMN: string, linkWAR: string): Observable<Process> {
     const substringBPMN = linkBPMN.substring(linkBPMN.lastIndexOf("/") + 1);
     const substringWAR = linkWAR.substring(linkWAR.lastIndexOf("/") + 1);
-    this.messageService.add('ProcessService: Deleted BPMN/WAR from FileServer');
+    this.messageService.add('ProcessService: Deleted BPMN from FileServer');
 
     return this.http.delete<Process>("http://localhost:9090/deleteFiles?filenameBPMN=" + substringBPMN + "&filenameWAR=" + substringWAR, httpOptions).pipe(
       tap(_ => this.log(`deleted files from fileserver`)),

@@ -193,7 +193,7 @@ public class TestPruefungsamt {
 
 		
 		//Student 1 erfuellt zulassungsvoraussetztung
-		//assertTrue(pa.getZulassungBAKol(1));
+		assertTrue(pa.getZulassungBAKol(1));
 		
 		// Fuer Student 1 soll eine BAKol angelegt werden
 		assertTrue(pa.setAnmeldungBAKol(1, new java.sql.Date(new java.util.Date().getTime())));
@@ -231,7 +231,7 @@ public class TestPruefungsamt {
 
 		
 		//Student 1 erfuellt zulassungsvoraussetztung
-		//assertTrue(pa.getZulassungMAKol(1));
+		assertTrue(pa.getZulassungMAKol(1));
 		
 		// Fuer Student 1 soll eine BAKol angelegt werden
 		assertTrue(pa.setAnmeldungMAKol(1, new java.sql.Date(new java.util.Date().getTime())));

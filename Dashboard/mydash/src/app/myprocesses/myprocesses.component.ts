@@ -6,6 +6,7 @@ import 'jquery';
 
 // Import Models
 import { ProcessInstance } from '../process/processInstance';
+import { Tasks } from './tasks';
 
 // Import Components
 import { DoTaskComponent } from './do-task/do-task.component';
@@ -105,7 +106,7 @@ function loadTaskForm(taskId, callback) {
 function showTasks(results) {
   // generate the HTML for the list of tasks
   $.each(results._embedded.task, function (t, task) {
-    items.push( {id : task.id, processDefinitionName : '', state : '', startTime : '', startUserId : '' } );
+    items.push( {id : task.id, processDefinitionName : '', state : '', startTime : '', startUserId : ''} );
   });
 }
 
@@ -118,6 +119,7 @@ function showTasks(results) {
 export class MyprocessesComponent implements OnInit {
 
   public instances: ProcessInstance[];
+  public tasks: Tasks[];
   
   constructor(private myprocessService: MyprocessesService, public dialog: MatDialog, private authService: AuthService) { }
 
@@ -126,11 +128,17 @@ export class MyprocessesComponent implements OnInit {
     items = [];
     loadTasks();
     this.getInstances();
+    this.getTasks();
   }
 
   getInstances(): void {
     this.myprocessService.getProcessInstances()
       .subscribe(instances => this.instances = instances);
+  }
+
+  getTasks(): void {
+    this.myprocessService.getTasks()
+      .subscribe(tasks => this.tasks = tasks);
   }
 
   doTask(instance: ProcessInstance) {
