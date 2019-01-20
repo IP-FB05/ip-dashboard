@@ -9,7 +9,14 @@
               <div class="card-body">
                 <p class="card-text">Gestartet am: {{instance.startTime}}</p>
                 <p class="card-text">Gestartet von User: {{instance.startUserId}}</p>
-                <button class="btn btn-secondary" (click)="doTask(instance)">Task aufrufen</button>
+                <ng-container *ngFor="let task of tasks">
+                  <ng-container *ngIf="task.processInstanceId == instance.id">
+                      <ng-container *ngIf="task.description != NULL">
+                        <p>Beschreibung des aktuellen Tasks: {{task.description}}</p>
+                      </ng-container>
+                    <button class="btn btn-secondary" (click)="doTask(instance)">{{task.name}}.</button>
+                  </ng-container>
+                </ng-container>
               </div>
             </div>
           </div>

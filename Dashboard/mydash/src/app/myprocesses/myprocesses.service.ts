@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 // Import Models
 import { ProcessInstance } from '../process/processInstance';
+import { Tasks } from './tasks';
 
 // Import Components
 
@@ -27,6 +28,16 @@ export class MyprocessesService {
         .pipe(
           tap(_ => this.log('fetched processes')),
           catchError(this.handleError('getProcesses', []))
+        );
+    }
+
+    getTasks(): Observable<Tasks[]> {
+      // TODO: send the message _after_ fetching the tasks
+      this.messageService.add('ProcessService: fetched tasks');
+      return this.http.get<Tasks[]>("http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest/history/task")
+        .pipe(
+          tap(_ => this.log('fetched tasks')),
+          catchError(this.handleError('getTasks', []))
         );
     }
 
