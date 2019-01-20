@@ -5,9 +5,11 @@
         <div class="col-md-12">
             <h1 >{{process.name}}</h1>
         </div>
-        <div class="col-md-12">
-            <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
-        </div>
+        <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt', 'professor', 'mitarbeiter'])">
+            <div class="col-md-12">
+                <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
+            </div>
+        </ng-container>
     </div>
     <!--First Row-->
 
@@ -20,20 +22,22 @@
     <!--Second Row-->
 
     <!--BPMN-->
-    <div class="diagram-parent">
-        <app-diagram url={{process.bpmn}}></app-diagram>
-    </div>
+    <ng-container *ngIf="this.authorizationService.hasRole(['admin','pruefungsamt', 'professor', 'mitarbeiter'])">
+        <div class="diagram-parent">
+            <app-diagram url={{process.bpmn}}></app-diagram>
+        </div>
+    
     <!--BPMN-->
 
 
     <!--Third Row-->
-    <div class="row">
-        <div class="col md-12">
-            <p >Sie können das Diagramm nach rechts bzw. links verschieben, indem
-                Sie die linke Maustaste geklickt halten und dabei verschieben.
-                Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
-
+        <div class="row">
+            <div class="col md-12">
+                <p >Sie können das Diagramm nach rechts bzw. links verschieben, indem
+                    Sie die linke Maustaste geklickt halten und dabei verschieben.
+                    Ausserdem können Sie das Diagramm durch STRG + Mausrad vergrößern bzw. verkleinern. </p>
+            </div>
         </div>
-    </div>
+    </ng-container>
     <!--Third Row-->
 </div>

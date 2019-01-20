@@ -9,6 +9,8 @@ import { Process } from '../process';
 
 // Import Services
 import { ProcessService }  from '../process.service';
+import { AuthorizationService } from '../../login/auth/authorization.service';
+import { AuthService } from '../../login/auth/auth.service';
 
 @Component({
   selector: 'app-process-detail',
@@ -22,7 +24,9 @@ export class ProcessDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private processService: ProcessService,
-    private location: Location
+    private location: Location,
+    public authorizationService: AuthorizationService,
+    public authService: AuthService
   ) {}
 
   ngOnInit() {
