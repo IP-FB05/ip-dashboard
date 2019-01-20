@@ -16,5 +16,5 @@ public class RegisteredModulesModel {
 	public String getModule() {
 		return module;
 	}
-	
+
 }
