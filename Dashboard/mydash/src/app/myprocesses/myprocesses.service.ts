@@ -24,7 +24,7 @@ export class MyprocessesService {
     getProcessInstances(): Observable<ProcessInstance[]> {
       // TODO: send the message _after_ fetching the processes
       this.messageService.add('ProcessService: fetched processes');
-      return this.http.get<ProcessInstance[]>("http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest/history/process-instance")
+      return this.http.get<ProcessInstance[]>("http://localhost:8080/engine-rest/history/process-instance")
         .pipe(
           tap(_ => this.log('fetched processes')),
           catchError(this.handleError('getProcesses', []))
@@ -34,7 +34,7 @@ export class MyprocessesService {
     getTasks(): Observable<Tasks[]> {
       // TODO: send the message _after_ fetching the tasks
       this.messageService.add('ProcessService: fetched tasks');
-      return this.http.get<Tasks[]>("http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest/history/task")
+      return this.http.get<Tasks[]>("http://localhost:8080/engine-rest/history/task")
         .pipe(
           tap(_ => this.log('fetched tasks')),
           catchError(this.handleError('getTasks', []))

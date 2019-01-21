@@ -85,7 +85,7 @@ export class ProcessService {
 
   startProcess(process: Process): Observable<ProcessInstance> {
     const id = process.camunda_processID;
-    const url = `http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest/process-definition/${id}/start`;
+    const url = `http://localhost:8080/engine-rest/process-definition/${id}/start`;
     return this.http.post<ProcessInstance>(url, httpOptionsCamundaREST);
   }
 
