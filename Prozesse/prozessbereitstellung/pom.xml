@@ -158,6 +158,13 @@
       <artifactId>httpmime</artifactId>
       <version>4.5.3</version>
     </dependency>
+    
+    <!-- REST Zugriffe mit Java -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-client</artifactId>
+      <version>1.8</version>
+    </dependency>
 
   </dependencies>
 

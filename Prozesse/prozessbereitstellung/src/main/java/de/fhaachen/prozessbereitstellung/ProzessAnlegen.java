@@ -10,6 +10,12 @@ import java.util.Properties;
 
 import utils.*;
 
+/*
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+*/
+
 public class ProzessAnlegen implements JavaDelegate {
 
 	public void execute(DelegateExecution execution) {
@@ -24,6 +30,8 @@ public class ProzessAnlegen implements JavaDelegate {
 		String ersteller = execution.getVariable("user").toString();
 
 		execution.setVariable("datum", datum);
+		
+		// direct
 		try {
 
 			Connection connect = null;
@@ -68,5 +76,23 @@ public class ProzessAnlegen implements JavaDelegate {
 			execution.setVariable("err2", e.getMessage());
 			e.printStackTrace();
 		}
+		
+		//indirect (REST)
+		/*
+		//Initialisiere REST call
+		Client client = Client.create();
+
+		//führe den REST call aus
+		String restcall = "http://localhost:8888/pruefung/studentList/" ;
+		WebResource webResource = client.resource(restcall);
+
+		//Speichere die Entgegengenommenden daten
+		ClientResponse response = webResource.accept("application/json").header("Authorization", "Basic ZGVtbzpkZW1v").get(ClientResponse.class);
+		if (response.getStatus() != 200) {
+			throw new RuntimeException("Failed : HTTP error code : " + response.getStatus());
+		}
+
+		String output = response.getEntity(String.class);
+		*/
 	}
 }
