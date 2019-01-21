@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.Date;
 import java.sql.SQLException;
 
 
@@ -14,7 +15,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 import database.Dashboard;
-
 import model.System;
 import model.Category;
 import model.Document;
@@ -203,6 +203,43 @@ public class DashboardService {
     	dash.close();
     	return result;
 	}
+	
+	// ADD ProcessDeploy
+	@RequestMapping(value = "/processDeploy/{name}/{beschreibung}/{bpmn}/{verbal}/{camunda_processID}/{datum}/{ersteller}", method = RequestMethod.POST)
+	public int addProcessDeploy(@PathVariable String name, @PathVariable String beschreibung, @PathVariable String bpmn, @PathVariable String verbal, @PathVariable String camunda_processID, @PathVariable String datum, @PathVariable String ersteller) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+    	int result = dash.addProcessDeploy(name, beschreibung,bpmn,verbal,camunda_processID,datum,ersteller);
+    	dash.close();
+    	return result;
+	}
+	
+	// DELETE ProcessDeploy
+	@RequestMapping(value = "/processDeploy/{dbID}", method = RequestMethod.DELETE)
+	public boolean deleteProcessDeploy(@PathVariable Long dbID) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+    	boolean result = dash.deleteProcessDeploy(dbID);
+    	dash.close();
+    	return result;
+	}
+	
+	// PATCH ProcessDeploy 
+	@RequestMapping(value = "/processDeploy/{dbID}", method = RequestMethod.PATCH)
+	public boolean patchProcessDeploy(@PathVariable Long dbID) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+    	boolean result = dash.patchProcessDeploy(dbID);
+    	dash.close();
+    	return result;
+	}
+	
+	// PATCH ProcessDeploy Usergroup
+	@RequestMapping(value = "/processDeploy/usergroup/{dbID}/{userGroup}", method = RequestMethod.PATCH)
+	public boolean patchProcessDeployUsergroup(@PathVariable Long dbID, String usergroup) throws SQLException, ClassNotFoundException {
+		Dashboard dash = new Dashboard(); 
+    	boolean result = dash.patchProcessDeployUsergroup(dbID,usergroup);
+    	dash.close();
+    	return result;
+	}
+	
 	
 	/**
 	 * 
