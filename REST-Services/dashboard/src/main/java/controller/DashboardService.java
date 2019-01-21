@@ -175,16 +175,6 @@ public class DashboardService {
     	dash.close();
     	return result;
 	}
-
-	
-	@RequestMapping(value = "/processAddwithUG", method = RequestMethod.POST)
-	@ResponseBody
-    public boolean addProcesswithUG(@RequestBody Process process, @RequestParam() int[] selectedUserGroups) throws SQLException, ClassNotFoundException {
-		Dashboard dash = new Dashboard(); 
-    	boolean result = dash.addProcessWithUG(process, selectedUserGroups);
-    	dash.close();
-    	return result;
-	}
 	
 
 	// ADD ProcessInstance
