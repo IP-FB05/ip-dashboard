@@ -97,7 +97,7 @@
       <bpmn:outgoing>SequenceFlow_1ambjod</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_0xbflus</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="ServiceTask_0ht8b6a" name="Feedback zur Abmeldung geben" camunda:class="de.fhaachen.ip.pruefungabmelden.SendEmail">
+    <bpmn:sendTask id="ServiceTask_0ht8b6a" name="Feedback zur Abmeldung geben" camunda:class="de.fhaachen.pruefungsabmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Die Prüfung ${fachnummer} wurde erfolgreich abgemeldet</camunda:inputParameter>
@@ -107,7 +107,7 @@
       <bpmn:incoming>SequenceFlow_19mwcpc</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1mgoab6</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="ServiceTask_0lk0xsw" name="Feedback zur nicht Abmeldung geben" camunda:class="de.fhaachen.ip.pruefungabmelden.SendEmail">
+    <bpmn:sendTask id="ServiceTask_0lk0xsw" name="Feedback zur nicht Abmeldung geben" camunda:class="de.fhaachen.pruefungsabmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Prüfungsabmeldung ${fachnummer}</camunda:inputParameter>

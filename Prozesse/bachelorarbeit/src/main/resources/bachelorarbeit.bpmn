@@ -48,6 +48,7 @@
         <bpmn:flowNodeRef>IntermediateThrowEvent_0z6qfza</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>EndEvent_0me7vb8</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>ExclusiveGateway_1ufj8dt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Task_0cemnmp</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_0os64eq" name="Student">
         <bpmn:flowNodeRef>Task_0qf3ugd</bpmn:flowNodeRef>
@@ -196,7 +197,7 @@
         <bpmn:targetRef>DataStoreReference_0c9rlah</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_0vsxt9u" name="Student Ablehnung benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_0vsxt9u" name="Student Ablehnung benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Rückmeldung Antrag BA</camunda:inputParameter>
@@ -210,7 +211,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_1eiibzm</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0nmj7qt</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Task_0vztpr9" name="Student des nicht bestehen der Bachelorarbeit benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_0vztpr9" name="Student des nicht bestehen der Bachelorarbeit benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">BA durchgefallen</camunda:inputParameter>
@@ -224,7 +225,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_1fduj8u</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0775y0c</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Task_0vvbqso" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_0vvbqso" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Kolloquium entgültig nicht bestanden</camunda:inputParameter>
@@ -263,7 +264,7 @@ Prüfungsamt</camunda:inputParameter>
           <camunda:connectorId>http-connector</camunda:connectorId>
         </camunda:connector>
       </bpmn:extensionElements>
-      <bpmn:incoming>SequenceFlow_0gwdfdy</bpmn:incoming>
+      <bpmn:incoming>SequenceFlow_03jfraq</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1n47xdq</bpmn:outgoing>
       <bpmn:property id="Property_1v0likb" name="__targetRef_placeholder" />
       <bpmn:dataInputAssociation id="DataInputAssociation_15imsmm">
@@ -271,7 +272,7 @@ Prüfungsamt</camunda:inputParameter>
         <bpmn:targetRef>Property_1v0likb</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_1mr1arr" name="Date parsen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.DateParser">
+    <bpmn:serviceTask id="Task_1mr1arr" name="Date parsen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.DateParser">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="InputDate">${startDatum}</camunda:inputParameter>
@@ -280,7 +281,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_03jao9q</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1r2y16y</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0mcaqdh" name="Date parsen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.DateParser">
+    <bpmn:serviceTask id="Task_0mcaqdh" name="Date parsen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.DateParser">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="InputDate">${verlaengerung}</camunda:inputParameter>
@@ -289,7 +290,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_17bky7t</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0torwpf</bpmn:outgoing>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_1woia4l" name="Student bestehen Bachelorarbeit benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_1woia4l" name="Student bestehen Bachelorarbeit benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">BA betanden</camunda:inputParameter>
@@ -358,7 +359,7 @@ Prüfungsamt</camunda:inputParameter>
         <bpmn:targetRef>DataStoreReference_143t6nw</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_189c70b" name="Student benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_189c70b" name="Student benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Zeitüberschreitung BA</camunda:inputParameter>
@@ -374,7 +375,7 @@ Somit ist die BA gescheitert.
       <bpmn:incoming>SequenceFlow_00gshij</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_03ypw4s</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Task_1ted2sb" name="Betreuer benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_1ted2sb" name="Betreuer benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="zielEmail">${betreuer}</camunda:inputParameter>
@@ -387,7 +388,7 @@ Somit ist die BA gescheitert.
       <bpmn:incoming>SequenceFlow_03ypw4s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1x8nwis</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_0vpp94o" name="Zu Startzeit 10 Wochen hinzufügen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.DateIncrease">
+    <bpmn:serviceTask id="Task_0vpp94o" name="Zu Startzeit 10 Wochen hinzufügen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.DateIncrease">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="WeeksAdd">10</camunda:inputParameter>
@@ -421,7 +422,7 @@ Somit ist die BA gescheitert.
         <bpmn:targetRef>DataStoreReference_0c9rlah</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_16245tx" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_16245tx" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="zielEmail">${initiator}</camunda:inputParameter>
@@ -435,7 +436,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_0lakqby</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1gn43pf</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="ServiceTask_0uq6dkp" name="Date parsen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.DateParser">
+    <bpmn:serviceTask id="ServiceTask_0uq6dkp" name="Date parsen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.DateParser">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="InputDate">${terminKol}</camunda:inputParameter>
@@ -499,7 +500,7 @@ Prüfungsamt</camunda:inputParameter>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
     <bpmn:dataStoreReference id="DataStoreReference_143t6nw" name="PrüfungsamtDB" />
-    <bpmn:sendTask id="Task_0h3909y" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.SendEmail">
+    <bpmn:sendTask id="Task_0h3909y" name="Benachrichtigung versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="zielEmail">${initiator}</camunda:inputParameter>
@@ -514,7 +515,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_0tkdmbg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0ntmcqp</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:serviceTask id="Task_1wbq1lf" name="Verlängerung setzten" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.bachelorarbeit.ExtensionSetter">
+    <bpmn:serviceTask id="Task_1wbq1lf" name="Verlängerung setzten" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.ExtensionSetter">
       <bpmn:incoming>SequenceFlow_0eewfbs</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1tjdf6n</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -583,7 +584,7 @@ Prüfungsamt</camunda:inputParameter>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_1n47xdq" sourceRef="Task_1ws7ba9" targetRef="ExclusiveGateway_1vzhuqa" />
     <bpmn:sequenceFlow id="SequenceFlow_0nmj7qt" sourceRef="Task_0vsxt9u" targetRef="EndEvent_0brg5ny" />
-    <bpmn:sequenceFlow id="SequenceFlow_0gwdfdy" sourceRef="StartEvent_0kw3en6" targetRef="Task_1ws7ba9" />
+    <bpmn:sequenceFlow id="SequenceFlow_0gwdfdy" sourceRef="StartEvent_0kw3en6" targetRef="Task_0cemnmp" />
     <bpmn:sequenceFlow id="SequenceFlow_1mkln9d" sourceRef="Task_043w7gf" targetRef="Task_022xi16" />
     <bpmn:sequenceFlow id="SequenceFlow_0roomz2" sourceRef="Task_022xi16" targetRef="ExclusiveGateway_123gc2g" />
     <bpmn:sequenceFlow id="SequenceFlow_0442y7f" sourceRef="ExclusiveGateway_1q9q62c" targetRef="Task_0vpp94o" />
@@ -652,14 +653,18 @@ Prüfungsamt</camunda:inputParameter>
     <bpmn:sequenceFlow id="SequenceFlow_16kek41" sourceRef="Task_0vvbqso" targetRef="EndEvent_0bguklf" />
     <bpmn:sequenceFlow id="SequenceFlow_1gn43pf" sourceRef="Task_16245tx" targetRef="EndEvent_1h3m673" />
     <bpmn:dataStoreReference id="DataStoreReference_0c9rlah" name="PrüfungsamtDB" />
+    <bpmn:sequenceFlow id="SequenceFlow_03jfraq" sourceRef="Task_0cemnmp" targetRef="Task_1ws7ba9" />
+    <bpmn:serviceTask id="Task_0cemnmp" name="Name abfragen" camunda:asyncBefore="true" camunda:class="de.fhaachen.bachelorarbeit.GetName">
+      <bpmn:incoming>SequenceFlow_0gwdfdy</bpmn:incoming>
+      <bpmn:outgoing>SequenceFlow_03jfraq</bpmn:outgoing>
+    </bpmn:serviceTask>
     <bpmn:textAnnotation id="TextAnnotation_1uu13rc">
       <bpmn:text>- Alle Prüfungen bis auf maximal Zwei bestanden
 - Bei Studiengang Informatik mit Praxissemester: Praxissemester bestanden</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:textAnnotation id="TextAnnotation_1tjj66y">
       <bpmn:text>- alle Prüfungen müssen bestanden worden sein
-- (maximal 4 Wochen nach Bachelorarbeit halten)
-</bpmn:text>
+- (maximal 4 Wochen nach Bachelorarbeit halten)</bpmn:text>
     </bpmn:textAnnotation>
     <bpmn:association id="Association_0frt4km" sourceRef="Task_1ws7ba9" targetRef="TextAnnotation_1uu13rc" />
     <bpmn:association id="Association_0t2uvpy" sourceRef="Task_0jhew9y" targetRef="TextAnnotation_1tjj66y" />
@@ -695,7 +700,7 @@ Prüfungsamt</camunda:inputParameter>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="SequenceFlow_0gwdfdy_di" bpmnElement="SequenceFlow_0gwdfdy">
         <di:waypoint x="189" y="111" />
-        <di:waypoint x="189" y="553" />
+        <di:waypoint x="189" y="453" />
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="EndEvent_0brg5ny_di" bpmnElement="EndEvent_0brg5ny">
         <dc:Bounds x="312" y="175" width="36" height="36" />
@@ -1262,6 +1267,13 @@ Prüfungsamt</camunda:inputParameter>
         <di:waypoint x="3118" y="493" />
         <di:waypoint x="3149" y="493" />
       </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="SequenceFlow_03jfraq_di" bpmnElement="SequenceFlow_03jfraq">
+        <di:waypoint x="189" y="533" />
+        <di:waypoint x="189" y="553" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="ServiceTask_1n8goo1_di" bpmnElement="Task_0cemnmp">
+        <dc:Bounds x="139" y="453" width="100" height="80" />
+      </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>
 </bpmn:definitions>

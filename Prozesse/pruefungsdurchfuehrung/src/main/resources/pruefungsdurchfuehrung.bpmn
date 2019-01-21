@@ -31,7 +31,7 @@
     <bpmn:startEvent id="StartEvent_1f00l3d" name="Wunsch Prüfung starten" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="initiator">
       <bpmn:outgoing>SequenceFlow_1aw06nl</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="Task_0x6sqgq" name="Den Tag, eine Woche vor der Klausur berechnen" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.GetOneWeekBeforExam">
+    <bpmn:serviceTask id="Task_0x6sqgq" name="Den Tag, eine Woche vor der Klausur berechnen" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsdurchfuehrung.GetOneWeekBeforExam">
       <bpmn:incoming>SequenceFlow_1aw06nl</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0gmlzbr</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -64,7 +64,7 @@
         <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${predate}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Task_09050rn" name="Studentenliste laden" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.LoadStudentls">
+    <bpmn:serviceTask id="Task_09050rn" name="Studentenliste laden" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsdurchfuehrung.LoadStudentls">
       <bpmn:incoming>SequenceFlow_00ki7f8</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1j174gl</bpmn:outgoing>
       <bpmn:property id="Property_005ezy0" name="__targetRef_placeholder" />
@@ -81,7 +81,7 @@
     <bpmn:endEvent id="EndEvent_13mqq2m" name="Keine Anmeldungen vorhanden">
       <bpmn:incoming>SequenceFlow_0dlz71v</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="SendTask_093pw2a" name="Informationen an Studenten und Prüfer versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.SendEmail">
+    <bpmn:sendTask id="SendTask_093pw2a" name="Informationen an Studenten und Prüfer versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsdurchfuehrung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Da Sie für die Prüfung im Modul ${modul} angemeldet sind, möchten wir Sie informieren, dass die Klausur am ${pruefungsdatum} stattfindet.</camunda:inputParameter>
@@ -110,7 +110,7 @@
       <bpmn:incoming>SequenceFlow_1c4r9ae</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_03qlpph</bpmn:outgoing>
     </bpmn:userTask>
-    <bpmn:sendTask id="Task_1fsm64w" name="Informationen zu Einsicht versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.SendEmail">
+    <bpmn:sendTask id="Task_1fsm64w" name="Informationen zu Einsicht versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsdurchfuehrung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Da Sie für die Prüfung im Modul ${modul} angemeldet sind, möchten wir Sie informieren, dass die Einsicht am ${einsichtsdatum} stattfindet.</camunda:inputParameter>
@@ -131,7 +131,7 @@
         <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${einsichtsdatum}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Task_1o0uug4" name="Noten eintragen" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.Pruefungsdurchfuehrung.SaveStudents">
+    <bpmn:serviceTask id="Task_1o0uug4" name="Noten eintragen" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsdurchfuehrung.SaveStudents">
       <bpmn:incoming>SequenceFlow_05kb909</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1n0glxv</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0dsa6i0">

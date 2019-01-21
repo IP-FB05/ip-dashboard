@@ -22,7 +22,7 @@
     <bpmn:endEvent id="EndEvent_0yf1djn" name="Abmeldung beendet">
       <bpmn:incoming>SequenceFlow_1na3rz0</bpmn:incoming>
     </bpmn:endEvent>
-    <bpmn:sendTask id="ServiceTask_0ly3qpk" name="Student auf erfolgreiche abmeldung benachrightigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulabmeldung.SendEmail">
+    <bpmn:sendTask id="ServiceTask_0ly3qpk" name="Student auf erfolgreiche abmeldung benachrightigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.modulabmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Modulabmeldung ${fachnummer} erfolgreich</camunda:inputParameter>

@@ -87,7 +87,7 @@
       <bpmn:incoming>SequenceFlow_1p1qu4f</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_08sw7o6" name="BPMN parsen" camunda:class="de.fhaachen.deploywf.CheckBPMN">
+    <bpmn:serviceTask id="Task_08sw7o6" name="BPMN parsen" camunda:class="de.fhaachen.prozessbereitstellung.CheckBPMN">
       <bpmn:incoming>SequenceFlow1</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0klwtmo</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -96,7 +96,7 @@
       <bpmn:outgoing>SequenceFlow_0pdzqpg</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1cjf5xp</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="Task_1p1trye" name="Mail versenden" camunda:class="de.fhaachen.deploywf.SendEmail">
+    <bpmn:sendTask id="Task_1p1trye" name="Mail versenden" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Bei dem Parsen des BPMN Files ist ein Fehler aufgetreten.
@@ -111,7 +111,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_0dl3a00</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:sendTask id="Task_13xkjx4" name="Mail versenden" camunda:class="de.fhaachen.deploywf.SendEmail">
+    <bpmn:sendTask id="Task_13xkjx4" name="Mail versenden" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Prozess erfolgreich deployt</camunda:inputParameter>
@@ -122,14 +122,14 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:outgoing>SequenceFlow_1p1qu4f</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:sequenceFlow id="SequenceFlow_1hs0zg5" sourceRef="Task_13bf0rm" targetRef="EndEvent_0dqwewl" />
-    <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.UploadBPMN">
+    <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.UploadBPMN">
       <bpmn:incoming>SequenceFlow_1777bl9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_09svz9f</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1dmxb0c">
         <bpmn:targetRef>DataStoreReference_02ydaix</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_09k7k1c" name="Deployment prüfen (Camunda)" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.CheckCamunda">
+    <bpmn:serviceTask id="Task_09k7k1c" name="Deployment prüfen (Camunda)" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.CheckCamunda">
       <bpmn:incoming>SequenceFlow_1ggre7f</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ep086l</bpmn:outgoing>
       <bpmn:property id="Property_09vd6m5" name="__targetRef_placeholder" />
@@ -138,14 +138,14 @@ ${errorlog}</camunda:inputParameter>
         <bpmn:targetRef>Property_09vd6m5</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_1bfjlpp" name="Prozess deployen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.DeployProcess">
+    <bpmn:serviceTask id="Task_1bfjlpp" name="Prozess deployen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.DeployProcess">
       <bpmn:incoming>SequenceFlow_09svz9f</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0zc8m57</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1t0a5jg">
         <bpmn:targetRef>DataStoreReference_02ydaix</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_18n94uw" name="Prozess undeployen" camunda:class="de.fhaachen.deploywf.UndeployProcess">
+    <bpmn:serviceTask id="Task_18n94uw" name="Prozess undeployen" camunda:class="de.fhaachen.prozessbereitstellung.UndeployProcess">
       <bpmn:incoming>SequenceFlow_1a5457s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1777bl9</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1lleg5d">
@@ -164,7 +164,7 @@ ${errorlog}</camunda:inputParameter>
         <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT30S</bpmn:timeDuration>
       </bpmn:timerEventDefinition>
     </bpmn:intermediateCatchEvent>
-    <bpmn:serviceTask id="Task_0dypf3x" name="Camunda: Berechtigungen (USER) setzten" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.SetAuthentications">
+    <bpmn:serviceTask id="Task_0dypf3x" name="Camunda: Berechtigungen (USER) setzten" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.SetAuthentications">
       <bpmn:incoming>SequenceFlow_09c8wak</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1d4kteg</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1e2ntad">
@@ -181,14 +181,14 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_071gxpb</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1jwfpny</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.deploywf.ProzessAnlegen">
+    <bpmn:serviceTask id="Task_0u76mm0" name="Prozess in Datenbank eintragen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.prozessbereitstellung.ProzessAnlegen">
       <bpmn:incoming>SequenceFlow_1jwfpny</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0wea333</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0deioxh">
         <bpmn:targetRef>DataStoreReference_0rsj8ut</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="SendTask_0fv8466" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.SendEmail">
+    <bpmn:sendTask id="SendTask_0fv8466" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Deployment</camunda:inputParameter>
@@ -218,7 +218,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_13gqtl8</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Task_07lsfu0" name="Prozess veröffentlichen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.deploywf.ProzessFreigeben">
+    <bpmn:serviceTask id="Task_07lsfu0" name="Prozess veröffentlichen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.prozessbereitstellung.ProzessFreigeben">
       <bpmn:incoming>SequenceFlow_0kftbbl</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1xpg72q</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_0liv3a6">
@@ -235,35 +235,35 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_1sa9nu0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kftbbl</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:serviceTask id="Task_1dl2ulf" name="Deployment löschen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.deploywf.DeleteDeployment">
+    <bpmn:serviceTask id="Task_1dl2ulf" name="Deployment löschen" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.prozessbereitstellung.DeleteDeployment">
       <bpmn:incoming>SequenceFlow_0z8os9e</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1ohlod0</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1l98bf6">
         <bpmn:targetRef>DataStoreReference_1gjrnbt</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0tlaukk" name="Datenbankeintrag löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.ProzessLoeschen">
+    <bpmn:serviceTask id="Task_0tlaukk" name="Datenbankeintrag löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.ProzessLoeschen">
       <bpmn:incoming>SequenceFlow_1ohlod0</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_11bn5fd</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1xvsra8">
         <bpmn:targetRef>DataStoreReference_0rsj8ut</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_0hljfta" name="BPMN löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.placeholder">
+    <bpmn:serviceTask id="Task_0hljfta" name="BPMN löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.placeholder">
       <bpmn:incoming>SequenceFlow_11bn5fd</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1uxhbg2</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1cvoz6n">
         <bpmn:targetRef>DataStoreReference_1gjrnbt</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_15vkewv" name="War löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.deploywf.placeholder">
+    <bpmn:serviceTask id="Task_15vkewv" name="War löschen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.placeholder">
       <bpmn:incoming>SequenceFlow_1uxhbg2</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_14ub8q4</bpmn:outgoing>
       <bpmn:dataOutputAssociation id="DataOutputAssociation_1f5j5id">
         <bpmn:targetRef>DataStoreReference_1gjrnbt</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_13bf0rm" name="Mail versenden" camunda:class="de.fhaachen.deploywf.SendEmail">
+    <bpmn:sendTask id="Task_13bf0rm" name="Mail versenden" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Prozess Deployment wurde abgebrochen</camunda:inputParameter>

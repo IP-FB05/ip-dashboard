@@ -128,7 +128,7 @@
       <bpmn:outgoing>SequenceFlow_0oeuuin</bpmn:outgoing>
       <bpmn:outgoing>SequenceFlow_1p1zba6</bpmn:outgoing>
     </bpmn:exclusiveGateway>
-    <bpmn:sendTask id="Task_193dmy6" name="Student auf keine Zulassung benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendEmail">
+    <bpmn:sendTask id="Task_193dmy6" name="Student auf keine Zulassung benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.modulanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Ablehnung ${fachnummer} Modulanmeldung</camunda:inputParameter>
@@ -138,7 +138,7 @@
       <bpmn:incoming>SequenceFlow_1p1zba6</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_04ldc44</bpmn:outgoing>
     </bpmn:sendTask>
-    <bpmn:sendTask id="Task_14strkd" name="Student Anmeldung benachrichtigen" camunda:asyncBefore="true" camunda:class="fhaachen.ip.viewcampusdashboard.modulanmeldung.SendEmail">
+    <bpmn:sendTask id="Task_14strkd" name="Student Anmeldung benachrichtigen" camunda:asyncBefore="true" camunda:class="de.fhaachen.modulanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Modul ${fachnummer} angemeldet</camunda:inputParameter>

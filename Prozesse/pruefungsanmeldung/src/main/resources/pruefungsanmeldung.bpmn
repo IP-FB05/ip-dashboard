@@ -118,7 +118,7 @@
         <bpmn:targetRef>Property_0ihh8cc</bpmn:targetRef>
       </bpmn:dataInputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="ServiceTask_0b3g5zd" name="Feedback zur nicht Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+    <bpmn:sendTask id="ServiceTask_0b3g5zd" name="Feedback zur nicht Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Die Prüfung ${fachnummer} konnte nicht angemeldet werden, da Sie die voraussetzungen nicht erfüllen.</camunda:inputParameter>
@@ -142,7 +142,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1b1vdrg" sourceRef="Task_11i0ruy" targetRef="BusinessRuleTask_0u42roz" />
     <bpmn:sequenceFlow id="SequenceFlow_16nwk2z" sourceRef="get_praktikum" targetRef="Task_11i0ruy" />
     <bpmn:sequenceFlow id="SequenceFlow_0oufhum" sourceRef="StartEvent_1jt3o1e" targetRef="get_praktikum" />
-    <bpmn:sendTask id="ServiceTask_19jqg1m" name="Feedback zur Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.ip.pruefunganmelden.SendEmail">
+    <bpmn:sendTask id="ServiceTask_19jqg1m" name="Feedback zur Zulassung geben" camunda:asyncBefore="true" camunda:class="de.fhaachen.pruefungsanmeldung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="text">Die Prüfung ${fachnummer} wurde erfolgreich angemeldet.</camunda:inputParameter>
