@@ -1,0 +1,63 @@
+<form role="form" class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label">Welches Modul magst du abmelden:</label>
+		<p></p>
+		<select id="modul-dropdown" name="modules" cam-variable-name="fachnummer" cam-variable-type="String">
+			<!--will be filled in js (populateSelect) -->
+		</select>
+	</div>
+
+	<script cam-script type="text/form-script">
+
+		var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('matrikelnummer');
+		});
+
+		camForm.on('variables-fetched', function() {
+
+			var matrikelnummer = variableManager.variableValue('matrikelnummer');
+
+			var headers = new Headers();
+			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+
+			var rest = 'http://localhost:8888/student/modul/';
+			rest = rest.concat(matrikelnummer);
+
+			const userAction = async () => {
+				const response = await fetch(rest,
+					{method: 'GET',
+					headers: headers}
+				);
+
+				const myJson = await response.json(); //extract JSON from the http response
+ 				//do something with myJson here:
+				populateSelect(myJson);
+			}
+			userAction();
+		});
+
+		function populateSelect(dataJSON) {
+			let dropdown = document.getElementById('modul-dropdown');
+			dropdown.length = 0;
+
+			let defaultOption = document.createElement('option');
+			defaultOption.text = 'Choose Module';
+
+			dropdown.add(defaultOption);
+			dropdown.selectedIndex = 0;
+
+			let option;
+    
+			for (let i = 0; i < dataJSON.length; i++) {
+				option = document.createElement('option');
+				option.text = dataJSON[i].module;
+				option.value = dataJSON[i].id;
+				dropdown.add(option);
+			}
+		}
+	</script>
+</form>

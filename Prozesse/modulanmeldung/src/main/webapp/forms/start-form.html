@@ -1,0 +1,70 @@
+<form class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label">Deine Matrikelnummer:</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="matrikelnummer"
+				cam-variable-type="Long" required class="form-control" />
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Deine Studiengang:</label>
+		<div class="controls">
+			<select cam-variable-name="studiengang"
+				cam-variable-type="String">
+					<option value="1">Informatik</option>
+					<option value="2">Informatik mit Praxissemester</option>
+			</select>
+		</div>
+	</div>
+
+	<div class="control-group">
+		<label class="control-label">Gew&uuml;nschte Modulnummer:</label>
+		<div class="controls">
+			<input type="text" cam-variable-name="fachnummer"
+				cam-variable-type="Long" required class="form-control" />
+		</div>
+	</div>
+
+	<div>
+		<br>
+		<p id="modtable"> <!-- created with createHtmlTable() js--> </p>
+	</div>
+	
+
+	<script cam-script type="text/form-script">
+
+		camForm.on('variables-fetched', function() {
+
+			var headers = new Headers();
+			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+
+			var rest = 'http://localhost:8888/modulList/';
+
+			const userAction = async () => {
+				const response = await fetch(rest,
+					{method: 'GET',
+					headers: headers}
+				);
+
+				const myJson = await response.json(); //extract JSON from the http response
+ 				//do something with myJson here:
+				createHtmlTable(myJson);
+			}
+			userAction();
+		});
+
+		function createHtmlTable(dataJSON) {
+			var x, txt = "";
+			txt += "<table border='1'> <th>Modulnummer</th> <th>Modulbezeichnung</th> "
+			for (x in dataJSON) {
+				txt += "<tr><td>" + dataJSON[x].module + "</td> <td> " + dataJSON[x].id + "</td> </tr>";
+			}
+			txt += "</table>"
+			document.getElementById("modtable").innerHTML = txt;
+		}
+
+	</script>
+</form>

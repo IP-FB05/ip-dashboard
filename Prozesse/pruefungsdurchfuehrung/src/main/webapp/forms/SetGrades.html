@@ -1,0 +1,54 @@
+<form role="form" name="form">
+
+	<p id="allNote"> <!-- added with populateForm() --> </p>
+
+	<script cam-script type="text/form-script">
+
+		var variableManager = camForm.variableManager;
+		var modulID;
+		var studentsList;
+
+		camForm.on('form-loaded', 
+			function() {
+				variableManager.fetchVariable('studGradesJSON');
+			}
+		);
+
+		camForm.on('variables-fetched', 
+			function() {
+				studentsList = variableManager.variableValue('studGradesJSON');
+
+				studentsList = JSON.parse(studentsList);
+
+				populateForm(studentsList);
+			}
+		);
+
+		function populateForm(dataJSON) {
+		
+			var outString = "";
+			for (var i = 0; i < Object.keys(studentsList).length; i++){
+				var id = Object.keys(studentsList)[i];
+				var note = studentsList[Object.keys(studentsList)[i]];
+				outString = outString + "<div> " + id + " Note: <input type=\"text\" value=\"" + note + "\" name=\"" + id + "\" id=\"" + id + "\"> <br> </div>";
+			}
+			document.getElementById("allNote").innerHTML = outString;
+		}
+
+		camForm.on('submit',
+			function(evt) {
+				for (let i = 0; i <  Object.keys(studentsList).length; i++) {
+					studentsList[Object.keys(studentsList)[i]] = document.getElementById(Object.keys(studentsList)[i]).value; ; //
+				}
+				
+				variableManager.destroyVariable('studGradesJSON');
+				camForm.variableManager.createVariable({
+					name: 'studGradesJSON',
+					type: 'json',
+					value: JSON.stringify(studentsList)
+				});
+			}
+		);
+
+	</script>
+</form>

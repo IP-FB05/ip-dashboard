@@ -1,0 +1,72 @@
+<form class="form-horizontal">
+
+	<div class="control-group">
+		<label class="control-label">Pr&uuml;fungsdatum</label>
+		<div class="controls">
+			<input 
+				type="text"
+				value="2010-01-01T08:00:00"
+				cam-variable-name="pruefungsdatum"
+				cam-variable-type="Date"
+				class="form-control"
+				required
+			/>
+		</div>
+	</div>
+
+	<p> 51104 geht </p>
+
+	<div class="control-group">
+		<label class="control-label">Modul</label>
+		<div class="controls">
+			<input 
+				name="modul"
+				type="text"
+				cam-variable-name="modul"
+				cam-variable-type="Long"
+				required
+				class="form-control"
+			/>
+		</div>
+	</div>
+
+	<div>
+		<br>
+		<p id="modtable"> <!-- created with createHtmlTable() js--> </p>
+	</div>
+
+	<script cam-script type="text/form-script">
+
+		camForm.on('variables-fetched', function() {
+
+			var headers = new Headers();
+			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
+			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
+
+			var rest = 'http://localhost:8888/modulList/';
+
+			const userAction = async () => {
+				const response = await fetch(rest,
+					{method: 'GET',
+					headers: headers}
+				);
+
+				const myJson = await response.json(); //extract JSON from the http response
+				//do something with myJson here:
+				createHtmlTable(myJson);
+			}
+			userAction();
+		});
+
+		function createHtmlTable(dataJSON) {
+			var x, txt = "";
+			txt += "<table border='1'> <th>Modulnummer</th> <th>Modulbezeichnung</th> "
+			for (x in dataJSON) {
+				txt += "<tr><td>" + dataJSON[x].module + "</td> <td> " + dataJSON[x].id + "</td> </tr>";
+			}
+			txt += "</table>"
+			document.getElementById("modtable").innerHTML = txt;
+		}
+		
+	</script>
+</form>

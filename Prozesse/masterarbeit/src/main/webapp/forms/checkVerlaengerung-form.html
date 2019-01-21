@@ -1,0 +1,35 @@
+<form class="form-horizontal">
+
+	<p id="Infotext"></p>
+
+	<p id="Grundtext"></p>
+
+	<a cam-file-download="Attest_DOCUMENT"></a>
+
+	<div class="control-group">
+		<label class="control-label">Soll diese Verl&auml;ngerung genehmigt werden:</label>
+		<div class="controls">
+			<input type="checkbox" cam-variable-name="genehmigt"
+				cam-variable-type="Boolean" class="form-control" />
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
+		var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('verlaengerung');
+			variableManager.fetchVariable('grund');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var verlaengerung = variableManager.variableValue('verlaengerung');
+			var grund = variableManager.variableValue('grund');
+
+			document.getElementById("Infotext").innerHTML =
+				"Der Studierende mag eine Verl&auml;ngerung bis zum " + verlaengerung;
+
+			document.getElementById("Grundtext").innerHTML = "Seine Begruendung ist " + grund ;
+		});
+	</script>
+</form>
