@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
+import java.util.regex.Pattern;
 
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -387,7 +389,7 @@ public class Dashboard {
 			String camunda_processID, String datum, String ersteller) throws SQLException {
 		preparedStatement = connect.prepareStatement(
 				"insert into processes (name, description, verbal, bpmn, added, camunda_processID, creator)"
-				+ " values (?,?,?,?,?,?,?);");
+				+ " values (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, name);
 		preparedStatement.setString(2, beschreibung);
 		preparedStatement.setString(3, verbal);
@@ -406,6 +408,14 @@ public class Dashboard {
 	}
 	
 	public boolean deleteProcessDeploy(Long dbID) throws SQLException {
+		
+		preparedStatement = connect.prepareStatement(
+				"DELETE FROM `allowed_groups` WHERE `processes_processID` = ?;");
+		preparedStatement.setLong(1, dbID);
+		preparedStatement.executeUpdate();
+		
+		preparedStatement.clearParameters();
+		
 		preparedStatement = connect.prepareStatement("DELETE FROM processes WHERE processID = ?;");		
 		preparedStatement.setLong(1, dbID);			
 		int resultInt = preparedStatement.executeUpdate();
@@ -416,10 +426,11 @@ public class Dashboard {
 		return false;
 	}
 	
-	public boolean patchProcessDeploy(Long dbID) throws SQLException {
+	public boolean patchProcessDeploy(Long dbID, boolean published) throws SQLException {
 		preparedStatement = connect.prepareStatement(
-				"UPDATE processes SET `published` = true WHERE processID = ?;");		
-		preparedStatement.setLong(1, dbID);			
+				"UPDATE processes SET `published` = ? WHERE processID = ?;");
+		preparedStatement.setBoolean(1, published);
+		preparedStatement.setLong(2, dbID);		
 		int resultInt = preparedStatement.executeUpdate();
 
 		if(resultInt == 1) {
@@ -430,41 +441,41 @@ public class Dashboard {
 	
 	public boolean patchProcessDeployUsergroup(Long dbID, String userGroup) throws SQLException {
 		preparedStatement = connect.prepareStatement(
-				"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");
-		preparedStatement.setLong(1, dbID);
-		preparedStatement.setString(2, userGroup);
-		int resultInt = preparedStatement.executeUpdate();
-
-		preparedStatement.clearParameters();
-		
-		/*
-		//getUserGroupId
-		int ugID = -1;
-		preparedStatement = connect.prepareStatement(
-				"SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name = 'admin';");
+				"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");		
 		preparedStatement.setString(1, userGroup);
-		resultSet = preparedStatement.executeQuery();
-		if(resultSet.first()) {
-			ugID =  resultSet.getInt(1);
-		}
+		preparedStatement.setLong(2, dbID);
+		int resultInt = preparedStatement.executeUpdate();
+	
+		String[] spitUsergroups = userGroup.split(Pattern.quote(","));
 		
-		if(ugID != -1 && resultInt != 0) {
+		
+		for (String group : spitUsergroups) {
+			
 			preparedStatement.clearParameters();
 			
+			//getUserGroupId
+			int ugID = -1;
 			preparedStatement = connect.prepareStatement(
-					"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");
-			preparedStatement.setLong(1, dbID);
-			preparedStatement.setInt(2, ugID);
-			resultInt = preparedStatement.executeUpdate();
+					"SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name = ?;");
+			preparedStatement.setString(1, group);
+			resultSet = preparedStatement.executeQuery();
+			if(resultSet.first()) {
+				ugID =  resultSet.getInt(1);
+			}
 			
-			if(resultInt == 1) {
-				return true;
-			}		
+			//insert
+			if(ugID != -1) {
+				preparedStatement.clearParameters();
+				
+				preparedStatement = connect.prepareStatement(
+						"INSERT INTO `allowed_groups` (`processes_processID`, `usergroups_usergroup_id`)"
+						+ " VALUES (?,?);");
+				preparedStatement.setLong(1, dbID);
+				preparedStatement.setInt(2, ugID);
+				resultInt = preparedStatement.executeUpdate();		
+			}
 		}
-		*/
-		return false;
-		
-		
+		return true;
 	}
 
 	/**
