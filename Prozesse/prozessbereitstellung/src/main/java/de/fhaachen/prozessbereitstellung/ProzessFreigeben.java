@@ -20,7 +20,7 @@ public class ProzessFreigeben implements JavaDelegate {
     	
     	
 		try {
-			Connection connect = null;
+			/*Connection connect = null;
 
 	    	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com:3306/dashboardDB";
 	    	//String url = "jdbc:mysql://localhost:3306/dashboardDB"; 
@@ -42,7 +42,9 @@ public class ProzessFreigeben implements JavaDelegate {
 			statement.setLong(1, Long.parseLong(execution.getVariable("DBID").toString()));		
 			statement.executeUpdate();
 
-			connect.close();
+			connect.close();*/
+			
+			
 			  //////////////////////////////////////////////////
 			 // Ab hier dann Camunda Authorization hinzufügen//
 			//////////////////////////////////////////////////
@@ -53,6 +55,9 @@ public class ProzessFreigeben implements JavaDelegate {
 			// get groups
 			Collection<String> groups = new ArrayList<String>();
 			Authorization newAuth;
+			
+			String groupString = "";
+			
 			for (String group : groups) {
 				// create Authorization
 				newAuth = authService.createNewAuthorization(Authorization.AUTH_TYPE_GRANT);
@@ -72,11 +77,20 @@ public class ProzessFreigeben implements JavaDelegate {
 				
 				// save Authorization
 				authService.saveAuthorization(newAuth);
+				
+				groupString = groupString + group + ",";
+				
 			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
 			
+			if(!groupString.isEmpty()) {
+				groupString.substring(0, groupString.length() - 1);
+			}
+			else {
+				groupString = "None";
+			}
+			
+			execution.setVariable("groupString", groupString);
+
 		}catch (Exception e) {
 		    e.printStackTrace();
 		} 

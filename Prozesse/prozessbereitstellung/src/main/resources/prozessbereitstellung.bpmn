@@ -113,7 +113,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:incoming>SequenceFlow_0dl3a00</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:sendTask id="Task_13xkjx4" name="Mail versenden" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
+    <bpmn:sendTask id="Task_13xkjx4" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Prozess erfolgreich deployt</camunda:inputParameter>
@@ -291,7 +291,7 @@ ${errorlog}</camunda:inputParameter>
         <bpmn:targetRef>DataStoreReference_1gjrnbt</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:sendTask id="Task_13bf0rm" name="Mail versenden" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
+    <bpmn:sendTask id="Task_13bf0rm" name="Mail versenden" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.SendEmail">
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Prozess Deployment wurde abgebrochen</camunda:inputParameter>
@@ -341,7 +341,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/usergroup/${DBID}/admin</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/usergroup/${DBID}/${groupString}</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
