@@ -1,6 +1,8 @@
 package de.fhaachen.prozessbereitstellung;
 
 import java.io.InputStream;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Collection;
 
 import org.camunda.bpm.engine.delegate.DelegateExecution;
@@ -15,6 +17,12 @@ public class CheckBPMN implements JavaDelegate{
 
 	@Override
 	public void execute(DelegateExecution execution) throws Exception {
+		
+		// Datum fuer spaetere zeitpunkte speichern
+		LocalDate localDate = LocalDate.now();
+		execution.setVariable("datum",DateTimeFormatter.ofPattern("yyyy-MM-dd").format(localDate));
+		
+		
 		
 		// BPMN holen
 		FileValue retrievedTypedFileValueBPMN = execution.getProcessEngineServices().getRuntimeService().getVariableTyped(execution.getId(), "bpmn");

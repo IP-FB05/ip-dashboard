@@ -382,6 +382,90 @@ public class Dashboard {
 
 		return true;
 	}
+	
+	public int addProcessDeploy(String name, String beschreibung, String bpmn, String verbal,
+			String camunda_processID, String datum, String ersteller) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"insert into processes (name, description, verbal, bpmn, added, camunda_processID, creator)"
+				+ " values (?,?,?,?,?,?,?);");
+		preparedStatement.setString(1, name);
+		preparedStatement.setString(2, beschreibung);
+		preparedStatement.setString(3, verbal);
+		preparedStatement.setString(4, bpmn);
+		preparedStatement.setString(5, datum);
+		preparedStatement.setString(6, camunda_processID);
+		preparedStatement.setString(7, ersteller);
+		preparedStatement.executeUpdate();
+		
+		ResultSet keys = preparedStatement.getGeneratedKeys();		
+		keys.next();
+		int key = keys.getInt(1);
+		keys.close();
+		
+		return key;
+	}
+	
+	public boolean deleteProcessDeploy(Long dbID) throws SQLException {
+		preparedStatement = connect.prepareStatement("DELETE FROM processes WHERE processID = ?;");		
+		preparedStatement.setLong(1, dbID);			
+		int resultInt = preparedStatement.executeUpdate();
+
+		if(resultInt == 1) {
+			return true;
+		}		
+		return false;
+	}
+	
+	public boolean patchProcessDeploy(Long dbID) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"UPDATE processes SET `published` = true WHERE processID = ?;");		
+		preparedStatement.setLong(1, dbID);			
+		int resultInt = preparedStatement.executeUpdate();
+
+		if(resultInt == 1) {
+			return true;
+		}		
+		return false;
+	}
+	
+	public boolean patchProcessDeployUsergroup(Long dbID, String userGroup) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+				"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");
+		preparedStatement.setLong(1, dbID);
+		preparedStatement.setString(2, userGroup);
+		int resultInt = preparedStatement.executeUpdate();
+
+		preparedStatement.clearParameters();
+		
+		/*
+		//getUserGroupId
+		int ugID = -1;
+		preparedStatement = connect.prepareStatement(
+				"SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name = 'admin';");
+		preparedStatement.setString(1, userGroup);
+		resultSet = preparedStatement.executeQuery();
+		if(resultSet.first()) {
+			ugID =  resultSet.getInt(1);
+		}
+		
+		if(ugID != -1 && resultInt != 0) {
+			preparedStatement.clearParameters();
+			
+			preparedStatement = connect.prepareStatement(
+					"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");
+			preparedStatement.setLong(1, dbID);
+			preparedStatement.setInt(2, ugID);
+			resultInt = preparedStatement.executeUpdate();
+			
+			if(resultInt == 1) {
+				return true;
+			}		
+		}
+		*/
+		return false;
+		
+		
+	}
 
 	/**
 	 * 
@@ -753,5 +837,6 @@ public class Dashboard {
 	public void close() throws SQLException {
 		connect.close();
 	}
+
 
 }
