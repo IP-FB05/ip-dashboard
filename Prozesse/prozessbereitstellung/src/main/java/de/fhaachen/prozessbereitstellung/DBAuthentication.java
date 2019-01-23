@@ -13,38 +13,11 @@ import java.util.Properties;
 
 import utils.*;
 
-public class ProzessFreigeben implements JavaDelegate {
+public class DBAuthentication implements JavaDelegate {
 
 
     public void execute(DelegateExecution execution){                            
-    	
-    	
-		try {
-			/*Connection connect = null;
 
-	    	String url = "jdbc:mysql://pruefungsamt.ckxtdfafgwid.eu-central-1.rds.amazonaws.com:3306/dashboardDB";
-	    	//String url = "jdbc:mysql://localhost:3306/dashboardDB"; 
-	    	
-			Properties props = new Properties();
-			props.setProperty("user", Config.getConfig(Config.DB_USER));
-			props.setProperty("password", Config.getConfig(Config.DB_PASS));
-			//props.setProperty("user", "root");
-			//props.setProperty("password", "gpm");
-			props.setProperty("useSSL", "false");
-			props.setProperty("autoReconnect", "true");
-
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			connect = DriverManager.getConnection(url, props);
-			
-			PreparedStatement statement = connect.prepareStatement("UPDATE processes SET `published` = true WHERE processID = ?;");
-
-			statement.setLong(1, Long.parseLong(execution.getVariable("DBID").toString()));		
-			statement.executeUpdate();
-
-			connect.close();*/
-			
-			
 			  //////////////////////////////////////////////////
 			 // Ab hier dann Camunda Authorization hinzufügen//
 			//////////////////////////////////////////////////
@@ -86,14 +59,11 @@ public class ProzessFreigeben implements JavaDelegate {
 				groupString.substring(0, groupString.length() - 1);
 			}
 			else {
-				groupString = "None";
+				groupString = "admin,gast,mitarbeiter,professor,pruefungsamt,student";
 			}
 			
 			execution.setVariable("groupString", groupString);
 
-		}catch (Exception e) {
-		    e.printStackTrace();
-		} 
 	}
 
 }

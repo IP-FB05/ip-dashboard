@@ -42,7 +42,7 @@
         <bpmn:flowNodeRef>EndEvent_0dqwewl</bpmn:flowNodeRef>
       </bpmn:lane>
     </bpmn:laneSet>
-    <bpmn:startEvent id="StartEventProcessStarted" name="Process&#10;gestartet" camunda:formKey="embedded:app:forms/start.html" camunda:initiator="initiator">
+    <bpmn:startEvent id="StartEventProcessStarted" name="Process&#10;gestartet" camunda:formKey="embedded:app:forms/start-form.html" camunda:initiator="initiator">
       <bpmn:outgoing>SequenceFlow1</bpmn:outgoing>
     </bpmn:startEvent>
     <bpmn:sequenceFlow id="SequenceFlow1" sourceRef="StartEventProcessStarted" targetRef="Task_08sw7o6" />
@@ -187,12 +187,12 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/${titel}/${beschreibung}/${bpmnpath}/${verbal}/${definitionId}/${datum}/${initiator}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9090/processDeploy?name=${titel}&amp;beschreibung=${beschreibung}&amp;bpmn=${bpmnpath}&amp;verbal=${verbal}&amp;camunda_processID=${definitionId}&amp;datum=${datum}&amp;ersteller=${initiator}</camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Accept">application/json</camunda:entry>
-                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGFzaGJvYXJkOmRhc2hib2FyZFBX</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
             <camunda:outputParameter name="DBID">
@@ -220,12 +220,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:outgoing>SequenceFlow_13gqtl8</bpmn:outgoing>
     </bpmn:sendTask>
     <bpmn:dataStoreReference id="DataStoreReference_0rsj8ut" name="DashboardDB" />
-    <bpmn:userTask id="Task_0f2gk08" name="Prozess verifizieren" camunda:assignee="${initiator}">
-      <bpmn:extensionElements>
-        <camunda:formData>
-          <camunda:formField id="verified" label="Prozess veröffentlichen?" type="boolean" />
-        </camunda:formData>
-      </bpmn:extensionElements>
+    <bpmn:userTask id="Task_0f2gk08" name="Prozess verifizieren" camunda:formKey="embedded:app:forms/uploadOK-form.html" camunda:assignee="${initiator}">
       <bpmn:incoming>SequenceFlow_1r9r4y9</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0kvwyyw</bpmn:outgoing>
     </bpmn:userTask>
@@ -264,7 +259,7 @@ ${errorlog}</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Accept">application/json</camunda:entry>
-                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGFzaGJvYXJkOmRhc2hib2FyZFBX</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
           </camunda:inputOutput>
@@ -311,12 +306,12 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/${DBID}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/${DBID}?published=true</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Accept">application/json</camunda:entry>
-                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGFzaGJvYXJkOmRhc2hib2FyZFBX</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
           </camunda:inputOutput>
@@ -329,7 +324,7 @@ ${errorlog}</camunda:inputParameter>
         <bpmn:targetRef>DataStoreReference_0rsj8ut</bpmn:targetRef>
       </bpmn:dataOutputAssociation>
     </bpmn:serviceTask>
-    <bpmn:serviceTask id="Task_07lsfu0" name="Berechtigungen ermitteln" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.prozessbereitstellung.ProzessFreigeben">
+    <bpmn:serviceTask id="Task_07lsfu0" name="Berechtigungen ermitteln" camunda:asyncBefore="true" camunda:asyncAfter="true" camunda:class="de.fhaachen.prozessbereitstellung.DBAuthentication">
       <bpmn:incoming>SequenceFlow_082esql</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1xpg72q</bpmn:outgoing>
     </bpmn:serviceTask>
@@ -341,12 +336,12 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/usergroup/${DBID}/${groupString}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:9090/processDeploy/${DBID}/usergroup/${groupString}</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Accept">application/json</camunda:entry>
-                <camunda:entry key="Authorization">Basic ZGVtbzpkZW1v</camunda:entry>
+                <camunda:entry key="Authorization">Basic ZGFzaGJvYXJkOmRhc2hib2FyZFBX</camunda:entry>
               </camunda:map>
             </camunda:inputParameter>
           </camunda:inputOutput>

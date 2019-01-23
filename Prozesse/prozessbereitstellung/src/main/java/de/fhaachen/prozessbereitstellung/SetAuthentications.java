@@ -17,7 +17,7 @@ public class SetAuthentications implements JavaDelegate {
 
 		// check if Authorization is set
 		if (authService.createAuthorizationQuery().resourceId((String) execution.getVariable("definitionId"))
-				.userIdIn((String) execution.getVariable("user")).list().size() == 0) {
+				.userIdIn((String) execution.getVariable("initiator")).list().size() == 0) {
 
 			// create new Authorizations
 			Authorization newAuth = authService.createNewAuthorization(Authorization.AUTH_TYPE_GRANT);
@@ -29,7 +29,7 @@ public class SetAuthentications implements JavaDelegate {
 			newAuth.setResourceId((String) execution.getVariable("definitionId"));
 
 			// set creator as User only
-			newAuth.setUserId((String) execution.getVariable("user"));
+			newAuth.setUserId((String) execution.getVariable("initiator"));
 
 			// add permissions
 			newAuth.addPermission(Permissions.READ_INSTANCE);

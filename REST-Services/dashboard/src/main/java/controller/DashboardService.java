@@ -146,6 +146,11 @@ public class DashboardService {
 	 * ADD ProcessInstance
 	 * DELETE
 	 * 
+	 * Add ProcessDeploy
+	 * DELETE ProcessDeploy
+	 * PATCH ProcessDeploy
+	 * PATCH ProcessDeploy Usergroup
+	 * 
 	 */
 
 	// GET
@@ -205,8 +210,12 @@ public class DashboardService {
 	}
 	
 	// ADD ProcessDeploy
-	@RequestMapping(value = "/processDeploy/{name}/{beschreibung}/{bpmn}/{verbal}/{camunda_processID}/{datum}/{ersteller}", method = RequestMethod.POST)
-	public int addProcessDeploy(@PathVariable String name, @PathVariable String beschreibung, @PathVariable String bpmn, @PathVariable String verbal, @PathVariable String camunda_processID, @PathVariable String datum, @PathVariable String ersteller) throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/processDeploy", method = RequestMethod.POST)
+	public int addProcessDeploy(
+			@RequestParam("name") String name, @RequestParam("beschreibung") String beschreibung, 
+			@RequestParam("bpmn") String bpmn, @RequestParam("verbal") String verbal, @RequestParam("camunda_processID") String camunda_processID, 
+			@RequestParam("datum") String datum, @RequestParam("ersteller") String ersteller) 
+					throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
     	int result = dash.addProcessDeploy(name, beschreibung,bpmn,verbal,camunda_processID,datum,ersteller);
     	dash.close();
@@ -224,16 +233,16 @@ public class DashboardService {
 	
 	// PATCH ProcessDeploy 
 	@RequestMapping(value = "/processDeploy/{dbID}", method = RequestMethod.PATCH)
-	public boolean patchProcessDeploy(@PathVariable Long dbID) throws SQLException, ClassNotFoundException {
+	public boolean patchProcessDeploy(@PathVariable Long dbID, @RequestParam("published") boolean published) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
-    	boolean result = dash.patchProcessDeploy(dbID);
+    	boolean result = dash.patchProcessDeploy(dbID,published);
     	dash.close();
     	return result;
 	}
 	
 	// PATCH ProcessDeploy Usergroup
-	@RequestMapping(value = "/processDeploy/usergroup/{dbID}/{userGroup}", method = RequestMethod.PATCH)
-	public boolean patchProcessDeployUsergroup(@PathVariable Long dbID, String usergroup) throws SQLException, ClassNotFoundException {
+	@RequestMapping(value = "/processDeploy/{dbID}/usergroup/{usergroup}", method = RequestMethod.PATCH)
+	public boolean patchProcessDeployUsergroup(@PathVariable Long dbID, @PathVariable String usergroup) throws SQLException, ClassNotFoundException {
 		Dashboard dash = new Dashboard(); 
     	boolean result = dash.patchProcessDeployUsergroup(dbID,usergroup);
     	dash.close();

@@ -1,0 +1,25 @@
+<form class="form-horizontal">
+	<p id ="jsFilledLabel"> </p>
+
+	<div class="control-group">
+		<label class="control-label">Ist der Upload f&uuml;r deinen Prozess ok?:</label>
+		<div class="controls">
+			<input type="checkbox" cam-variable-name="verified"
+				cam-variable-type="Boolean" class="form-control" />
+		</div>
+	</div>
+
+	<script cam-script type="text/form-script">
+		var variableManager = camForm.variableManager;
+
+		camForm.on('form-loaded', function() {
+			variableManager.fetchVariable('definitionName');
+		});
+
+		camForm.on('variables-fetched', function() {
+			var definitionName = variableManager.variableValue('definitionName');
+
+			document.getElementById("jsFilledLabel").innerHTML = "Der Prozess hei&szlig;t " + definitionName;
+		});
+	</script>
+</form>
