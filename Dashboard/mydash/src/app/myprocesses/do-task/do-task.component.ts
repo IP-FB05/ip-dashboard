@@ -59,7 +59,7 @@ var $formContainer;
 
 var camClient = new CamSDK.Client({
   mock: false,
-  apiUri: 'http://localhost:8080/engine-rest'
+  apiUri: 'http://149.201.176.231:8080/engine-rest'
 });
 
 var taskService = new camClient.resource('task');
@@ -107,7 +107,7 @@ function showTasks(results) {
 function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
   taskService.form(taskId, function(err, taskFormInfo) {
-    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://149.201.176.231:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,

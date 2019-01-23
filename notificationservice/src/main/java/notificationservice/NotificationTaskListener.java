@@ -45,6 +45,8 @@ public class NotificationTaskListener implements TaskListener {
 	}
 
 	public void notify(DelegateTask delegateTask) {
+		LOGGER.log(Level.SEVERE, "Plugin started");
+		
 		String processDefinitionID = delegateTask.getProcessDefinitionId();
 		String processInstanceID = delegateTask.getProcessInstanceId();
 
@@ -67,6 +69,7 @@ public class NotificationTaskListener implements TaskListener {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		LOGGER.log(Level.SEVERE, "DB opened");
 
 		// 2. alle subscriber der prozessdefinition aus der DB holen
 		List<String> subscriber_list = new ArrayList<String>();
@@ -100,10 +103,12 @@ public class NotificationTaskListener implements TaskListener {
 			}
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
+
 			e1.printStackTrace();
 		}
 		
 		
+		LOGGER.log(Level.SEVERE, "Mails to send: " + processbeteiligte_list.size() + subscriber_list.size());
 		
 		if (processbeteiligte_list.size() > 0 || subscriber_list.size() > 0) {
 			
@@ -119,11 +124,14 @@ public class NotificationTaskListener implements TaskListener {
 						.userId(subscriber).singleResult().getEmail() + ",";
 			}
 			cslDestination = cslDestination.substring(0, cslDestination.length() - 1);
+			
+			LOGGER.log(Level.SEVERE, "Mailadressen: " + cslDestination);
 
 			// 5. Jetzt noch den bearbeiter (falls vorhanden und nicht deaktiviert)
 			String asignee = delegateTask.getAssignee();
-			boolean notify = true;
+			boolean notify = false;
 			if(asignee != null) {
+				notify = true;
 				try {
 					PreparedStatement preparedStatement = connect.prepareStatement("select * from notification where username = ?");
 					preparedStatement.setString(1, asignee);
@@ -141,14 +149,18 @@ public class NotificationTaskListener implements TaskListener {
 						.userId(asignee).singleResult().getEmail() + ",";
 			}
 			
+			
+			LOGGER.log(Level.SEVERE, "Mail wird versendet");
+			
 			// 6. mail versenden
-			final String username = "dashboarddonotreply@gmail.com";
+			final String username = "fb5-dashboard@mail.de";
 			final String password = Config.getConfig(Config.MAIL_PASS);
+			LOGGER.log(Level.SEVERE, "Mail pw: " + password);
 
 			props = new Properties();
 			props.put("mail.smtp.auth", "true");
 			props.put("mail.smtp.starttls.enable", "true");
-			props.put("mail.smtp.host", "smtp.gmail.com");
+			props.put("mail.smtp.host", "smtp.mail.de");
 			props.put("mail.smtp.port", "587");
 
 			Session session = Session.getInstance(props, new Authenticator() {
@@ -158,20 +170,20 @@ public class NotificationTaskListener implements TaskListener {
 			});
 			
 			// Infos zum Prozess holen
-			ProcessDefinition processDefinition = delegateTask.getProcessEngineServices().getRepositoryService().createProcessDefinitionQuery().processDefinitionId(processDefinitionID).singleResult();
-			HistoricProcessInstance processInstance = delegateTask.getProcessEngineServices().getHistoryService().createHistoricProcessInstanceQuery().processDefinitionId(processDefinitionID).singleResult();
+			ProcessDefinition processDefinition = delegateTask.getProcessEngineServices().getRepositoryService().createProcessDefinitionQuery().processDefinitionId(processDefinitionID).list().get(0);
+			//HistoricProcessInstance processInstance = delegateTask.getProcessEngineServices().getHistoryService().createHistoricProcessInstanceQuery().processInstanceId(processInstanceID).singleResult();
 			
 			String processname = processDefinition.getName();
-			User processowner = delegateTask.getProcessEngineServices().getIdentityService().createUserQuery().userId(processInstance.getStartUserId()).singleResult();
-			String started = delegateTask.getProcessEngineServices().getHistoryService().createHistoricActivityInstanceQuery().activityId(processInstance.getStartActivityId()).singleResult().getStartTime().toString();
+			//User processowner = delegateTask.getProcessEngineServices().getIdentityService().createUserQuery().userId(processInstance.getStartUserId()).singleResult();
+			//String started = delegateTask.getProcessEngineServices().getHistoryService().createHistoricActivityInstanceQuery().activityId(processInstance.getStartActivityId()).singleResult().getStartTime().toString();
 			
 			try {
 				Message message = new MimeMessage(session);
-				message.setFrom(new InternetAddress("dashboarddonotreply@gmail.com"));
+				message.setFrom(new InternetAddress("fb5-dashboard@mail.de"));
 				message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(cslDestination));
 				message.setSubject("Task \"" + delegateTask.getName() + "\" wurde erreicht");
 				
-				String text = "Der Prozess \"" + processname + "\", gestartet am " + started + " von " + processowner + " hat den Task " + delegateTask.getName() + " erreicht.";
+				String text = "Der Prozess \"" + processname + /*"\", gestartet am " + started + " von " + processowner + */" hat den Task " + delegateTask.getName() + " erreicht.";
 				if(asignee != null) {
 					text += "Die Bearbeitung wurde " + asignee + " zugewiesen.";
 				}
@@ -180,6 +192,8 @@ public class NotificationTaskListener implements TaskListener {
 			} catch (MessagingException e) {
 				throw new RuntimeException(e);
 			}
+			LOGGER.log(Level.SEVERE, "Plugin fertig");
+			
 		}
 
 	}
