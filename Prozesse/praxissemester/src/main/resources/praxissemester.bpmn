@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1epr6p3">
     <bpmn:participant id="Participant_0ev72i3" name="Praxissemester" processRef="praxissemester" />
   </bpmn:collaboration>
-  <bpmn:process id="praxissemester" name="Praxissemester" isExecutable="true">
+  <bpmn:process id="praxissemester" name="Praxissemester" isExecutable="true" camunda:candidateStarterGroups="admin,professor,student">
     <bpmn:laneSet id="LaneSet_1le3evz">
       <bpmn:lane id="Lane_0deqwoe" name="Student">
         <bpmn:flowNodeRef>Task_1ouytbj</bpmn:flowNodeRef>
@@ -44,7 +44,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/student/credits/${matrikelnr}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/student/${matrikelnr}/credits</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -148,7 +148,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/${matrikelnr}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/student/${matrikelnr}</camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -231,7 +231,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/${matrikelnr}/${bestanden}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/student/${matrikelnr}?bestanden=1</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -262,7 +262,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/${matrikelnr}/false</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/praxissemester/student/${matrikelnr}?bestanden=0</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>

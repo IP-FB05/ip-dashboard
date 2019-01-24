@@ -162,20 +162,27 @@ public class Pruefungsamt {
 		return false;
 	}
 
-	public boolean changeModulregister(int matrikelnr, int fachnr, int boolAnmeldung) throws SQLException {
-		if(boolAnmeldung == 1) {
-			preparedStatement = connect.prepareStatement(
-				"INSERT INTO `pruefungsamt`.`module_student` (`modul`, `student`) " +
-				"VALUES (?, ?) ON DUPLICATE KEY UPDATE modul=modul;");
-			preparedStatement.setInt(1, fachnr);
-			preparedStatement.setInt(2, matrikelnr);
-		} else {
-			preparedStatement = connect.prepareStatement(
-				"DELETE FROM `pruefungsamt`.`module_student` " +
-				"WHERE (`modul` = ?) and (`student` = ?);");
-			preparedStatement.setInt(1, fachnr);
-			preparedStatement.setInt(2, matrikelnr);
+	public boolean registerModul(int matrikelnr, int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+			"INSERT INTO `pruefungsamt`.`module_student` (`modul`, `student`) " +
+			"VALUES (?, ?) ON DUPLICATE KEY UPDATE modul=modul;");
+		preparedStatement.setInt(1, fachnr);
+		preparedStatement.setInt(2, matrikelnr);
+
+		int resultInt = preparedStatement.executeUpdate();
+
+		if(resultInt == 1) {
+			return true;
 		}
+		return false;
+	}
+	
+	public boolean deregisterModulregister(int matrikelnr, int fachnr) throws SQLException {
+		preparedStatement = connect.prepareStatement(
+			"DELETE FROM `pruefungsamt`.`module_student` " +
+			"WHERE (`modul` = ?) and (`student` = ?);");
+		preparedStatement.setInt(1, fachnr);
+		preparedStatement.setInt(2, matrikelnr);
 		int resultInt = preparedStatement.executeUpdate();
 
 		if(resultInt == 1) {
