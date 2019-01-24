@@ -3,7 +3,7 @@
   <div class="row" style="margin-top:50px; margin-left: 15px; margin-right:15px;">
 
     <!--Laufende Prozesse Card-->
-    <div class="col-md-6">
+    <div [ngClass]="{'col-md-6': this.authorizationService.hasRole(['admin','pruefungsamt', 'professor', 'mitarbeiter']), 'col-md-12': this.authorizationService.hasRole(['student'])}">
       <div class="card">
         <div class="card-header" style="border: 1px solid#0b1a22; color:white; background-color:#0b1a22;">
           <h3>
@@ -72,26 +72,26 @@
 <!--GAST-->
 <ng-template #guestView>
   <div class="row" style="margin-top:50px; margin-left:30px; margin-right:15px; margin-bottom: 15px">
-        <h3 style="font-size: 19px;">
-          Herzlich Willkommen!
-        </h3>   
+    <h3 style="font-size: 19px;">
+      Herzlich Willkommen!
+    </h3>
   </div>
   <div class="row" style=" margin-left:30px; margin-right:15px; margin-bottom: 15px">
-        <p> Das IP-Dashboard der Fachhochschule Aachen soll in Zukunft den Fachhochschulangehörigen bei den gängigen
-            (Geschäfts-)Prozessen hilfreich sein.
-            Dazu gehören Prozesse wie: 
-        </p>
+    <p> Das IP-Dashboard der Fachhochschule Aachen soll in Zukunft den Fachhochschulangehörigen bei den gängigen
+      (Geschäfts-)Prozessen hilfreich sein.
+      Dazu gehören Prozesse wie:
+    </p>
   </div>
   <div class="row" style=" margin-left:30px; margin-right:15px; margin-bottom: 15px">
-        <ul style="padding-left:19px;">
-          <li>Die An-/Abmeldung zu den</li>
-            <ul>
-              <li>Wahlmodulen</li>
-              <li>Prüfungen</li>
-              <li>Abschlussarbeiten etc.</li>
-              <p> sowie deren Bearbeitung etc....</p>
-            </ul>
-        </ul>
+    <ul style="padding-left:19px;">
+      <li>Die An-/Abmeldung zu den</li>
+      <ul>
+        <li>Wahlmodulen</li>
+        <li>Prüfungen</li>
+        <li>Abschlussarbeiten etc.</li>
+        <p> sowie deren Bearbeitung etc....</p>
+      </ul>
+    </ul>
   </div>
 </ng-template>
 <!--GAST-->
