@@ -16,6 +16,7 @@ public class JwtResponse {
 		this.authorities = authorities;
 	}
 
+
 	public String getAccessToken() {
 		return token;
 	}

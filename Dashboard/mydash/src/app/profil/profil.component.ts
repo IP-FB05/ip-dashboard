@@ -20,7 +20,7 @@ import { TokenStorageService } from '../login/auth/token-storage.service';
 
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Component({

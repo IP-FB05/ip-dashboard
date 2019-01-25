@@ -14,7 +14,8 @@ import { System } from './system';
 import { MessageService } from '../messages/message.service';
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
+  //headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({

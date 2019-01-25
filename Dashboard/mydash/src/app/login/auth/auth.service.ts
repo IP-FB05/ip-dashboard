@@ -6,7 +6,6 @@ import { MatSnackBar } from '@angular/material';
 
 // Import Models
 import { User } from '../user';
-import { Authorization } from './authorization';
 import { JwtResponse } from './jwt-response';
 import { AuthLoginInfo } from './login-info';
 import { Observable } from 'rxjs';
@@ -30,17 +29,22 @@ export class AuthService {
 
     isLoggedin = false;
     currentUser: User = new User();
-    authdata: Authorization = new Authorization();
     allowedGroups: String = "";
 
     constructor(
         private http: HttpClient,
-        private router: Router,
         public snackBar: MatSnackBar
     ) { }
 
     attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
         return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
+    }
+
+    
+    openSnackBar(text: string) {
+        this.snackBar.open(text, '', {
+            duration: 2000,
+        });
     }
 
     /*
@@ -158,11 +162,6 @@ export class AuthService {
     */
 
 
-    openSnackBar(text: string) {
-        this.snackBar.open(text, '', {
-            duration: 2000,
-        });
-    }
 
 }
 

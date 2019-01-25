@@ -13,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import de.fhaachen.ipdashboard.security.jwt.JwtAuthEntryPoint;
 import de.fhaachen.ipdashboard.security.jwt.JwtAuthTokenFilter;
@@ -23,6 +24,8 @@ import de.fhaachen.ipdashboard.security.services.UserDetailsServiceImpl;
 @EnableGlobalMethodSecurity(
 		prePostEnabled = true
 )
+@EnableTransactionManagement
+
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired

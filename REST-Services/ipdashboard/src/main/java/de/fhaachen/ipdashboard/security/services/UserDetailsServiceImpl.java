@@ -1,6 +1,5 @@
 package de.fhaachen.ipdashboard.security.services;
 
-import de.fhaachen.ipdashboard.model.Group;
 import de.fhaachen.ipdashboard.model.User;
 import de.fhaachen.ipdashboard.model.Profil;
 
@@ -123,15 +122,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         jsonString = response.toString();
 		json = new JSONObject(jsonString);
 		JSONArray jArray = (JSONArray) json.getJSONArray("groups");
-		Group[] groups = new Group[jArray.length()];
+		String[] groups = new String[jArray.length()];
 		for(int i=0; i<jArray.length(); i++) {
 			JSONObject currentGroup = jArray.getJSONObject(i);
-			groups[i] = new Group(currentGroup.getString("id"), currentGroup.getString("name"));
-			logger.info("Group "+groups[i].getName()+ " initialized.");
+			groups[i] = currentGroup.getString("name");
+			logger.info("Group "+ groups[i] + " initialized.");
 		}
 
 		return user;
 
-	}
-	
+	}	
 }

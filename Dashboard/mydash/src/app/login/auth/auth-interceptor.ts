@@ -11,7 +11,7 @@ import { TokenStorageService } from './token-storage.service';
 const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
-export class BasicAuthInterceptor implements HttpInterceptor {
+export class AuthInterceptor implements HttpInterceptor {
     
     constructor(private token: TokenStorageService) { }
 
@@ -26,5 +26,5 @@ export class BasicAuthInterceptor implements HttpInterceptor {
 }
 
 export const httpInterceptorProviders = [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
 ];

@@ -10,9 +10,6 @@ import { SystemsDeleteDialogComponent } from '../systems-delete-dialog/systems-d
 
 // Import Services
 import { SystemService } from '../system.service';
-import { AuthorizationService } from 'src/app/login/auth/authorization.service';
-
-
 
 @Component({
   selector: 'app-systems',
@@ -26,8 +23,7 @@ export class SystemsComponent implements OnInit {
   dialogRef: MatDialogRef<SystemsDeleteDialogComponent>;
 
   constructor(private systemService: SystemService, 
-              public dialog: MatDialog,
-              private authorizationService: AuthorizationService) { }
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getSystems();

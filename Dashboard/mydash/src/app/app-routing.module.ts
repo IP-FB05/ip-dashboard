@@ -11,7 +11,7 @@ import { DocumentsComponent } from './document/documents/documents.component';
 import { CategoryComponent } from './category/category/category.component';
 import { ProfilComponent } from './profil/profil.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
-import { AuthGuard } from './login/auth/auth-guard';
+//import { AuthGuard } from './login/auth/auth-guard';
 import { Error401Component } from './helper/error/error401/error401.component';
 
 /*const routes: Routes = [

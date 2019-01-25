@@ -9,7 +9,8 @@ import { Usergroup } from './usergroup';
 // Import Services
 
 const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
+    //headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({

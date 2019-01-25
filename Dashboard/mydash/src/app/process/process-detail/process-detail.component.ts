@@ -9,7 +9,6 @@ import { Process } from '../process';
 
 // Import Services
 import { ProcessService }  from '../process.service';
-import { AuthorizationService } from '../../login/auth/authorization.service';
 import { AuthService } from '../../login/auth/auth.service';
 
 @Component({
@@ -25,7 +24,6 @@ export class ProcessDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private processService: ProcessService,
     private location: Location,
-    public authorizationService: AuthorizationService,
     public authService: AuthService
   ) {}
 

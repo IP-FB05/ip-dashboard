@@ -18,6 +18,10 @@ public class Category {
 	@Column(name = "name")
 	private String name;
 
+	public Category(){
+
+	}
+
 	public Category(int categoryID, String name) {
         this.categoryID = categoryID;
         this.name = name;

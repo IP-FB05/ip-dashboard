@@ -10,7 +10,6 @@ import { DocumentsDeleteDialogComponent } from '../documents-delete-dialog/docum
 
 // Import Services
 import { DocumentService } from '../document.service';
-import { AuthorizationService } from '../../login/auth/authorization.service'
 
 
 @Component({
@@ -26,8 +25,7 @@ export class DocumentsComponent implements OnInit {
 
   constructor(
     private documentsService: DocumentService,
-    public dialog: MatDialog,
-    public authorizationService: AuthorizationService) { }
+    public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getDokumente();

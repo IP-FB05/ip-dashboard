@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 // Import Components
 
 // Import Services
-import { AuthorizationService } from './authorization.service';
+/*import { AuthorizationService } from './authorization.service';
 
 
 @Injectable({ providedIn: 'root' })
@@ -35,4 +35,4 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 
         return isAuthorized
     }
-}
+}*/

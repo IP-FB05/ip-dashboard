@@ -13,10 +13,8 @@ import { LoginComponent } from 'src/app/login/login.component';
 
 // Import Services
 import { ProcessService } from '../process.service';
-import { AuthorizationService } from '../../login/auth/authorization.service';
 import { AuthService } from '../../login/auth/auth.service';
 import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
-import { MenuComponent } from 'src/app/menu/menu.component';
 
 
 
@@ -37,7 +35,6 @@ export class ProcessesComponent implements OnInit {
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
-    public authorizationService: AuthorizationService,
     public authService: AuthService,
     private token: TokenStorageService) { }
 

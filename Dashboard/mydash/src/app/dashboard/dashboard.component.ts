@@ -8,7 +8,6 @@ import { Document } from '../document/document';
 // Import Components
 import { ProcessesDialogComponent} from '../process/processes-dialog/processes-dialog.component'
 import { DocumentsDialogComponent } from '../document/documents-dialog/documents-dialog.component';
-import { LoginComponent } from '../login/login.component';
 
 // Import Services
 import { ProcessService } from '../process/process.service';

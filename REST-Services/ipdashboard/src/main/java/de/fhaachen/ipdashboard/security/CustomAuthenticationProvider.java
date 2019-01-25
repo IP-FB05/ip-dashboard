@@ -61,7 +61,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
  
 		// find out the exited users
 		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-		grantedAuthorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
+		grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
 		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(name, password,
 				grantedAuthorities);
  

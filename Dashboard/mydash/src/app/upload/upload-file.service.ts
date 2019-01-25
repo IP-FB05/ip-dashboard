@@ -6,10 +6,13 @@ import { Observable } from 'rxjs';
 // Import Components
 // Import Services
 
-const httpHeader = new HttpHeaders({'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') });
+//const httpHeader = new HttpHeaders({'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') });
+const httpHeader = new HttpHeaders({ 'Content-Type': 'application/json'});
+
 
 const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
+  //headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  btoa('dashboard:dashboardPW') })
+  headers: new HttpHeaders({ 'Content-Type': 'application/json'})
 };
 
 @Injectable({

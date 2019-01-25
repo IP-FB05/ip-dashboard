@@ -43,16 +43,12 @@ import { SubsComponent } from './subs/subs/subs.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 import { ProcessStartComponent } from './process/process-start/process-start.component';
 
-// Cookie
-import { CookieService } from 'ngx-cookie-service';
-
 //Interceptors
-import { BasicAuthInterceptor } from './login/auth/basic-auth-interceptor';
+import { AuthInterceptor } from './login/auth/auth-interceptor';
 import { ErrorInterceptor } from './login/auth/error-interceptor';
 
 
 // Angular-JWT
-import { AuthorizationService } from './login/auth/authorization.service';
 import { Error401Component } from './helper/error/error401/error401.component';
 import { UsergroupComponent } from './usergroup/usergroup/usergroup.component';
 import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
@@ -122,15 +118,13 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
   ],
   entryComponents: [DocumentsDialogComponent, DocumentsDeleteDialogComponent, ProcessesDialogComponent, ProcessesDeleteDialogComponent, SystemsDialogComponent, SystemsDeleteDialogComponent, ProcessStartComponent, DoTaskComponent],
   providers: [
-  { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-   // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    BasicAuthInterceptor,
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+  // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    AuthInterceptor,
     FilterComponent,
     ProcessesComponent,
     SystemsComponent,
     DocumentsComponent,
-    CookieService,
-    AuthorizationService,
     LoginComponent
   ],
   bootstrap: [AppComponent]

@@ -6,19 +6,19 @@ public class Profil {
     private String firstName;
     private String lastName;
     private String email;
-    private Group[] groups;
+    private String[] groups;
 
     /**
      * @return the groups
      */
-    public Group[] getGroups() {
+    public String[] getGroups() {
         return groups;
     }
 
     /**
      * @param groups the groups to set
      */
-    public void setGroups(Group[] groups) {
+    public void setGroups(String[] groups) {
         this.groups = groups;
     }
 
