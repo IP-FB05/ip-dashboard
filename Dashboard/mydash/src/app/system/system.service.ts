@@ -24,7 +24,7 @@ const httpOptions = {
 export class SystemService {
 
   //private systemsUrl = 'api/systems'; // URL to web api
-  private systemsUrl = "http://149.201.176.231:9090/";
+  private systemsUrl = "http://localhost:9090/";
 
   constructor(
     private http: HttpClient,
@@ -73,7 +73,7 @@ export class SystemService {
   /** DELETE: delete the System from the server */
   deleteSystem(system: System | number): Observable<System> {
     const id = typeof system === 'number' ? system : system.systemID;
-    const url = `http://149.201.176.231:9090/systemDelete/${id}`;
+    const url = `http://localhost:9090/systemDelete/${id}`;
 
     this.openSnackBar("System wurde erfolgreich gelöscht !");
     this.messageService.add('SystemService: deleted system');

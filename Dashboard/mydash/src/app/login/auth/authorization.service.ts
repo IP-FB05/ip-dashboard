@@ -57,6 +57,10 @@ export class AuthorizationService {
     return allowedRoles.includes(this.authService.currentUser.role);
   } 
 
+  public getAuthData(): String {
+    return JSON.parse(localStorage.getItem('currentUser')).authdata.baseAuth;
+  }
+
   public isAllowed(processID: number):boolean {
     this.authService.getUsergroups(processID);
     return this.authService.allowedGroups.includes(this.authService.currentUser.role);

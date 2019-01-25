@@ -24,7 +24,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private authUrl = 'http://149.201.176.231:8080/engine-rest';
+    private authUrl = 'http://localhost:8080/engine-rest';
 
     isLoggedin = false;
     currentUser: User = new User();
@@ -39,7 +39,10 @@ export class AuthService {
     ) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.authUrl + '/identity/verify', { username: username, password: password }, httpOptions)
+        const mockLogin = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": 'Basic ' + btoa(username + ':' + password) })
+        };
+        return this.http.post<any>(this.authUrl + '/identity/verify', { username: username, password: password }, mockLogin)
             .pipe(map(user => {
                 // login successful if there's a user in the response
                 if (user && user.authenticatedUser == username && user.authenticated) {
@@ -49,11 +52,11 @@ export class AuthService {
                     this.openSnackBar("Erfolgreich angemeldet");
 
 
-                    return this.http.get<any>(this.authUrl + '/identity/groups?userId=' + this.currentUser.id, httpOptions)
+                    return this.http.get<any>(this.authUrl + '/identity/groups?userId=' + this.currentUser.id, mockLogin)
                         .subscribe(data => {
                             this.currentUser.groups = data.groups;
                             console.log('User groups successfully fetched: ' + JSON.stringify(this.currentUser.groups));
-                            return this.http.get<any>(this.authUrl + '/user/' + this.currentUser.id + '/profile', httpOptions)
+                            return this.http.get<any>(this.authUrl + '/user/' + this.currentUser.id + '/profile', mockLogin)
                                 .subscribe(data => {
                                     this.currentUser.firstName = data.firstName;
                                     this.currentUser.lastName = data.lastName;
@@ -144,7 +147,7 @@ export class AuthService {
     }
 
     getUsergroups(processID: number){
-       return this.http.get<any>("http://149.201.176.231:9090/getUserGroups?pid=" + processID , httpOptions).subscribe(data => {
+       return this.http.get<any>("http://localhost:9090/getUserGroups?pid=" + processID , httpOptions).subscribe(data => {
         this.allowedGroups = data.allowedGroups;
         console.log(this.allowedGroups);
         });

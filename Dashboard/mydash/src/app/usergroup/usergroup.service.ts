@@ -19,7 +19,7 @@ export class UsergroupService {
 
     constructor(private http: HttpClient) { }
 
-    private usergroupUrl = 'http://149.201.176.231:9090/usergroups';
+    private usergroupUrl = 'http://localhost:9090/usergroups';
 
     public getUsergroups() {
         return this.http.get<Usergroup[]>(this.usergroupUrl + '/all', httpOptions);
