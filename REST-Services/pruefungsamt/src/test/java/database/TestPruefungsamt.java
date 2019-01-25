@@ -51,17 +51,17 @@ public class TestPruefungsamt {
 	public void pruefungAnmeldenVoraussetzungen() throws SQLException {
 		// Student 1 hat alle 3 Versuche aufgebraucht
 		assertFalse(pa.pruefungAnmeldenVoraussetzungen(1, 55603));
-		// Student 1 hat die Prﾃｼfung bereits angemeldet
+		// Student 1 hat die Pruefung bereits angemeldet
 		assertFalse(pa.pruefungAnmeldenVoraussetzungen(1, 55606));
-		// Student 1 Prﾃｼfung kann angemeldet werden
+		// Student 1 Pruefung kann angemeldet werden
 		assertTrue(pa.pruefungAnmeldenVoraussetzungen(1, 55607));
 	}
 
 	@Test
 	public void pruefungAbmeldenVoraussetzungen() throws SQLException {
-		// Student 1 hat die Prﾃｼfung nicht angemeldet
+		// Student 1 hat die Pruefung nicht angemeldet
 		assertFalse(pa.pruefungAbmeldenVoraussetzungen(1, 55607));
-		// Student 1 kann die Prﾃｼfung anmelden
+		// Student 1 kann die Pruefung anmelden
 		assertTrue(pa.praktikumBestanden(1, 55606));
 	}
 	
@@ -77,14 +77,14 @@ public class TestPruefungsamt {
 	@Test
 	public void testSetModulRegister() throws SQLException {
 		// Modul 55623 von Student 1 wird angemeldet
-		assertTrue(pa.changeModulregister(1, 55623,1));
+		assertTrue(pa.registerModul(1, 55623));
 		assertTrue(pa.getModulStudent(1, 55623));
 		// Modul 55623 von Student 1 wird geloescht
-		assertTrue(pa.changeModulregister(1, 55623,0)); //true falls vorhanden
+		assertTrue(pa.deregisterModulregister(1, 55623)); //true falls vorhanden
 		assertFalse(pa.getModulStudent(1, 55623));
 		
 		//Test fuer ueberpruefung von bereits geloechten Daten
-		assertFalse(pa.changeModulregister(1, 55623,0));
+		assertFalse(pa.deregisterModulregister(1, 55623));
 		
 	}
 	
@@ -94,7 +94,7 @@ public class TestPruefungsamt {
 		// Fuer Student 1 wird ein neues Praxissemester angelegt (mehrere moeglich)
 		assertTrue(pa.setNewPraxisSemester(1));
 		
-		// ueberprueft ob mindestens ein Praxissemester für student 1 angelegt ist
+		// ueberprueft ob mindestens ein Praxissemester fuer student 1 angelegt ist
 		assertTrue(pa.getPraxisSemester(1));
 		assertFalse(pa.getPraxisSemester(4));
 		// Fuer Student 1 wird das letzte Praxissemester benotet
@@ -145,7 +145,7 @@ public class TestPruefungsamt {
 	
 	@Test
 	public void testPruefungBenotung() throws SQLException {
-		// Student 1 bekommt seine letzte Pruefung in Prüfung 552011 mit 2.0 benotet
+		// Student 1 bekommt seine letzte Pruefung in Pruefung 552011 mit 2.0 benotet
 		pa.pruefungAnmelden(1, 55606);	
 		assertTrue(pa.pruefungBenotung(1, 55606, 5.0));
 		pa.pruefungAbmelden(1, 55606);

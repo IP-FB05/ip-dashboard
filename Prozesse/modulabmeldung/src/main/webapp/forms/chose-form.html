@@ -24,8 +24,7 @@
 			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
 			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
 
-			var rest = 'http://localhost:8888/student/modul/';
-			rest = rest.concat(matrikelnummer);
+			var rest = 'http://localhost:8888/student/' + matrikelnummer + '/modul';
 
 			const userAction = async () => {
 				const response = await fetch(rest,

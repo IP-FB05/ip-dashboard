@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_017om05">
     <bpmn:participant id="Participant_0brps4v" name="Prozess Bachelorarbeit " processRef="bachelorarbeit" />
   </bpmn:collaboration>
-  <bpmn:process id="bachelorarbeit" name="Bachelorarbeit" isExecutable="true">
+  <bpmn:process id="bachelorarbeit" name="Bachelorarbeit" isExecutable="true" camunda:candidateStarterGroups="admin,professor,pruefungsamt,student">
     <bpmn:laneSet id="LaneSet_0mdlxwp">
       <bpmn:lane id="Lane_1y65o1s" name="Betreuer">
         <bpmn:flowNodeRef>Task_0ggjyts</bpmn:flowNodeRef>
@@ -151,7 +151,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/ba/${matrikelnummer}/${betreuer}/${titleBA}/${OutputDate}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit/student/${matrikelnummer}?betreuer=${betreuer}&amp;name-ba=${titleBA}&amp;startdatum=${OutputDate}</camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -176,7 +176,7 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bakol/${matrikelnummer}/${OutputDate}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit-kolloquium/student/${matrikelnummer}?startdatum=${OutputDate}</camunda:inputParameter>
             <camunda:inputParameter name="method">POST</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -249,7 +249,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/ba/allowed/${matrikelnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit/student/${matrikelnummer}?get=allowed</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -308,7 +308,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bakol/allowed/${matrikelnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit-kolloquium/student/${matrikelnummer}?get=allowed</camunda:inputParameter>
             <camunda:inputParameter name="method">GET</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -338,7 +338,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/ba/${matrikelnummer}/${noteBA}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit/student/${matrikelnummer}?note=${noteBA}</camunda:inputParameter>
             <camunda:inputParameter name="method">PUT</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -401,7 +401,7 @@ Somit ist die BA gescheitert.
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bakol/${matrikelnummer}/${noteKol}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit-kolloquium/student/${matrikelnummer}?note=${noteKol}</camunda:inputParameter>
             <camunda:inputParameter name="method">PUT</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
@@ -523,7 +523,7 @@ Prüfungsamt</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/pruefung/ba/${matrikelnummer}/${OutputDate}</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/pruefung/bachelorarbeit/student/${matrikelnummer}?verlaengerungsdatum=${OutputDate}</camunda:inputParameter>
             <camunda:inputParameter name="method">PATCH</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>

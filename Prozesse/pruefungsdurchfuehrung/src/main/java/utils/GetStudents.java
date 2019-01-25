@@ -16,7 +16,7 @@ public class GetStudents {
 		Client client = Client.create();
 
 		//führe den REST call aus
-		String restcall = "http://localhost:8888/pruefung/studentList/" + modul;
+		String restcall = "http://localhost:8888/pruefung/"+modul+"/student";
 		WebResource webResource = client.resource(restcall);
 
 		//Speichere die Entgegengenommenden daten
