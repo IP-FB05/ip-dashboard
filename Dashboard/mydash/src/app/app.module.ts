@@ -50,6 +50,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { BasicAuthInterceptor } from './login/auth/basic-auth-interceptor';
 import { ErrorInterceptor } from './login/auth/error-interceptor';
 
+
 // Angular-JWT
 import { AuthorizationService } from './login/auth/authorization.service';
 import { Error401Component } from './helper/error/error401/error401.component';
@@ -121,14 +122,16 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
   ],
   entryComponents: [DocumentsDialogComponent, DocumentsDeleteDialogComponent, ProcessesDialogComponent, ProcessesDeleteDialogComponent, SystemsDialogComponent, SystemsDeleteDialogComponent, ProcessStartComponent, DoTaskComponent],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true },
+   // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    BasicAuthInterceptor,
     FilterComponent,
     ProcessesComponent,
     SystemsComponent,
     DocumentsComponent,
     CookieService,
-    AuthorizationService
+    AuthorizationService,
+    LoginComponent
   ],
   bootstrap: [AppComponent]
 })

@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
-import { CookieService } from 'ngx-cookie-service';
 import { Router } from '@angular/router';
-import { map } from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MatSnackBar } from '@angular/material';
 
-import * as jwt from 'jsonwebtoken';
 
 // Import Models
 import { User } from '../user';
 import { Authorization } from './authorization';
+import { JwtResponse } from './jwt-response';
+import { AuthLoginInfo } from './login-info';
+import { Observable } from 'rxjs';
+
 
 // Import Components
 // Import Services
@@ -24,7 +25,8 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private authUrl = 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest';
+    //private authUrl = 'http://ec2-18-185-50-159.eu-central-1.compute.amazonaws.com:8080/engine-rest';
+    private loginUrl = 'http://localhost:9090/api/auth/signin';
 
     isLoggedin = false;
     currentUser: User = new User();
@@ -33,11 +35,15 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        private cookieService: CookieService,
         private router: Router,
         public snackBar: MatSnackBar
     ) { }
 
+    attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
+        return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
+    }
+
+    /*
     login(username: string, password: string) {
         return this.http.post<any>(this.authUrl + '/identity/verify', { username: username, password: password }, httpOptions)
             .pipe(map(user => {
@@ -149,6 +155,7 @@ export class AuthService {
         console.log(this.allowedGroups);
         });
     }
+    */
 
 
     openSnackBar(text: string) {

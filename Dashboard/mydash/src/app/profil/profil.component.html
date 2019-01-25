@@ -1,9 +1,8 @@
-<ng-container *ngIf="(this.authService.isLoggedin); else loginTemplate">
+<ng-container *ngIf="info.token; else loginTemplate">
     <div class="profil">
 
-        <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d; margin-top:50px; margin-bottom: 50px">Dies
-            ist eine Vorschau der
-            Profil-Seite.
+        <h1 style="font-weight:300; font-size: 14px; color: #4d4d4d; margin-top:50px; margin-bottom: 50px">
+            Dies ist eine Vorschau der Profil-Seite.
             Es sind alle abonnierten Prozesse zu sehen. Es können Prozesse abonniert werden.
         </h1>
 
@@ -12,12 +11,14 @@
             
             <!--User Details-->
             <div class="col-md-3">
+                <p style="font-weight: 600">Username:</p>
+                <p>{{info.username}}</p>  
                 <p style="font-weight: 600">Name:</p>
-                <p>{{this.authService.currentUser.lastName}}</p>
+                <p>{{info.username}}</p>
                 <p style="font-weight: 600">Vorname:</p>
-                <p>{{this.authService.currentUser.firstName}}</p>
+                <p>{{info.username}}</p>
                 <p style="font-weight: 600">Rolle:</p>
-                <p>{{this.authService.currentUser.role | titlecase }}</p>
+                <p>{{info.authorities | titlecase }}</p>
 
                 <!--Change Password-->
                 <div class="row" style="margin-left:0px; margin-bottom: 25px" >

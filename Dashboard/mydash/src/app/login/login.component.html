@@ -1,4 +1,4 @@
-<ng-container *ngIf="!(this.authService.isLoggedin); else logoutTemplate">
+<div *ngIf="!(this.authService.isLoggedin); else logoutTemplate">
   <div class="bgbild">
     <div class="col-md-4 offset-md-4">
 
@@ -49,9 +49,8 @@
       </form>
     </div>
   </div>
-</ng-container>
+</div>
 
 <ng-template #logoutTemplate>
-  <button (click)="logout()">Logout</button>
-  <button (click)="this.authService.checkAuth()">Check Authorization</button>
+  <app-error401></app-error401>
 </ng-template>

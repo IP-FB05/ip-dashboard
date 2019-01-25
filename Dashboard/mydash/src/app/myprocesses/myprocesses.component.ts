@@ -10,10 +10,12 @@ import { Tasks } from './tasks';
 
 // Import Components
 import { DoTaskComponent } from './do-task/do-task.component';
+import { LoginComponent } from '../login/login.component';
 
 // Import Services
 import { MyprocessesService } from './myprocesses.service';
 import { AuthService } from '../login/auth/auth.service';
+
 
 declare var CamSDK: any;
 
@@ -120,8 +122,11 @@ export class MyprocessesComponent implements OnInit {
 
   public instances: ProcessInstance[];
   public tasks: Tasks[];
+  info: any;
   
-  constructor(private myprocessService: MyprocessesService, public dialog: MatDialog, private authService: AuthService) { }
+  constructor(private myprocessService: MyprocessesService, 
+              public dialog: MatDialog, 
+              private authService: AuthService) { }
 
   ngOnInit() {
     $formContainer = $('.column.right');

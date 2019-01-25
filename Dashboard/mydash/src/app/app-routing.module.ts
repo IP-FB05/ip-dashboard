@@ -34,7 +34,7 @@ import { Error401Component } from './helper/error/error401/error401.component';
 const routes: Routes = [
   {
     path: '',
-    canActivateChild: [AuthGuard],
+    //canActivateChild: [AuthGuard],
     children: [
       {
         path: 'dashboard',

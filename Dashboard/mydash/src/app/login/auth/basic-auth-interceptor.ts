@@ -1,24 +1,30 @@
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpRequest, HttpHandler, HttpInterceptor } from '@angular/common/http';
+
 
 // Import Models
 // Import Components
 // Import Services
+import { TokenStorageService } from './token-storage.service';
+
+const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class BasicAuthInterceptor implements HttpInterceptor {
-    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        // add authorization header with basic auth credentials if available
-        let currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
-        if (currentUser && currentUser.authdata) {
-            request = request.clone({
-                setHeaders: { 
-                    //Authorization: `Basic ${currentUser.authdata}`
-                }
-            });
-        }
+    
+    constructor(private token: TokenStorageService) { }
 
-        return next.handle(request);
+    intercept(req: HttpRequest<any>, next: HttpHandler) {
+        let authReq = req;
+        const token = this.token.getToken();
+        if (token != null) {
+            authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
+        }
+        return next.handle(authReq);
     }
 }
+
+export const httpInterceptorProviders = [
+    { provide: HTTP_INTERCEPTORS, useClass: BasicAuthInterceptor, multi: true }
+];

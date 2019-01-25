@@ -1,17 +1,22 @@
 import { Component, OnInit } from '@angular/core';
-import { ProcessesComponent } from '../process/processes/processes.component';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { MatSnackBar } from '@angular/material';
+
+// Import Models
 import { Process } from '../process/process';
 import { Subs } from '../subs/subs';
-import { Notification } from '../subs/notification'
-
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { SubsService } from '../subs/subs.service';
-
-import { AuthService } from '../login/auth/auth.service';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { Notification } from '../subs/notification';
 import { Subscription } from '../subs/subscription';
+
+// Import Components
+import { ProcessesComponent } from '../process/processes/processes.component';
+
+// Import Services
+import { SubsService } from '../subs/subs.service';
+import { AuthService } from '../login/auth/auth.service';
 import { ProcessService } from '../process/process.service';
-import { MatSnackBar } from '@angular/material';
+import { TokenStorageService } from '../login/auth/token-storage.service';
 
 
 const httpOptions = {
@@ -30,7 +35,8 @@ export class ProfilComponent implements OnInit {
     private subsService: SubsService,
     private authService: AuthService,
     private processService: ProcessService,
-    public snackBar: MatSnackBar) {
+    public snackBar: MatSnackBar,
+    private token: TokenStorageService) {
   }
 
   processes: Process[];
@@ -44,6 +50,8 @@ export class ProfilComponent implements OnInit {
 
   sub: Subscription;
   notification: Notification;
+
+  info: any;
 
 
   private processUrl = 'http://localhost:9090/processes';
@@ -68,6 +76,12 @@ export class ProfilComponent implements OnInit {
 
     this.subsService.getRunningProcesses()
       .subscribe(process => this.runningProcesses = process);
+
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      authorities: this.token.getAuthorities()
+    };
   }
 
   public getProcesses() {
@@ -151,7 +165,7 @@ export class ProfilComponent implements OnInit {
       this.subsService.deleteUserFromNotification(curUsername).subscribe(
         data => {
           this.openSnackBar("Benachrichtigungen aktiviert");
-        }, 
+        },
         error => {
           console.log(error);
           this.openSnackBar("Benachrichtigungen konnten nicht aktiviert werden");
@@ -161,7 +175,7 @@ export class ProfilComponent implements OnInit {
       this.subsService.addUserToNotification(this.notification).subscribe(
         data => {
           this.openSnackBar("Benachrichtigungen deaktiviert");
-        }, 
+        },
         error => {
           console.log(error);
           this.openSnackBar("Benachrichtigungen konnten nicht deaktiviert werden");

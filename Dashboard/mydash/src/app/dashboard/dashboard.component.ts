@@ -8,12 +8,13 @@ import { Document } from '../document/document';
 // Import Components
 import { ProcessesDialogComponent} from '../process/processes-dialog/processes-dialog.component'
 import { DocumentsDialogComponent } from '../document/documents-dialog/documents-dialog.component';
+import { LoginComponent } from '../login/login.component';
 
 // Import Services
 import { ProcessService } from '../process/process.service';
 import { DocumentService } from '../document/document.service';
-import { AuthorizationService } from '../login/auth/authorization.service';
 import { AuthService } from '../login/auth/auth.service';
+
 
 
 @Component({
@@ -31,7 +32,6 @@ export class DashboardComponent implements OnInit {
     private documentsService: DocumentService, 
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private authorizationService: AuthorizationService,
     private authService: AuthService) { }
 
   ngOnInit() {

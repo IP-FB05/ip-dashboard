@@ -14,6 +14,7 @@ import { SystemsComponent } from '../system/systems/systems.component';
 // Import Services
 import { CategoryService } from '../category/category.service'
 import { AuthService } from '../login/auth/auth.service';
+import { TokenStorageService } from '../login/auth/token-storage.service';
 
 
 
@@ -24,12 +25,15 @@ import { AuthService } from '../login/auth/auth.service';
 })
 export class FilterComponent implements OnInit {
 
+  role: String;
   constructor(private cs: CategoryService,
     private dc: DocumentsComponent,
     private pc: ProcessesComponent,
     private sc: SystemsComponent,
     private authService: AuthService,
-    location: Location, router: Router) {
+    private token: TokenStorageService,
+    location: Location, 
+    router: Router) {
 
     router.events.subscribe((val) => {
       if (location.path() != '') {
@@ -47,6 +51,8 @@ export class FilterComponent implements OnInit {
   ngOnInit() {
     this.cs.getCategories()
       .subscribe(category => this.categories = category);
+
+      this.role = this.token.getAuthorities().toString().toLowerCase();
   }
 
 
@@ -55,7 +61,7 @@ export class FilterComponent implements OnInit {
       case '/processes': {
         alert("Kategorien der Prozesse fehlen in der DB")
         if (name === "") {
-          this.pc.getProcesses(this.authService.currentUser.role);
+          this.pc.getProcesses(this.role);
         } else {
         //this.pc.filterDocuments(name);
         } 

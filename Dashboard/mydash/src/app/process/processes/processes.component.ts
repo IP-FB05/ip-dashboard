@@ -9,11 +9,15 @@ import { ProcessInstance } from '../processInstance';
 import { ProcessStartComponent } from '../process-start/process-start.component'
 import { ProcessesDialogComponent } from '../processes-dialog/processes-dialog.component';
 import { ProcessesDeleteDialogComponent } from '../processes-delete-dialog/processes-delete-dialog.component';
+import { LoginComponent } from 'src/app/login/login.component';
 
 // Import Services
 import { ProcessService } from '../process.service';
 import { AuthorizationService } from '../../login/auth/authorization.service';
 import { AuthService } from '../../login/auth/auth.service';
+import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
+import { MenuComponent } from 'src/app/menu/menu.component';
+
 
 
 @Component({
@@ -29,14 +33,17 @@ export class ProcessesComponent implements OnInit {
   processInstance: ProcessInstance;
   processToUpload: Process;
   dialogRef: MatDialogRef<ProcessesDeleteDialogComponent>;
+  role: String;
 
   constructor(private processService: ProcessService,
     public dialog: MatDialog,
     public authorizationService: AuthorizationService,
-    public authService: AuthService) { }
+    public authService: AuthService,
+    private token: TokenStorageService) { }
 
   ngOnInit() {
-    this.getProcesses(this.authService.currentUser.role);
+    this.role = this.token.getAuthorities().toString().toLowerCase();
+    this.getProcesses(this.role);
   }
 
   getProcesses(role: String): void {
