@@ -16,7 +16,7 @@ export class CategoryService {
 
   constructor(private http:HttpClient) {}
 
-	private categoryUrl = 'http://149.201.176.231:9090/category';
+	private categoryUrl = 'http://ip-dash.ddnss.ch:9090/category';
 
   public getCategories() {
     return this.http.get<Category[]>(this.categoryUrl+"/all", httpOptions);

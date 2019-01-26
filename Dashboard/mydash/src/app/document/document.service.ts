@@ -26,7 +26,7 @@ export class DocumentService {
 
   //private documentsUrl = 'api/documents'; 
 
-  private documentsUrl = "http://149.201.176.231:9090/"
+  private documentsUrl = "http://ip-dash.ddnss.ch:9090/"
 
   constructor(
     private http: HttpClient,
@@ -74,7 +74,7 @@ export class DocumentService {
   /** DELETE: delete the Document from the server */
   deleteDocument(document: Document): Observable<Document> {
     const id = typeof document === 'number' ? document : document.documentID;
-    const url = `http://149.201.176.231:9090/documentDelete/${id}`;
+    const url = `http://ip-dash.ddnss.ch:9090/documentDelete/${id}`;
 
     this.openSnackBar("Dokument wurde erfolgreich gelöscht !");
     this.messageService.add('DocumentService: deleted document');

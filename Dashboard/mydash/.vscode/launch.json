@@ -7,8 +7,8 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against 149.201.176.231",
-            "url": "http://149.201.176.231:4200",
+            "name": "Launch Chrome against ip-dash.ddnss.ch",
+            "url": "http://ip-dash.ddnss.ch:4200",
             "webRoot": "${workspaceFolder}"
         }
     ]

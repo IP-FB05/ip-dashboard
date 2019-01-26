@@ -1,6 +1,6 @@
 {
     "/": {
-		"target": "http://149.201.176.231:9090",
+		"target": "http://ip-dash.ddnss.ch:9090",
 		"secure": false
 	}
 }

@@ -75,7 +75,7 @@ export class DocumentsDialogComponent implements OnInit {
   selectFile(event) {
     this.selectedFiles = event.target.files;
     this.currentFileUpload = this.selectedFiles.item(0);
-    this.form.controls.link.setValue('http://149.201.176.231:9090/files/'+this.currentFileUpload.name);
+    this.form.controls.link.setValue('http://ip-dash.ddnss.ch:9090/files/'+this.currentFileUpload.name);
     this.form.controls.lastChanged.setValue(new Date());
   }
 
