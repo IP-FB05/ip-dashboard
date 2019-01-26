@@ -14,11 +14,11 @@
                 <p style="font-weight: 600">Username:</p>
                 <p>{{info.username}}</p>  
                 <p style="font-weight: 600">Name:</p>
-                <p>{{info.username}}</p>
+                <p>{{info.username | titlecase}}</p>
                 <p style="font-weight: 600">Vorname:</p>
-                <p>{{info.username}}</p>
+                <p>{{info.username | titlecase}}</p>
                 <p style="font-weight: 600">Rolle:</p>
-                <p>{{info.authorities | titlecase }}</p>
+                <p>{{info.authorities.toString() | titlecase }}</p>
 
                 <!--Change Password-->
                 <div class="row" style="margin-left:0px; margin-bottom: 25px" >

@@ -17,11 +17,11 @@ import de.fhaachen.ipdashboard.model.System;
 
 @Controller
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/")
+@RequestMapping(path = "/system")
 public class SystemController {
 
 	// GET
-    @RequestMapping(value = "/systems", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public System[] getSystems() throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	System[] result = dash.getSystems();
@@ -30,7 +30,7 @@ public class SystemController {
 	}
 	
 	// ADD
-	@RequestMapping(value = "/systemAdd", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
     public boolean addSystem(@RequestBody System input) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
@@ -40,7 +40,7 @@ public class SystemController {
 	}
 
 	// DELETE
-	@RequestMapping(value = "/systemDelete/{systemID}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{systemID}", method = RequestMethod.DELETE)
     public boolean deleteSystem(@PathVariable int systemID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	boolean result = dash.deleteSystem(systemID);

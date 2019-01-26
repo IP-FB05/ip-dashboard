@@ -23,6 +23,7 @@ export class SubsService {
     constructor(private http: HttpClient) { }
 
     private subsUrl = 'http://localhost:9090/subs';
+    private notificationUrl = 'http://localhost:9090/notification'
 
     public getMySuscribedProcesses(user: string) {
         return this.http.get<Process[]>(this.subsUrl + "/mysubscribedProcesses?user=" + user, httpOptions);
@@ -37,11 +38,11 @@ export class SubsService {
     }
 
     public addUserToNotification(notification) {
-        return this.http.post<Notification>("http://localhost:9090/notification/add", notification, httpOptions);
+        return this.http.post<Notification>(this.notificationUrl + "/add", notification, httpOptions);
     }
 
     public deleteUserFromNotification(username: string) {
-        return this.http.delete<Notification>("http://localhost:9090/notification/delete"+ "?username=" + username, httpOptions);
+        return this.http.delete<Notification>(this.notificationUrl + "/delete"+ "?username=" + username, httpOptions);
     }
  
 

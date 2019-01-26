@@ -11,6 +11,8 @@ const USER_PROFIL = 'AuthProfil';
 })
 export class TokenStorageService {
   private roles: Array<string> = [];
+  private rolestoString: string = "";
+
   constructor() { }
 
   signOut() {
@@ -44,12 +46,18 @@ export class TokenStorageService {
     this.roles = [];
 
     if (sessionStorage.getItem(TOKEN_KEY)) {
-      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY)).forEach(authority => {
+      JSON.parse(sessionStorage.getItem(AUTHORITIES_KEY).toLowerCase()).forEach(authority => {
         this.roles.push(authority.authority);
       });
     }
 
     return this.roles;
+  }
+
+  public getAuthoritiestoString(): string {
+    this.rolestoString =  this.roles.toString().toLowerCase();
+
+    return this.rolestoString;
   }
 
   public setUserProfil(profil: User) {

@@ -27,7 +27,7 @@ export class DocumentService {
 
   //private documentsUrl = 'api/documents'; 
 
-  private documentsUrl = "http://localhost:9090/"
+  private documentsUrl = 'http://localhost:9090/document/';
 
   constructor(
     private http: HttpClient,
@@ -37,7 +37,7 @@ export class DocumentService {
   // GET documents from the server
   getDocumente(): Observable<Document[]> {
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>(this.documentsUrl + "documents", httpOptions)
+    return this.http.get<Document[]>(this.documentsUrl + "all", httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocuments', []))
@@ -66,7 +66,7 @@ export class DocumentService {
 
     this.openSnackBar("Dokument wurde erfolgreich hinzugefügt");
     this.messageService.add('DocumentService: added document');
-    return this.http.post<Document>(this.documentsUrl + "documentAdd", document, httpOptions).pipe(
+    return this.http.post<Document>(this.documentsUrl + "add", document, httpOptions).pipe(
       tap((Document: Document) => this.log(`added document w/ id=${document.documentID}`)),
       catchError(this.handleError<Document>('addDocument'))
     );
@@ -75,7 +75,7 @@ export class DocumentService {
   /** DELETE: delete the Document from the server */
   deleteDocument(document: Document): Observable<Document> {
     const id = typeof document === 'number' ? document : document.documentID;
-    const url = `http://localhost:9090/documentDelete/${id}`;
+    const url = `http://localhost:9090/document/delete/${id}`;
 
     this.openSnackBar("Dokument wurde erfolgreich gelöscht !");
     this.messageService.add('DocumentService: deleted document');
@@ -89,7 +89,7 @@ export class DocumentService {
   deleteDocumentFromFileServer(link: string): Observable<Document> {
     const substring = link.substring(link.lastIndexOf("/") + 1);
     this.messageService.add('DocumentService: Deleted Document from FileServer');
-    return this.http.delete<Document>(this.documentsUrl + "deleteFile?filename=" + substring, httpOptions).pipe(
+    return this.http.delete<Document>("http://localhost:9090/" + "deleteFile?filename=" + substring, httpOptions).pipe(
       tap(_ => this.log(`deleted document from fileserver`)),
       catchError(this.handleError<Document>('deleteFile'))
     );
@@ -98,7 +98,7 @@ export class DocumentService {
   // GET documents from the server
   getDocumentsByCategory(name: string): Observable<Document[]> {
     this.messageService.add('DocumentService: fetched documente');
-    return this.http.get<Document[]>(this.documentsUrl + "filter/documents?name=" + name, httpOptions)
+    return this.http.get<Document[]>("http://localhost:9090/filter" + "/documents?name=" + name, httpOptions)
       .pipe(
         tap(_ => this.log('fetched documents')),
         catchError(this.handleError('getDocumentsByCategory', []))

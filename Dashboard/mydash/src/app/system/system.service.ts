@@ -25,7 +25,7 @@ const httpOptions = {
 export class SystemService {
 
   //private systemsUrl = 'api/systems'; // URL to web api
-  private systemsUrl = "http://localhost:9090/";
+  private systemsUrl = 'http://localhost:9090/system/';
 
   constructor(
     private http: HttpClient,
@@ -35,7 +35,7 @@ export class SystemService {
   // GET Systems from the server
   getSystems(): Observable<System[]> {
     this.messageService.add('SystemService: fetched systems');
-    return this.http.get<System[]>(this.systemsUrl + "systems", httpOptions)
+    return this.http.get<System[]>(this.systemsUrl + "all", httpOptions)
       .pipe(
         tap(_ => this.log('fetched systems')),
         catchError(this.handleError('getSystems', []))
@@ -65,7 +65,7 @@ export class SystemService {
     }
     this.openSnackBar("System wurde erfolgreich hinzugefügt !"); 
     this.messageService.add('SystemService: added system');
-    return this.http.post<System>(this.systemsUrl + "systemAdd", system, httpOptions).pipe(
+    return this.http.post<System>(this.systemsUrl + "add", system, httpOptions).pipe(
       tap(_ => this.log(`added system w/ id=${system.systemID}`)),
       catchError(this.handleError<System>('addSystem'))
     );
@@ -74,7 +74,7 @@ export class SystemService {
   /** DELETE: delete the System from the server */
   deleteSystem(system: System | number): Observable<System> {
     const id = typeof system === 'number' ? system : system.systemID;
-    const url = `http://localhost:9090/systemDelete/${id}`;
+    const url = `http://localhost:9090/system/delete/${id}`;
 
     this.openSnackBar("System wurde erfolgreich gelöscht !");
     this.messageService.add('SystemService: deleted system');

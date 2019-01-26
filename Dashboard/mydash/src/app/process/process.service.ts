@@ -31,7 +31,7 @@ const httpOptionsCamundaREST = {
 export class ProcessService {
 
   //private processesUrl = 'api/processes'; // URL to web api
-  private processesUrl = "http://localhost:9090/";
+  private processesUrl = 'http://localhost:9090/process/';
   private ob: Observable<any>;
 
   constructor(
@@ -42,7 +42,7 @@ export class ProcessService {
   // GET Processes from the server
   getProcesses(role: String): Observable<Process[]> {
     this.messageService.add('ProcessService: fetched processes');
-    return this.http.get<Process[]>(this.processesUrl + "processes?role=" + role, httpOptions)
+    return this.http.get<Process[]>(this.processesUrl + "all?role=" + role, httpOptions)
       .pipe(
         tap(_ => this.log('fetched processes')),
         catchError(this.handleError('getProcesses', []))
@@ -51,7 +51,7 @@ export class ProcessService {
 
   // GET process by id. Will 404 if id not found 
   getProcess(id: number): Observable<Process> {
-    const url = `http://localhost:9090/process/${id}`;
+    const url = `http://localhost:9090/process/detail/${id}`;
     this.messageService.add(`ProcessService: fetched process id=${id}`);
     return this.http.get<Process>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched process id=${id}`)),
@@ -78,7 +78,7 @@ export class ProcessService {
     }
     this.openSnackBar("Prozess wurde erfolgreich hinzugefügt !");
     this.messageService.add(`ProcessService: added process`);
-    return this.http.post<Process>(this.processesUrl + "processAdd", process, httpOptions).pipe(
+    return this.http.post<Process>(this.processesUrl + "add", process, httpOptions).pipe(
       tap((process: Process) => this.log(`added process w/ id=${process.processID}`)),
       catchError(this.handleError<Process>('addProcess'))
     );
@@ -91,13 +91,13 @@ export class ProcessService {
   }
 
   addInstance(processInstance: ProcessInstance): Observable<any> {
-    return this.http.post<ProcessInstance>("http://localhost:9090/processInstanceAdd", processInstance, httpOptions)
+    return this.http.post<ProcessInstance>(this.processesUrl + "processInstanceAdd", processInstance, httpOptions)
   }
 
   /** DELETE: delete the Process from the database */
   deleteProcess(process: Process | number): Observable<Process> {
     const id = typeof process === 'number' ? process : process.processID;
-    const url = `http://localhost:9090/processDelete/${id}`;
+    const url = `http://localhost:9090/process/delete/${id}`;
 
     this.messageService.add(`ProcessService: deleted process`);
     this.openSnackBar("Prozess wurde erfolgreich gelöscht !");

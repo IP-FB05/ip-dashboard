@@ -52,7 +52,7 @@ export class ProcessesComponent implements OnInit {
     this.processService.addProcess(process)
       .subscribe(process => {
         this.processes.push(process);
-        this.getProcesses(this.authService.currentUser.role);
+        this.getProcesses(this.role);
       });
   }
 

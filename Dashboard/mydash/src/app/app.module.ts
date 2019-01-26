@@ -59,6 +59,7 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
 
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +92,7 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
     DoTaskComponent,
     DocumentsDeleteDialogComponent,
     ProcessesDeleteDialogComponent,
-    SystemsDeleteDialogComponent
+    SystemsDeleteDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -130,3 +131,4 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
   bootstrap: [AppComponent]
 })
 export class AppModule { }
+

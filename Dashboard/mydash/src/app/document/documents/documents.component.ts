@@ -10,6 +10,7 @@ import { DocumentsDeleteDialogComponent } from '../documents-delete-dialog/docum
 
 // Import Services
 import { DocumentService } from '../document.service';
+import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
 
 
 @Component({
@@ -25,7 +26,8 @@ export class DocumentsComponent implements OnInit {
 
   constructor(
     private documentsService: DocumentService,
-    public dialog: MatDialog) { }
+    public dialog: MatDialog,
+    private token: TokenStorageService) { }
 
   ngOnInit() {
     this.getDokumente();

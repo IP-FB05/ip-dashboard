@@ -35,8 +35,6 @@ public class NotificationController {
 		return notificationRepository.findAll();
 	}
 
-
-	
     @PostMapping(path = "/add")
 	@ResponseBody
 	public boolean addUserToNotification(@RequestBody Notification notification) throws SQLException, ClassNotFoundException {
@@ -45,8 +43,6 @@ public class NotificationController {
 		dash.close();
 		return result;
 	}
-	
-
 	
 	@DeleteMapping(path = "/delete")
 	@ResponseBody

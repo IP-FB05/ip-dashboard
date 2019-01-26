@@ -20,11 +20,11 @@ import de.fhaachen.ipdashboard.model.ProcessInstance;
 
 @Controller
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/")
+@RequestMapping(path = "/process")
 public class ProcessController {
 
     // GET
-    @RequestMapping(value = "/processes", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public Process[] getProcesses(@RequestParam String role) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         Process[] result = dash.getProcesses(role);
@@ -33,7 +33,7 @@ public class ProcessController {
     }
 
     // GET with ID
-    @RequestMapping(value = "/process/{processID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/detail/{processID}", method = RequestMethod.GET)
     public Process getProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         Process result = dash.getProcess(processID);
@@ -42,7 +42,7 @@ public class ProcessController {
     }
 
     // ADD
-    @RequestMapping(value = "/processAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
     public boolean addProcess(@RequestBody Process input) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
@@ -62,7 +62,7 @@ public class ProcessController {
     }
 
     // DELETE
-    @RequestMapping(value = "/processDelete/{processID}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{processID}", method = RequestMethod.DELETE)
     public boolean deleteProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         boolean result = dash.deleteProcess(processID);

@@ -13,6 +13,7 @@ import { DocumentsDialogComponent } from '../document/documents-dialog/documents
 import { ProcessService } from '../process/process.service';
 import { DocumentService } from '../document/document.service';
 import { AuthService } from '../login/auth/auth.service';
+import { TokenStorageService } from '../login/auth/token-storage.service';
 
 
 
@@ -24,14 +25,14 @@ import { AuthService } from '../login/auth/auth.service';
 export class DashboardComponent implements OnInit {
   processes: Process[] = [];
   documents: Document[] = [];
-  
 
   constructor(
     private processService: ProcessService,
     private documentsService: DocumentService, 
     public dialog: MatDialog,
     public snackBar: MatSnackBar,
-    private authService: AuthService) { }
+    private authService: AuthService,
+    private token: TokenStorageService) { }
 
   ngOnInit() {
     this.getProcesses();
@@ -39,7 +40,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getProcesses(): void {
-    this.processService.getProcesses(this.authService.currentUser.role)
+    this.processService.getProcesses(this.token.getAuthoritiestoString())
       .subscribe(processes => this.processes = processes);
   }
 

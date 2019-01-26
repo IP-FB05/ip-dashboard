@@ -85,6 +85,7 @@ export class LoginComponent implements OnInit {
     */
 
     onSubmit() {
+        this.submitted = true;
 
         this.loginInfo = new AuthLoginInfo(
             this.loginForm.controls.username.value,

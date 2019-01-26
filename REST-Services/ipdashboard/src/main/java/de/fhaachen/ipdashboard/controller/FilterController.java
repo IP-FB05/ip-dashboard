@@ -27,7 +27,7 @@ public class FilterController {
 	}
 	
 	@GetMapping(path = "/documents")
-	public @ResponseBody Document[] getDocuments (@RequestParam String name) throws SQLException, ClassNotFoundException {
+	public @ResponseBody Document[] getDocuments(@RequestParam String name) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	Document[] result = dash.getFilteredDocuments(name);
     	dash.close();

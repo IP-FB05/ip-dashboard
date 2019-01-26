@@ -17,14 +17,13 @@ import de.fhaachen.ipdashboard.database.Dashboard;
 import de.fhaachen.ipdashboard.model.Document;
 
 
-
 @Controller
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/") // This means URL's start with /demo (after Application path)
+@RequestMapping(path = "/document") // This means URL's start with /demo (after Application path)
 public class DocumentController {
     
      // GET
-	@RequestMapping(value = "/documents", method = RequestMethod.GET)
+	@RequestMapping(value = "/all", method = RequestMethod.GET)
     public Document[] getDocuments() throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	Document[] result = dash.getDocuments();
@@ -33,7 +32,7 @@ public class DocumentController {
 	}
 
 	// DELETE
-	@RequestMapping(value = "/documentDelete/{documentID}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete/{documentID}", method = RequestMethod.DELETE)
     public boolean deleteDocument(@PathVariable int documentID) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 
     	boolean result = dash.deleteDocument(documentID);
@@ -51,7 +50,7 @@ public class DocumentController {
 	}
 	
 	// ADD
-	@RequestMapping(value = "/documentAdd", method = RequestMethod.POST)
+	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	@ResponseBody
     public boolean addDocument(@RequestBody Document input) throws SQLException, ClassNotFoundException {
     	Dashboard dash = new Dashboard(); 

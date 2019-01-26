@@ -1,5 +1,4 @@
-<div *ngIf="!(this.authService.isLoggedin); else logoutTemplate">
-  <div class="bgbild">
+<div class ="bgbild" *ngIf="!(this.authService.isLoggedin); else logoutTemplate">
     <div class="col-md-4 offset-md-4">
 
       <!--Logo-->
@@ -48,7 +47,6 @@
 
       </form>
     </div>
-  </div>
 </div>
 
 <ng-template #logoutTemplate>

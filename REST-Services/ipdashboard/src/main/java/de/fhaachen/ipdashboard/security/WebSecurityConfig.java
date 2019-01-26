@@ -25,7 +25,6 @@ import de.fhaachen.ipdashboard.security.services.UserDetailsServiceImpl;
 		prePostEnabled = true
 )
 @EnableTransactionManagement
-
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
