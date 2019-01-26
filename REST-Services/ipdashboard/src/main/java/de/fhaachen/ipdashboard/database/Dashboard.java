@@ -9,11 +9,8 @@ import java.sql.Statement;
 import java.util.Properties;
 import java.util.regex.Pattern;
 
-import org.springframework.web.bind.annotation.RequestParam;
 
 import de.fhaachen.ipdashboard.model.System;
-import de.fhaachen.ipdashboard.model.Category;
-import de.fhaachen.ipdashboard.model.Usergroup;
 import de.fhaachen.ipdashboard.model.Document;
 import de.fhaachen.ipdashboard.model.Process;
 import de.fhaachen.ipdashboard.model.Subs;
@@ -26,7 +23,6 @@ public class Dashboard {
 	private PreparedStatement preparedStatement = null;
 
 	private ResultSet resultSet = null;
-
 
 	// CONNECTION
 	public Dashboard() throws SQLException, ClassNotFoundException {
@@ -41,18 +37,15 @@ public class Dashboard {
 		connect = DriverManager.getConnection(url, props);
 	}
 
-
 	/**
 	 * 
 	 * SYSTEMS
 	 * 
-	 * getSystems
-	 * addSystems
-	 * deleteSystem
+	 * getSystems addSystems deleteSystem
 	 * 
 	 */
 
-	 // GET systems
+	// GET systems
 	public System[] getSystems() throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement("SELECT * FROM systems");
 		resultSet = preparedStatement.executeQuery();
@@ -95,10 +88,7 @@ public class Dashboard {
 	 * 
 	 * DOCUMENTS
 	 * 
-	 * getDocuments
-	 * getDocumentsLimit
-	 * getFilteredDocuments
-	 * addDocument
+	 * getDocuments getDocumentsLimit getFilteredDocuments addDocument
 	 * deleteDocument
 	 * 
 	 */
@@ -208,17 +198,12 @@ public class Dashboard {
 	 * 
 	 * PROCESSES
 	 * 
-	 * getProcesses
-	 * getUserGroupsFromProcess
-	 * getProcess
-	 * getRunningProcesses
-	 * addProcess
-	 * deleteProcess
-	 * addProcessInstance
+	 * getProcesses getUserGroupsFromProcess getProcess getRunningProcesses
+	 * addProcess deleteProcess addProcessInstance
 	 * 
 	 */
 
-	 // GET Processes
+	// GET Processes
 	public Process[] getProcesses(String role) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement("SELECT * FROM processes WHERE allowed_usergroups LIKE ?");
 		preparedStatement.setString(1, "%" + role + "%");
@@ -230,9 +215,9 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("verbal"),
-						resultSet.getString("bpmn"), resultSet.getString("added"),
-						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
+						resultSet.getString("description"), resultSet.getString("verbal"), resultSet.getString("bpmn"),
+						resultSet.getString("added"), resultSet.getString("camunda_processID"),
+						resultSet.getString("allowed_usergroups"));
 				resultSet.next();
 			}
 			return process;
@@ -253,8 +238,6 @@ public class Dashboard {
 		return null;
 	}
 
-
-
 	// GET Process with ID
 	public Process getProcess(int processID) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement("SELECT * FROM processes WHERE processID = ?");
@@ -262,9 +245,9 @@ public class Dashboard {
 		resultSet = preparedStatement.executeQuery();
 		if (resultSet.first()) {
 			Process process = new Process(resultSet.getInt(1), resultSet.getString("name"),
-					resultSet.getString("description"), resultSet.getString("verbal"),
-					resultSet.getString("bpmn"), resultSet.getString("added"),
-					resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
+					resultSet.getString("description"), resultSet.getString("verbal"), resultSet.getString("bpmn"),
+					resultSet.getString("added"), resultSet.getString("camunda_processID"),
+					resultSet.getString("allowed_usergroups"));
 			return process;
 		}
 		return null;
@@ -282,9 +265,9 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("verbal"),
-						resultSet.getString("bpmn"), resultSet.getString("added"),
-						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
+						resultSet.getString("description"), resultSet.getString("verbal"), resultSet.getString("bpmn"),
+						resultSet.getString("added"), resultSet.getString("camunda_processID"),
+						resultSet.getString("allowed_usergroups"));
 				resultSet.next();
 			}
 			return process;
@@ -295,7 +278,8 @@ public class Dashboard {
 	// ADD Process
 	public boolean addProcess(Process input) throws SQLException, ClassNotFoundException {
 		preparedStatement = connect.prepareStatement(
-				"INSERT INTO processes (name, description, verbal, bpmn, added, camunda_processID, allowed_usergroups) VALUES (?, ?, ?, ?, CURDATE(), ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+				"INSERT INTO processes (name, description, verbal, bpmn, added, camunda_processID, allowed_usergroups) VALUES (?, ?, ?, ?, CURDATE(), ?, ?)",
+				PreparedStatement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, input.getName());
 		preparedStatement.setString(2, input.getDescription());
 		preparedStatement.setString(3, input.getVerbal());
@@ -305,36 +289,31 @@ public class Dashboard {
 		preparedStatement.execute();
 
 		resultSet = preparedStatement.getGeneratedKeys();
-		int processes_processID=0;
-		if(resultSet.next()){
-			processes_processID=resultSet.getInt(1);
+		int processes_processID = 0;
+		if (resultSet.next()) {
+			processes_processID = resultSet.getInt(1);
 		}
 
 		String[] userGroupList = input.getAllowed_usergroups().split("\\s*,\\s*");
-		
-		
 
 		int usergroups_usergroup_id = 0;
-		for (int i = 0; i < userGroupList.length; i++){
-			preparedStatement = connect.prepareStatement(
-				"SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name LIKE ?");
+		for (int i = 0; i < userGroupList.length; i++) {
+			preparedStatement = connect
+					.prepareStatement("SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name LIKE ?");
 			preparedStatement.setString(1, userGroupList[i]);
 			resultSet = preparedStatement.executeQuery();
 			if (resultSet.first()) {
 				usergroups_usergroup_id = resultSet.getInt(1);
 			}
-		
 
 			preparedStatement = connect.prepareStatement(
-				"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?,?) ");
+					"INSERT INTO allowed_groups (processes_processID, usergroups_usergroup_id) VALUES (?,?) ");
 			preparedStatement.setInt(1, processes_processID);
 			preparedStatement.setInt(2, usergroups_usergroup_id);
 			preparedStatement.execute();
 		}
 		return true;
 	}
-
-	
 
 	// ADD ProcessInstance
 	public boolean addProcessInstance(ProcessInstance input) throws SQLException, ClassNotFoundException {
@@ -384,12 +363,13 @@ public class Dashboard {
 
 		return true;
 	}
-	
-	public int addProcessDeploy(String name, String beschreibung, String bpmn, String verbal,
-			String camunda_processID, String datum, String ersteller) throws SQLException {
+
+	public int addProcessDeploy(String name, String beschreibung, String bpmn, String verbal, String camunda_processID,
+			String datum, String ersteller) throws SQLException {
 		preparedStatement = connect.prepareStatement(
 				"insert into processes (name, description, verbal, bpmn, added, camunda_processID, creator)"
-				+ " values (?,?,?,?,?,?,?);", Statement.RETURN_GENERATED_KEYS);
+						+ " values (?,?,?,?,?,?,?);",
+				Statement.RETURN_GENERATED_KEYS);
 		preparedStatement.setString(1, name);
 		preparedStatement.setString(2, beschreibung);
 		preparedStatement.setString(3, verbal);
@@ -398,142 +378,80 @@ public class Dashboard {
 		preparedStatement.setString(6, camunda_processID);
 		preparedStatement.setString(7, ersteller);
 		preparedStatement.executeUpdate();
-		
-		ResultSet keys = preparedStatement.getGeneratedKeys();		
+
+		ResultSet keys = preparedStatement.getGeneratedKeys();
 		keys.next();
 		int key = keys.getInt(1);
 		keys.close();
-		
+
 		return key;
 	}
-	
+
 	public boolean deleteProcessDeploy(Long dbID) throws SQLException {
-		
-		preparedStatement = connect.prepareStatement(
-				"DELETE FROM `allowed_groups` WHERE `processes_processID` = ?;");
+
+		preparedStatement = connect.prepareStatement("DELETE FROM `allowed_groups` WHERE `processes_processID` = ?;");
 		preparedStatement.setLong(1, dbID);
 		preparedStatement.executeUpdate();
-		
+
 		preparedStatement.clearParameters();
-		
-		preparedStatement = connect.prepareStatement("DELETE FROM processes WHERE processID = ?;");		
-		preparedStatement.setLong(1, dbID);			
+
+		preparedStatement = connect.prepareStatement("DELETE FROM processes WHERE processID = ?;");
+		preparedStatement.setLong(1, dbID);
 		int resultInt = preparedStatement.executeUpdate();
 
-		if(resultInt == 1) {
+		if (resultInt == 1) {
 			return true;
-		}		
+		}
 		return false;
 	}
-	
+
 	public boolean patchProcessDeploy(Long dbID, boolean published) throws SQLException {
-		preparedStatement = connect.prepareStatement(
-				"UPDATE processes SET `published` = ? WHERE processID = ?;");
+		preparedStatement = connect.prepareStatement("UPDATE processes SET `published` = ? WHERE processID = ?;");
 		preparedStatement.setBoolean(1, published);
-		preparedStatement.setLong(2, dbID);		
+		preparedStatement.setLong(2, dbID);
 		int resultInt = preparedStatement.executeUpdate();
 
-		if(resultInt == 1) {
+		if (resultInt == 1) {
 			return true;
-		}		
+		}
 		return false;
 	}
-	
+
 	public boolean patchProcessDeployUsergroup(Long dbID, String userGroup) throws SQLException {
-		preparedStatement = connect.prepareStatement(
-				"UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");		
+		preparedStatement = connect
+				.prepareStatement("UPDATE processes SET `allowed_usergroups` = ? WHERE processID = ?;");
 		preparedStatement.setString(1, userGroup);
 		preparedStatement.setLong(2, dbID);
 		int resultInt = preparedStatement.executeUpdate();
-	
+
 		String[] spitUsergroups = userGroup.split(Pattern.quote(","));
-		
-		
+
 		for (String group : spitUsergroups) {
-			
+
 			preparedStatement.clearParameters();
-			
-			//getUserGroupId
+
+			// getUserGroupId
 			int ugID = -1;
-			preparedStatement = connect.prepareStatement(
-					"SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name = ?;");
+			preparedStatement = connect
+					.prepareStatement("SELECT usergroup_id FROM dashboardDB.usergroups WHERE usergroup_name = ?;");
 			preparedStatement.setString(1, group);
 			resultSet = preparedStatement.executeQuery();
-			if(resultSet.first()) {
-				ugID =  resultSet.getInt(1);
+			if (resultSet.first()) {
+				ugID = resultSet.getInt(1);
 			}
-			
-			//insert
-			if(ugID != -1) {
+
+			// insert
+			if (ugID != -1) {
 				preparedStatement.clearParameters();
-				
+
 				preparedStatement = connect.prepareStatement(
 						"INSERT INTO `allowed_groups` (`processes_processID`, `usergroups_usergroup_id`)"
-						+ " VALUES (?,?);");
+								+ " VALUES (?,?);");
 				preparedStatement.setLong(1, dbID);
 				preparedStatement.setInt(2, ugID);
-				resultInt = preparedStatement.executeUpdate();		
+				resultInt = preparedStatement.executeUpdate();
 			}
 		}
-		return true;
-	}
-
-	/**
-	 * 
-	 * CATEGORY
-	 * 
-	 * getCategories
-	 * getCategory
-	 * addCategory
-	 * deleteCategory
-	 * 
-	 */
-
-	public Category[] getCategories() throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM category");
-		resultSet = preparedStatement.executeQuery();
-		if (resultSet.first()) {
-			resultSet.last();
-			int rowNumber = resultSet.getRow();
-			Category[] cat = new Category[rowNumber];
-			resultSet.first();
-			for (int i = 0; i < rowNumber; i++) {
-				cat[i] = new Category(resultSet.getInt(1), resultSet.getString("name"));
-				resultSet.next();
-			}
-			return cat;
-		}
-		return null;
-	}
-
-	// GET Category with ID
-	public Category getCategory(int categoryID) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM category WHERE categoryID = ?");
-		preparedStatement.setInt(1, categoryID);
-		resultSet = preparedStatement.executeQuery();
-		if (resultSet.first()) {
-			Category category = new Category(resultSet.getInt(1), resultSet.getString("name"));
-			return category;
-		}
-		return null;
-	}
-
-	// ADD Category
-	public boolean addCategory(Category category) throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("INSERT INTO category (name) VALUES (?)");
-		preparedStatement.setString(1, category.getName());
-		preparedStatement.execute();
-
-		return true;
-	}
-
-	// DELETE Category
-	public boolean deleteCategory(int categoryID) throws SQLException, ClassNotFoundException {
-
-		preparedStatement = connect.prepareStatement("DELETE FROM category WHERE categoryID = ?");
-		preparedStatement.setInt(1, categoryID);
-		preparedStatement.execute();
-
 		return true;
 	}
 
@@ -541,15 +459,9 @@ public class Dashboard {
 	 * 
 	 * SUBS
 	 * 
-	 * getSubs
-	 * getSub
-	 * getMySubscribedProcesses
-	 * getSubscribedProcessInstances
-	 * addSubscribedProcess
-	 * deleteSubscribedProcess
-	 * addSubscribedRunningProcess
-	 * deleteSubscribedRunningProcess
-	 * AddUserToNotification
+	 * getSubs getSub getMySubscribedProcesses getSubscribedProcessInstances
+	 * addSubscribedProcess deleteSubscribedProcess addSubscribedRunningProcess
+	 * deleteSubscribedRunningProcess AddUserToNotification
 	 * DeleteUserFromNotification
 	 * 
 	 */
@@ -597,9 +509,9 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("verbal"),
-						resultSet.getString("bpmn"), resultSet.getString("added"),
-						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
+						resultSet.getString("description"), resultSet.getString("verbal"), resultSet.getString("bpmn"),
+						resultSet.getString("added"), resultSet.getString("camunda_processID"),
+						resultSet.getString("allowed_usergroups"));
 				resultSet.next();
 			}
 			return process;
@@ -620,9 +532,9 @@ public class Dashboard {
 			resultSet.first();
 			for (int i = 0; i < rowNumber; i++) {
 				process[i] = new Process(resultSet.getInt(1), resultSet.getString("name"),
-						resultSet.getString("description"), resultSet.getString("verbal"),
-						resultSet.getString("bpmn"), resultSet.getString("added"),
-						resultSet.getString("camunda_processID"), resultSet.getString("allowed_usergroups"));
+						resultSet.getString("description"), resultSet.getString("verbal"), resultSet.getString("bpmn"),
+						resultSet.getString("added"), resultSet.getString("camunda_processID"),
+						resultSet.getString("allowed_usergroups"));
 				resultSet.next();
 			}
 			return process;
@@ -804,50 +716,16 @@ public class Dashboard {
 	// ADD UserToNotification
 	public boolean addUserToNotification(String username) throws SQLException, ClassNotFoundException {
 
-
 		preparedStatement = connect.prepareStatement("INSERT INTO notification (username) VALUES (?)");
 		preparedStatement.setString(1, username);
 		preparedStatement.execute();
 
 		return true;
 
-	
-	}
-
-	
-
-	
-	/**
-	 * 
-	 * USERGROUPS
-	 * 
-	 * getUsergroups
-	 * DeleteUserFromNotification
-	 * 
-	 */
-
-
-	 // GET Usergroups
-	public Usergroup[] getUsergroups() throws SQLException, ClassNotFoundException {
-		preparedStatement = connect.prepareStatement("SELECT * FROM usergroups");
-		resultSet = preparedStatement.executeQuery();
-		if (resultSet.first()) {
-			resultSet.last();
-			int rowNumber = resultSet.getRow();
-			Usergroup[] usergroups = new Usergroup[rowNumber];
-			resultSet.first();
-			for (int i = 0; i < rowNumber; i++) {
-				usergroups[i] = new Usergroup(resultSet.getInt(1), resultSet.getString("usergroup_name"));
-				resultSet.next();
-			}
-			return usergroups;
-		}
-		return null;
 	}
 
 	public void close() throws SQLException {
 		connect.close();
 	}
-
 
 }
