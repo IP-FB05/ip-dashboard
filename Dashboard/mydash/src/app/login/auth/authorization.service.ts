@@ -58,7 +58,7 @@ export class AuthorizationService {
   } 
 
   public getAuthData(): String {
-    return JSON.parse(localStorage.getItem('currentUser')).authdata.baseAuth;
+    return JSON.parse(sessionStorage.getItem('currentUser')).authdata.baseAuth;
   }
 
   public isAllowed(processID: number):boolean {
