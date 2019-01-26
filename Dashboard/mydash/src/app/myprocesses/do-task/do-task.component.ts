@@ -45,7 +45,7 @@ export class DoTaskComponent implements OnInit {
       }
     });
     
-    var taskService = new camClient.resource('task')
+    taskService = new camClient.resource('task')
     loadTasks();
   }
 
@@ -92,7 +92,7 @@ function showTasks(results) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Task abschicken</button>').click(function () {
+        var $submitBtn = $('<button type="submit">Task ausführen</button>').click(function () {
           camForm.submit(function (err) {
             if (err) {
               throw err;

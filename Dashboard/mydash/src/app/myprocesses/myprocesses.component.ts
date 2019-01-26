@@ -21,12 +21,14 @@ export class MyprocessesComponent implements OnInit {
 
   public instances: ProcessInstance[];
   public tasks: Tasks[];
+  public username: String;
   
   constructor(private myprocessService: MyprocessesService, public dialog: MatDialog, private authService: AuthService) { }
 
   ngOnInit() {
     this.getInstances();
     this.getTasks();
+    this.username = JSON.parse(sessionStorage.getItem('currentUser')).id; 
   }
 
   getInstances(): void {

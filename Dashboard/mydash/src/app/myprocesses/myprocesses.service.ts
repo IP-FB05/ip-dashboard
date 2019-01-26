@@ -42,7 +42,7 @@ export class MyprocessesService {
       const httpOptionsCamundaREST = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
       };
-      return this.http.get<Tasks[]>("http://localhost:8080/engine-rest/history/task", httpOptionsCamundaREST)
+      return this.http.get<Tasks[]>("http://localhost:8080/engine-rest/task", httpOptionsCamundaREST)
         .pipe(
           tap(_ => this.log('fetched tasks')),
           catchError(this.handleError('getTasks', []))
