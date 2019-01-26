@@ -15,7 +15,6 @@ import org.camunda.bpm.model.xml.ModelParseException;
 
 public class CheckBPMN implements JavaDelegate{
 
-	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		
 		// Datum fuer spaetere zeitpunkte speichern
