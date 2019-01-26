@@ -43,9 +43,11 @@ body {
     margin-bottom: 20px;
 }
 
-.card-header {
+.card-header[_ngcontent-c7]{
    background-color:#ececec;
-   font-weight: 400;
+   font-weight: 100 !important;
+    font-size: 18px;
+    color: #737373;
 }
 
 .card-header h4 {
@@ -61,6 +63,10 @@ body {
 
 .card-body a {
     color:#595757;
+}
+
+.card-body[_ngcontent-c7] {
+    background-color: #ffffff;
 }
 
 .list-processes{
@@ -151,8 +157,8 @@ h2 {
     font-weight: 400;
     margin-bottom: 0px;
     color:white;
-    font-size: 1.2em;
-    font-weight:600;
+    font-size: 20px;
+    font-weight: 100;
     text-align:left;
 }
 
@@ -164,9 +170,11 @@ h2 {
 
 .card {
     border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
 }
 
-.mat-icon:hover {color:00b5ad;}
+.mat-icon:hover {color:00b5ad; outline:none;}
 
 .plus-btn {
     border:none;
@@ -327,7 +335,12 @@ p{
     align-items: center;
     justify-content: center;
     vertical-align: middle;
+    outline:none;
 }
+
+button {
+    outline: none !important;
+  }
 
 .login-icon {
     color:white;
@@ -381,8 +394,8 @@ p{
 
 .card-header a{
         color: white;
-        font-size: 14px;
-        font-weight: 600;
+        
+        
     }
 
 
@@ -530,4 +543,8 @@ input[_ngcontent-c7]:focus, input[_ngcontent-c7]:active {
 
 .form-check-label {
     margin-left: 35px;
+}
+
+.bg-light[_ngcontent-c1] {
+    box-shadow: 0 5px 2px -2px rgba(0,0,0,.2);
 }
