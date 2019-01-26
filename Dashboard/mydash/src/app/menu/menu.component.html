@@ -26,6 +26,9 @@
       <a mat-list-item routerLink="/profil">
         <mat-icon>person</mat-icon>&nbsp;PROFIL
       </a>
+      <a mat-list-item routerLink="/faq">
+        <mat-icon>help</mat-icon>&nbsp;HILFE
+      </a>
       <div *ngIf="this.authService.isLoggedin">
         <a mat-list-item (click)="logout()">
           <mat-icon>input</mat-icon>&nbsp;ABMELDEN

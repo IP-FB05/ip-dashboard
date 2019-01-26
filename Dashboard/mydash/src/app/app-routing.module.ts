@@ -13,6 +13,7 @@ import { ProfilComponent } from './profil/profil.component';
 import { MyprocessesComponent } from './myprocesses/myprocesses.component';
 import { AuthGuard } from './login/auth/auth-guard';
 import { Error401Component } from './helper/error/error401/error401.component';
+import { FaqComponent } from './helper/faq/faq/faq.component';
 
 /*const routes: Routes = [
  { path: '', redirectTo: '/dashboard', pathMatch: 'full', canActivate: [AuthGuard] },
@@ -106,6 +107,13 @@ const routes: Routes = [
       {
         path: 'error401',
         component: Error401Component,
+        data: {
+          
+        }
+      },
+      {
+        path: 'faq',
+        component: FaqComponent,
         data: {
           
         }

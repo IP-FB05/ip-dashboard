@@ -58,6 +58,11 @@ import { DoTaskComponent } from './myprocesses/do-task/do-task.component';
 import { DocumentsDeleteDialogComponent } from './document/documents-delete-dialog/documents-delete-dialog.component';
 import { ProcessesDeleteDialogComponent } from './process/processes-delete-dialog/processes-delete-dialog.component';
 import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/systems-delete-dialog.component';
+import { FaqComponent } from './helper/faq/faq/faq.component';
+
+// PdfViewer
+import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 
 
@@ -94,7 +99,8 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
     DoTaskComponent,
     DocumentsDeleteDialogComponent,
     ProcessesDeleteDialogComponent,
-    SystemsDeleteDialogComponent
+    SystemsDeleteDialogComponent,
+    FaqComponent
   ],
   imports: [
     BrowserModule,
@@ -109,6 +115,7 @@ import { SystemsDeleteDialogComponent } from './system/systems-delete-dialog/sys
     MatButtonModule,
     MatSnackBarModule,
     DiagramModule,
+    PdfViewerModule,
 
     // The HttpClientInMemoryWebApiModule module intercepts HTTP requests
     // and returns simulated server responses.
