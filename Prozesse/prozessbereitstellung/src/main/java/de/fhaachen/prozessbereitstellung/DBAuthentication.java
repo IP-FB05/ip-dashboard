@@ -6,12 +6,9 @@ import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
 
-import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Properties;
 
-import utils.*;
 
 public class DBAuthentication implements JavaDelegate {
 
