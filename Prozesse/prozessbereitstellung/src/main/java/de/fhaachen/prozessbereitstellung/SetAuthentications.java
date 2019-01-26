@@ -9,7 +9,6 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 public class SetAuthentications implements JavaDelegate {
 
-	@Override
 	public void execute(DelegateExecution execution) {
 
 		// get Authorization Service
@@ -32,11 +31,15 @@ public class SetAuthentications implements JavaDelegate {
 			newAuth.setUserId((String) execution.getVariable("initiator"));
 
 			// add permissions
-			newAuth.addPermission(Permissions.READ_INSTANCE);
-			newAuth.addPermission(Permissions.UPDATE_INSTANCE);
-			newAuth.addPermission(Permissions.CREATE_INSTANCE);
-			newAuth.addPermission(Permissions.TASK_WORK);
-			newAuth.addPermission(Permissions.UPDATE_TASK);
+//			newAuth.addPermission(Permissions.READ_INSTANCE);
+//			newAuth.addPermission(Permissions.UPDATE_INSTANCE);
+//			newAuth.addPermission(Permissions.CREATE_INSTANCE);
+//			newAuth.addPermission(Permissions.TASK_WORK);
+//			newAuth.addPermission(Permissions.UPDATE_TASK);
+//			newAuth.addPermission(Permissions.READ);
+//			newAuth.addPermission(Permissions.READ_HISTORY);
+			newAuth.addPermission(Permissions.ALL);
+			
 
 			// save Authorization
 			authService.saveAuthorization(newAuth);

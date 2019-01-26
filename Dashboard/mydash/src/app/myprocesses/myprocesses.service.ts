@@ -11,6 +11,7 @@ import { Tasks } from './tasks';
 
 // Import Services
 import { MessageService } from '../messages/message.service';
+import { AuthorizationService } from '../login/auth/authorization.service';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,16 @@ export class MyprocessesService {
 
   constructor(
     private http: HttpClient,
+    private authorizationService: AuthorizationService,
     private messageService: MessageService) { }
 
     getProcessInstances(): Observable<ProcessInstance[]> {
       // TODO: send the message _after_ fetching the processes
       this.messageService.add('ProcessService: fetched processes');
-      return this.http.get<ProcessInstance[]>("http://ip-dash.ddnss.ch:8080/engine-rest/history/process-instance")
+      const httpOptionsCamundaREST = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
+      };
+      return this.http.get<ProcessInstance[]>("http://ip-dash.ddnss.ch:8080/engine-rest/history/process-instance", httpOptionsCamundaREST)
         .pipe(
           tap(_ => this.log('fetched processes')),
           catchError(this.handleError('getProcesses', []))
@@ -34,7 +39,10 @@ export class MyprocessesService {
     getTasks(): Observable<Tasks[]> {
       // TODO: send the message _after_ fetching the tasks
       this.messageService.add('ProcessService: fetched tasks');
-      return this.http.get<Tasks[]>("http://ip-dash.ddnss.ch:8080/engine-rest/history/task")
+      const httpOptionsCamundaREST = {
+        headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
+      };
+      return this.http.get<Tasks[]>("http://ip-dash.ddnss.ch:8080/engine-rest/task", httpOptionsCamundaREST)
         .pipe(
           tap(_ => this.log('fetched tasks')),
           catchError(this.handleError('getTasks', []))

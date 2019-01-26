@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1de9uu2">
     <bpmn:participant id="Participant_1nyd8ku" name="Prüfungsdurchführung" processRef="pruefungsdurchfuehrung" />
   </bpmn:collaboration>
-  <bpmn:process id="pruefungsdurchfuehrung" name="Prüfungsdurchführung" isExecutable="true">
+  <bpmn:process id="pruefungsdurchfuehrung" name="Prüfungsdurchführung" isExecutable="true" camunda:candidateStarterGroups="admin,professor">
     <bpmn:laneSet id="LaneSet_1vx4866">
       <bpmn:lane id="Lane_0ezz7uh" name="System">
         <bpmn:flowNodeRef>Task_0x6sqgq</bpmn:flowNodeRef>

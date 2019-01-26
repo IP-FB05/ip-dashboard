@@ -11,7 +11,6 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 
 public class CheckCamunda implements JavaDelegate {
 
-	@Override
 	public void execute(DelegateExecution execution) throws Exception {
 		Date fiveMinutesBack = new Date(System.currentTimeMillis() - 300 * 1000);
 		List<Deployment> deployments = execution.getProcessEngineServices().getRepositoryService()

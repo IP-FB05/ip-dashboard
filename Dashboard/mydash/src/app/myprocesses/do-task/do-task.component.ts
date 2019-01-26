@@ -13,6 +13,7 @@ import { ProcessInstance } from 'src/app/process/processInstance.js';
 // Import Services
 import { DoTaskService } from './do-task.service';
 import { AuthService } from '../../login/auth/auth.service';
+import { AuthorizationService } from '../../login/auth/authorization.service';
 
 var taskId: String;
 var instance: String
@@ -25,7 +26,7 @@ var instance: String
 export class DoTaskComponent implements OnInit {
 
   constructor(
-    private authService: AuthService,
+    private authorizationService: AuthorizationService,
     private doTaskService: DoTaskService,
     public thisDialogRef: MatDialogRef<DoTaskComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
@@ -34,9 +35,17 @@ export class DoTaskComponent implements OnInit {
 
   ngOnInit() {
     $formContainer = $('#task');
-    //this.taskId = "";
-    //this.curr = new ProcessInstance;
-    //this.getTaskId(instance);
+    camClient = new CamSDK.Client({
+      mock: false,
+      apiUri: 'http://localhost:8080/engine-rest',
+      headers: {
+        "Accept": "application/json",
+        "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
+        "Content-Type": "application/json"
+      }
+    });
+    
+    taskService = new camClient.resource('task')
     loadTasks();
   }
 
@@ -57,12 +66,9 @@ declare var CamSDK: any;
 
 var $formContainer;
 
-var camClient = new CamSDK.Client({
-  mock: false,
-  apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest'
-});
+var camClient;
 
-var taskService = new camClient.resource('task');
+var taskService;
 
 function loadTasks() {
   // fetch the list of available tasks
@@ -78,16 +84,15 @@ function loadTasks() {
 
 function showTasks(results) {
   // generate the HTML for the list of tasks
-  var items = results._embedded.task[0].id;
+  var items = results[0].id;
   
-
       // load the the task form (getting the task ID from the tag attribute)
       loadTaskForm(items, function(err, camForm) {
         if (err) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Task abschicken</button>').click(function () {
+        var $submitBtn = $('<button type="submit">Task ausführen</button>').click(function () {
           camForm.submit(function (err) {
             if (err) {
               throw err;

@@ -39,7 +39,10 @@ export class AuthService {
     ) { }
 
     login(username: string, password: string) {
-        return this.http.post<any>(this.authUrl + '/identity/verify', { username: username, password: password }, httpOptions)
+        const mockLogin = {
+            headers: new HttpHeaders({ 'Content-Type': 'application/json', "Authorization": 'Basic ' + btoa(username + ':' + password) })
+        };
+        return this.http.post<any>(this.authUrl + '/identity/verify', { username: username, password: password }, mockLogin)
             .pipe(map(user => {
                 // login successful if there's a user in the response
                 if (user && user.authenticatedUser == username && user.authenticated) {
@@ -49,11 +52,11 @@ export class AuthService {
                     this.openSnackBar("Erfolgreich angemeldet");
 
 
-                    return this.http.get<any>(this.authUrl + '/identity/groups?userId=' + this.currentUser.id, httpOptions)
+                    return this.http.get<any>(this.authUrl + '/identity/groups?userId=' + this.currentUser.id, mockLogin)
                         .subscribe(data => {
                             this.currentUser.groups = data.groups;
                             console.log('User groups successfully fetched: ' + JSON.stringify(this.currentUser.groups));
-                            return this.http.get<any>(this.authUrl + '/user/' + this.currentUser.id + '/profile', httpOptions)
+                            return this.http.get<any>(this.authUrl + '/user/' + this.currentUser.id + '/profile', mockLogin)
                                 .subscribe(data => {
                                     this.currentUser.firstName = data.firstName;
                                     this.currentUser.lastName = data.lastName;

@@ -9,6 +9,7 @@ import 'jquery';
 
 // Import Services
 import { ProcessService } from '../process.service';
+import { AuthorizationService } from '../../login/auth/authorization.service';
 
 var processDefinitionId: string;
 var instanceID: string;
@@ -23,6 +24,7 @@ var processService: ProcessService;
 export class ProcessStartComponent implements OnInit {  
 
   constructor(
+    private authorizationService: AuthorizationService,
     public thisDialogRef: MatDialogRef<ProcessStartComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
       processDefinitionId = data.processDefinitionId;
@@ -30,6 +32,17 @@ export class ProcessStartComponent implements OnInit {
 
   ngOnInit() {
     $formContainer = $('#start');
+    camClient = new CamSDK.Client({
+      mock: false,
+      apiUri: 'http://localhost:8080/engine-rest',
+      headers: {
+        "Accept": "application/json",
+        "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
+        "Content-Type": "application/json"
+      }
+    });
+    
+    taskService = new camClient.resource('process-definition');
     showTask('');
   }
 
@@ -45,12 +58,9 @@ declare var CamSDK: any;
 
 var $formContainer;
 
-var camClient = new CamSDK.Client({
-  mock: false,
-  apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest'
-});
+var camClient;
 
-var taskService = new camClient.resource('process-definition');
+var taskService;
 
 function showTask(results) {
       // load the the task form (getting the task ID from the tag attribute)

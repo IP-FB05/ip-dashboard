@@ -30,7 +30,7 @@ public class SaveStudents implements JavaDelegate {
 			execution.setVariable(ID, json.getString(ID));
 
 			Client client = Client.create();
-			String restcall = "http://localhost:8888/pruefung/student/" + ID + "/" + modul + "/" + json.getString(ID);
+			String restcall = "http://localhost:8888/pruefung/" + modul + "/student/" + ID + "?note=" + json.getString(ID);
 			WebResource webResource = client.resource(restcall);
 			ClientResponse response = webResource.accept("application/json").header("Authorization", "Basic ZGVtbzpkZW1v").put(ClientResponse.class);
 			if (response.getStatus() != 200) {

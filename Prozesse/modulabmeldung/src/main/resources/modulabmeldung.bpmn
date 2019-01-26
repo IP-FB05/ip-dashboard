@@ -3,7 +3,7 @@
   <bpmn:collaboration id="Collaboration_1mvg5kl">
     <bpmn:participant id="Participant_0ahg8es" name="Modulabmeldung" processRef="modulabmeldung" />
   </bpmn:collaboration>
-  <bpmn:process id="modulabmeldung" name="Modulabmeldung" isExecutable="true">
+  <bpmn:process id="modulabmeldung" name="Modulabmeldung" isExecutable="true" camunda:candidateStarterGroups="admin,student">
     <bpmn:laneSet id="LaneSet_1wcaqd7">
       <bpmn:lane id="Lane_1nbiqc8" name="Student">
         <bpmn:flowNodeRef>UserTask_15y7712</bpmn:flowNodeRef>
@@ -45,8 +45,8 @@
       <bpmn:extensionElements>
         <camunda:connector>
           <camunda:inputOutput>
-            <camunda:inputParameter name="url">http://localhost:8888/modul/${matrikelnummer}/${fachnummer}/0</camunda:inputParameter>
-            <camunda:inputParameter name="method">POST</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8888/modul/${fachnummer}/student/${matrikelnummer}</camunda:inputParameter>
+            <camunda:inputParameter name="method">DELETE</camunda:inputParameter>
             <camunda:inputParameter name="headers">
               <camunda:map>
                 <camunda:entry key="Accept">application/json</camunda:entry>

@@ -14,13 +14,10 @@ import { System } from '../system/system';
 
 // Import Services
 import { MessageService } from '../messages/message.service';
+import { AuthorizationService } from '../login/auth/authorization.service';
 
 const httpOptions = {
   headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' + btoa('dashboard:dashboardPW') })
-};
-
-const httpOptionsCamundaREST = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -36,6 +33,7 @@ export class ProcessService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
+    private authorizationService: AuthorizationService,
     public snackBar: MatSnackBar) { }
 
   // GET Processes from the server
@@ -83,12 +81,6 @@ export class ProcessService {
     );
   }
 
-  startProcess(process: Process): Observable<ProcessInstance> {
-    const id = process.camunda_processID;
-    const url = `http://ip-dash.ddnss.ch:8080/engine-rest/process-definition/${id}/start`;
-    return this.http.post<ProcessInstance>(url, httpOptionsCamundaREST);
-  }
-
   addInstance(processInstance: ProcessInstance): Observable<any> {
     return this.http.post<ProcessInstance>("http://ip-dash.ddnss.ch:9090/processInstanceAdd", processInstance, httpOptions)
   }
@@ -110,7 +102,9 @@ export class ProcessService {
   deleteProcessFromCamunda(process: Process): Observable<Process> {
     const id = process.camunda_processID;
     const url = `http://ip-dash.ddnss.ch:8080/engine-rest/process-definition/${id}`;
-
+    const httpOptionsCamundaREST = {
+      headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
+    };
     this.messageService.add(`ProcessService: deleted process from Cmaunda Server`);
     return this.http.delete<Process>(url, httpOptionsCamundaREST).pipe(
       tap(_ => this.log(`deleted process id=${id} from Cmaunda Server`)),

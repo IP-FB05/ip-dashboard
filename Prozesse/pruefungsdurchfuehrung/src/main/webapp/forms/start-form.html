@@ -1,11 +1,10 @@
 <form class="form-horizontal">
 
 	<div class="control-group">
-		<label class="control-label">Pr&uuml;fungsdatum</label>
+		<label class="control-label">Pr&uuml;fungsdatum:  (zB. 2019-01-15T00:00:00)</label>
 		<div class="controls">
 			<input 
 				type="text"
-				value="2010-01-01T08:00:00"
 				cam-variable-name="pruefungsdatum"
 				cam-variable-type="Date"
 				class="form-control"
@@ -17,7 +16,7 @@
 	<p> 51104 geht </p>
 
 	<div class="control-group">
-		<label class="control-label">Modul</label>
+		<label class="control-label">Modul:</label>
 		<div class="controls">
 			<input 
 				name="modul"
@@ -43,7 +42,7 @@
 			headers.append('Content-Type', 'text/json'); //'Content-Type': 'application/json',	
 			headers.append('Authorization', 'Basic ZGVtbzpkZW1v');
 
-			var rest = 'http://localhost:8888/modulList/';
+			var rest = 'http://localhost:8888/modul';
 
 			const userAction = async () => {
 				const response = await fetch(rest,
