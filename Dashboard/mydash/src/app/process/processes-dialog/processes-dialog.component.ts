@@ -46,7 +46,7 @@ function showTask(results) {
           throw err;
         }
 
-        var $submitBtn = $('<button type="submit">Prozess deployen</button>').click(function () {
+        var $submitBtn = $('<button type="submit" style="margin-top:10px;">Prozess deployen</button>').click(function () {
           camForm.submit(function (err, result) {
             if (err) {
               throw err;
