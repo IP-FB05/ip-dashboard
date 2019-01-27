@@ -2,7 +2,6 @@ package de.fhaachen.ipdashboard.controller;
 
 import java.sql.SQLException;
 
-
 import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -11,14 +10,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.bind.annotation.RestController;
 
 import de.fhaachen.ipdashboard.database.Dashboard;
 import de.fhaachen.ipdashboard.model.Document;
 
-
-@Controller
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping(path = "/document") // This means URL's start with /demo (after Application path)
 public class DocumentController {
     

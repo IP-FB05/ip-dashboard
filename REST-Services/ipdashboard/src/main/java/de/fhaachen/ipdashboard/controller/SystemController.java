@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.fhaachen.ipdashboard.database.Dashboard;
 import de.fhaachen.ipdashboard.model.System;
 
 
-@Controller
 @CrossOrigin(origins = "*")
+@RestController
 @RequestMapping(path = "/system")
 public class SystemController {
 

@@ -1,7 +1,6 @@
 package de.fhaachen.ipdashboard.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,11 +9,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.fhaachen.ipdashboard.model.Category;
 import de.fhaachen.ipdashboard.repository.CategoryRepository;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/category") // This means URL's start with /demo (after Application path)
 public class CategoryController {

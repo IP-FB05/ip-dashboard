@@ -63,7 +63,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/api/auth/**").permitAll()
+                .antMatchers("/api/auth/**", "/system/all", "/document/all", "/process/all", "/category/all").permitAll()
                 .antMatchers("/category/add", "/category/edit" , "/category/delete",
                              "/document/add", "/document/delete",
                              "/process/add", "/process/delete", "/processDeploy/**",
