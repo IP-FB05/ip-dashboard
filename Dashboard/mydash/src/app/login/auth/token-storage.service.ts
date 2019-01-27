@@ -4,7 +4,7 @@ import { User } from '../user';
 const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
-const USER_PROFIL = 'AuthProfil';
+const NAME = 'AuthName';
 
 @Injectable({
   providedIn: 'root'
@@ -60,12 +60,13 @@ export class TokenStorageService {
     return this.rolestoString;
   }
 
-  public setUserProfil(profil: User) {
-    window.sessionStorage.removeItem(USER_PROFIL);
-    window.sessionStorage.setItem(USER_PROFIL, JSON.stringify(profil));
+  public saveName(name: String) {
+    window.sessionStorage.removeItem(NAME);
+    window.sessionStorage.setItem(NAME, JSON.stringify(name));
   }
 
-  public getUserProfil(): User {
-    return JSON.parse(sessionStorage.getItem(USER_PROFIL));
+  public getName(): User {
+    return JSON.parse(sessionStorage.getItem(NAME));
   }
+  
 }
