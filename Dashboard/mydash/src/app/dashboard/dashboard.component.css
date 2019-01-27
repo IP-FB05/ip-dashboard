@@ -26,8 +26,8 @@ a {
 h3 {
   text-align: left; 
   margin-bottom: 0;
-  font-weight:600; 
-  font-size: 14px;
+  font-weight:100; 
+  font-size: 16px;
 }
 
 h4 {
@@ -35,17 +35,19 @@ h4 {
 }
 
 .add_icon {
-  font-size:70px;
-  padding-top: 50px;
-  padding-bottom: 70px; 
-  display: inline-flex;
-  flex-direction: column; 
-  justify-content: center; 
-  align-items: center; 
-  text-align:center;
+  font-size: 70px;
+  padding-top: 30px;
+  padding-bottom: 38px;
+  display: inline-grid;
 }
 
-  
+.card-header{
+  background-color: rgba(255, 255, 255, 0.03);
+}
+
+
+
+
 
   
 

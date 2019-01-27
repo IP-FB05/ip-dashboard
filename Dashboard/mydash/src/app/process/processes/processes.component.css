@@ -15,16 +15,7 @@
     float: left;
 }
 
-.add-btn-processes {
-    background:#00b5ad;
-    padding: .25rem .5rem;
-    font-size: .875rem;
-    line-height: 1.5;
-    border-radius: .2rem;
-    margin-left: 20px;
-    border-color: transparent;
-    color: white;
-}
+
 
 .processes {
     margin-left:45px; 
@@ -39,19 +30,23 @@ h2 {
 }
 
 h3 {
-    font-weight:600; 
-    font-size: 14px; 
+    font-weight:100; 
+    font-size: 16px; 
     padding-top: 10px;
     padding-bottom: 5px;
 }
 
 .add_icon {
     font-size:70px;
-    padding-top: 50px;
-    padding-bottom: 70px;
+    padding-top: 32px;
+    padding-bottom: 83px;
     display: inline-flex;
     flex-direction: column; 
     justify-content: center; 
     align-items: center; 
     text-align:center;
 }
+
+.card-header{
+    background-color: rgba(255, 255, 255, 0.03);
+  }
