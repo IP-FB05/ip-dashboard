@@ -25,7 +25,7 @@
     <ng-container *ngFor="let process of processes | textFilterProcesses:searchText">
         <div class="col-md-3" style="margin-bottom:20px;">
           <div class="card-deck h-100 mb-3 fix">
-            <div class="card" >
+            <div class="card">
               <div class="card-header" ><a routerLink="/detail/{{process.processID}}">{{process.name}}</a>&nbsp;
                 <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
                   <button class="delete-light" title="delete process" (click)="openDeleteDialog(process)" matTooltip="Löschen">x</button>
