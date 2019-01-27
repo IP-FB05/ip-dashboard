@@ -11,6 +11,7 @@ import { SystemsDeleteDialogComponent } from '../systems-delete-dialog/systems-d
 // Import Services
 import { SystemService } from '../system.service';
 import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
+import { AuthService } from 'src/app/login/auth/auth.service';
 
 @Component({
   selector: 'app-systems',
@@ -25,7 +26,8 @@ export class SystemsComponent implements OnInit {
 
   constructor(private systemService: SystemService, 
               public dialog: MatDialog,
-              private token: TokenStorageService) { }
+              private token: TokenStorageService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.getSystems();

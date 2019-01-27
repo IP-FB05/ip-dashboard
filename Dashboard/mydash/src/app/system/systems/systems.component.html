@@ -26,7 +26,7 @@
         <div class="card" >
           <div class="card-header">
             <h3 style="font-weight:100; font-size: 16px; color:#656565; margin-bottom:0;padding-top: 5px; padding-bottom: 5px;">{{system.name}}
-              <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
+              <ng-container *ngIf="this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'])">
                 <button class="delete-light" title="delete system" (click)="openDeleteDialog(system)" matTooltip="Löschen">x</button>
               </ng-container>
             </h3>
@@ -41,7 +41,7 @@
     <!--Show Systems-->
 
     <!--Add System-->
-    <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
+    <ng-container *ngIf="this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'])">
       <div class="col-md-3">
         <div class="card-deck h-100 mb-3 fix">
           <div class="card" style="border: 1px solid #e2e2e2;">

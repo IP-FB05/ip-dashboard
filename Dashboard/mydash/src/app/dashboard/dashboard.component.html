@@ -3,7 +3,7 @@
   <div class="row" style="margin-top:50px; margin-left: 15px; margin-right:15px;">
 
     <!--Laufende Prozesse Card-->
-    <div [ngClass]="{'col-md-6': this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'), 'col-md-12': this.token.roles.includes('role_student')}">
+    <div [ngClass]="{'col-md-6': this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter']), 'col-md-12': this.authService.hasRole(['role_student')}">
       <div class="card">
         <div class="card-header" style=" background: rgba(11,26,34,1);
         background: -moz-linear-gradient(45deg, rgba(11,26,34,1) 0%, rgba(7,12,15,1) 39%, rgba(11,26,34,1) 74%, rgba(11,26,34,1) 74%, rgba(11,26,34,1) 100%);
@@ -33,7 +33,7 @@
     </div>
     <!--Laufende Prozesse Card-->
 
-    <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
+    <ng-container *ngIf="this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'])">
 
       <!--Prozess hinzufügen-->
       <div class="col-md-3">

@@ -9,6 +9,7 @@ import { User } from '../user';
 import { JwtResponse } from './jwt-response';
 import { AuthLoginInfo } from './login-info';
 import { Observable } from 'rxjs';
+import { TokenStorageService } from './token-storage.service';
 
 
 // Import Components
@@ -33,12 +34,17 @@ export class AuthService {
 
     constructor(
         private http: HttpClient,
-        public snackBar: MatSnackBar
+        public snackBar: MatSnackBar,
+        private token: TokenStorageService
     ) { }
 
     attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
         return this.http.post<JwtResponse>(this.loginUrl, credentials, httpOptions);
     }
+
+    public hasRole(allowedRoles: string[]): boolean {
+        return allowedRoles.includes(this.token.getAuthoritiestoString());
+    } 
 
     
     openSnackBar(text: string) {

@@ -46,13 +46,13 @@ public class UserPrinciple implements UserDetails {
                         authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
                         break;
                 case "pruefungsamt":  
-                        authorities.add(new SimpleGrantedAuthority("ROLE_PA"));
+                        authorities.add(new SimpleGrantedAuthority("ROLE_PRUEFUNGSAMT"));
                         break;
                 case "professor":  
-                        authorities.add(new SimpleGrantedAuthority("ROLE_PROF"));
+                        authorities.add(new SimpleGrantedAuthority("ROLE_PROFESSOR"));
                         break;
                 case "mitarbeiter":  
-                        authorities.add(new SimpleGrantedAuthority("ROLE_MA"));
+                        authorities.add(new SimpleGrantedAuthority("ROLE_MITARBEITER"));
                         break;
                 case "student":  
                         authorities.add(new SimpleGrantedAuthority("ROLE_STUDENT"));

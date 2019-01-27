@@ -69,7 +69,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                              "/process/add", "/process/delete", "/processDeploy/**",
                              "/system/add", "/system/delete",
                              "/uploadFile", "/deleteFile", "/deleteFiles", "/deleteBPMN")
-                    .hasRole("ADMIN, MITARBEITER, PROFESSOR, PRUEFUNGSAMT")
+                    .hasAnyRole("ADMIN", "MITARBEITER", "PROFESSOR", "PRUEFUNGSAMT")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

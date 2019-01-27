@@ -4,7 +4,7 @@
   <mat-sidenav #sidenav mode="over" [(opened)]="opened">
     <mat-nav-list>
       <a routerLink="/dashboard"><img src="assets/img/fh/logo.png" style="padding-bottom:60px; padding-top:5px;" alt="Logo" width="180" height="auto"></a>
-      <div *ngIf="info.token" style=" text-align:left; margin-left:30px;">
+      <div *ngIf="this.authService.isLoggedin" style=" text-align:left; margin-left:30px;">
         <p style="color:white; font-size:14px; font-weight:600;">{{info.name}}</p>
         <p style="color:white; font-size:12.5px; margin-top: -12px;">{{info.authorities.toString() | titlecase}}</p>
       </div>

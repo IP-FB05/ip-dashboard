@@ -5,7 +5,7 @@
         <div class="col-md-12">
             <h1 >{{process.name}}</h1>
         </div>
-        <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
+        <ng-container *ngIf="this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'])">
             <div class="col-md-12">
                 <a href={{process.bpmn}} class="btn btn-lg btn-secondary" style="margin-right:30px;">Download BPMN</a>
             </div>
@@ -22,7 +22,7 @@
     <!--Second Row-->
 
     <!--BPMN-->
-    <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
+    <ng-container *ngIf="this.authService.hasRole(['role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter'])">
         <div class="diagram-parent">
             <app-diagram url={{process.bpmn}}></app-diagram>
         </div>
