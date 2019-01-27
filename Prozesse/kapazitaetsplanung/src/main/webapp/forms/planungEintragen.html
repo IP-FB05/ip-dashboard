@@ -1,0 +1,288 @@
+<form class="form-horizontal">
+    <div class="control-group">
+        <div id=ModulParent>
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <div class="row">
+                        <div class="controls col-sm-9">
+                            <label class="control-label">Fach name</label>
+                            <div class="controls">
+                                <input type="text"
+                                       id="fachName"
+                                       required
+                                       class="form-control" />
+                            </div>
+                        </div>
+                        <div class="controls col-sm-3">
+                            <label class="control-label">Semester art</label>
+                            <div class="controls">
+                                <input type="text"
+                                       id="semesterart"
+                                       required
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="HoAdd" class="row">
+
+                        <div class="controls col-sm-9">
+                            <label class="control-label">Hörer</label>
+                            <div class="w-100">
+                                <select id="Hoerer0" >
+                                    <option>B-INF </option>
+                                    <option>B-SBE </option>
+                                    <option>B-WI</option>
+                                    <option>B-ET (NT)</option>
+                                    <option>B-ET (AT)</option>
+                                    <option>B-ET(FZ)</option>
+                                    <option>B-MCD</option>
+                                    <option>B-MEC</option>
+                                    <option>M-ISE</option>
+                                    <option>M-FZE</option>
+                                    <option>M-NT</option>
+                                    <option>M-AT</option>
+                                    <option>M-MEC</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="controls controls col-sm-3">
+                            <label class="control-label">Semester</label>
+                            <input type="text" id="semester0" required class="form-control" />
+                        </div>
+
+                    </div>
+                    <button type="button" id="AddNewhoerer" class="btn btn-outline-dark">Hörer hinzufügen</button>
+
+                </div>
+
+
+
+                <div class="col-sm-6">
+
+
+                    <label class="control-label">SWS</label>
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">V</label>
+                                <input type="text"
+                                       id="AV"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">Ü</label>
+                                <input type="text"
+                                       id="AU"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">P</label>
+                                <input type="text"
+                                       id="AP"
+                                       required
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="control-label">Stunden gesammelt</label>
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">V</label>
+                                <input type="text"
+                                       id="BV"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">Ü</label>
+                                <input type="text"
+                                       id="BU"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">P</label>
+                                <input type="text"
+                                       id="BP"
+                                       required
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <label class="control-label">Selbst gehalten</label>
+                    <div class="controls">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <label class="control-label">V</label>
+                                <input type="text"
+                                       id="CV"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">Ü</label>
+                                <input type="text"
+                                       id="CU"
+                                       required
+                                       class="form-control" />
+                            </div>
+                            <div class="col-sm-4">
+                                <label class="control-label">P</label>
+                                <input type="text"
+                                       id="CP"
+                                       required
+                                       class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="MaAdd">
+                    </div>
+                    <button type="button" id="AddNewMa" class="btn btn-outline-dark">Mitarbeiter hinzufügen</button>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script cam-script type="text/form-script">
+
+
+
+
+
+    var MaNr = 0;
+
+        document.getElementById("AddNewMa").onclick = function() {AddMaFunction()};
+        function AddMaFunction() {
+
+            var html = [
+                '<div class="row" id="Ma' + MaNr + 'div">',
+                    '<div class="col-sm-4">',
+                        '<label class="control-label">Mitarbeiter</label>',
+                        '<div class="w-100">',
+                            '<select class="w-100" id="Mitarbeiter' + MaNr + '">',
+                                '<option>M1</option>',
+                                '<option>M2</option>',
+                                '<option>M3</option>',
+                                '<option>M4</option>',
+                            '</select>',
+                        '</div>',
+                    '</div>',
+                    '<div class="col-sm-4">',
+                        '<label class="control-label">Ü</label>',
+                        '<input type="text" id="MU' + MaNr + '" required class="form-control" />',
+                    '</div>',
+                    '<div class="col-sm-4">',
+                        '<label class="control-label">P</label>',
+                        '<input type="text" id="MP' + MaNr + '" required class="form-control" />',
+                    '</div>',
+                '</div>'
+            ].join('');
+
+
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            document.getElementById('MaAdd').appendChild(div);
+            MaNr = MaNr + 1;
+        }
+
+
+    var HoNr = 1;
+
+        document.getElementById("AddNewhoerer").onclick = function() {AddHoFunction()};
+        function AddHoFunction() {
+
+
+
+            var html = [
+                '<div class="controls col-sm-9">',
+                    '<label class="control-label">Hörer</label>',
+                    '<div class="w-100">',
+                        '<select id="Hoerer'+HoNr+'"',
+                            '<option>B-INF</option>',
+                            '<option>B-SBE </option>',
+                            '<option>B-WI</option>',
+                            '<option>B-ET (NT)</option>',
+                            '<option>B-ET (AT)</option>',
+                            '<option>B-ET(FZ)</option>',
+                            '<option>B-MCD</option>',
+                            '<option>B-MEC</option>',
+                            '<option>M-ISE</option>',
+                            '<option>M-FZE</option>',
+                            '<option>M-NT</option>',
+                            '<option>M-AT</option>',
+                            '<option>M-MEC</option>',
+                        '</select>',
+                    '</div>',
+                '</div>',
+                '<div class="controls controls col-sm-3">',
+                    '<label class="control-label">Semester</label>',
+                    '<input type="text" id="semester'+HoNr+'" required class="form-control" />',
+                '</div>'
+            ].join('');
+
+
+            var div = document.createElement('div');
+            div.innerHTML = html;
+            document.getElementById('HoAdd').appendChild(div);
+            HoNr = HoNr + 1;
+        }
+
+    var modulList = [];
+    var variableManager = camForm.variableManager;
+
+        camForm.on('submit', function(evt) {
+
+            modulList.push({FachName: document.getElementById('fachName').value});
+            modulList.push({SemesterArt: document.getElementById('semesterart').value});
+
+            for (let i = 0; i <  HoNr; i++) {
+                var key = 'Hoerer'+i;
+				modulList.push({[key]: document.getElementById(key).value});
+
+				key = 'semester'+i;
+				modulList.push({[key]: document.getElementById(key).value});
+			}
+
+            modulList.push({AV: document.getElementById('AV').value});
+            modulList.push({AU: document.getElementById('AU').value});
+            modulList.push({AP: document.getElementById('AP').value});
+            modulList.push({BV: document.getElementById('BV').value});
+            modulList.push({BU: document.getElementById('BU').value});
+            modulList.push({BP: document.getElementById('BP').value});
+            modulList.push({CV: document.getElementById('CV').value});
+            modulList.push({CU: document.getElementById('CU').value});
+            modulList.push({CP: document.getElementById('CP').value});
+
+            for (let i = 0; i <  MaNr; i++) {
+                var key = 'Mitarbeiter'+i;
+				modulList.push({[key]: document.getElementById(key).value});
+
+				key = 'MU'+i;
+				modulList.push({[key]: document.getElementById(key).value});
+
+				key = 'MP'+i;
+				modulList.push({[key]: document.getElementById(key).value});
+			}
+
+
+			variableManager.createVariable({
+                name: 'customVariable',
+                type: 'String',
+                value: JSON.stringify(modulList)
+            });
+
+		});
+  </script>
+</form>

@@ -5,10 +5,9 @@
         <div class="col-md-3">
           <div class="card-deck h-100 mb-3 fix">
             <div class="card">
-              <div class="card-header" style="background:#00b5ad">{{instance.processDefinitionName}}</div>
+              <div class="card-header" style="background:#00b5ad; font-size:16px;">{{instance.processDefinitionName}}</div>
               <div class="card-body">
-                <p class="card-text">Gestartet am: {{instance.startTime}}</p>
-                <p class="card-text">Gestartet von User: {{instance.startUserId}}</p>
+                <p class="card-text"> <span style="color:#00b5ad;" > <mat-icon style="margin-right:10px;">alarm</mat-icon></span>Gestartet von User: {{instance.startUserId}}</p>
                 <ng-container *ngFor="let task of tasks">
                   <ng-container *ngIf="task.processInstanceId == instance.id">
                       <ng-container *ngIf="task.description != NULL">
