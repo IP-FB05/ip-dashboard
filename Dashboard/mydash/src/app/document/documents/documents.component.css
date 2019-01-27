@@ -24,24 +24,20 @@ h2 {
 }
 
 h3 {
-    font-weight:600; 
-    font-size:14px; 
+    font-weight:100; 
+    font-size:16px; 
     padding-top: 5px; 
     padding-bottom: 5px;
 }
 
-.card-body {
-    background-color: #ececec;
-}
+
 
 .card-header {
     color: #656565; 
     border-bottom:none;
 }
 
-.card {
-    border: 1px solid #e2e2e2;
-}
+
 
 p {
     text-align:center;
@@ -49,8 +45,8 @@ p {
 
 .add_icon {
     font-size:70px; 
-    padding-top: 50px;
-    padding-bottom: 70px; 
+    padding-top: 32px;
+    padding-bottom: 83px; 
     display: inline-flex;
     flex-direction: column; 
     justify-content: center; 
@@ -58,3 +54,10 @@ p {
     text-align:center;
 }
 
+.card-header{
+    background-color: rgba(255, 255, 255, 0.03) !important;
+  }
+
+  .card-body[_ngcontent-c11] {
+    background-color:white !important;
+  }
