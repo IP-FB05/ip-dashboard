@@ -7,19 +7,21 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.stereotype.Component;
- 
+
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 import java.util.Optional;
- 
+import java.util.Base64.Encoder;
+
 import javax.annotation.PostConstruct;
 
 import org.json.JSONObject;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.authentication.BadCredentialsException;
-
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -33,12 +35,15 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 import de.fhaachen.ipdashboard.model.User;
+import de.fhaachen.ipdashboard.security.services.UserDetailsServiceImpl;
+import de.fhaachen.ipdashboard.security.services.UserPrinciple;
  
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {
  
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	List<User> users = new ArrayList<User>();
+	UserDetailsServiceImpl userSerivce = new UserDetailsServiceImpl();
   
 	@Override
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -60,10 +65,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		}
  
 		// find out the exited users
-		List<GrantedAuthority> grantedAuthorities = new ArrayList<GrantedAuthority>();
-		grantedAuthorities.add(new SimpleGrantedAuthority("ADMIN"));
-		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(name, password,
-				grantedAuthorities);
+		//UserDetails userDetails = userSerivce.loadUserByUsername(name);
+		UserPrinciple userDetails = (UserPrinciple) userSerivce.loadUserByUsername(name,password);
+		UsernamePasswordAuthenticationToken auth = new UsernamePasswordAuthenticationToken(userDetails, password,
+				userDetails.getAuthorities());
  
 		logger.info("Succesful Authentication with user = " + name);
 		return auth;
@@ -80,6 +85,9 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		String url = "http://ip-dash.ddnss.ch:8080/engine-rest/identity/verify";
 		URL obj = new URL(url);
 		HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+		// Basic Auth for camunda-auth
+		byte[] message = (username+":"+password).getBytes("UTF-8");
+		String encoded = javax.xml.bind.DatatypeConverter.printBase64Binary(message);
 
 		final String POST_PARAMS = "{\n" + "   \"username\": \""+username+"\",\n" + "    \"password\": \""+password+"\"  \n}";
 
@@ -88,6 +96,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 		//con.setRequestProperty("User-Agent", "Mozilla/5.0");
 		//con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 		con.setRequestProperty("Content-Type", "application/json");
+		con.setRequestProperty("Authorization", "Basic "+encoded);
 
 		// Send post request
 		con.setDoOutput(true);

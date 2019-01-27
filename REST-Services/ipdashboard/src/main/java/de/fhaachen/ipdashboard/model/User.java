@@ -1,96 +1,117 @@
 package de.fhaachen.ipdashboard.model;
 
-import java.util.Collection;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-public class User implements UserDetails {
-
-    private static final long serialVersionUID = 1L;
-
+public class User{
+    
     private String username;
     private String password;
-    private boolean enabled;
-    private boolean accountNonExpired;
-    private boolean credentialsNonExpired;
-    private boolean accountNonLocked;
+    private String name;
+    // private String firstName;
+    // private String lastName;
+    private String email;
+    private String[] groups;
     private List<GrantedAuthority> authorities;
 
-    private Profil profil;
+    public User() {
+    }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return this.authorities;
+    public User(String name, String username, String email, String password) {
+        this.setName(name);
+        this.setUsername(username);
+        this.email = email;
+        this.setPassword(password);
     }
 
     /**
-     * @return the profil
+     * @return the email
      */
-    public Profil getProfil() {
-        return profil;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * @param profil the profil to set
+     * @param authorities the authorities to set
      */
-    public void setProfil(Profil profil) {
-        this.profil = profil;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    @Override
+
+    /**
+     * @return the authorities
+     */
+    public List<GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
+
+    /**
+     * @param authorities the authorities to set
+     */
+    public void setAuthorities(List<GrantedAuthority> authorities) {
+        this.authorities = authorities;
+    }
+
+    /**
+     * @return the groups
+     */
+    public String[] getGroups() {
+        return groups;
+    }
+
+    /**
+     * @param groups the groups to set
+     */
+    public void setGroups(String[] groups) {
+        this.groups = groups;
+    }
+
+    /**
+     * @return the name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @param name the name to set
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * @return the password
+     */
     public String getPassword() {
-        return this.password;
+        return password;
     }
 
-    @Override
-    public String getUsername() {
-        return this.username;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return this.accountNonExpired;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return this.accountNonLocked;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return this.credentialsNonExpired;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return this.enabled;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-    
+    /**
+     * @param password the password to set
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-    
-    public void setAccNonExpired(boolean expired) {
-        this.accountNonExpired = expired;
-    }
-
-    public void setAccNonLocked(boolean locked) {
-        this.accountNonLocked = locked;
+    /**
+     * @return the username
+     */
+    public String getUsername() {
+        return username;
     }
 
-    public void setAuthorities(List<GrantedAuthority> authorities) {
-        this.authorities = authorities;
+    /**
+     * @param username the username to set
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    } 
+
+    public String toString() {
+        return this.name + " (" + this.email + ")";
     }
 
 }

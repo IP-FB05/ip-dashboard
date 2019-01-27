@@ -21,6 +21,7 @@ import de.fhaachen.ipdashboard.message.response.JwtResponse;
 import de.fhaachen.ipdashboard.security.CustomAuthenticationProvider;
 import de.fhaachen.ipdashboard.security.jwt.JwtProvider;
 import de.fhaachen.ipdashboard.security.services.UserDetailsServiceImpl;
+import de.fhaachen.ipdashboard.security.services.UserPrinciple;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
@@ -54,11 +55,10 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
 		String jwt = jwtProvider.generateJwtToken(authentication);
-		
-		//UserDetails userDetails = userdetailsservice.loadUserByUsername(authentication.getName());
-		
 
+		//UserDetails currentUser = (UserDetails) authentication.getPrincipal();
+		UserPrinciple currentUser = (UserPrinciple) authentication.getPrincipal();
 
-		return ResponseEntity.ok(new JwtResponse(jwt, authentication.getName(), authentication.getAuthorities()));
+		return ResponseEntity.ok(new JwtResponse(jwt, currentUser.getUsername(), currentUser.getName(), currentUser.getAuthorities()));
 	}
 }
