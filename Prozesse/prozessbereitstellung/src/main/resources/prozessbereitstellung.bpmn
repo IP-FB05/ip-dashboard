@@ -322,6 +322,11 @@ ${errorlog}</camunda:inputParameter>
     <bpmn:sequenceFlow id="SequenceFlow_0yl3xzy" sourceRef="SendTask_0i3j7ab" targetRef="EndEvent_0mry05r" />
     <bpmn:dataStoreReference id="DataStoreReference_1pxue6o" name="DashboardDB" />
     <bpmn:serviceTask id="Task_0lj1gc2" name="BPMN hochladen" camunda:asyncBefore="true" camunda:class="de.fhaachen.prozessbereitstellung.UploadBPMN">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="processDefinitionID">null</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0pdzqpg</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1g3x69o</bpmn:outgoing>
     </bpmn:serviceTask>
