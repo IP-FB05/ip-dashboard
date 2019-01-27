@@ -33,7 +33,7 @@
               </div>
               <div class="card-body" >
                 <p class="card-text" style="color:#656565;">{{process.description}}</p>
-                <a class="btn btn-secondary" routerLink="/detail/{{process.processID}}">MEHR</a>
+                <a class="btn btn-secondary dark-blue" routerLink="/detail/{{process.processID}}">MEHR</a>
                 <ng-container *ngIf="process.camunda_processID != 'None' && this.authService.isLoggedin">
                   <button class="btn btn-secondary start-process-btn" (click)="startProcess(process)">PROZESS STARTEN</button>
                 </ng-container> 
