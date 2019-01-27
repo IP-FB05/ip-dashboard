@@ -40,12 +40,12 @@ public class DBAuthentication implements JavaDelegate {
 				newAuth.setGroupId(group);
 
 				// add permissions
-//				newAuth.addPermission(Permissions.READ_INSTANCE);
-//				newAuth.addPermission(Permissions.UPDATE_INSTANCE);
-//				newAuth.addPermission(Permissions.CREATE_INSTANCE);
-//				newAuth.addPermission(Permissions.TASK_WORK);
-//				newAuth.addPermission(Permissions.UPDATE_TASK);
-				newAuth.addPermission(Permissions.ALL);
+				newAuth.addPermission(Permissions.READ_INSTANCE);
+				newAuth.addPermission(Permissions.UPDATE_INSTANCE);
+				newAuth.addPermission(Permissions.CREATE_INSTANCE);
+				newAuth.addPermission(Permissions.READ_HISTORY);
+				newAuth.addPermission(Permissions.READ);
+				newAuth.addPermission(Permissions.UPDATE);
 
 				// save Authorization
 				authService.saveAuthorization(newAuth);
