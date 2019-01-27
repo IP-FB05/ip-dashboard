@@ -274,8 +274,7 @@ ${errorlog}</camunda:inputParameter>
       <bpmn:extensionElements>
         <camunda:inputOutput>
           <camunda:inputParameter name="subject">Deployment</camunda:inputParameter>
-          <camunda:inputParameter name="text">Bei dem Deployen eines Prozesses ist ein Fehler aufgetreten. Es ist schon ein Deployment mit der gleichen ID vorhanden. Versionierung wird zurzeit noch nicht supported.
-</camunda:inputParameter>
+          <camunda:inputParameter name="text">Bei dem Deployen eines Prozesses ist ein Fehler aufgetreten. Es ist schon ein Deployment mit der gleichen ID vorhanden. Versionierung wird zurzeit noch nicht supported.</camunda:inputParameter>
         </camunda:inputOutput>
       </bpmn:extensionElements>
       <bpmn:incoming>SequenceFlow_0jzf4bi</bpmn:incoming>
@@ -289,7 +288,7 @@ ${errorlog}</camunda:inputParameter>
     <bpmn:sequenceFlow id="SequenceFlow_1ep086l" sourceRef="Task_09k7k1c" targetRef="ExclusiveGateway_1mcufvn" />
     <bpmn:sequenceFlow id="SequenceFlow_0zc8m57" sourceRef="Task_1bfjlpp" targetRef="IntermediateThrowEvent_1yalxvb" />
     <bpmn:sequenceFlow id="SequenceFlow_1a5457s" name="Ja" sourceRef="ExclusiveGateway_0ub8bts" targetRef="Task_18n94uw">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${war != null}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${automatisiert}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_071gxpb" name="Nein" sourceRef="ExclusiveGateway_0ub8bts" targetRef="ExclusiveGateway_0i0tlx5" />
     <bpmn:sequenceFlow id="SequenceFlow_1p1qu4f" sourceRef="Task_13xkjx4" targetRef="EndEventProcessEnded" />
@@ -303,7 +302,7 @@ ${errorlog}</camunda:inputParameter>
     <bpmn:sequenceFlow id="SequenceFlow_0wea333" sourceRef="Task_0u76mm0" targetRef="ExclusiveGateway_19wdxe9" />
     <bpmn:sequenceFlow id="SequenceFlow_13gqtl8" sourceRef="SendTask_0fv8466" targetRef="EndEvent_19tjfbo" />
     <bpmn:sequenceFlow id="SequenceFlow_1r9r4y9" name="Ja" sourceRef="ExclusiveGateway_19wdxe9" targetRef="Task_0f2gk08">
-      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${war != null}</bpmn:conditionExpression>
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${automatisiert}</bpmn:conditionExpression>
     </bpmn:sequenceFlow>
     <bpmn:sequenceFlow id="SequenceFlow_0kvwyyw" sourceRef="Task_0f2gk08" targetRef="ExclusiveGateway_05gej8j" />
     <bpmn:sequenceFlow id="SequenceFlow_1sa9nu0" name="Nein" sourceRef="ExclusiveGateway_19wdxe9" targetRef="ExclusiveGateway_16eickf" />
