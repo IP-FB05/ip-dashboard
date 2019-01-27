@@ -52,7 +52,7 @@ public class UploadBPMN implements JavaDelegate {
 		}
 
 		// set path
-		String path = "http://localhost:9090/files/" + tempFile.getName();
+		String path = "http://ip-dash.ddnss.ch:9090/files/" + tempFile.getName();
 		execution.setVariable("bpmnpath", path);
 
 		// delete temp file
