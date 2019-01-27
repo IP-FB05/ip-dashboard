@@ -5,13 +5,20 @@
         <div class="col-md-3">
           <div class="card-deck h-100 mb-3 fix">
             <div class="card">
-              <div class="card-header" style="background:#00b5ad; font-size:16px;">{{instance.processDefinitionName}}</div>
+              <div class="card-header" style=" background: rgba(0,97,92,1);
+              background: -moz-linear-gradient(-45deg, rgba(0,97,92,1) 0%, rgba(0,110,103,1) 31%, rgba(0,120,110,1) 53%, rgba(0,122,112,1) 78%, rgba(0,112,106,1) 100%);
+              background: -webkit-gradient(left top, right bottom, color-stop(0%, rgba(0,97,92,1)), color-stop(31%, rgba(0,110,103,1)), color-stop(53%, rgba(0,120,110,1)), color-stop(78%, rgba(0,122,112,1)), color-stop(100%, rgba(0,112,106,1)));
+              background: -webkit-linear-gradient(-45deg, rgba(0,97,92,1) 0%, rgba(0,110,103,1) 31%, rgba(0,120,110,1) 53%, rgba(0,122,112,1) 78%, rgba(0,112,106,1) 100%);
+              background: -o-linear-gradient(-45deg, rgba(0,97,92,1) 0%, rgba(0,110,103,1) 31%, rgba(0,120,110,1) 53%, rgba(0,122,112,1) 78%, rgba(0,112,106,1) 100%);
+              background: -ms-linear-gradient(-45deg, rgba(0,97,92,1) 0%, rgba(0,110,103,1) 31%, rgba(0,120,110,1) 53%, rgba(0,122,112,1) 78%, rgba(0,112,106,1) 100%);
+              background: linear-gradient(135deg, rgba(0,97,92,1) 0%, rgba(0,110,103,1) 31%, rgba(0,120,110,1) 53%, rgba(0,122,112,1) 78%, rgba(0,112,106,1) 100%);
+              filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00615c', endColorstr='#00706a', GradientType=1 ); font-size:16px; color:white !important;">{{instance.processDefinitionName}}</div>
               <div class="card-body">
                 <p class="card-text"> <span style="color:#00b5ad;" > <mat-icon style="margin-right:10px;">alarm</mat-icon></span>Gestartet von User: {{instance.startUserId}}</p>
                 <ng-container *ngFor="let task of tasks">
                   <ng-container *ngIf="task.processInstanceId == instance.id">
                       <ng-container *ngIf="task.description != NULL">
-                        <p>Beschreibung des aktuellen Tasks: {{task.description}}</p>
+                        <p style="font-style: italic;">Beschreibung des aktuellen Tasks: {{task.description}}</p>
                       </ng-container>
                     <button class="btn btn-secondary" (click)="doTask(instance)">{{task.name}}.</button>
                   </ng-container>
@@ -29,13 +36,13 @@
         <ng-container *ngIf="task.processInstanceId == instance.id">
         <div class="col-md-3">
           <div class="card-deck h-100 mb-3 fix">
-            <div class="card">
+            <div class="card" style="font-size:16px; color:#737373 !important;">
               <div class="card-header">{{instance.processDefinitionName}}</div>
               <div class="card-body">
                 <p class="card-text">Gestartet am: {{instance.startTime}}</p>
                 <p class="card-text">Gestartet von User: {{instance.startUserId}}</p>
                   <ng-container *ngIf="task.description != NULL">
-                    <p>Beschreibung des aktuellen Tasks: {{task.description}}</p>
+                    <p style="font-style: italic;">Beschreibung des aktuellen Tasks: {{task.description}}</p>
                   </ng-container>
                   <button class="btn btn-secondary" (click)="doTask(instance)">{{task.name}}.</button>
               </div>
