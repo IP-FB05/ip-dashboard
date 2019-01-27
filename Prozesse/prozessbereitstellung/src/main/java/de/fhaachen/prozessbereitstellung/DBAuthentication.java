@@ -11,8 +11,21 @@ import java.util.List;
 
 public class DBAuthentication implements JavaDelegate {
 
+	public void execute(DelegateExecution execution) {
 
-    public void execute(DelegateExecution execution){                            
+		// get Authentication Service
+		AuthorizationService authService = execution.getProcessEngineServices().getAuthorizationService();
+
+		// get groups
+		@SuppressWarnings("unchecked")
+		List<String> groups = (List<String>) execution.getVariable("groups");
+		Authorization newAuth;
+
+		String groupString = "";
+
+		for (String group : groups) {
+			if (authService.createAuthorizationQuery().resourceId((String) execution.getVariable("definitionId"))
+					.groupIdIn(group).list().size() == 0) {
 
 			// get Authentication Service
 			AuthorizationService authService = execution.getProcessEngineServices().getAuthorizationService();
@@ -33,33 +46,34 @@ public class DBAuthentication implements JavaDelegate {
 
 				// set Process as Ressource
 				newAuth.setResourceId((String) execution.getVariable("definitionId"));
-				
+
 				// set group
 				newAuth.setGroupId(group);
-				
+
 				// add permissions
-//				newAuth.addPermission(Permissions.READ_INSTANCE);
-//				newAuth.addPermission(Permissions.UPDATE_INSTANCE);
-//				newAuth.addPermission(Permissions.CREATE_INSTANCE);
-//				newAuth.addPermission(Permissions.TASK_WORK);
-//				newAuth.addPermission(Permissions.UPDATE_TASK);
-				newAuth.addPermission(Permissions.ALL);
-				
+				newAuth.addPermission(Permissions.READ_INSTANCE);
+				newAuth.addPermission(Permissions.UPDATE_INSTANCE);
+				newAuth.addPermission(Permissions.CREATE_INSTANCE);
+				newAuth.addPermission(Permissions.READ_HISTORY);
+				newAuth.addPermission(Permissions.READ);
+				newAuth.addPermission(Permissions.UPDATE);
+
 				// save Authorization
 				authService.saveAuthorization(newAuth);
-				
-				groupString = groupString + group + ",";
-				
 			}
 			
-			if(!groupString.isEmpty()) {
-				groupString.substring(0, groupString.length() - 1);
-			}
-			else {
-				groupString = "admin,gast,mitarbeiter,professor,pruefungsamt,student";
-			}
-			
-			execution.setVariable("groupString", groupString);
+			groupString = groupString + group + ",";
+
+
+		}
+
+		if (!groupString.isEmpty()) {
+			groupString.substring(0, groupString.length() - 1);
+		} else {
+			groupString = "admin,gast,mitarbeiter,professor,pruefungsamt,student";
+		}
+
+		execution.setVariable("groupString", groupString);
 
 	}
 
