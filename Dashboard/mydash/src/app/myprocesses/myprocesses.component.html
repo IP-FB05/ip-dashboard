@@ -1,30 +1,32 @@
-<div class="processes">
-  <div class="row">
-    <ng-container *ngFor="let instance of instances">
-      <ng-container *ngIf="instance.state == 'ACTIVE'">
-        <div class="col-md-3">
-          <div class="card-deck h-100 mb-3 fix">
-            <div class="card">
-              <div class="card-header">{{instance.processDefinitionName}}</div>
-              <div class="card-body">
-                <p class="card-text">Gestartet am: {{instance.startTime}}</p>
-                <p class="card-text">Gestartet von User: {{instance.startUserId}}</p>
-                <ng-container *ngFor="let task of tasks">
-                  <ng-container *ngIf="task.processInstanceId == instance.id">
+<ng-container *ngIf="this.authService.isLoggedin; else guestView">
+  <div class="processes">
+    <div class="row">
+      <ng-container *ngFor="let instance of instances">
+        <ng-container *ngIf="instance.state == 'ACTIVE'">
+          <div class="col-md-3">
+            <div class="card-deck h-100 mb-3 fix">
+              <div class="card">
+                <div class="card-header">{{instance.processDefinitionName}}</div>
+                <div class="card-body">
+                  <p class="card-text">Gestartet am: {{instance.startTime}}</p>
+                  <p class="card-text">Gestartet von User: {{instance.startUserId}}</p>
+                  <ng-container *ngFor="let task of tasks">
+                    <ng-container *ngIf="task.processInstanceId == instance.id">
                       <ng-container *ngIf="task.description != NULL">
                         <p>Beschreibung des aktuellen Tasks: {{task.description}}</p>
                       </ng-container>
-                    <button class="btn btn-secondary" (click)="doTask(instance)">{{task.name}}.</button>
+                      <button class="btn btn-secondary" (click)="doTask(instance)">{{task.name}}.</button>
+                    </ng-container>
                   </ng-container>
-                </ng-container>
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </ng-container>
-    </ng-container>
+    </div>
   </div>
-</div>
+</ng-container>
 
 
 <ng-template #guestView>

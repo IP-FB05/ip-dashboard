@@ -1,5 +1,6 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { Router } from '@angular/router';
 
 import * as CamSDK from './../../../../bower_components/camunda-bpm-sdk-js/camunda-bpm-sdk.js';
 import 'jquery';
@@ -95,8 +96,8 @@ function showTasks(results) {
 
             // clear the form
             $formContainer.html('');
-            location.reload();
-          });
+            location.reload();            
+;          });
         });
 
         camForm.containerElement.append($submitBtn);
