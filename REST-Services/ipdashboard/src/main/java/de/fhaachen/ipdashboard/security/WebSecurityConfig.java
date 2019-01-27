@@ -64,7 +64,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().
                 authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
-                .antMatchers("/category/**").hasRole("ADMIN")
+                .antMatchers("/category/add", "/category/edit" , "/category/delete",
+                             "/document/add", "/document/delete",
+                             "/process/add", "/process/delete", "/processDeploy/**",
+                             "/system/add", "/system/delete",
+                             "/uploadFile", "/deleteFile", "/deleteFiles", "/deleteBPMN")
+                    .hasRole("ADMIN")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
