@@ -52,7 +52,7 @@ var taskService;
 function showTask(results) {
       // load the the task form (getting the task ID from the tag attribute)
       // TODO
-      loadTaskForm("prozessbereitstellung:6:0379d5aa-21a4-11e9-bf2e-b4b686e9bbd5", function(err, camForm) {
+      loadTaskForm("prozessbereitstellung:8:4b7af295-224f-11e9-a13c-b4b686e9bbd5", function(err, camForm) {
         if (err) {
           throw err;
         }

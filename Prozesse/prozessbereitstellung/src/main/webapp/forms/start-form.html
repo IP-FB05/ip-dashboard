@@ -26,7 +26,7 @@
 	<div class="control-group">
 		<label class="control-label">BPMN Datei</label>
 		<div class="controls">
-			<input type="file" cam-variable-name="bpmn" cam-variable-type="File"
+			<input type="file" required cam-variable-name="bpmn" cam-variable-type="File"
 				cam-max-filesize="10000000" />
 		</div>
 	</div>
@@ -35,9 +35,10 @@
 		<label class="control-label">automatisiert?</label>
 		<div class="controls">
 			<input type="checkbox" cam-variable-name="automatisiert"
-				cam-variable-type="Boolean" />
+				cam-variable-type="Boolean" class="form-control" />
 		</div>
 	</div>
+
 
 	<div id="war" class="control-group">
 		<label class="control-label">WAR Datei (optional)</label>
@@ -47,7 +48,4 @@
 		</div>
 	</div>
 
-	<script cam-script type="text/form-script">
-		
-  	</script>
 </form>
