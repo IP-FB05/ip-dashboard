@@ -37,7 +37,7 @@ export class DoTaskComponent implements OnInit {
     $formContainer = $('#task');
     camClient = new CamSDK.Client({
       mock: false,
-      apiUri: 'http://localhost:8080/engine-rest',
+      apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest',
       headers: {
         "Accept": "application/json",
         "Authorization": 'Basic ' + this.authorizationService.getAuthData(),

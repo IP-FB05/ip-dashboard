@@ -22,7 +22,7 @@ export class ProcessesDialogComponent implements OnInit {
     $formContainer = $('#deploy');
     camClient = new CamSDK.Client({
       mock: false,
-      apiUri: 'http://localhost:8080/engine-rest',
+      apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest',
       headers: {
         "Accept": "application/json",
         "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
@@ -45,17 +45,14 @@ declare var CamSDK: any;
 
 var $formContainer;
 
-var camClient = new CamSDK.Client({
-  mock: false,
-  apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest'
-});
+var camClient;
 
 var taskService;
 
 function showTask(results) {
       // load the the task form (getting the task ID from the tag attribute)
       // TODO
-      loadTaskForm("prozessbereitstellung:5:6fc664f2-2194-11e9-8c43-b4b686e9bbd5", function(err, camForm) {
+      loadTaskForm("prozessbereitstellung:6:0379d5aa-21a4-11e9-bf2e-b4b686e9bbd5", function(err, camForm) {
         if (err) {
           throw err;
         }
