@@ -20,11 +20,10 @@ import de.fhaachen.ipdashboard.model.ProcessInstance;
 
 @Controller
 @CrossOrigin(origins = "*")
-@RequestMapping(path = "/process")
 public class ProcessController {
 
     // GET
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/process/all", method = RequestMethod.GET)
     public Process[] getProcesses(@RequestParam String role) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         Process[] result = dash.getProcesses(role);
@@ -33,7 +32,7 @@ public class ProcessController {
     }
 
     // GET with ID
-    @RequestMapping(value = "/detail/{processID}", method = RequestMethod.GET)
+    @RequestMapping(value = "/process/detail/{processID}", method = RequestMethod.GET)
     public Process getProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         Process result = dash.getProcess(processID);
@@ -42,7 +41,7 @@ public class ProcessController {
     }
 
     // ADD
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/process/add", method = RequestMethod.POST)
     @ResponseBody
     public boolean addProcess(@RequestBody Process input) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
@@ -52,7 +51,7 @@ public class ProcessController {
     }
 
     // ADD ProcessInstance
-    @RequestMapping(value = "/processInstanceAdd", method = RequestMethod.POST)
+    @RequestMapping(value = "/process/processInstanceAdd", method = RequestMethod.POST)
     @ResponseBody
     public boolean addProcessInstance(@RequestBody ProcessInstance input) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
@@ -62,7 +61,7 @@ public class ProcessController {
     }
 
     // DELETE
-    @RequestMapping(value = "/delete/{processID}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/process/delete/{processID}", method = RequestMethod.DELETE)
     public boolean deleteProcess(@PathVariable int processID) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         boolean result = dash.deleteProcess(processID);
@@ -70,7 +69,7 @@ public class ProcessController {
         return result;
     }
 
-    @RequestMapping(value = "/getUserGroups", method = RequestMethod.GET)
+    @RequestMapping(value = "/process/getUserGroups", method = RequestMethod.GET)
     public String getUserGroupsFromProcess(@RequestParam int pid) throws SQLException, ClassNotFoundException {
         Dashboard dash = new Dashboard();
         String result = dash.getUserGroupsFromProcess(pid);
