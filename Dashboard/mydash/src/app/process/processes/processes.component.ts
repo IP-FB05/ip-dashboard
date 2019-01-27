@@ -15,6 +15,7 @@ import { LoginComponent } from 'src/app/login/login.component';
 import { ProcessService } from '../process.service';
 import { AuthService } from '../../login/auth/auth.service';
 import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
+import { ConstantPool } from '@angular/compiler';
 
 
 
@@ -39,7 +40,12 @@ export class ProcessesComponent implements OnInit {
     private token: TokenStorageService) { }
 
   ngOnInit() {
-    this.role = this.token.getAuthorities().toString().toLowerCase();
+
+    if (window.sessionStorage.length > 0) {
+      this.role = this.token.getAuthorities().toString().toLowerCase().substring(5);
+    } else {
+      this.role = this.token.getRole();
+    }
     this.getProcesses(this.role);
   }
 
@@ -87,11 +93,11 @@ export class ProcessesComponent implements OnInit {
     this.dialogRef = this.dialog.open(ProcessesDeleteDialogComponent, {
       disableClose: false
     });
-    
+
     this.dialogRef.componentInstance.confirmMessage = "Wollen Sie diesen Prozess wirklich löschen ?"
 
     this.dialogRef.afterClosed().subscribe(data => {
-      if(data) this.delete(process);
+      if (data) this.delete(process);
 
       this.dialogRef = null;
     });

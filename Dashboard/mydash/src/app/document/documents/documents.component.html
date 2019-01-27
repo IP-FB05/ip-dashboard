@@ -38,7 +38,7 @@
                         <td><a href={{document.link}} style="color: black">{{document.name}}</a></td>
                         <td>{{document.categoriename}}</td>
                         <td>{{document.lastChanged}}</td>
-                        <ng-container *ngIf="this.token.roles.includes('admin','pruefungsamt', 'professor', 'mitarbeiter')">
+                        <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
                         <td><button class="delete-dark" (click)="openDeleteDialog(document)" matTooltip="Löschen" matTooltipPosition="right">x</button></td>
                         </ng-container>
                     </tr>
@@ -47,7 +47,7 @@
         </div>
         <!--Dokumente-->
 
-        <ng-container *ngIf="this.token.roles.includes('admin','pruefungsamt', 'professor', 'mitarbeiter')">
+        <ng-container *ngIf="this.token.roles.includes('role_admin','role_pruefungsamt', 'role_professor', 'role_mitarbeiter')">
 
             <!--Dokumente hochladen-->
             <div class="col-md-3" style="margin-bottom:20px;">

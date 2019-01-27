@@ -10,6 +10,7 @@ import { Process } from '../process';
 // Import Services
 import { ProcessService }  from '../process.service';
 import { AuthService } from '../../login/auth/auth.service';
+import { TokenStorageService } from 'src/app/login/auth/token-storage.service';
 
 @Component({
   selector: 'app-process-detail',
@@ -24,7 +25,8 @@ export class ProcessDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private processService: ProcessService,
     private location: Location,
-    public authService: AuthService
+    public authService: AuthService,
+    private token: TokenStorageService
   ) {}
 
   ngOnInit() {

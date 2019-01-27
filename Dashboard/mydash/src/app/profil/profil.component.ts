@@ -52,12 +52,29 @@ export class ProfilComponent implements OnInit {
   notification: Notification;
 
   info: any;
+  username: String;
+  role: String;
 
 
   private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 
+    this.info = {
+      token: this.token.getToken(),
+      username: this.token.getUsername(),
+      name: this.token.getName(),
+      authorities: this.token.getAuthorities().toString().substring(5)
+    };
+
+    if (window.sessionStorage.length > 0) {
+      this.role = this.token.getAuthorities().toString().toLowerCase().substring(5);
+    } else {
+      this.role = this.token.getRole();
+    }
+
+    this.username = this.token.getUsername();
+    
     this.formProcessSub = new FormGroup({
       processSubControl: new FormControl()
     });
@@ -66,7 +83,7 @@ export class ProfilComponent implements OnInit {
       processRunningSubControl: new FormControl()
     });
 
-    this.getProcesses().subscribe(process => this.processes = process);
+    this.getProcesses(this.role).subscribe(process => this.processes = process);
 
     this.subsService.getMySuscribedProcesses(this.authService.currentUser.id)
       .subscribe(process => this.subscribedProcesses = process);
@@ -76,16 +93,10 @@ export class ProfilComponent implements OnInit {
 
     this.subsService.getRunningProcesses()
       .subscribe(process => this.runningProcesses = process);
-
-    this.info = {
-      token: this.token.getToken(),
-      username: this.token.getUsername(),
-      authorities: this.token.getAuthorities()
-    };
   }
 
-  public getProcesses() {
-    return this.processService.getProcesses(this.authService.currentUser.role);
+  public getProcesses(role: String) {
+    return this.processService.getProcesses(role);
   }
 
   public getProcessById(id: number) {
@@ -94,7 +105,7 @@ export class ProfilComponent implements OnInit {
 
   subscribeProcess() {
     var curProcessID = this.formProcessSub.controls.processSubControl.value.trim();
-    var curUsername = this.authService.currentUser.id.trim();
+    var curUsername = this.username.trim();
     if (!curProcessID || !curUsername) {
       return;
     }
@@ -111,7 +122,7 @@ export class ProfilComponent implements OnInit {
 
   subscribeRunningProcess() {
     var curProcessID = this.formRunningProcessSub.controls.processRunningSubControl.value.trim();
-    var curUsername = this.authService.currentUser.id.trim();
+    var curUsername = this.username.trim();
     if (!curProcessID || !curUsername) {
       return;
     }
@@ -129,7 +140,7 @@ export class ProfilComponent implements OnInit {
 
   deleteSubscribedProcess(process: Process) {
     this.subscribedProcesses = this.subscribedProcesses.filter(p => p !== process);
-    var curUsername = this.authService.currentUser.id.trim();
+    var curUsername = this.username.trim();
     if (!process.processID || !curUsername) {
       return;
     }
@@ -144,7 +155,7 @@ export class ProfilComponent implements OnInit {
 
   deleteSubscribedRunningProcess(process: Process) {
     this.subscribedProcessInstances = this.subscribedProcessInstances.filter(p => p !== process);
-    var curUsername = this.authService.currentUser.id.trim();
+    var curUsername = this.username.trim();
     if (!process.processID || !curUsername) {
       return;
     }
@@ -158,7 +169,7 @@ export class ProfilComponent implements OnInit {
   }
 
   eventNotification(e) {
-    var curUsername = this.authService.currentUser.id.trim();
+    var curUsername = this.username.trim();
     this.notification = new Notification(curUsername);
     console.log(this.notification);
     if (e.target.checked) {

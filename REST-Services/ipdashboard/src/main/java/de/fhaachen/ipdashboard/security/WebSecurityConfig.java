@@ -63,13 +63,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().
                 authorizeRequests()
-                .antMatchers("/api/auth/**", "/system/all", "/document/all", "/process/all", "/category/all").permitAll()
+                .antMatchers("/api/auth/**", "/files/**", "/system/all", "/document/all", "/document/documentsLimit", "/process/all", "/process/detail/**", "/category/all").permitAll()
                 .antMatchers("/category/add", "/category/edit" , "/category/delete",
                              "/document/add", "/document/delete",
                              "/process/add", "/process/delete", "/processDeploy/**",
                              "/system/add", "/system/delete",
                              "/uploadFile", "/deleteFile", "/deleteFiles", "/deleteBPMN")
-                    .hasRole("ADMIN")
+                    .hasRole("ADMIN, MITARBEITER, PROFESSOR, PRUEFUNGSAMT")
                 .anyRequest().authenticated()
                 .and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()

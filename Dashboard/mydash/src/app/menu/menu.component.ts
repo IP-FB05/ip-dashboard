@@ -30,7 +30,8 @@ export class MenuComponent implements OnInit {
     this.info = {
       token: this.token.getToken(),
       username: this.token.getUsername(),
-      authorities: this.token.getAuthorities()
+      name: this.token.getName(),
+      authorities: this.token.getAuthorities().toString().substring(5),
     };
   }
 

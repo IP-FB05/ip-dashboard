@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { User } from '../user';
 
 const TOKEN_KEY = 'AuthToken';
@@ -10,8 +10,12 @@ const NAME_KEY = 'AuthName';
   providedIn: 'root'
 })
 export class TokenStorageService {
+
+
+ 
   private roles: Array<string> = [];
   private rolestoString: string = "";
+  private role: string = 'Gast';
 
   constructor() { }
 
@@ -50,7 +54,6 @@ export class TokenStorageService {
         this.roles.push(authority.authority);
       });
     }
-
     return this.roles;
   }
 
@@ -67,6 +70,10 @@ export class TokenStorageService {
 
   public getName(): string {
     return sessionStorage.getItem(NAME_KEY);
+  }
+
+  public getRole(): string {
+    return this.role;
   }
   
 }
