@@ -47,7 +47,7 @@ body {
    background-color:#ececec;
    font-weight: 100 !important;
     font-size: 18px;
-    color: #737373;
+    color: #737373 !important;
 }
 
 .card-header h4 {
