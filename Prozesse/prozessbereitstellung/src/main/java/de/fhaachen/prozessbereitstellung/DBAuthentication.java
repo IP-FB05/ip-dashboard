@@ -27,20 +27,9 @@ public class DBAuthentication implements JavaDelegate {
 			if (authService.createAuthorizationQuery().resourceId((String) execution.getVariable("definitionId"))
 					.groupIdIn(group).list().size() == 0) {
 
-			// get Authentication Service
-			AuthorizationService authService = execution.getProcessEngineServices().getAuthorizationService();
-			
-			// get groups
-			@SuppressWarnings("unchecked")
-			List<String> groups = (List<String>) execution.getVariable("groups");
-			Authorization newAuth;
-			
-			String groupString = "";
-			
-			for (String group : groups) {
 				// create Authorization
 				newAuth = authService.createNewAuthorization(Authorization.AUTH_TYPE_GRANT);
-				
+
 				// set Resource Type
 				newAuth.setResourceType(Resources.PROCESS_DEFINITION.resourceType());
 
