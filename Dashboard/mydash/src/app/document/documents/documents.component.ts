@@ -89,8 +89,7 @@ export class DocumentsComponent implements OnInit {
     let dialogRef = this.dialog.open(DocumentsDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
-      this.add(data);
+      if(data != 'Cancel') this.add(data);
     });
   }
 
@@ -105,8 +104,8 @@ export class DocumentsComponent implements OnInit {
   }
 
   compareDate(a, b) {
-    if (a.lastChanged < b.lastChanged) return -1;
-    if (a.lastChanged > b.lastChanged) return 1;
+    if (a.lastChanged > b.lastChanged) return -1;
+    if (a.lastChanged < b.lastChanged) return 1;
   }
 
 }

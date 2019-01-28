@@ -12,13 +12,16 @@ public class cloneExcel implements JavaDelegate {
     public void execute(DelegateExecution execution) {
 
         try{
-
+    		//Pfade für die Exceldateien einlesen
             String path = execution.getVariable("excelPath").toString();
             String dest = execution.getVariable("excelDest").toString();
+            
+            //Excel laden
             File excelFile = new File(path);
             FileInputStream fis = new FileInputStream(excelFile);
             XSSFWorkbook workbook = new XSSFWorkbook(fis);
 
+            //Unter anderen Namen speichern
             FileOutputStream fileOut = new FileOutputStream(dest);
             workbook.write(fileOut);
             fileOut.close();
