@@ -41,13 +41,13 @@ export class MyprocessesComponent implements OnInit {
       .subscribe(tasks => this.tasks = tasks);
   }
 
-  doTask(instance: ProcessInstance) {
+  doTask(task: Tasks) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
 
     dialogConfig.data = {
-      instance: instance.id
+      tasks: task.id
     };
 
     let dialogRef = this.dialog.open(DoTaskComponent, dialogConfig);

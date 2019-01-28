@@ -30,7 +30,7 @@ export class DoTaskComponent implements OnInit {
     private doTaskService: DoTaskService,
     public thisDialogRef: MatDialogRef<DoTaskComponent>,
     @Inject(MAT_DIALOG_DATA) data) { 
-      instance = data.instance;
+      taskId = data.tasks;
   };
 
   ngOnInit() {
@@ -87,7 +87,7 @@ function showTasks(results) {
   var items = results[0].id;
   
       // load the the task form (getting the task ID from the tag attribute)
-      loadTaskForm(items, function(err, camForm) {
+      loadTaskForm(taskId, function(err, camForm) {
         if (err) {
           throw err;
         }
