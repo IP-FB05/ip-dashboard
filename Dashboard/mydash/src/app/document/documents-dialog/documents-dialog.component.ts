@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
+import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 
@@ -41,6 +41,7 @@ export class DocumentsDialogComponent implements OnInit {
     public cs: CategoryService,
     public uploadService: UploadFileService,
     public fb: FormBuilder,
+    public snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<DocumentsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {documentID, categoriename, name, lastChanged, link }: Document) { 
 
@@ -63,6 +64,8 @@ export class DocumentsDialogComponent implements OnInit {
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
+    this.openSnackBar("Vorgang abgebrochen");
+
   }
 
   getSelectedValue(event: string) {
@@ -90,4 +93,10 @@ export class DocumentsDialogComponent implements OnInit {
  
     this.selectedFiles = undefined;
   }  
+
+  openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
+  }
 }

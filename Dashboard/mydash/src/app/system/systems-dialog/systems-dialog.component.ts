@@ -18,6 +18,7 @@ export class SystemsDialogComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
+    public snackBar: MatSnackBar,
     public thisDialogRef: MatDialogRef<SystemsDialogComponent>,
     @Inject(MAT_DIALOG_DATA) {systemID, name, description, link }: System) {
 
@@ -37,5 +38,12 @@ export class SystemsDialogComponent implements OnInit {
   }
   onCloseCancel() {
     this.thisDialogRef.close('Cancel');
+    this.openSnackBar("Vorgang abgebrochen");
+  }
+
+  openSnackBar(text: string) {
+    this.snackBar.open(text, '', {
+      duration: 2000,
+    });
   }
 }

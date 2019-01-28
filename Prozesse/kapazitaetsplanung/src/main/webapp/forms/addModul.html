@@ -1,0 +1,419 @@
+<form class="form-horizontal">
+    <div class="control-group">
+        <div id=ModulParent>
+            <div class="row">
+
+                <div class="col-sm-6">
+                    <label class="control-label">Fach eintragen</label>
+                    <div class="panel panel-default panel-body">
+                        <div class="row">
+                            <div class="controls col-sm-12" style="margin-bottom: 25px;">
+                                <label class="control-label">Fach name</label>
+                                <div class="controls">
+                                    <input type="text" id="fachName" required class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="controls controls col-sm-3">
+                                <label class="control-label">Semester</label>
+                                <div class="controls">
+                                    <input type="text" id="semester" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="controls col-sm-3">
+                                <label class="control-label">Semesterart</label>
+                                <div class="controls">
+                                    <input type="text" id="semesterart" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="controls col-sm-3">
+                                <label class="control-label">Wahlmodul</label>
+                                <div class="controls">
+                                    <input type="checkbox" id="wahlmodul" required class="form-control" />
+                                </div>
+                            </div>
+                            <div class="controls col-sm-3">
+                                <label class="control-label">Findet nicht statt</label>
+                                <div class="controls">
+                                    <input type="checkbox" id="nichtAnbieten" required class="form-control" />
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div id="HoAdd" class="row" style="margin-bottom: 15px;">
+
+                    </div>
+                    <button type="button" id="AddNewhoerer" class="btn btn-success">H&ouml;rer hinzuf&uuml;gen</button>
+                    <button type="button" id="DeleteHo" class="btn btn-warning">H&ouml;rer entfernen</button>
+                </div>
+
+
+
+                <div class="col-sm-6">
+                    <label class="control-label">Stunden verwalten</label>
+                    <div class="panel panel-default panel-body">
+                        <label class="control-label">SWS</label>
+                        <div class="controls" style="margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-sm-4">
+                                    <label class="control-label">Vorlesung</label>
+                                    <input type="text"
+                                           id="AV"
+                                           required
+                                           class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="control-label">&Uuml;bung</label>
+                                    <input type="text"
+                                           id="AU"
+                                           required
+                                           class="form-control" />
+                                </div>
+                                <div class="col-sm-4">
+                                    <label class="control-label">Praktikum</label>
+                                    <input type="text"
+                                           id="AP"
+                                           required
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="control-label">&Uuml;bungen</label>
+                        <div class="controls" style="margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label">Anzahl von &Uuml;bungsgruppen</label>
+                                    <input type="text"
+                                           id="BU"
+                                           required
+                                           class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">Anzahl Studierende pro &Uuml;bungsgruppen</label>
+                                    <input type="text"
+                                           id="BP"
+                                           required
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="control-label">Praktikum</label>
+                        <div class="controls" style="margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label">Tats. Anzahl von Praktikumsgruppen</label>
+                                    <input type="text"
+                                           id="CP"
+                                           required
+                                           class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">Aufw&auml;nde von Prof. und MAs in Summe</label>
+                                    <input type="text"
+                                           id="CS"
+                                           required
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+
+                        <label class="control-label">Vom Prof. gehalten</label>
+                        <div class="controls" style="margin-bottom: 25px;">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label class="control-label">Praktikum</label>
+                                    <input type="text"
+                                           id="DP"
+                                           required
+                                           class="form-control" />
+                                </div>
+                                <div class="col-sm-6">
+                                    <label class="control-label">&Uuml;bung</label>
+                                    <input type="text"
+                                           id="DU"
+                                           required
+                                           class="form-control" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="MaAdd" style="margin-bottom: 15px;">
+                    </div>
+                    <button type="button" id="AddNewMa" class="btn btn-success">Mitarbeiter hinzuf&uuml;gen</button>
+                    <button type="button" id="DeleteMa" class="btn btn-warning">Mitarbeiter entfernen</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+    <script cam-script type="text/form-script">
+
+
+
+    var variableManager = camForm.variableManager;
+    var modules;
+    var HoNr = 0;
+    var MaNr = 0;
+    var modulID;
+    var modulCount;
+    var profName;
+
+	
+    camForm.on('form-loaded', function() {
+		//Anfangsdaten fetchen
+        variableManager.fetchVariable('loadedModules');
+        variableManager.fetchVariable('modulCurrent');
+        variableManager.fetchVariable('modulCount');
+        variableManager.fetchVariable('skip');
+        variableManager.fetchVariable('prof_name');
+    });
+
+    camForm.on('variables-fetched', function() {
+		//Anfangsdaten laden
+        var skip = variableManager.variableValue('skip');
+        modules = variableManager.variableValue('loadedModules');
+        modulID = variableManager.variableValue('modulCurrent');
+        modulCount = variableManager.variableValue('modulCount');
+        profName = variableManager.variableValue('prof_name');
+
+		//wenn Geladene Module gefunden worden, wird hier das Formular automatisch ausgefüllt
+        if(skip == false){
+
+            modules = JSON.parse(modules);
+            modules = modules[modulID];
+            modules = JSON.parse(modules);
+
+            document.getElementById("fachName").value = modules.ModulName;
+
+            if(modules.Wahlfach == ""){
+                document.getElementById("wahlmodul").checked = false;
+            }
+            else{
+                document.getElementById("wahlmodul").checked = true;
+            }
+
+            if(modules.NichtAnbieten == ""){
+                document.getElementById("nichtAnbieten").checked = false;
+            }
+            else{
+                document.getElementById("nichtAnbieten").checked = true;
+            }
+
+            document.getElementById("AV").value = modules.AV;
+            document.getElementById("AP").value = modules.AP;
+            document.getElementById("AU").value = modules.AU;
+
+            document.getElementById("BU").value = modules.BU;
+            document.getElementById("BP").value = modules.BP;
+
+            document.getElementById("CP").value = modules.CP;
+            document.getElementById("CS").value = modules.CS;
+
+            document.getElementById("DP").value = modules.DP;
+            document.getElementById("DU").value = modules.DU;
+
+
+            document.getElementById("semester").value = modules.Semester;
+            document.getElementById("semesterart").value = modules.Jahreszeit;
+
+
+            var hoerer = modules.Hoerer;
+            var hoerer_elements = new Array();
+            hoerer_elements = hoerer.substring(1, hoerer.length-1).replace(/\s/g, '').split(',');
+            for(var i = 0; i < hoerer_elements.length; i++)
+            {
+                AddHoFunction();
+                var hoID = 'Hoerer' + HoNr;
+
+                document.getElementById(hoID).value = hoerer_elements[i];
+            }
+
+            var mitarbiter = modules.Mitarbiter;
+            var mitarbiter_elements = new Array();
+            mitarbiter_elements = mitarbiter.substring(1, mitarbiter.length-1).replace(/\s/g, '').split(',');
+            for(var i = 0; i < mitarbiter_elements.length; i++)
+            {
+                var thisMa = new Array();
+                thisMa = mitarbiter_elements[i].split('|');
+                AddMaFunction();
+                var hoID = 'Mitarbeiter' + MaNr;
+                document.getElementById(hoID).value = thisMa[0];
+
+                hoID = 'MU' + MaNr;
+                document.getElementById(hoID).value = thisMa[1];
+
+                hoID = 'MP' + MaNr;
+                document.getElementById(hoID).value = thisMa[2];
+            }
+        }
+    });
+
+
+	//Hinzufügen eines neuen Mitarbeiters
+    document.getElementById("AddNewMa").onclick = function() {AddMaFunction()};
+    function AddMaFunction() {
+
+		//Hinzufügen des HTML Codes
+        MaNr = MaNr + 1;
+        var html = [
+            '<div class="row" id="Ma' + MaNr + 'div">',
+                '<div class="col-sm-4">',
+                    '<label class="control-label">Mitarbeiter</label>',
+                    '<div class="w-100">',
+                        '<select class="w-100" id="Mitarbeiter' + MaNr + '">',
+                            '<option>Hensgens</option>',
+                            '<option>Erbach</option>',
+                            '<option>Stüttgen</option>',
+                        '</select>',
+                    '</div>',
+                '</div>',
+                '<div class="col-sm-4">',
+                    '<label class="control-label">Übung</label>',
+                    '<input type="text" id="MU' + MaNr + '" required class="form-control" />',
+                '</div>',
+                '<div class="col-sm-4">',
+                    '<label class="control-label">Praktikum</label>',
+                    '<input type="text" id="MP' + MaNr + '" required class="form-control" />',
+                '</div>',
+            '</div>'
+        ].join('');
+
+		//In Form einfügen
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        document.getElementById('MaAdd').appendChild(div);
+
+    }
+
+
+	//Hinzufügen eines neuen Mitarbeiters
+    document.getElementById("AddNewhoerer").onclick = function() {AddHoFunction()};
+    function AddHoFunction() {
+
+		//Hinzufügen des HTML Codes
+        HoNr = HoNr + 1;
+        var html = [
+            '<div class="controls col-sm-9" id="Ho' + HoNr + 'div">',
+                '<label class="control-label">Hörer</label>',
+                '<div class="w-100">',
+                    '<select id="Hoerer'+HoNr+'">',
+                        '<option value="B-Inf."> B-INF</option>',
+                        '<option value="B-SBE ">B-SBE</option>',
+                        '<option value="B-WI">  B-WI</option>',
+                        '<option value="B-ET(NT)"> B-ET(NT)</option>',
+                        '<option value="B-ET(AT)"> B-ET(AT)</option>',
+                        '<option value="B-ET(FZ)"> B-ET(FZ)</option>',
+                        '<option value="B-MCD"> B-MCD</option>',
+                        '<option value="B-Mec."> B-MEC</option>',
+                        '<option value="M-ISE"> M-ISE</option>',
+                        '<option value="M-FZE"> M-FZE</option>',
+                        '<option value="M-NT"> M-NT</option>',
+                        '<option value="M-AT"> M-AT</option>',
+                        '<option value="M-Mec."> M-MEC</option>',
+                    '</select>',
+                '</div>',
+            '</div>'
+        ].join('');
+
+		//In Form einfügen
+        var div = document.createElement('div');
+        div.innerHTML = html;
+        document.getElementById('HoAdd').appendChild(div);
+
+    }
+
+	//Letzten Mitarbeiter löschen
+    document.getElementById("DeleteMa").onclick = function() {DeleteMAFunction()};
+    function DeleteMAFunction() {
+
+        var elementID = 'Ma' + MaNr + 'div';
+        document.getElementById(elementID).remove();
+
+        MaNr = MaNr - 1;
+    }
+
+	//Letzten Hörer löschen
+    document.getElementById("DeleteHo").onclick = function() {DeleteHoFunction()};
+    function DeleteHoFunction() {
+
+        var elementID = 'Ho' + HoNr + 'div';
+        document.getElementById(elementID).remove();
+
+        HoNr = HoNr - 1;
+    }
+
+
+    var modulList = [];
+    var variableManager = camForm.variableManager;
+
+	//Wenn Camunda Form abgeschlossen wird
+    camForm.on('submit', function(evt) {
+        modulID = modulID + 1;
+        variableManager.variableValue('modulCurrent', modulID);
+
+        if(modulID >= modulCount){
+            variableManager.variableValue('skip', true);
+        }
+
+		//Variablen aus den Forms Laden
+        modulList.push({FachName: document.getElementById('fachName').value});
+        modulList.push({SemesterArt: document.getElementById('semesterart').value});
+        modulList.push({Semester: document.getElementById('semester').value});
+        modulList.push({Wahlmodul: document.getElementById('wahlmodul').checked});
+		modulList.push({NichtAnbieten: document.getElementById('nichtAnbieten').checked});
+
+        var HoArr = "";
+        for (let i = 1; i < HoNr + 1; i++) {
+            var key = 'Hoerer'+i;
+            HoArr = HoArr + "," + document.getElementById(key).value;
+        }
+        HoArr = HoArr.substring(1);
+        modulList.push({Hoerer: HoArr});
+
+        modulList.push({AV: document.getElementById('AV').value});
+        modulList.push({AU: document.getElementById('AU').value});
+        modulList.push({AP: document.getElementById('AP').value});
+
+        modulList.push({BU: document.getElementById('BU').value});
+        modulList.push({BP: document.getElementById('BP').value});
+
+        modulList.push({CP: document.getElementById('CP').value});
+        modulList.push({CS: document.getElementById('CS').value});
+
+        modulList.push({DU: document.getElementById('DU').value});
+        modulList.push({DP: document.getElementById('DP').value});
+
+        var MaArr = "";
+
+        for (let i = 1; i <  MaNr + 1; i++) {
+            var key = 'Mitarbeiter'+i;
+            var Ma = document.getElementById(key).value;
+
+            key = 'MU'+i;
+            var MU = document.getElementById(key).value;
+
+            key = 'MP'+i;
+            var MP = document.getElementById(key).value;
+
+            MaArr = MaArr + "," + Ma + ":" + MU + ":" + MP;
+        }
+        MaArr = MaArr.substring(1);
+        modulList.push({Mitarbiter: MaArr});
+
+		//Variable als JSON Prozess variable übergeben, da eine Speicherung von JS zu excel zu aufwändig ist
+        variableManager.createVariable({
+            name: profName + modulID,
+            type: 'String',
+            value: JSON.stringify(modulList)
+        });
+    });
+  </script>
+</form>

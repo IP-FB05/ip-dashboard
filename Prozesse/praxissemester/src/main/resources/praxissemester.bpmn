@@ -105,7 +105,7 @@
     <bpmn:sequenceFlow id="SequenceFlow_1mr2m7m" sourceRef="Task_0zxg2u3" targetRef="Task_190v7ig" />
     <bpmn:sequenceFlow id="SequenceFlow_07ev9f2" sourceRef="Task_190v7ig" targetRef="Task_0re73y6" />
     <bpmn:sequenceFlow id="SequenceFlow_0611cuc" sourceRef="Task_0re73y6" targetRef="EndEvent_1b1vei7" />
-    <bpmn:userTask id="Task_0idg5ld" name="Antrag genehmigen und Frist setzen" camunda:formKey="embedded:app:forms/approve-contract-form.html" camunda:candidateGroups="professors">
+    <bpmn:userTask id="Task_0idg5ld" name="Antrag genehmigen und Frist setzen" camunda:formKey="embedded:app:forms/approve-contract-form.html" camunda:candidateGroups="professor">
       <bpmn:incoming>SequenceFlow_0a3sb8m</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_0lj25d0</bpmn:outgoing>
       <bpmn:property id="Property_1ggofrg" name="__targetRef_placeholder" />
@@ -191,7 +191,7 @@
         <bpmn:timeDate xsi:type="bpmn:tFormalExpression">${frist}</bpmn:timeDate>
       </bpmn:timerEventDefinition>
     </bpmn:boundaryEvent>
-    <bpmn:userTask id="Task_0mp1ptc" name="Neue Frist setzen/beenden" camunda:formKey="embedded:app:forms/set-due-date-form.html" camunda:candidateGroups="professors">
+    <bpmn:userTask id="Task_0mp1ptc" name="Neue Frist setzen/beenden" camunda:formKey="embedded:app:forms/set-due-date-form.html" camunda:candidateGroups="professor">
       <bpmn:incoming>SequenceFlow_1jgb02s</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1s2z90e</bpmn:outgoing>
     </bpmn:userTask>
@@ -214,7 +214,7 @@
       <bpmn:incoming>SequenceFlow_1xyxfd0</bpmn:incoming>
       <bpmn:terminateEventDefinition />
     </bpmn:endEvent>
-    <bpmn:userTask id="Task_0zxg2u3" name="Ergebnis eintragen" camunda:formKey="embedded:app:forms/approve-all.html" camunda:candidateGroups="professors">
+    <bpmn:userTask id="Task_0zxg2u3" name="Ergebnis eintragen" camunda:formKey="embedded:app:forms/approve-all.html" camunda:candidateGroups="professor">
       <bpmn:incoming>SequenceFlow_1u8lh2k</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1mr2m7m</bpmn:outgoing>
       <bpmn:property id="Property_11wlhrq" name="__targetRef_placeholder" />

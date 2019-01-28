@@ -16,10 +16,12 @@ public class writeLoadedModules implements JavaDelegate {
 
     public void execute(DelegateExecution execution) {
 
+    	//Zusätzliche Daten laden
         String prof =  execution.getVariable("prof_name").toString();
         int row =  Integer.parseInt(execution.getVariable("profExcelRow").toString());
 
         try{
+        	//Exceldatei Laden
             String dest = execution.getVariable("excelDest").toString();
             int modulCount = Integer.parseInt(execution.getVariable("modulCount").toString());
             File excelFile = new File(dest);
@@ -31,25 +33,34 @@ public class writeLoadedModules implements JavaDelegate {
             int modulCurrent = 0;
 
             do {
-                //String row_modul = sheet.getRow(row - 1 + modulCurrent).getCell(1).toString();
-
-
+        		//JSON in richtiges format bringen
                 String modulJSON = execution.getVariable(prof + (modulCurrent + 1)).toString();
                 modulJSON = modulJSON.replace("{","").replace("}","");
                 modulJSON = "{" + modulJSON.substring(1, modulJSON.length()-1) + "}";
-                execution.setVariableLocal("TeSt",modulJSON);
                 JSONObject modul = new JSONObject(modulJSON);
 
+                //Fach Name in Exceldatei schreiben
                 sheet.getRow(row - 1 + modulCurrent).getCell(1).setCellValue(modul.getString("FachName"));
 
-                String wahlmodul = modul.getString("Wahlmodul");
-                if(wahlmodul.equals("on")){
+                //Wahlmodul in Exceldatei schreiben
+                boolean wahlmodul = modul.getBoolean("Wahlmodul");
+                if(wahlmodul == true){
                     sheet.getRow(row - 1 + modulCurrent).getCell(15).setCellValue("x");
                 }
                 else{
                     sheet.getRow(row - 1 + modulCurrent).getCell(15).setCellValue("");
                 }
+                
+                //In Exceldatei schreiben, ob das Modul dieses Semester angeboten wird
+                boolean nichtAnbieten = modul.getBoolean("NichtAnbieten");
+                if(nichtAnbieten == true){
+                    sheet.getRow(row - 1 + modulCurrent).getCell(22).setCellValue("x");
+                }
+                else{
+                    sheet.getRow(row - 1 + modulCurrent).getCell(22).setCellValue("");
+                }
 
+                //Weitere Daten in Exceldatei schreiben
                 sheet.getRow(row - 1 + modulCurrent).getCell(16).setCellValue(modul.getString("Semester"));
                 sheet.getRow(row - 1 + modulCurrent).getCell(17).setCellValue(modul.getString("SemesterArt"));
 
@@ -66,13 +77,10 @@ public class writeLoadedModules implements JavaDelegate {
                 sheet.getRow(row - 1 + modulCurrent).getCell(34).setCellValue(modul.getString("DU"));
                 sheet.getRow(row - 1 + modulCurrent).getCell(35).setCellValue(modul.getString("DP"));
 
-
+            	//Hörer parsen und in Exceldatei schreiben
                 String hoerer = modul.getString("Hoerer");
-
                 String[] hoererArr = hoerer.split(",");
-
-
-                for(int i = 0; i < 13; i++) {
+                for(int i = 0; i < 13; i++) {	//anzahl momentan hardcoded
                     String header = sheet.getRow(1).getCell(i + 2).getStringCellValue();
                     header = header.replaceAll("\\s","");
                     if(header.substring(0,4).equals("B-In") || header.substring(0,4).equals("B-SB")){
@@ -93,11 +101,10 @@ public class writeLoadedModules implements JavaDelegate {
                     }
                 }
 
-                
+                //Mitarbiter parsen und in Exceldatei schreiben
                 String mitarbiter = modul.getString("Mitarbiter");
                 String[] mitarbiterArr = mitarbiter.split(",");
-
-                for(int i = 0; i < 23; i++) {
+                for(int i = 0; i < 23; i++) {	//anzahl momentan hardcoded
 
                     for(int j = 0; j < mitarbiterArr.length; j++) {
 
@@ -107,7 +114,6 @@ public class writeLoadedModules implements JavaDelegate {
                             if(mitarbiterArr[j].split(":").length == 3){
                                 sheet.getRow(row - 1 + modulCurrent).getCell(i*2+41).setCellValue(mitarbiterArr[j].split(":")[2]);
                             }
-                            //mitarbiterList.remove(j);
                             break;
                         }
                         else{

@@ -80,8 +80,7 @@ export class SystemsComponent implements OnInit {
     let dialogRef = this.dialog.open(SystemsDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
-      this.add(data);
+      if(data != 'Cancel') this.add(data);
     });
   }
 }

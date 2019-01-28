@@ -104,8 +104,7 @@ export class DashboardComponent implements OnInit {
     let dialogRef = this.dialog.open(DocumentsDialogComponent, dialogConfig);
 
     dialogRef.afterClosed().subscribe(data => {
-      console.log(data);
-      this.addDocument(data);
+      if(data != 'Cancel') this.addDocument(data);
     });
   }
 

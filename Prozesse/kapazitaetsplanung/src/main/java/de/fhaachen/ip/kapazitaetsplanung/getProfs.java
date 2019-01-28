@@ -17,18 +17,14 @@ import java.util.Collections;
 public class getProfs implements JavaDelegate {
 
     public void execute(DelegateExecution execution) {
+    	
+    	//Liste aus dem Camunda Identity Service laden
         List<User> users = execution.getProcessEngineServices().getIdentityService().createUserQuery().memberOfGroup("professors").list();
-
-        /*
-        for (int i = 0; i < users.size(); i++) {
-            execution.setVariable("P" + i, users.get(i).getLastName().toString());
-        }
-        */
 
         HashMap map = new HashMap();
         ArrayList<String> profsList = new ArrayList<String>();
 
-        //Studenten in eine Map eintragen
+        //Profs in eine Map eintragen
         for(int i = 0; i < users.size(); i++) {
             map.put(i, users.get(i).getLastName().toString());
             profsList.add(users.get(i).getLastName().toString());
@@ -38,7 +34,6 @@ public class getProfs implements JavaDelegate {
         JSONObject json = new JSONObject(map);
 
         //JSON als Prozessvariable speichern
-        execution.setVariable("profs", Variables.objectValue(json.toString()).serializationDataFormat("application/json").create());
         execution.setVariable("profsList", profsList);
     }
 }
