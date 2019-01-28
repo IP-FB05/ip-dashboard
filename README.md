@@ -22,7 +22,7 @@ Den Inhalt des Ordners `camunda-geänderte Dateien` in den entpackten Camunda BP
 Installation und starten des Dashboard. Über die Konsole in den Order `Dashboard\mydash` navigieren
 > npm install
 
-**Hinweis:** Bei der empfohlenen npm Version sollten alle dependencies korrekt installiert werden. Falls dies nicht der Fall ist, oder eine andere npm Version verwendet wird kann es ggf. nötig sein dass das mittels folgendem Befehl Sicherheitsschwachstellen behoben werden müssen.
+**Hinweis:** Bei der empfohlenen npm Version sollten alle dependencies korrekt installiert werden. Falls dies nicht der Fall ist oder eine andere npm Version verwendet wird kann es ggf. nötig sein, dass mittels folgendem Befehl Sicherheitsschwachstellen behoben werden müssen.
 > npm audit fix
 
 Angular CLI installieren
@@ -40,11 +40,11 @@ Den Server starten mittels
 Hinweis: Alle Pfade im master-Branch weisen auf localhost. Diese müssen angepasst werden, falls von außen erreichbar sein soll.
 
 ## Datenbanken
-Die derzeitigen Datenbanken sind über aws gehostet. Die .sql Dateien zum erzeugen der beiden benötigten Datenbanken (Dashboard und Prüfungsamt) sowie die ER-Diagramme befinden sich im Ordner `Datenbank`.
+Die derzeitigen Datenbanken sind über aws gehostet. Die .sql Dateien zum Erzeugen der beiden benötigten Datenbanken (Dashboard und Prüfungsamt) sowie die ER-Diagramme befinden sich im Ordner `Datenbank`.
 **Hinweis:** Wird nicht die gehostete Datenbank verwendet, müssen die Connections zu der Datenbank in den REST-Service angepasst werden.
 
 ## Notificationservice
-Der Notificationservice dient dazu, Abonnenten eines Prozesses bzw. einer Prozess-Instanz Emails zu schicken, wenn sie einen offenen Task haben oder ein Task beendet wurde. Er wird ist als Camunda-Plugin realisiert.
+Der Notificationservice dient dazu, Abonnenten eines Prozesses bzw. einer Prozess-Instanz Emails zu versenden, wenn sie einen offenen Task haben oder ein Task beendet wurde. Er wird ist als Camunda-Plugin realisiert.
 Installation und Implementierung:
 1. Anlegen der `notification.conf` in `ip-dashboard\Notificationservice\src\main\resources` mit folgendem Inhalt, falls nicht vorhanden (Angaben in Klammern durch Daten ersetzen):
 ```
@@ -99,10 +99,10 @@ mailadr:(Email)
 2. Im Ordner des Prozesses folgenden Befehl ausführen:
 > mvn clean package
 
-Dies erstellt die .war Datei im Ordner `target`des jeweiligen Prozesses. Diese kann zum deployen über das Dashboard verwendet werden. Das jeweilige BPMN befindet sich im Ordner `src\main\resources` des jeweilgen Prozesses.
+Dies erstellt die .war Datei im Ordner `target`des jeweiligen Prozesses. Diese kann zum Deployen über das Dashboard verwendet werden. Das jeweilige BPMN befindet sich im Ordner `src\main\resources` des jeweilgen Prozesses.
 
 ### Nicht automatisierte Prozesse
-Prozesse die nicht automatisiert sind haben bisher nur eine BPMN Datei, welche zum hinzufügen des Prozesses über das Dashboard verwendet werden kann.
+Prozesse die nicht automatisiert sind, verfügen bisher nur eine BPMN Datei, die zum Hinzufügen des Prozesses über das Dashboard verwendet werden können.
 
 ## REST-Service
 **Hinweis: Sollten die Ports geändert werden, so müssen diese ebenfalls in den Prozessen und dem Dashboard bei den REST-Aufrufen angepasst werden**
