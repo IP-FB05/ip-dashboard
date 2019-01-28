@@ -1,4 +1,4 @@
-# ip-dashboard
+# IP-Dashboard
 Dashboard zur Prozesslandschaft des FB05
 
 ## Benötigte Software
@@ -151,3 +151,12 @@ Falls dies nicht funktioniert, folgenden Befehl ausführen:
 ```
 java -jar target/gs-rest-service-0.1.0.jar --server.port=8888
 ```
+
+## Dokumentation, Logo und Tests
+Dokumentationen wie zum Beispiel Prozessstandards, Benutzerdokumentation und eine Installationsanleitung befinden sich im Ordner `Dokumentation`.
+Verwendende Grafiken, wie zum Beispiel das View-Campus Logo befinden sich im Order `Logo`.
+Das Testprotokoll befindet sich im Ordner `Tests`.
+
+## Hinweise zur lokalen Nutzung
+Der Prozess `Prozessbereitstellung`, der dazu dient über das Dashboard neue Prozesse zu deployen, muss per Hand deployed werden. Dazu du erstellte .war Datei in den Ordner `camunda-bpm-tomcat-7.10.0\server\apache-tomcat-9.0.12\webapps` kopieren und warten bis der Prozess deployed wurde. Über das Camunda-Cockpit die Definition ID kopieren (sieht zum Beispiel so aus `prozessbereitstellung:3:483884a4-232b-11e9-a84a-00059a3c7a00`) und in die Datei `processes-dialog.component.ts` im Ordner `ip-dashboard\Dashboard\mydash\src\app\process\processes-dialog` in der Funktion showTask im loadTaskForm Funktionsaufruf einfügen. Dies ist noch nicht automatisiert, weshalb sie auch bei einer Versionsänderung des Prozesses aktualisiert werden muss.
+
