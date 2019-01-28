@@ -3,7 +3,6 @@ package de.fhaachen.ipdashboard.controller;
 import java.sql.SQLException;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import de.fhaachen.ipdashboard.model.Subs;
 import de.fhaachen.ipdashboard.repository.SubsRepository;
@@ -21,7 +21,7 @@ import de.fhaachen.ipdashboard.model.Subscription;
 import de.fhaachen.ipdashboard.model.Process;
 import de.fhaachen.ipdashboard.database.Dashboard;
 
-@Controller
+@RestController
 @CrossOrigin(origins = "*")
 @RequestMapping(path = "/subs") 
 public class SubsController {

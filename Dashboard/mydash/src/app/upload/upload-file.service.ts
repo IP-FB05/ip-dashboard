@@ -28,7 +28,6 @@ export class UploadFileService {
     formdata.append('file', file);
 
     const req = new HttpRequest('POST', 'http://localhost:9090/uploadFile', formdata, {
-      headers: httpHeader,
       reportProgress: true,
       responseType: 'text'
     });

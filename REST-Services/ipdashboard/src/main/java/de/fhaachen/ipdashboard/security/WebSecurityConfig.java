@@ -68,7 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                              "/document/add", "/document/delete",
                              "/process/add", "/process/delete", "/processDeploy/**",
                              "/system/add", "/system/delete",
-                             "/uploadFile", "/deleteFile", "/deleteFiles", "/deleteBPMN")
+                             "/uploadFile", "/deleteFile", "/deleteFiles", "/deleteBPMN", "/listFiles")
                     .hasAnyRole("ADMIN", "MITARBEITER", "PROFESSOR", "PRUEFUNGSAMT")
                 .anyRequest().authenticated()
                 .and()
