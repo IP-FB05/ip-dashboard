@@ -119,7 +119,7 @@ restpass:(Password)
 2. Erstellen und Starten des REST-Service. **Wichtig: Folgende Befehle im Ordner `REST-Services\Dashboard` ausführen, da dort nach dem Ordner `upload-dir` für den Fileserver gesucht wird**
 ```
 mvn clean package
-java -Dserver.port=9090 -jar target\rest-1.0-SNAPSHOT
+java -Dserver.port=9090 -jar target\rest-1.0-SNAPSHOT.jar
 ```
 
 Falls dies nicht funktioniert, folgenden Befehl ausführen:
@@ -143,11 +143,11 @@ mailadr:(Email)
 2. Erstellen und Starten des REST-Service.
 ```
 mvn clean package
-java -Dserver.port=8888 -jar target\gs-rest-service-0.1.0
+java -Dserver.port=8888 -jar target\gs-rest-service-0.1.0.jar
 ```
 
 Falls dies nicht funktioniert, folgenden Befehl ausführen:
 
 ```
-java -jar target/gs-rest-service-0.1.0 --server.port=8888
+java -jar target/gs-rest-service-0.1.0.jar --server.port=8888
 ```
