@@ -15,13 +15,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="controls controls col-sm-4">
+                            <div class="controls controls col-sm-3">
                                 <label class="control-label">Semester</label>
                                 <div class="controls">
                                     <input type="text" id="semester" required class="form-control" />
                                 </div>
                             </div>
-                            <div class="controls col-sm-4">
+                            <div class="controls col-sm-3">
                                 <label class="control-label">Semesterart</label>
                                 <div class="controls">
                                     <input type="text" id="semesterart" required class="form-control" />
@@ -33,6 +33,13 @@
                                     <input type="checkbox" id="wahlmodul" required class="form-control" />
                                 </div>
                             </div>
+                            <div class="controls col-sm-3">
+                                <label class="control-label">Findet nicht statt</label>
+                                <div class="controls">
+                                    <input type="checkbox" id="nichtAnbieten" required class="form-control" />
+                                </div>
+                            </div>
+                            
                         </div>
                     </div>
                     <div id="HoAdd" class="row" style="margin-bottom: 15px;">
@@ -159,8 +166,9 @@
     var modulCount;
     var profName;
 
+	
     camForm.on('form-loaded', function() {
-
+		//Anfangsdaten fetchen
         variableManager.fetchVariable('loadedModules');
         variableManager.fetchVariable('modulCurrent');
         variableManager.fetchVariable('modulCount');
@@ -169,12 +177,14 @@
     });
 
     camForm.on('variables-fetched', function() {
+		//Anfangsdaten laden
         var skip = variableManager.variableValue('skip');
         modules = variableManager.variableValue('loadedModules');
         modulID = variableManager.variableValue('modulCurrent');
         modulCount = variableManager.variableValue('modulCount');
         profName = variableManager.variableValue('prof_name');
 
+		//wenn Geladene Module gefunden worden, wird hier das Formular automatisch ausgefüllt
         if(skip == false){
 
             modules = JSON.parse(modules);
@@ -188,6 +198,13 @@
             }
             else{
                 document.getElementById("wahlmodul").checked = true;
+            }
+
+            if(modules.NichtAnbieten == ""){
+                document.getElementById("nichtAnbieten").checked = false;
+            }
+            else{
+                document.getElementById("nichtAnbieten").checked = true;
             }
 
             document.getElementById("AV").value = modules.AV;
@@ -240,10 +257,11 @@
     });
 
 
-
+	//Hinzufügen eines neuen Mitarbeiters
     document.getElementById("AddNewMa").onclick = function() {AddMaFunction()};
     function AddMaFunction() {
 
+		//Hinzufügen des HTML Codes
         MaNr = MaNr + 1;
         var html = [
             '<div class="row" id="Ma' + MaNr + 'div">',
@@ -268,7 +286,7 @@
             '</div>'
         ].join('');
 
-
+		//In Form einfügen
         var div = document.createElement('div');
         div.innerHTML = html;
         document.getElementById('MaAdd').appendChild(div);
@@ -276,11 +294,11 @@
     }
 
 
-
+	//Hinzufügen eines neuen Mitarbeiters
     document.getElementById("AddNewhoerer").onclick = function() {AddHoFunction()};
     function AddHoFunction() {
 
-
+		//Hinzufügen des HTML Codes
         HoNr = HoNr + 1;
         var html = [
             '<div class="controls col-sm-9" id="Ho' + HoNr + 'div">',
@@ -305,12 +323,14 @@
             '</div>'
         ].join('');
 
+		//In Form einfügen
         var div = document.createElement('div');
         div.innerHTML = html;
         document.getElementById('HoAdd').appendChild(div);
 
     }
 
+	//Letzten Mitarbeiter löschen
     document.getElementById("DeleteMa").onclick = function() {DeleteMAFunction()};
     function DeleteMAFunction() {
 
@@ -320,7 +340,7 @@
         MaNr = MaNr - 1;
     }
 
-
+	//Letzten Hörer löschen
     document.getElementById("DeleteHo").onclick = function() {DeleteHoFunction()};
     function DeleteHoFunction() {
 
@@ -334,6 +354,7 @@
     var modulList = [];
     var variableManager = camForm.variableManager;
 
+	//Wenn Camunda Form abgeschlossen wird
     camForm.on('submit', function(evt) {
         modulID = modulID + 1;
         variableManager.variableValue('modulCurrent', modulID);
@@ -342,11 +363,12 @@
             variableManager.variableValue('skip', true);
         }
 
-
+		//Variablen aus den Forms Laden
         modulList.push({FachName: document.getElementById('fachName').value});
         modulList.push({SemesterArt: document.getElementById('semesterart').value});
         modulList.push({Semester: document.getElementById('semester').value});
-        modulList.push({Wahlmodul: document.getElementById('wahlmodul').value});
+        modulList.push({Wahlmodul: document.getElementById('wahlmodul').checked});
+		modulList.push({NichtAnbieten: document.getElementById('nichtAnbieten').checked});
 
         var HoArr = "";
         for (let i = 1; i < HoNr + 1; i++) {
@@ -386,6 +408,7 @@
         MaArr = MaArr.substring(1);
         modulList.push({Mitarbiter: MaArr});
 
+		//Variable als JSON Prozess variable übergeben, da eine Speicherung von JS zu excel zu aufwändig ist
         variableManager.createVariable({
             name: profName + modulID,
             type: 'String',
