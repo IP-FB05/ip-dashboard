@@ -29,7 +29,7 @@ export class MyprocessesService {
       const httpOptionsCamundaREST = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
       };
-      return this.http.get<ProcessInstance[]>("http://ip-dash.ddnss.ch:8080/engine-rest/history/process-instance", httpOptionsCamundaREST)
+      return this.http.get<ProcessInstance[]>("http://localhost:8080/engine-rest/history/process-instance", httpOptionsCamundaREST)
         .pipe(
           tap(_ => this.log('fetched processes')),
           catchError(this.handleError('getProcesses', []))
@@ -42,7 +42,7 @@ export class MyprocessesService {
       const httpOptionsCamundaREST = {
         headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
       };
-      return this.http.get<Tasks[]>("http://ip-dash.ddnss.ch:8080/engine-rest/task", httpOptionsCamundaREST)
+      return this.http.get<Tasks[]>("http://localhost:8080/engine-rest/task", httpOptionsCamundaREST)
         .pipe(
           tap(_ => this.log('fetched tasks')),
           catchError(this.handleError('getTasks', []))

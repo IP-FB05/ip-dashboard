@@ -46,7 +46,7 @@ export class ProfilComponent implements OnInit {
   notification: Notification;
 
 
-  private processUrl = 'http://ip-dash.ddnss.ch:9090/processes';
+  private processUrl = 'http://localhost:9090/processes';
 
   ngOnInit() {
 

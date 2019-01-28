@@ -21,7 +21,7 @@ export class SubsService {
 
     constructor(private http: HttpClient) { }
 
-    private subsUrl = 'http://ip-dash.ddnss.ch:9090/subs';
+    private subsUrl = 'http://localhost:9090/subs';
 
     public getMySuscribedProcesses(user: string) {
         return this.http.get<Process[]>(this.subsUrl + "/mysubscribedProcesses?user=" + user, httpOptions);
@@ -36,11 +36,11 @@ export class SubsService {
     }
 
     public addUserToNotification(notification) {
-        return this.http.post<Notification>("http://ip-dash.ddnss.ch:9090/notification/add", notification, httpOptions);
+        return this.http.post<Notification>("http://localhost:9090/notification/add", notification, httpOptions);
     }
 
     public deleteUserFromNotification(username: string) {
-        return this.http.delete<Notification>("http://ip-dash.ddnss.ch:9090/notification/delete"+ "?username=" + username, httpOptions);
+        return this.http.delete<Notification>("http://localhost:9090/notification/delete"+ "?username=" + username, httpOptions);
     }
  
 
@@ -54,7 +54,7 @@ export class SubsService {
 
     public deleteSubscribedProcess(process: Process | number, username: string) {
         const id = typeof process === 'number' ? process : process.processID;
-        const url = `http://ip-dash.ddnss.ch:9090/subs/deleteSubscribedProcess/${id}`;
+        const url = `http://localhost:9090/subs/deleteSubscribedProcess/${id}`;
         console.log(id);
 
         return this.http.delete<Process>(url + "?username=" + username, httpOptions);
@@ -62,7 +62,7 @@ export class SubsService {
 
     public deleteSubscribedRunningProcess(process: Process | number, username: string) {
         const id = typeof process === 'number' ? process : process.processID;
-        const url = `http://ip-dash.ddnss.ch:9090/subs/deleteSubscribedRunningProcess/${id}`;
+        const url = `http://localhost:9090/subs/deleteSubscribedRunningProcess/${id}`;
         console.log(id);
 
         return this.http.delete<Process>(url + "?username=" + username, httpOptions);

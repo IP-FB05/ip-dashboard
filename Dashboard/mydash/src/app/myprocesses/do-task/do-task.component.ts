@@ -38,7 +38,7 @@ export class DoTaskComponent implements OnInit {
     $formContainer = $('#task');
     camClient = new CamSDK.Client({
       mock: false,
-      apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest',
+      apiUri: 'http://localhost:8080/engine-rest',
       headers: {
         "Accept": "application/json",
         "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
@@ -113,7 +113,7 @@ function showTasks(results) {
 function loadTaskForm(taskId, callback) {
   // loads the task form using the task ID provided
   taskService.form(taskId, function(err, taskFormInfo) {
-    var url = "http://ip-dash.ddnss.ch:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,

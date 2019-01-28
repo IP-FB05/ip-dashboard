@@ -1,6 +1,6 @@
 {
     "/": {
-		"target": "http://ip-dash.ddnss.ch:9090",
+		"target": "http://localhost:9090",
 		"secure": false
 	}
 }

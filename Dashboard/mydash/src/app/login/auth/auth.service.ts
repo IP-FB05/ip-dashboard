@@ -24,7 +24,7 @@ const httpOptions = {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
-    private authUrl = 'http://ip-dash.ddnss.ch:8080/engine-rest';
+    private authUrl = 'http://localhost:8080/engine-rest';
 
     isLoggedin = false;
     currentUser: User = new User();
@@ -147,7 +147,7 @@ export class AuthService {
     }
 
     getUsergroups(processID: number){
-       return this.http.get<any>("http://ip-dash.ddnss.ch:9090/getUserGroups?pid=" + processID , httpOptions).subscribe(data => {
+       return this.http.get<any>("http://localhost:9090/getUserGroups?pid=" + processID , httpOptions).subscribe(data => {
         this.allowedGroups = data.allowedGroups;
         console.log(this.allowedGroups);
         });

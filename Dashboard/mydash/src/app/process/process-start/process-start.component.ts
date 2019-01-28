@@ -34,7 +34,7 @@ export class ProcessStartComponent implements OnInit {
     $formContainer = $('#start');
     camClient = new CamSDK.Client({
       mock: false,
-      apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest',
+      apiUri: 'http://localhost:8080/engine-rest',
       headers: {
         "Accept": "application/json",
         "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
@@ -76,7 +76,7 @@ function showTask(results) {
             }
 
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://ip-dash.ddnss.ch:9090/processInstanceAdd", false);
+            xhttp.open("POST", "http://localhost:9090/processInstanceAdd", false);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Authorization", "Basic " + btoa('dashboard:dashboardPW'))
             xhttp.send(JSON.stringify({id : result.id, definitionId : result.definitionId}));
@@ -96,7 +96,7 @@ function showTask(results) {
 function loadTaskForm(processDefinitionId, callback) {
   // loads the task form using the task ID provided
   taskService.startForm({ "id" :processDefinitionId }, function(err, taskFormInfo) {
-    var url = "http://ip-dash.ddnss.ch:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,

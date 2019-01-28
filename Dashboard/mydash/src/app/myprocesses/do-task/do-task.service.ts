@@ -27,7 +27,7 @@ export class DoTaskService {
 
 
     public getTaskId(instance: String): Observable<any> {
-      const url = "http://ip-dash.ddnss.ch:8080/engine-rest/task?processInstanceId=" + instance;
+      const url = "http://localhost:8080/engine-rest/task?processInstanceId=" + instance;
       return this.http.get<any>(url);
     }
 

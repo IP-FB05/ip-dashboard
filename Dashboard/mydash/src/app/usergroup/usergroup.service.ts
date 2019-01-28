@@ -19,7 +19,7 @@ export class UsergroupService {
 
     constructor(private http: HttpClient) { }
 
-    private usergroupUrl = 'http://ip-dash.ddnss.ch:9090/usergroups';
+    private usergroupUrl = 'http://localhost:9090/usergroups';
 
     public getUsergroups() {
         return this.http.get<Usergroup[]>(this.usergroupUrl + '/all', httpOptions);

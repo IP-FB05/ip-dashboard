@@ -27,7 +27,7 @@ const httpOptions = {
 export class ProcessService {
 
   //private processesUrl = 'api/processes'; // URL to web api
-  private processesUrl = "http://ip-dash.ddnss.ch:9090/";
+  private processesUrl = "http://localhost:9090/";
   private ob: Observable<any>;
 
   constructor(
@@ -48,7 +48,7 @@ export class ProcessService {
 
   // GET process by id. Will 404 if id not found 
   getProcess(id: number): Observable<Process> {
-    const url = `http://ip-dash.ddnss.ch:9090/process/${id}`;
+    const url = `http://localhost:9090/process/${id}`;
     this.messageService.add(`ProcessService: fetched process id=${id}`);
     return this.http.get<Process>(url, httpOptions).pipe(
       tap(_ => this.log(`fetched process id=${id}`)),
@@ -82,13 +82,13 @@ export class ProcessService {
   }
 
   addInstance(processInstance: ProcessInstance): Observable<any> {
-    return this.http.post<ProcessInstance>("http://ip-dash.ddnss.ch:9090/processInstanceAdd", processInstance, httpOptions)
+    return this.http.post<ProcessInstance>("http://localhost:9090/processInstanceAdd", processInstance, httpOptions)
   }
 
   /** DELETE: delete the Process from the database */
   deleteProcess(process: Process | number): Observable<Process> {
     const id = typeof process === 'number' ? process : process.processID;
-    const url = `http://ip-dash.ddnss.ch:9090/processDelete/${id}`;
+    const url = `http://localhost:9090/processDelete/${id}`;
 
     this.messageService.add(`ProcessService: deleted process`);
     this.openSnackBar("Prozess wurde erfolgreich gelöscht !");
@@ -101,7 +101,7 @@ export class ProcessService {
   /** DELETE: delete the Process from the camunda server */
   deleteProcessFromCamunda(process: Process): Observable<Process> {
     const id = process.camunda_processID;
-    const url = `http://ip-dash.ddnss.ch:8080/engine-rest/process-definition/${id}`;
+    const url = `http://localhost:8080/engine-rest/process-definition/${id}`;
     const httpOptionsCamundaREST = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json', 'Authorization': 'Basic ' +  this.authorizationService.getAuthData()})
     };
@@ -119,7 +119,7 @@ export class ProcessService {
     const substringWAR = linkWAR.substring(linkWAR.lastIndexOf("/") + 1);
     this.messageService.add('ProcessService: Deleted BPMN from FileServer');
 
-    return this.http.delete<Process>("http://ip-dash.ddnss.ch:9090/deleteFiles?filenameBPMN=" + substringBPMN + "&filenameWAR=" + substringWAR, httpOptions).pipe(
+    return this.http.delete<Process>("http://localhost:9090/deleteFiles?filenameBPMN=" + substringBPMN + "&filenameWAR=" + substringWAR, httpOptions).pipe(
       tap(_ => this.log(`deleted files from fileserver`)),
       catchError(this.handleError<Process>('deleteFiles'))
     );
@@ -130,7 +130,7 @@ export class ProcessService {
     const substringBPMN = linkBPMN.substring(linkBPMN.lastIndexOf("/") + 1);
     this.messageService.add('ProcessService: Deleted BPMNfrom FileServer');
 
-    return this.http.delete<Process>("http://ip-dash.ddnss.ch:9090/deleteBPMN?filenameBPMN=" + substringBPMN, httpOptions).pipe(
+    return this.http.delete<Process>("http://localhost:9090/deleteBPMN?filenameBPMN=" + substringBPMN, httpOptions).pipe(
       tap(_ => this.log(`deleted files from fileserver`)),
       catchError(this.handleError<Process>('deleteFiles'))
     );

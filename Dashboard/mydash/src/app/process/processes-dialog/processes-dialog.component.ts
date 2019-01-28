@@ -22,7 +22,7 @@ export class ProcessesDialogComponent implements OnInit {
     $formContainer = $('#deploy');
     camClient = new CamSDK.Client({
       mock: false,
-      apiUri: 'http://ip-dash.ddnss.ch:8080/engine-rest',
+      apiUri: 'http://localhost:8080/engine-rest',
       headers: {
         "Accept": "application/json",
         "Authorization": 'Basic ' + this.authorizationService.getAuthData(),
@@ -50,9 +50,8 @@ var camClient;
 var taskService;
 
 function showTask(results) {
-      // load the the task form (getting the task ID from the tag attribute)
       // TODO
-      loadTaskForm("prozessbereitstellung:8:4b7af295-224f-11e9-a13c-b4b686e9bbd5", function(err, camForm) {
+      loadTaskForm("prozessbereitstellung:3:483884a4-232b-11e9-a84a-00059a3c7a00", function(err, camForm) {
         if (err) {
           throw err;
         }
@@ -64,7 +63,7 @@ function showTask(results) {
             }
 
             var xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "http://ip-dash.ddnss.ch:9090/processInstanceAdd", false);
+            xhttp.open("POST", "http://localhost:9090/processInstanceAdd", false);
             xhttp.setRequestHeader("Content-type", "application/json");
             xhttp.setRequestHeader("Authorization", "Basic " + btoa('dashboard:dashboardPW'))
             xhttp.send(JSON.stringify({id : result.id, definitionId : result.definitionId}));
@@ -84,7 +83,7 @@ function showTask(results) {
 function loadTaskForm(processDefinitionId, callback) {
   // loads the task form using the task ID provided
   taskService.startForm({ "id" :processDefinitionId }, function(err, taskFormInfo) {
-    var url = "http://ip-dash.ddnss.ch:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
+    var url = "http://localhost:8080" + taskFormInfo.key.replace('embedded:app:', taskFormInfo.contextPath + '/');
 
     new CamSDK.Form({
       client: camClient,
