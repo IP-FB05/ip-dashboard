@@ -104,8 +104,8 @@ export class DocumentsComponent implements OnInit {
   }
 
   compareDate(a, b) {
-    if (a.lastChanged < b.lastChanged) return -1;
-    if (a.lastChanged > b.lastChanged) return 1;
+    if (a.lastChanged > b.lastChanged) return -1;
+    if (a.lastChanged < b.lastChanged) return 1;
   }
 
 }
