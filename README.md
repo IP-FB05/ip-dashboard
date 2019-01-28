@@ -7,7 +7,6 @@ Dashboard zur Prozesslandschaft des FB05
 * [git](https://git-scm.com/downloads)
 * [Nodejs & npm](https://nodejs.org/en/download/) Empfohlene Version Nodejs: 10.13.0 | NPM: 6.4.1
 * [Camunda BPM platform](https://camunda.com/download/)
-* []()
 
 Klonen des Repository
 > git clone https://github.com/IP-FB05/ip-dashboard.git
