@@ -2,6 +2,8 @@
 Dashboard zur Prozesslandschaft des FB05
 
 
+## REST-Service
+**Hinweis: Sollten die Ports geändert werden, so müssen diese ebenfalls in den Prozessen und dem Dashboard bei den REST-Aufrufen angepasst werden**
 ### ipdashboard
 Dieser Rest-Service beinhaltet zusätzlich die Authentifizierung und Autorisierung über Rest mit einer Domainstruktur und teilweiser Nutzung des CRUD-Repositorys. Dieser ist zu finden im Branch 'new-auth'.
 
