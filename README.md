@@ -39,6 +39,8 @@ Den Server starten mittels
 
 Hinweis: Alle Pfade im master-Branch weisen auf localhost. Diese müssen angepasst werden, falls von außen erreichbar sein soll.
 
+Die .pdf-Datei der Hilfeseite ist zu finden unter `Dashboard\mydash\src\assets\Hilfeseite-Interaktive PDF.pdf`
+
 ## Datenbanken
 Die derzeitigen Datenbanken sind über aws gehostet. Die .sql Dateien zum Erzeugen der beiden benötigten Datenbanken (Dashboard und Prüfungsamt) sowie die ER-Diagramme befinden sich im Ordner `Datenbank`.
 **Hinweis:** Wird nicht die gehostete Datenbank verwendet, müssen die Connections zu der Datenbank in den REST-Service angepasst werden.
