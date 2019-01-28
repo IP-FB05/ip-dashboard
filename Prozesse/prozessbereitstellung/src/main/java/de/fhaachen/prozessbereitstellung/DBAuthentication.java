@@ -6,14 +6,8 @@ import org.camunda.bpm.engine.authorization.Permissions;
 import org.camunda.bpm.engine.authorization.Resources;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-
-<<<<<<< HEAD
 import java.util.List;
-=======
-import java.util.ArrayList;
-import java.util.Collection;
 
->>>>>>> branch 'master' of https://github.com/IP-FB05/ip-dashboard.git
 
 public class DBAuthentication implements JavaDelegate {
 
