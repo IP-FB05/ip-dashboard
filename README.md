@@ -28,7 +28,7 @@ Installation und starten des Dashboard. Über die Konsole in den Order `Dashboar
 Angular CLI installieren
 > npm i @angular/cli
 
-Im neu angelegtem Ordner `node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs` die Datei `brower.js` öffnen und die Zeile
+Im neu angelegtem Ordner `node_modules\@angular-devkit\build-angular\src\angular-cli-files\models\webpack-configs` die Datei `browser.js` öffnen und die Zeile
 > node: false,
 
 ersetzen durch
